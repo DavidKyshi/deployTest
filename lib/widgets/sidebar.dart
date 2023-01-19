@@ -24,13 +24,15 @@ class SideBar extends StatelessWidget {
               children: [
               Text('Operations', 
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontFamily: "PushPenny",
+                color: Colors.black,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
               ),
               ),
               SizedBox(width: 10,), 
               Container(
-                width: 96.59,
+                width: 94,
                 height: 1.23,
                 color: Colors.black,
               )
@@ -44,6 +46,7 @@ class SideBar extends StatelessWidget {
                       SizedBox(width: 10,),
                       Text('User accounts',
                       style: TextStyle(
+                        fontFamily: "PushPenny",
                         fontSize: 12,
                         color: Color(0xff8C8C8C),
                         fontWeight: FontWeight.w400
@@ -58,6 +61,7 @@ class SideBar extends StatelessWidget {
                       SizedBox(width: 10,),
                       Text('Offer Management',
                       style: TextStyle(
+                        fontFamily: "PushPenny",
                         fontSize: 12,
                         color: Color(0xff8C8C8C),
                         fontWeight: FontWeight.w400
