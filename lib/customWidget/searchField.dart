@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 class SearchField extends StatelessWidget {
@@ -67,25 +69,49 @@ class SearchField extends StatelessWidget {
                   print("fjknjkfnjfn");
                 },
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0XFFFFFFFF),
-                    borderRadius: BorderRadius.circular(8)
+                  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/16,
                   ),
-                  child: Text("Export CSV",style: TextStyle(color: primaryLimeGreen),),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 13, horizontal: 35),
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(48)),
+                      child: const Text("Create offer"),
+                    ),
+                    const SizedBox(width: 15,),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
+                        decoration: BoxDecoration(
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(48)
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Export CSV",style: TextStyle(color: primaryLimeGreen),),
+                            const SizedBox(width: 10,),
+                            SvgPicture.asset(documentSvg),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               isDense: isDense,
               errorText: errorText,
-              // color: Color(0xff6c757d),
-              // fontSize: 14.0,
-              // fontWeight: FontWeight.w300
               hintStyle:  TextStyle(
                   color: kyshiGreyishBlue,
                   fontFamily: 'Gilroy',
                   fontSize: 16.0,
                   fontWeight: FontWeight.w300),
               helperStyle: TextStyle(color: kyshiGreyishBlue),
-              // labelStyle: labelTextstyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: borderRadius ?? BorderRadius.circular(48),
                 borderSide: const BorderSide(color: Color(0xffE6E7E9)),
@@ -106,38 +132,48 @@ class SearchField extends StatelessWidget {
                   borderRadius: borderRadius ?? BorderRadius.circular(48),
                   borderSide:
                   BorderSide(color: focusBorderColor ?? const Color(0xff9AA1B3))),
-              prefixIcon: GestureDetector(
+              prefixIcon: InkWell(
                 onTap: () {},
                 child: Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          right: BorderSide(width: 2, color: Colors.black54))),
-                  padding: const EdgeInsets.symmetric(horizontal: 13),
-                  margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
+                            border: Border(
+                                right: BorderSide(width: 2, color: Colors.black54))),
+                        padding: const EdgeInsets.symmetric(horizontal: 13),
+                        margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              width: 20,
+                              height: 20,
+                              child: SvgPicture.asset(filterSvg),
+                            ),
+                            const SizedBox(width: 4),
+                            Text("Filters"),
+                            SizedBox(width: 4),
+                          ],
                         ),
-                        width: 20,
-                        height: 20,
-                        child: const Icon(Icons.filter),
                       ),
-                      const SizedBox(width: 4),
-                      Text("Filters"),
-                      SizedBox(width: 4), // Icon(Icons.keyboard_arrow_down_outlined,
-                      //     color: primaryDarkBlue),
+                      const SizedBox(width: 10,),
+                      Icon(Icons.search_outlined,
+                          color: kyshiGreyishBlue),
                     ],
                   ),
                 ),
               ),
-              hintText: "Search user",
+              hintText: hintText,
             ),
-            onChanged: (value){
-            },
+            onChanged:onChanged,
             onSaved: onSaved,
           ),
         ),
