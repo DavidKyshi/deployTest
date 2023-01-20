@@ -1,7 +1,5 @@
-import 'dart:html';
-
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
-import 'package:kyshi_operations_dashboard/routing/route.dart';
+
 
 class MenuController extends GetxController{
   // This instance allows you to access the menu controller from anywhere in the code
@@ -23,9 +21,9 @@ class MenuController extends GetxController{
   Widget returnIconFor(String itemName){
     switch (itemName) {
       case UserAccountPageRoute:
-        return _customImage(userAccountIcon, itemName);
+        return _customImage(userAccountIcon, itemName, greyUserAccountIcon, 24,24);
       case OfferManagementPageRoute:
-        return _customImage(offerManagementIcon, itemName);
+        return _customImage(offerManagementIcon, itemName, greyOfferManagementIcon, 20,20);
         // case AuthenticationPageRoute:
         // return _customImage(userAccountIcon, itemName);
       default: 
@@ -46,12 +44,12 @@ class MenuController extends GetxController{
     });
   }
 
-  Widget _customImage(String image, String itemName, ){
-    if(isActive(itemName)) return Image.asset(image, width: 24, height: 24,);
+  Widget _customImage(String image, String itemName, String grayImage, double width, double height){
+    if(isActive(itemName)) return Image.asset(image, width: width, height: height,);
     
     return !isHovering(itemName)?
-    Image.asset(image, width: 24, height: 24, )
-    : Image.asset(image,width: 24, height: 24,);
+    Image.asset(grayImage, width: width, height: height, )
+    : Image.asset(image,width: width, height: height,);
   }
 
   //  Widget _customIcon(String image, String itemName){

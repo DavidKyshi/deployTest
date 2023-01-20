@@ -1,8 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:kyshi_operations_dashboard/constants/controller.dart';
-import 'package:kyshi_operations_dashboard/routing/route.dart';
-
 import '../helper/screen_export.dart';
 
 class SideBar extends StatelessWidget {
@@ -16,7 +12,9 @@ class SideBar extends StatelessWidget {
       color: Color(0xffF9F9F9),
       child: Column(
         children: [
-          SizedBox(height: 40),
+              Expanded(child: Column(
+                children: [
+                            SizedBox(height: 40),
           Image.asset(
             kyshiLogo,
             width: 106,
@@ -42,7 +40,7 @@ class SideBar extends StatelessWidget {
                       width: 10,
                     ),
                     Container(
-                      width: 94,
+                      width: 80,
                       height: 1.23,
                       color: Colors.black,
                     )
@@ -64,41 +62,74 @@ class SideBar extends StatelessWidget {
                       // }
                       if(!menuController.isActive(itemName)){
                         menuController.changeActiveItemTo(itemName);
+                        navigationController.navigateTo(itemName);
                       }
                       })).toList(),
                 ),
                
-                // Column(
-                //   children: [
-                //     Row(
-                //       children: [
-                //         Image.asset(
-                //           userAccountIcon,
-                //           width: 24,
-                //           height: 24,
-                //         ),
-                //         SizedBox(
-                //           width: 10,
-                //         ),
-                //         Text(
-                //           'User accounts',
-                //           style: TextStyle(
-                //               fontFamily: "PushPenny",
-                //               fontSize: 12,
-                //               color: Color(0xff8C8C8C),
-                //               fontWeight: FontWeight.w400),
-                //         )
-                //       ],
-                //     ),
-                //     SizedBox(
-                //       height: 20,
-                //     ),
-                //     // SideMenuItem()
-                //   ],
-                // )
+                ],
+              ))
+                
               ],
             ),
-          )
+          ),
+          Container(
+            width: 160,
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(35, 51, 117, 0.1),
+                    border: Border.all(color: Color(0xff233375), width: 2),
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Center(
+                    child: Text('EI',
+                    style: TextStyle(
+                      color: Color(0xff233375),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'PushPenny'
+                    ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text('Log out',
+                        style: TextStyle(
+                          color: Color(0xff233375),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                           fontFamily: 'PushPenny'
+                        ),
+                        ),
+                        Icon(Icons.logout, color: Color(0xff233375),)
+                      ],
+                    ),
+                    Text('Change password',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Color(0xFF21D184),
+                      fontSize: 12
+                    ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 40,)
         ],
       ),
     );
