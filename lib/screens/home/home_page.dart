@@ -1,3 +1,5 @@
+
+
 import '../../helper/screen_export.dart';
 
 class Homepage extends StatelessWidget {
@@ -9,10 +11,10 @@ class Homepage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Row(
             children:  [
-             SideBar(),
+             Expanded(child: SideBar()),
               Expanded(
                   flex: 5,
-                  child: Text('Hello')
+                  child: localNavigator()
               )
               ]),
     );

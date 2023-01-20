@@ -1,8 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:kyshi_operations_dashboard/constants/controller.dart';
-import 'package:kyshi_operations_dashboard/routing/route.dart';
-
 import '../helper/screen_export.dart';
 
 class SideBar extends StatelessWidget {
@@ -42,7 +38,7 @@ class SideBar extends StatelessWidget {
                       width: 10,
                     ),
                     Container(
-                      width: 94,
+                      width: 80,
                       height: 1.23,
                       color: Colors.black,
                     )
@@ -64,6 +60,7 @@ class SideBar extends StatelessWidget {
                       // }
                       if(!menuController.isActive(itemName)){
                         menuController.changeActiveItemTo(itemName);
+                        navigationController.navigateTo(itemName);
                       }
                       })).toList(),
                 ),
