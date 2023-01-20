@@ -8,11 +8,11 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(
-            children: <Widget>[
-              const SideBar(),
+            children:  [
+             SideBar(),
               Expanded(
-                  flex: 4,
-                  child: Text('Please Navigate')
+                  flex: 5,
+                  child: Text('Hello')
               )
               ]),
     );
