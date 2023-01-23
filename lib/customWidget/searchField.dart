@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
-class SearchField extends StatelessWidget {
+class SearchField extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
@@ -34,6 +34,30 @@ class SearchField extends StatelessWidget {
     this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue}) : super(key: key);
 
   @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+  final List<String> names = ["Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright",
+    "Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright","Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright"];
+  final List<Widget> action = [Column(
+    children: [
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),
+        decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(24)
+        ),
+        child: const Text("View",style: TextStyle(fontFamily: "PushPenny",
+            fontWeight: FontWeight.w400,color: Colors.white,fontSize: 10),),
+      ),
+      const SizedBox(height: 30,)
+    ],
+  )];
+  final List<IconData> icons = [Icons.mail,Icons.phone,Icons.wallet_giftcard_rounded,Icons.check_circle_rounded];
+
+   ScrollController? controller;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -48,16 +72,16 @@ class SearchField extends StatelessWidget {
               ),
               child: TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                keyboardType: keyboardType?? TextInputType.text,
-                controller:controller,
-                focusNode: focusNode,
-                initialValue: initialValue,
-                validator: validator,
-                onTap: onTap,
-                enabled: enabled,
+                keyboardType: widget.keyboardType?? TextInputType.text,
+                controller:widget.controller,
+                focusNode: widget.focusNode,
+                initialValue: widget.initialValue,
+                validator: widget.validator,
+                onTap: widget.onTap,
+                enabled: widget.enabled,
                 // readOnly: readOnly,
-                inputFormatters: inputFormatters,
-                maxLength: maxLength,
+                inputFormatters: widget.inputFormatters,
+                maxLength: widget.maxLength,
                 // obscureText: obscureText,
                 style:  TextStyle(
                     color: kyshiGreyishBlue,
@@ -83,7 +107,7 @@ class SearchField extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius: BorderRadius.circular(48)),
-                          child: const Text("Create offer"),
+                          child: const Text("Create offer",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
                         ),
                         const SizedBox(width: 15,),
                         Container(
@@ -106,8 +130,8 @@ class SearchField extends StatelessWidget {
                       ),
                     ),
                   ),
-                  isDense: isDense,
-                  errorText: errorText,
+                  isDense: widget.isDense,
+                  errorText: widget.errorText,
                   hintStyle:  TextStyle(
                       color: kyshiGreyishBlue,
                       fontFamily: 'Gilroy',
@@ -115,25 +139,25 @@ class SearchField extends StatelessWidget {
                       fontWeight: FontWeight.w300),
                   helperStyle: TextStyle(color: kyshiGreyishBlue),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: borderRadius ?? BorderRadius.circular(48),
+                    borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
                     borderSide: const BorderSide(color: Color(0xffE6E7E9)),
                   ),
                   disabledBorder:  OutlineInputBorder(
-                    borderRadius: borderRadius ?? BorderRadius.circular(8),
+                    borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
                     borderSide: const BorderSide(color:Color(0xffE6E7E9)),
                   ),
                   labelText: '',
                   focusedErrorBorder: OutlineInputBorder(
-                      borderRadius:  borderRadius ??BorderRadius.circular(48),
+                      borderRadius:  widget.borderRadius ??BorderRadius.circular(48),
                       borderSide: const BorderSide(color: Colors.red)),
                   errorBorder: OutlineInputBorder(
-                      borderRadius: borderRadius ?? BorderRadius.circular(8),
+                      borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
                       borderSide:
-                      BorderSide(color: errorBorderColor ?? Colors.red)),
+                      BorderSide(color: widget.errorBorderColor ?? Colors.red)),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: borderRadius ?? BorderRadius.circular(48),
+                      borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
                       borderSide:
-                      BorderSide(color: focusBorderColor ?? const Color(0xff9AA1B3))),
+                      BorderSide(color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
                   prefixIcon: InkWell(
                     onTap: () {},
                     child: Container(
@@ -173,78 +197,254 @@ class SearchField extends StatelessWidget {
                       ),
                     ),
                   ),
-                  hintText: hintText,
+                  hintText: widget.hintText,
                 ),
-                onChanged:onChanged,
-                onSaved: onSaved,
+                onChanged:widget.onChanged,
+                onSaved: widget.onSaved,
               ),
             ),
             const SizedBox(height: 10,),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
-              // height: MediaQuery.of(context).size.height / ,
-              width: MediaQuery.of(context).size.width,
-              decoration:  BoxDecoration(
-                color:const Color(0XFFEAEBF1),
-                borderRadius: BorderRadius.circular(12)
-              ),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Firstname"),
-                      SizedBox(height: 40,),
-                      Text("Mohammed"),
-                      SizedBox(height: 20,),
-                      Text("Bright"),
-                      SizedBox(height: 20,),
-                      Text("Motosho"),
-                    ],
-                  ),
-                  SizedBox(width: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Lastname"),
-                      SizedBox(height: 40,),
-                      Text("Rabbebe"),
-                      SizedBox(height: 20,),
-                      Text("George"),
-                      SizedBox(height: 20,),
-                      Text("Tobiloba"),
-                    ],
-                  ),
-
-                ],
+            SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
+                // height: MediaQuery.of(context).size.height / ,
+                width: MediaQuery.of(context).size.width,
+                decoration:  BoxDecoration(
+                  color:const Color(0XFFEAEBF1),
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Row(
+                  children:  [
+                    UserAccountTable(title: "First Name",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Last Name",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Middle Name",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Email Address",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Phone Number",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Date of Birth",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "BVN",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Residence",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Nationality",name: SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(names[index]));
+                        },
+                        itemCount: names.length,
+                      ),
+                    ),),
+                    const SizedBox(width: 20,),
+                    UserAccountTable(title: "Status",name:
+                    SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                          return Container(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: Row(
+                              children: [
+                                Icon(icons[0],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
+                                Icon(icons[1],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
+                                Icon(icons[2],size: 18,color: const Color(0XFFFF5C5C).withOpacity(0.4),),
+                                Icon(icons[3],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: names.length,
+                      ),
+                    )),
+                    const SizedBox(width: 25,),
+                    UserAccountTable(title: "Action",name:
+                    SizedBox(
+                      height: 620,
+                      width: 100,
+                      child: ListView.builder(
+                        controller: controller,
+                        physics: const PageScrollPhysics(),
+                        itemBuilder: (context,index)=>
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 2),
+                              decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(24)
+                              ),
+                              child: const Text("View",style: TextStyle(fontFamily: "PushPenny",
+                                  fontWeight: FontWeight.w400,color: Colors.white,fontSize: 10),textAlign: TextAlign.center,),
+                            ),
+                          ),
+                        itemCount: names.length,
+                      ),
+                    ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
         ),
-        // Container(
-        //   height:50,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(48),
-        //     color: searchBarColor
-        //   ),
-        //   child: Row(
-        //     children: <Widget>[
-        //       Row(
-        //         children:  [
-        //           const Icon(Icons.filter),
-        //           const Text("Filters"),
-        //           const VerticalDivider(),
-        //           SizedBox(
-        //             height: 30,
-        //               width: 150,
-        //               child:
-        //           )
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // ),
       )
+    );
+  }
+}
+
+class UserAccountTable extends StatelessWidget {
+  final String? title;
+  final Widget? name;
+  final bool icons;
+  final String? lastName;
+  final String? middleName;
+  final String? emailAddress;
+  final String? phoneNumber;
+  final String? dateOfBirth;
+  final String? BVN;
+  final String? residence;
+  final String? status;
+  final String? nationality;
+  final String? action;
+   const UserAccountTable({
+    Key? key,this.title, this.lastName,
+    this.middleName, this.emailAddress, this.phoneNumber,
+    this.dateOfBirth, this.BVN, this.residence,
+    this.status, this.nationality, this.action, this.name, this.icons = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title ?? "", style: TextStyle(color: primaryColor,
+            fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
+            const SizedBox(height: 40,),
+          name ?? Container()
+          ],
+        ),
+
+      ],
     );
   }
 }
