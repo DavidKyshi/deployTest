@@ -4,6 +4,7 @@ import 'helper/screen_export.dart';
 
 void main() {
   Get.put(MenuController());
+  Get.put(NavigationController());
   runApp(const MyApp());
 }
 
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PushPenny',
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
-            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder()
+            TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
           }
         )
       ),
