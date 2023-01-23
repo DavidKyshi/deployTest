@@ -37,10 +37,10 @@ class SideBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     Container(
-                      width: 80,
+                      width: 70,
                       height: 1.23,
                       color: Colors.black,
                     )
