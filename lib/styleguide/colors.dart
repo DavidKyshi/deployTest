@@ -8,4 +8,5 @@ Color kyshiYellow = const Color(0XFFFBCD58);
 Color kyshiOrange = const Color(0XFFEF845C);
 Color kyshiGreyishBlue = const Color(0XFF6E80A3);
 Color searchBarColor = const Color(0XFFEAEBF1);
+Color kyshiGreen = const Color(0XFF21D184);
 
