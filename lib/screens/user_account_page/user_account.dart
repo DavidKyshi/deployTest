@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:kyshi_operations_dashboard/widgets/wallet_beneficiaries.dart';
+
+import '../../widgets/kyshi_card.dart';
+import '../../widgets/kyshi_connect_services.dart';
 
 
 
@@ -75,12 +79,12 @@ class UserAccountScreen extends StatelessWidget {
                         Border(top: BorderSide(color: Colors.grey, width: 0.5))),
                 child: TabBarView(
                   children: [
-                    Center(child: Text('Account & KYC')),
+                    UserAccountIndex(),
                     WalletAndBeneficiaries(),
                     Center(child: Text('Created offers')),
                     Center(child: Text('Accepted offers')),
-                    Center(child: Text('Kyshi Connect Services')),
-                    Center(child: Text('Kyshi Card')),
+                    KyshiConnectServices(),
+                    KyshiCard(),
                     Center(child: Text('Transactions')),
                     Center(child: Text('Transaction Summary')),
                     Center(child: Text('Identification Summary')),
