@@ -1,7 +1,7 @@
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 
-import '../helper/screen_export.dart';
-import '../styleguide/colors.dart';
+import '../../helper/screen_export.dart';
+import '../../styleguide/colors.dart';
 
 class WalletAndBeneficiaries extends StatefulWidget {
   const WalletAndBeneficiaries({Key? key}) : super(key: key);

@@ -2,10 +2,11 @@
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
-import 'package:kyshi_operations_dashboard/widgets/wallet_beneficiaries.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet_beneficiaries.dart';
 
-import '../../widgets/kyshi_card.dart';
-import '../../widgets/kyshi_connect_services.dart';
+import 'identification_summary.dart';
+import 'kyshi_card.dart';
+import 'kyshi_connect_services.dart';
 
 
 
@@ -83,7 +84,7 @@ class UserAccountScreen extends StatelessWidget {
                         Border(top: BorderSide(color: Colors.grey, width: 0.5))),
                 child: TabBarView(
                   children: [
-                    UserAccountIndex(),
+                    AccountKYC(),
                     WalletAndBeneficiaries(),
                     Center(child: Text('Created offers')),
                     Center(child: Text('Accepted offers')),
@@ -92,7 +93,7 @@ class UserAccountScreen extends StatelessWidget {
 
                     Center(child: Text('Transactions')),
                     Center(child: Text('Transaction Summary')),
-                    Center(child: Text('Identification Summary')),
+                    IdentificationSummary(),
                   ],
                 ),
               ),

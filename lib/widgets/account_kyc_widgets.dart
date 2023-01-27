@@ -3,7 +3,8 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 
 class UserProfileButtonContainer extends StatelessWidget {
-  const UserProfileButtonContainer({super.key});
+   const UserProfileButtonContainer({super.key, this.title});
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class UserProfileButtonContainer extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
+          child: Text(title ??
             'User Profile Picture',
             style: TextStyle(
               color: Color(0xff233375),
@@ -355,7 +356,147 @@ class BioDataParameters extends StatelessWidget {
     );
   }
 }
+class IdentificationData extends StatelessWidget {
+  const IdentificationData({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 293.22,
+      height: 400.82,
+      decoration: BoxDecoration(
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BioDataTitleTextStyle(
+                    text: 'Transaction Status',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'Status',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'SSN',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'Date of Birth',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'SSN',
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  BioDataSubTitleTextStyle(
+                    text: 'Status',
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'Email',
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  BioDataSubTitleTextStyle(
+                    text: 'Status',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioDataTitleTextStyle(
+                    text: 'Phone',
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  BioDataSubTitleTextStyle(
+                    text: 'Status',
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BioDataStatusTextStyle(
+                      isActive: true,
+                      text: 'Verified',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: '29292988338',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataStatusTextStyle(
+                      isActive: true,
+                      text: 'Verified',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: 'NIL',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: '07/06/1990',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: 'sam@yahoo.com',
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    BioDataStatusTextStyle(
+                      isActive: true,
+                      text: 'Verified',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: '+2347039429722',
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    BioDataStatusTextStyle(
+                      isActive: false,
+                      text: 'Unverified',
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
 
 
 class BioDataTitleTextStyle extends StatelessWidget {
