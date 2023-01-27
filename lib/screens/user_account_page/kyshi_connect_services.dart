@@ -44,7 +44,7 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
         padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
         child: Column(
           children:  [
-            const SearchFieldDropdown(),
+            const SearchFieldDropdown(dropDownTitle: "Health Plans",),
             const SizedBox(height: 20,),
             SingleChildScrollView(
               child: Container(

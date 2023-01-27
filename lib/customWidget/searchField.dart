@@ -11,6 +11,7 @@ class SearchField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Function()? onTap;
+  final bool createOffer;
   final Function(String?)? onSaved;
   final BorderRadius? borderRadius;
 
@@ -31,7 +32,7 @@ class SearchField extends StatefulWidget {
     this.onChanged, this.validator, this.onTap, this.onSaved, this.borderRadius,
     this.prefixIcon, this.suffixIcon, this.labelText, this.maxLength, this.connectBorder,
     this.errorBorderColor, this.focusBorderColor, this.inputFormatters, this.helperText,
-    this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue}) : super(key: key);
+    this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue, this.createOffer = false}) : super(key: key);
 
   @override
   State<SearchField> createState() => _SearchFieldState();
@@ -77,6 +78,7 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  widget.createOffer ?
                   Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 13, horizontal: 35),
@@ -84,7 +86,7 @@ class _SearchFieldState extends State<SearchField> {
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(48)),
                   child: const Text("Create offer",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
-                ),
+                ) : const SizedBox(),
                 const SizedBox(width: 15,),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),

@@ -17,6 +17,7 @@ class SearchFieldDropdown extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? labelText;
+  final String? dropDownTitle;
   final int? maxLength;
   final bool? connectBorder;
   final Color? errorBorderColor;
@@ -31,7 +32,7 @@ class SearchFieldDropdown extends StatefulWidget {
     this.onChanged, this.validator, this.onTap, this.onSaved, this.borderRadius,
     this.prefixIcon, this.suffixIcon, this.labelText, this.maxLength, this.connectBorder,
     this.errorBorderColor, this.focusBorderColor, this.inputFormatters, this.helperText,
-    this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue}) : super(key: key);
+    this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue, this.dropDownTitle}) : super(key: key);
 
   @override
   State<SearchFieldDropdown> createState() => _SearchFieldDropdownState();
@@ -153,7 +154,7 @@ class _SearchFieldDropdownState extends State<SearchFieldDropdown> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                         Text("Health Plans",style: TextStyle(color: primaryColor,fontFamily: 'PushPenny',fontSize: 14,fontWeight: FontWeight.w500),),
+                         Text(widget.dropDownTitle ?? "",style: TextStyle(color: primaryColor,fontFamily: 'PushPenny',fontSize: 14,fontWeight: FontWeight.w500),),
                         SvgPicture.asset("assets/images/down-arrow.svg")
                       ],
                     ),
