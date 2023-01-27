@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
+import 'package:kyshi_operations_dashboard/widgets/wallet_beneficiaries.dart';
+
+import '../../widgets/kyshi_card.dart';
+import '../../widgets/kyshi_connect_services.dart';
 
 
 
@@ -19,6 +24,7 @@ class UserAccountScreen extends StatelessWidget {
         child: DefaultTabController(
           length: 9,
           initialIndex: 0,
+
           child: Column(
             children: [
               Container(
@@ -70,40 +76,36 @@ class UserAccountScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height, //height of TabBarView
+
+                height: MediaQuery.of(context).size.height/1.1, //height of TabBarView
                 decoration: BoxDecoration(
-                  // color: Colors.amber,
                     border:
                         Border(top: BorderSide(color: Colors.grey, width: 0.5))),
                 child: TabBarView(
                   children: [
-                    AccountKYC(),
-                    Center(child: Text('Wallet & Beneficiaries')),
+                    UserAccountIndex(),
+                    WalletAndBeneficiaries(),
                     Center(child: Text('Created offers')),
                     Center(child: Text('Accepted offers')),
-                    Center(child: Text('Kyshi Connect Services')),
-                    Center(child: Text('Kyshi Card')),
+                    KyshiConnectServices(),
+                    KyshiCard(),
+
                     Center(child: Text('Transactions')),
                     Center(child: Text('Transaction Summary')),
                     Center(child: Text('Identification Summary')),
                   ],
                 ),
               ),
-        //       Container(
-        //          width: 1189.83,
-        // height:  97.55,
-        // color: Color(0xffF9F9F9),
-        //         child: Padding(
-        //           padding:  EdgeInsets.fromLTRB(40, 0, 40, 0),
-        //           child: Row(
-        //             mainAxisAlignment: MainAxisAlignment.end,
-        //             children: [
-        //               LastDaysFilter(),
-        //               SizedBox(width: 40,),
-        //               CalenderPickDate()
-        //             ],
-        //           ),
-        //         ))
+
+      //       Container(
+      //          width: 1179.83,
+      // height:  97.55,
+      // color: Color(0xffF9F9F9),
+      //         child: Row(
+      //           children: [
+      //             LastDaysFilter(),
+      //           ],
+      //         ))
             ],
           ),
         ),
