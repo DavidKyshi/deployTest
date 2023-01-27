@@ -9,19 +9,22 @@ import '../../widgets/kyshi_connect_services.dart';
 
 
 
+
+
 class UserAccountScreen extends StatelessWidget {
   const UserAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // width: 500,
-      // height: 70,
-      // color: Colors.amber,
-      child: DefaultTabController(
-        length: 9,
-        initialIndex: 0,
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Container(
+        // width: 500,
+        // height: 70,
+        // color: Colors.amber,
+        child: DefaultTabController(
+          length: 9,
+          initialIndex: 0,
+
           child: Column(
             children: [
               Container(
@@ -73,6 +76,7 @@ class UserAccountScreen extends StatelessWidget {
                 ),
               ),
               Container(
+
                 height: MediaQuery.of(context).size.height/1.1, //height of TabBarView
                 decoration: BoxDecoration(
                     border:
@@ -85,12 +89,14 @@ class UserAccountScreen extends StatelessWidget {
                     Center(child: Text('Accepted offers')),
                     KyshiConnectServices(),
                     KyshiCard(),
+
                     Center(child: Text('Transactions')),
                     Center(child: Text('Transaction Summary')),
                     Center(child: Text('Identification Summary')),
                   ],
                 ),
               ),
+
       //       Container(
       //          width: 1179.83,
       // height:  97.55,
