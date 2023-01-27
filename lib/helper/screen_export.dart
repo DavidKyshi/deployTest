@@ -15,3 +15,5 @@ export  'package:kyshi_operations_dashboard/routing/router_generator.dart';
 export 'package:kyshi_operations_dashboard/constants/controller.dart';
 export 'package:kyshi_operations_dashboard/helper/local_navigator.dart';
 export '../../widgets/date_filters.dart';
+export '../../widgets/account_kyc_widgets.dart';
+export '../screens/user_account_page/account_kyc.dart';
