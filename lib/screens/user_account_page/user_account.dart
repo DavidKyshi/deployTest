@@ -2,6 +2,7 @@
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
+import 'package:kyshi_operations_dashboard/widgets/transactions.dart';
 import 'package:kyshi_operations_dashboard/widgets/wallet_beneficiaries.dart';
 
 import '../../widgets/kyshi_card.dart';
@@ -85,7 +86,7 @@ class UserAccountScreen extends StatelessWidget {
                     Center(child: Text('Accepted offers')),
                     KyshiConnectServices(),
                     KyshiCard(),
-                    Center(child: Text('Transactions')),
+                    TransactionHistory(),
                     Center(child: Text('Transaction Summary')),
                     Center(child: Text('Identification Summary')),
                   ],
