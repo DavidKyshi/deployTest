@@ -11,32 +11,68 @@ class AccountKYC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+      // scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
           children: [
-            Column(
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserProfileButtonContainer(),
-                SizedBox(height: 10,),
-                ProfilePictureCard()
+                Column(
+                  children: [
+                    UserProfileButtonContainer(text: 'User Profile Picture',),
+                    SizedBox(height: 10,),
+                    ProfilePictureCard()
+                  ],
+                ),
+                SizedBox(width: 30,),
+                Column(
+                  children: [
+                    UserBioDataBar(),
+                    SizedBox(height: 10,),
+                    Row(
+                      children: [
+                        BioDataParameters(),
+                        SizedBox(width: 20,),
+                        NatureAndPurposeOfAccount(),
+                         SizedBox(height: 10,),
+                      ],
+                    )
+                  ],
+                ),
+                
               ],
             ),
-            SizedBox(width: 30,),
-            Column(
+            SizedBox(height: 20,),
+            Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserBioDataBar(),
-                SizedBox(height: 10,),
-                Row(
+                Column(
                   children: [
-                    BioDataParameters(),
-                    SizedBox(width: 20,),
-                    NatureAndPurposeOfAccount()
+                    UserProfileButtonContainer(text: 'Risk Status',),
+                    SizedBox(height: 20,),
+                    RiskStatusCard(),
+                    //  UserProfileButtonContainer(text: 'Risk Status',),
                   ],
-                )
+                ),
+                 SizedBox(width: 20,),
+                 Column(
+                  children: [
+                     UserProfileButtonContainer(text: 'Identification Status',),
+                     SizedBox(height: 20,),
+                     IdentificationStatusBoard()
+                  ],
+                 ),
+                  SizedBox(width: 20,),
+                 Column(
+                  children: [
+                    ReferralProgramContainer(text: 'Referral Program',),
+                    SizedBox(height: 20,),
+                    ReferralProgramBoard()
+                  ],
+                 )
               ],
             )
           ],
