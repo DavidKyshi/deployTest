@@ -41,7 +41,7 @@ class _SearchFieldState extends State<SearchField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 70,
       decoration: BoxDecoration(
         color: const Color(0XFFEAEBF1),
         borderRadius: BorderRadius.circular(48)
@@ -65,7 +65,7 @@ class _SearchFieldState extends State<SearchField> {
             fontWeight:  FontWeight.w300),
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: const EdgeInsets.symmetric(vertical:20,horizontal:60),
+          contentPadding: const EdgeInsets.symmetric(vertical:40,horizontal:60),
           suffixIcon: InkWell(
             onTap: (){
               print("fjknjkfnjfn");
