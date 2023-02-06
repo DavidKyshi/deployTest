@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/screens/page_not_found/page_not_found.dart';
 
 class UserProfileButtonContainer extends StatelessWidget {
   UserProfileButtonContainer({super.key, required this.text});
@@ -645,14 +646,22 @@ class NatureAndPurposeHeadingTextStyle extends StatelessWidget {
               fontWeight: FontWeight.w500),
         ),
         isShow
-            ? Text(
-                'Show more',
-                style: TextStyle(
-                    color: Color(0xff23CE6B),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    decoration: TextDecoration.underline),
-              )
+            ? InkWell(
+              onTap: (){
+                Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const PageNotFoundScreen()),
+  );
+              },
+              child: Text(
+                  'Show more',
+                  style: TextStyle(
+                      color: Color(0xff23CE6B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.underline),
+                ),
+            )
             : SizedBox()
       ],
     );
@@ -1055,7 +1064,9 @@ class ReferralProgramBoard extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white),
                           ),
-                          SizedBox(width: 20,),
+                          SizedBox(
+                            width: 20,
+                          ),
                           Image.asset(
                             'assets/images/copy.png',
                             width: 20,
@@ -1089,12 +1100,16 @@ class ReferralProgramBoard extends StatelessWidget {
                     NatureAndPurposeTextStyle(
                       text: 'OLAG00012',
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     NatureAndPurposeHeadingTextStyle(
                       headingTitle: 'Referrals',
                       isShow: true,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       children: [
                         Column(
@@ -1102,31 +1117,41 @@ class ReferralProgramBoard extends StatelessWidget {
                             NatureAndPurposeTextStyle(
                               text: 'Dele Oguniran',
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             NatureAndPurposeTextStyle(
                               text: 'Adewale Obanla',
                             ),
                           ],
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(
+                          width: 20,
+                        ),
                         Column(
                           children: [
                             NatureAndPurposeTextStyle(
                               text: 'Thomas Johnson',
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             NatureAndPurposeTextStyle(
                               text: 'Funke Adejumo',
                             ),
                           ],
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(
+                          width: 20,
+                        ),
                         Column(
                           children: [
                             NatureAndPurposeTextStyle(
                               text: 'Ehis Teghang',
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             NatureAndPurposeTextStyle(
                               text: 'Folawiyo Akin',
                             ),
@@ -1140,6 +1165,280 @@ class ReferralProgramBoard extends StatelessWidget {
           // SizedBox(
           //   height: 15,
           // ),
+        ],
+      ),
+    );
+  }
+}
+
+class KYCRecordsAndDocunmentContainer extends StatelessWidget {
+  KYCRecordsAndDocunmentContainer({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 529.91,
+      height: 61,
+      decoration: BoxDecoration(
+          color: Color(0xffF9F9F9),
+          border: Border.all(color: Color(0xffF3F3F3)),
+          borderRadius: BorderRadius.circular(48)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Color(0xff233375),
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class KycRecordsBoard extends StatelessWidget {
+  const KycRecordsBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 531,
+      height: 254.27,
+      decoration: BoxDecoration(
+        color: Color(0xffF8F9FE),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'All records were created instantly when they were submitted',
+              style: TextStyle(
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Color(0xff6E7883)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'CREATED AT',
+                    ),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                  ],
+                ),
+
+                SizedBox(width: 50),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'REASON',
+                    ),
+                                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: 'IDV'),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: 'Fraud'),
+                  ],
+                ),
+                                SizedBox(width: 50),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      
+                      KycRecordsAndDocumentBoardTitle(
+                        text: 'STATUS',
+                      ),
+                      SizedBox(height: 30),
+                      KycRecordsAndDocumentBoardButton(color: Color(0xff23CE6B), imageHeight: 20, imageWidth: 20, text: 'Passed', width: 132, image: 'assets/images/check.png',),
+                      SizedBox(height: 30),
+                       KycRecordsAndDocumentBoardButton(color: Color(0xffFBCD58), imageHeight: 20, imageWidth: 20, text: 'Pending', width: 132, image: 'assets/images/check.png',)
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DocumentBoard extends StatelessWidget {
+  const DocumentBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 531,
+      height: 254.27,
+      decoration: BoxDecoration(
+        color: Color(0xffF8F9FE),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'All records were created instantly when they were submitted',
+              style: TextStyle(
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Color(0xff6E7883)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'CREATED AT',
+                    ),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                  ],
+                ),
+
+                SizedBox(width: 50),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'IMAGES',
+                    ),
+                                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: '2'),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: '1'),
+                  ],
+                ),
+                                SizedBox(width: 50),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      
+                      KycRecordsAndDocumentBoardTitle(
+                        text: 'ACTION',
+                      ),
+                      SizedBox(height: 30),
+                      KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',),
+                      SizedBox(height: 30),
+                       KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',)
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardTitle extends StatelessWidget {
+  KycRecordsAndDocumentBoardTitle({super.key, required this.text});
+  String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: 'PushPenny',
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+          color: Color(0xff233375)),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardSubText extends StatelessWidget {
+  KycRecordsAndDocumentBoardSubText({super.key, required this.text});
+  String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: 'PushPenny',
+          fontWeight: FontWeight.w400,
+          fontSize: 18,
+          color: Color(0xff6E7883)),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardButton extends StatelessWidget {
+  KycRecordsAndDocumentBoardButton(
+      {super.key,
+      required this.color,
+      required this.imageHeight,
+      required this.imageWidth,
+      required this.width,
+      required this.text,
+      required this.image,
+      });
+  double width;
+  double imageHeight;
+  double imageWidth;
+  Color color;
+  String text;
+  String image;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 36,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                fontFamily: "PushPenny"),
+          ),
+          SizedBox(width: 10,),
+          Image.asset(
+            image,
+            width: 24,
+            height: 24,
+          )
         ],
       ),
     );
