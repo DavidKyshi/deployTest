@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:provider/provider.dart';
 
 class SearchField extends StatefulWidget {
   final TextEditingController? controller;
@@ -41,6 +42,7 @@ class SearchField extends StatefulWidget {
 class _SearchFieldState extends State<SearchField> {
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageViewProvider>(context);
     return Container(
       height: 70,
       decoration: BoxDecoration(
@@ -78,15 +80,17 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.createOffer ?
-                  Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 13, horizontal: 35),
-                  decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(48)),
-                  child: const Text("Create offer",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
-                ) : const SizedBox(),
+                  InkWell(
+                    onTap: () => pageProvider.gotoPage(PAGES.createAnOfferScreen),
+                    child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 13, horizontal: 35),
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(48)),
+                    child: const Text("Create offer",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
+                                  ),
+                  ),
                 const SizedBox(width: 15,),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
@@ -220,6 +224,54 @@ class UserAccountTable extends StatelessWidget {
         ),
 
       ],
+    );
+  }
+}
+
+
+class CreateOfferTitleTable extends StatelessWidget {
+  final String title;
+   final Widget name;
+   const CreateOfferTitleTable({
+    Key? key, required this.title, required this.name
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: TextStyle(color: primaryColor,
+        fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
+       const SizedBox(height: 40,),
+       name
+      ],
+    );
+  }
+}
+
+
+
+class AllOfferTitleTable extends StatelessWidget {
+  final String title;
+   final Widget name;
+   const AllOfferTitleTable({
+    Key? key, required this.title, required this.name
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: TextStyle(color: primaryColor,
+          fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
+         const SizedBox(height: 40,),
+         name
+        ],
+      ),
     );
   }
 }
