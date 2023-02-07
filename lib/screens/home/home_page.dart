@@ -13,7 +13,7 @@ class Homepage extends StatelessWidget {
             children:  [
              Expanded(child: SideBar()),
               Expanded(
-                  flex: 5,
+                  flex: 4,
                   child: localNavigator()
               )
               ]),

@@ -3,6 +3,7 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet_beneficiaries.dart';
+import 'package:kyshi_operations_dashboard/widgets/transactions.dart';
 
 import 'identification_summary.dart';
 import 'kyshi_card.dart';
@@ -91,7 +92,7 @@ class UserAccountScreen extends StatelessWidget {
                     KyshiConnectServices(),
                     KyshiCard(),
 
-                    Center(child: Text('Transactions')),
+                    TransactionHistory(),
                     Center(child: Text('Transaction Summary')),
                     IdentificationSummary(),
                   ],

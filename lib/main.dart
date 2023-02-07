@@ -1,4 +1,5 @@
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
+import 'package:kyshi_operations_dashboard/screens/page_not_found/page_not_found.dart';
 
 import 'helper/screen_export.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           }
         )
       ),
-      home: const Homepage(),
+      home: const PageNotFoundScreen(),
     );
   }
 }
