@@ -25,7 +25,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
           children: [
             Column(
               children: [
-                UserProfileButtonContainer(),
+                UserProfileButtonContainer(text: 'User Profile Picture',),
                 SizedBox(height: 10,),
                 ProfilePictureCard()
               ],
@@ -33,7 +33,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
             SizedBox(width: 30,),
             Column(
               children: [
-                UserProfileButtonContainer(title: "User Bio Data",),
+                UserProfileButtonContainer(text: "User Bio Data",),
                 SizedBox(height: 10,),
                 BioDataParameters(),
               ],
@@ -42,7 +42,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
             Column(
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                UserProfileButtonContainer(title: "Identification Status",),
+                UserProfileButtonContainer(text: "Identification Status",),
                 SizedBox(height: 10,),
                 IdentificationData(),
               ],

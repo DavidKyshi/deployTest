@@ -10,10 +10,11 @@ Route<dynamic> genrateRoute(RouteSettings settings){
         return _getPageRoute(UserAccountScreen());
       case OfferManagementPageRoute:
        return _getPageRoute(OffersManagementScreen());
-        // case AuthenticationPageRoute:
-        // return _customImage(userAccountIcon, itemName);
+      
+        //  case AuthenticationPageRoute:
+        //  return _customImage(userAccountIcon, itemName);
       default: 
-        return _getPageRoute(PageNotFoundScreen());
+        return _getPageRoute(UserAccountTab());
   }
 }
 

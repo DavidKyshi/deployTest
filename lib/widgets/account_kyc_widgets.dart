@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/screens/page_not_found/page_not_found.dart';
 
 class UserProfileButtonContainer extends StatelessWidget {
-   const UserProfileButtonContainer({super.key, this.title});
-  final String? title;
-
+  UserProfileButtonContainer({super.key, required this.text,});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,8 +19,38 @@ class UserProfileButtonContainer extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text(title ??
-            'User Profile Picture',
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Color(0xff233375),
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ReferralProgramContainer extends StatelessWidget {
+  ReferralProgramContainer({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 476.52,
+      height: 61,
+      decoration: BoxDecoration(
+          color: Color(0xffF9F9F9),
+          border: Border.all(color: Color(0xffF3F3F3)),
+          borderRadius: BorderRadius.circular(48)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
             style: TextStyle(
               color: Color(0xff233375),
               fontWeight: FontWeight.w400,
@@ -274,75 +304,75 @@ class BioDataParameters extends StatelessWidget {
                     BioDataSubTitleTextStyle(
                       text: 'Bright',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'Nwapocha',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'George',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'Male',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: '07/06/1990',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'brightgerg@yahoo.com',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 6,
                     ),
                     BioDataStatusTextStyle(
                       isActive: true,
                       text: 'Verified',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: '+2347039429722',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 6,
                     ),
                     BioDataStatusTextStyle(
                       isActive: false,
                       text: 'Unverified',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'Product Designer',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'Nigerian',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
                       text: 'Nigeria',
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
@@ -542,7 +572,6 @@ class BioDataStatusTextStyle extends StatelessWidget {
   }
 }
 
-
 class NatureAndPurposeOfAccount extends StatelessWidget {
   const NatureAndPurposeOfAccount({super.key});
 
@@ -552,52 +581,188 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
       width: 476.35,
       height: 534.82,
       decoration: BoxDecoration(
-        color: Color(0xffF8F9FE),
-        borderRadius: BorderRadius.circular(10)
-      ),
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              Text('Nature/Purpose of Account',
-              style: TextStyle(color: Color(0xff0D2C65), fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-              Text('Show more',
-              style: TextStyle(color: Color(0xff23CE6B), fontSize: 14, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
-              )
-            ],),
-            SizedBox(height: 20,),
+            NatureAndPurposeHeadingTextStyle(
+              headingTitle: 'Nature/Purpose of Account',
+              isShow: true,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
                 Column(
-              children: [
-               NatureAndPurposeTextStyle(text: 'School fee',),
-               SizedBox(height: 20,),
-                NatureAndPurposeTextStyle(text: 'Upkeep',),
+                  children: [
+                    NatureAndPurposeTextStyle(
+                      text: 'School fee',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeTextStyle(
+                      text: 'Upkeep',
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    NatureAndPurposeTextStyle(
+                      text: 'Payment electronics',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeTextStyle(
+                      text: 'Shipping payment',
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    NatureAndPurposeTextStyle(
+                      text: 'For  Yetunde',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeTextStyle(
+                      text: 'Return Money',
+                    ),
+                  ],
+                ),
               ],
             ),
-            SizedBox(width: 20,),
-             Column(
+            SizedBox(
+              height: 15,
+            ),
+            NatureAndPurposeHeadingTextStyle(
+              headingTitle: 'Currencies Wallets',
+              isShow: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               NatureAndPurposeTextStyle(text: 'Payment electronics',),
-               SizedBox(height: 20,),
-                   NatureAndPurposeTextStyle(text: 'Shipping payment',),
+                Column(
+                  children: [
+                    NatureAndPurposeIsActiveTextStyle(
+                      text: 'NGN',
+                      isActiveText: 'Active',
+                      status: false,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeIsActiveTextStyle(
+                      text: 'GBP',
+                      isActiveText: 'Inactive',
+                      status: true,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  children: [
+                    NatureAndPurposeIsActiveTextStyle(
+                      text: 'USD',
+                      isActiveText: 'Inactive',
+                      status: true,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeIsActiveTextStyle(
+                      text: 'CAD',
+                      isActiveText: 'Inactive',
+                      status: true,
+                    ),
+                  ],
+                )
               ],
             ),
-                        SizedBox(width: 20,),
+            SizedBox(
+              height: 15,
+            ),
+            NatureAndPurposeHeadingTextStyle(
+              headingTitle: 'Destinations of payments',
+              isShow: true,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Column(
               children: [
-       NatureAndPurposeTextStyle(text: 'For  Yetunde',),
-               SizedBox(height: 20,),
-                NatureAndPurposeTextStyle(text: 'Return Money',),
+                NatureAndPurposeTextStyle(
+                  text: 'UK',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                NatureAndPurposeTextStyle(
+                  text: 'USA',
+                ),
               ],
             ),
+            SizedBox(
+              height: 15,
+            ),
+            NatureAndPurposeHeadingTextStyle(
+              headingTitle: 'Expected Amount',
+              isShow: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                NatureAndPurposeAmountTextStyle(
+                  text: 'Tier 2',
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                NatureAndPurposeAmountTextStyle(
+                  text: '₦1,000,000 - ₦5,000,000',
+                ),
               ],
-            )
-            
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            NatureAndPurposeHeadingTextStyle(
+              headingTitle: 'Transaction Countries',
+              isShow: true,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: [
+                NatureAndPurposeTextStyle(
+                  text: 'UK',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                NatureAndPurposeTextStyle(
+                  text: 'USA',
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -606,66 +771,818 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
 }
 
 class NatureAndPurposeHeadingTextStyle extends StatelessWidget {
-  const NatureAndPurposeHeadingTextStyle({super.key, required this.headingTitle});
+  const NatureAndPurposeHeadingTextStyle(
+      {super.key, required this.headingTitle, required this.isShow});
   final String headingTitle;
+  final bool isShow;
   @override
   Widget build(BuildContext context) {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              Text(headingTitle,
-              style: TextStyle(color: Color(0xff0D2C65), fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-              Text('Show more',
-              style: TextStyle(color: Color(0xff23CE6B), fontSize: 14, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
-              )
-            ],);
-  }
-}
-
-class NatureAndPurposeTextStyle extends StatelessWidget {
-  const NatureAndPurposeTextStyle({super.key, required this.text});
-   final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-         Icon(Icons.check, color: Color(0xff233375),size: 11,),
-        SizedBox(width: 10,),
-        Text(text,
-        style: TextStyle(color: Color(0xff6E80A3), fontWeight: FontWeight.w400, fontSize: 14
+        Text(
+          headingTitle,
+          style: TextStyle(
+              color: Color(0xff0D2C65),
+              fontSize: 14,
+              fontWeight: FontWeight.w500),
         ),
-        ),
-        
+        isShow
+            ? InkWell(
+              onTap: (){
+                Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const PageNotFoundScreen()),
+  );
+              },
+              child: Text(
+                  'Show more',
+                  style: TextStyle(
+                      color: Color(0xff23CE6B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.underline),
+                ),
+            )
+            : SizedBox()
       ],
     );
   }
 }
 
-class NatureAndPurposeIsActiveTextStyle extends StatelessWidget {
-  const NatureAndPurposeIsActiveTextStyle({super.key, required this.text, required this.isActiveText, required this.status});
-   final String text;
-   final String isActiveText;
-   final bool status;
+class NatureAndPurposeTextStyle extends StatelessWidget {
+  const NatureAndPurposeTextStyle({super.key, required this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-         Icon(Icons.check, color: Color(0xff233375),size: 11,),
-        SizedBox(width: 10,),
-        Text(text,
-        style: TextStyle(color: Color(0xff233375), fontWeight: FontWeight.w400, fontSize: 14
+        Icon(
+          Icons.check,
+          color: Color(0xff233375),
+          size: 11,
         ),
+        SizedBox(
+          width: 10,
         ),
-        Text('-',
+        Text(
+          text,
+          style: TextStyle(
+              color: Color(0xff6E80A3),
+              fontWeight: FontWeight.w400,
+              fontSize: 14),
+        ),
+      ],
+    );
+  }
+}
 
+class NatureAndPurposeAmountTextStyle extends StatelessWidget {
+  const NatureAndPurposeAmountTextStyle({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          color: Color(0xff233375), fontWeight: FontWeight.w400, fontSize: 14),
+    );
+  }
+}
+
+class NatureAndPurposeIsActiveTextStyle extends StatelessWidget {
+  const NatureAndPurposeIsActiveTextStyle(
+      {super.key,
+      required this.text,
+      required this.isActiveText,
+      required this.status});
+  final String text;
+  final String isActiveText;
+  final bool status;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.check,
+          color: Color(0xff233375),
+          size: 11,
         ),
-        Text(isActiveText,
-        style: TextStyle(color: status != true? Color(0xff23CE6B):Color(0xffFF5C5C), fontWeight: FontWeight.w400, fontSize: 14
-        ) ,
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          text,
+          style: TextStyle(
+              color: Color(0xff233375),
+              fontWeight: FontWeight.w400,
+              fontSize: 14),
+        ),
+        Text(
+          '-',
+        ),
+        Text(
+          isActiveText,
+          style: TextStyle(
+              color: status != true ? Color(0xff23CE6B) : Color(0xffFF5C5C),
+              fontWeight: FontWeight.w400,
+              fontSize: 14),
         )
       ],
+    );
+  }
+}
+
+class RiskStatusCard extends StatelessWidget {
+  const RiskStatusCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 293,
+      height: 278.43,
+      decoration: BoxDecoration(
+          border: Border.all(color: Color(0xff8C8C8C)),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 130.79,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Image.asset(
+                    'assets/images/riskScore.png',
+                    width: 65,
+                    height: 65,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: '01',
+                              style: TextStyle(
+                                  color: Color(0xff233375),
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w700),
+                              children: [
+                            TextSpan(
+                                text: '/5',
+                                style: TextStyle(
+                                    color: Color(0xff6F6F6F),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "PushPenny"))
+                          ])),
+                      Text(
+                        'Risk Score',
+                        style: TextStyle(
+                            color: Color(0xff233375),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "PushPenny"),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: 293,
+            height: 130.76,
+            decoration: BoxDecoration(
+                color: Color(0xffF8F9FE),
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    riskRating,
+                    width: 65,
+                    height: 65,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Medium',
+                        style: TextStyle(
+                            fontFamily: "PushPenny",
+                            fontSize: 28,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffFBCD58)),
+                      ),
+                      Text(
+                        'Risk Rating',
+                        style: TextStyle(
+                            fontFamily: "PushPenny",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff233375)),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          // SizedBox(
+          //   height: 15,
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class IdentificationStatusBoard extends StatelessWidget {
+  const IdentificationStatusBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 293.22,
+      height: 335.58,
+      decoration: BoxDecoration(
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BioDataTitleTextStyle(
+                  text: 'Transact. Status',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataTitleTextStyle(
+                  text: 'BVN',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: 'Status',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataTitleTextStyle(
+                  text: 'SSN',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: 'Status',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataTitleTextStyle(
+                  text: 'UK Address',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: 'Status',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataTitleTextStyle(
+                  text: 'Free Swap',
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 20, 0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BioDataStatusTextStyle(
+                  isActive: true,
+                  text: 'Active',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: '11215672819',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataStatusTextStyle(
+                  isActive: true,
+                  text: 'Verified',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: 'Nil',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataStatusTextStyle(
+                  isActive: false,
+                  text: 'Unverified',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataSubTitleTextStyle(
+                  text: 'Nil',
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                BioDataStatusTextStyle(
+                  isActive: false,
+                  text: 'Unverified',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BioDataStatusTextStyle(
+                  isActive: false,
+                  text: 'Ineligible',
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ReferralProgramBoard extends StatelessWidget {
+  const ReferralProgramBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 476.52,
+      height: 338.87,
+      decoration: BoxDecoration(
+          border: Border.all(color: Color(0xff8C8C8C)),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 100,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'BONUS BALANCE',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff233375)),
+                        ),
+                        Text(
+                          '₦10,078.00',
+                          style: TextStyle(
+                            color: Color(0xff233375),
+                            fontFamily: 'PushPenny',
+                            fontSize: 40,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: 195.57,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: Color(0xff233375),
+                        borderRadius: BorderRadius.circular(19),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Code -  BRG0091',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Image.asset(
+                            'assets/images/copy.png',
+                            width: 20,
+                            height: 20,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+              width: 476.42,
+              height: 206.88,
+              decoration: BoxDecoration(
+                  color: Color(0xffF8F9FE),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Column(
+                  children: [
+                    NatureAndPurposeHeadingTextStyle(
+                      headingTitle: 'Referrer Code',
+                      isShow: false,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeTextStyle(
+                      text: 'OLAG00012',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NatureAndPurposeHeadingTextStyle(
+                      headingTitle: 'Referrals',
+                      isShow: true,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            NatureAndPurposeTextStyle(
+                              text: 'Dele Oguniran',
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            NatureAndPurposeTextStyle(
+                              text: 'Adewale Obanla',
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            NatureAndPurposeTextStyle(
+                              text: 'Thomas Johnson',
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            NatureAndPurposeTextStyle(
+                              text: 'Funke Adejumo',
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            NatureAndPurposeTextStyle(
+                              text: 'Ehis Teghang',
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            NatureAndPurposeTextStyle(
+                              text: 'Folawiyo Akin',
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+          // SizedBox(
+          //   height: 15,
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class KYCRecordsAndDocunmentContainer extends StatelessWidget {
+  KYCRecordsAndDocunmentContainer({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 529.91,
+      height: 61,
+      decoration: BoxDecoration(
+          color: Color(0xffF9F9F9),
+          border: Border.all(color: Color(0xffF3F3F3)),
+          borderRadius: BorderRadius.circular(48)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Color(0xff233375),
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class KycRecordsBoard extends StatelessWidget {
+  const KycRecordsBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 531,
+      height: 254.27,
+      decoration: BoxDecoration(
+        color: Color(0xffF8F9FE),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'All records were created instantly when they were submitted',
+              style: TextStyle(
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Color(0xff6E7883)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'CREATED AT',
+                    ),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                  ],
+                ),
+
+                SizedBox(width: 50),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'REASON',
+                    ),
+                                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: 'IDV'),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: 'Fraud'),
+                  ],
+                ),
+                                SizedBox(width: 50),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      
+                      KycRecordsAndDocumentBoardTitle(
+                        text: 'STATUS',
+                      ),
+                      SizedBox(height: 30),
+                      KycRecordsAndDocumentBoardButton(color: Color(0xff23CE6B), imageHeight: 20, imageWidth: 20, text: 'Passed', width: 132, image: 'assets/images/check.png',),
+                      SizedBox(height: 30),
+                       KycRecordsAndDocumentBoardButton(color: Color(0xffFBCD58), imageHeight: 20, imageWidth: 20, text: 'Pending', width: 132, image: 'assets/images/check.png',)
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DocumentBoard extends StatelessWidget {
+  const DocumentBoard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 531,
+      height: 254.27,
+      decoration: BoxDecoration(
+        color: Color(0xffF8F9FE),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'All records were created instantly when they were submitted',
+              style: TextStyle(
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: Color(0xff6E7883)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'CREATED AT',
+                    ),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(
+                        text: 'Nov 28, 2022 • 3:58 PM'),
+                  ],
+                ),
+
+                SizedBox(width: 50),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KycRecordsAndDocumentBoardTitle(
+                      text: 'IMAGES',
+                    ),
+                                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: '2'),
+                    SizedBox(height: 30),
+                    KycRecordsAndDocumentBoardSubText(text: '1'),
+                  ],
+                ),
+                                SizedBox(width: 50),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      
+                      KycRecordsAndDocumentBoardTitle(
+                        text: 'ACTION',
+                      ),
+                      SizedBox(height: 30),
+                      KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',),
+                      SizedBox(height: 30),
+                       KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',)
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardTitle extends StatelessWidget {
+  KycRecordsAndDocumentBoardTitle({super.key, required this.text});
+  String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: 'PushPenny',
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+          color: Color(0xff233375)),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardSubText extends StatelessWidget {
+  KycRecordsAndDocumentBoardSubText({super.key, required this.text});
+  String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: 'PushPenny',
+          fontWeight: FontWeight.w400,
+          fontSize: 18,
+          color: Color(0xff6E7883)),
+    );
+  }
+}
+
+class KycRecordsAndDocumentBoardButton extends StatelessWidget {
+  KycRecordsAndDocumentBoardButton(
+      {super.key,
+      required this.color,
+      required this.imageHeight,
+      required this.imageWidth,
+      required this.width,
+      required this.text,
+      required this.image,
+      });
+  double width;
+  double imageHeight;
+  double imageWidth;
+  Color color;
+  String text;
+  String image;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 36,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                fontFamily: "PushPenny"),
+          ),
+          SizedBox(width: 10,),
+          Image.asset(
+            image,
+            width: 24,
+            height: 24,
+          )
+        ],
+      ),
     );
   }
 }
