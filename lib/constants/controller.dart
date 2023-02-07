@@ -12,8 +12,8 @@ import '../screens/offers_management/create_an_offer_screen.dart';
 class PAGES {
   static const int dashbaord = 0;
   static const int profile = 1;
-  static const int home = 3;
-  static const int createAnOfferScreen = 4;
+  static const int home = 2;
+  static const int createAnOfferScreen = 3;
 }
 
 class PAGE {
@@ -52,12 +52,6 @@ class _State {
         icon: offerManagementIcon,
         width: 20,
         height: 20),
-    // PAGE(
-    //     index: PAGES.settings,
-    //     title: "Page 3",
-    //     page: Container(
-    //       color: Colors.pink,
-    //     )),
     PAGE(
         index: PAGES.home,
         title: "Page 4",
