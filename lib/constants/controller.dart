@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/offers_management.dart';
 
+import '../screens/authentication/welcome_back.dart';
 import '../screens/offers_management/create_an_offer_screen.dart';
 
 class PAGES {
@@ -14,6 +15,7 @@ class PAGES {
   static const int profile = 1;
   static const int home = 2;
   static const int createAnOfferScreen = 3;
+  static const int welcomeScreen = 4;
 }
 
 class PAGE {
@@ -62,7 +64,13 @@ class _State {
         title: "page5",
         page: CreateAnOfferScreen(),
          showInSideBar: false
-        )
+        ),
+    PAGE(
+        index: PAGES.welcomeScreen,
+        title: "page5",
+        page: WelcomeBack(),
+        showInSideBar: false
+    )
   ];
 }
 

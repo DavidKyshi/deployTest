@@ -85,27 +85,9 @@ class SideBar extends StatelessWidget {
                 )
                 : SizedBox(),
                 isWelcomeBack ? SizedBox():firstTimer ?SizedBox():
-                Column(
-                  children: sideMenuItems.map((itemName) => SideMenuItem(
-                    itemName: itemName,
-                      // itemName: itemName == AuthenticationPageRoute
-                      //     ? "Log Out"
-                      //     : itemName,
-                      onTap: (){
-                      // if(itemName == AuthenticationPageRoute){
-                      //   // Todo: Go to Authentication page
-
-                      // }
-                      if(!menuController.isActive(itemName)){
-                        menuController.changeActiveItemTo(itemName);
-                        navigationController.navigateTo(itemName);
-                      }
-                      })).toList(),
-                ),
-               
+                Text("data")
                 ],
               ))
-                
               ],
             ),
           ),

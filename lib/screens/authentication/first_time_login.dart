@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 // import 'package:pinput/pinput.dart';
 
 
@@ -32,6 +33,7 @@ class _FirstTimerState extends State<FirstTimer> {
 
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageViewProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -130,7 +132,7 @@ class _FirstTimerState extends State<FirstTimer> {
             // ),
             const SizedBox(height: 10,),
             KyshiButtonResponsive(color: primaryColor, onPressed: (){
-              Navigator.pushNamed(context, welcomeBackPage);
+              pageProvider.gotoPage(PAGES.welcomeScreen);
             },text: "Complete Setup",size: 500,),
             ],
         ),

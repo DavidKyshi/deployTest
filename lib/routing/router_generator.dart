@@ -14,8 +14,8 @@ Route<dynamic> genrateRoute(RouteSettings settings){
         return _getPageRoute( ForgetPassword());
       case OfferManagementPageRoute:
        return _getPageRoute(OffersManagementScreen());
-    case welcomeBackPage:
-      return _getPageRoute(FirstTimer());
+    // case welcomeBackPage:
+    //   return _getPageRoute(FirstTimer());
         // case AuthenticationPageRoute:
         // return _customImage(userAccountIcon, itemName);
       default: 
