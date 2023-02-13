@@ -9,6 +9,7 @@ class KyshiButtonResponsive extends StatelessWidget {
   final String? text;
   final double? elevation;
   final double? size;
+  final double? radius;
   final double? height;
   final VoidCallback? onPressed;
   final Widget? child;
@@ -22,7 +23,7 @@ class KyshiButtonResponsive extends StatelessWidget {
         this.elevation,
         this.height,
         this.child,
-        this.childTextStyle});
+        this.childTextStyle, this.radius});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class KyshiButtonResponsive extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
       color: color,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radius ?? 12),
       ),
       onPressed: onPressed,
       minWidth: size,

@@ -1,5 +1,6 @@
 
 
+import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
 import 'package:provider/provider.dart';
 
 import 'helper/screen_export.dart';
@@ -33,7 +34,7 @@ final pageProvider = PageViewProvider();
             }
           )
         ),
-        home: const Homepage(),
+        home: const AllWallets(),
         routes: {
           UserAccountScreen.route:(context)=>UserAccountScreen(),
         },

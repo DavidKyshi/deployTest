@@ -505,9 +505,11 @@ class _AllOfferTableState extends State<AllOfferTable> {
 }
 
 class OfferButton extends StatelessWidget {
-   OfferButton({super.key, required this.isBorder, required this.text});
+   OfferButton({super.key, required this.isBorder, required this.text,this.comment = false ,this.commentBackground =true});
 
  bool isBorder;
+ bool comment;
+ bool commentBackground;
  String text;
   @override
   Widget build(BuildContext context) {
@@ -534,15 +536,16 @@ class OfferButton extends StatelessWidget {
       ),
     ) :
     Container(
-      width: 73,
-      height: 24,
+      width:comment ? 100:73,
+      height:comment ? 30 :24,
       
       decoration: BoxDecoration(
-        color: primaryColor,
+        color:!comment ?primaryColor:commentBackground ? primaryColor : Color(0XFF6D48FF),
         borderRadius: BorderRadius.circular(4)
       ),
       child: Center(
         child: Text(text,
+        textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
           fontSize: 10,
