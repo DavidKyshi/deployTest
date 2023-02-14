@@ -22,4 +22,6 @@ final String profilePicture = 'assets/images/profile.jpg';
 final String pdfIcon = 'assets/images/pdfIcon.png';
 final String csvIcon = 'assets/images/csvIcon.png';
 final String riskRating = 'assets/images/riskRating.png';
-final String riskScore = 'assets/image/riskScore.png';
+final String riskScore = 'assets/images/riskScore.png';
+final String payOutTransactionIcon = "assets/images/payout-transaction.png";
+final String walletManagementIcon = "assets/images/wallet-management.png";

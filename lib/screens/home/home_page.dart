@@ -1,8 +1,9 @@
 
 
 import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
-import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
+
+import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../helper/screen_export.dart';
 
@@ -160,24 +161,37 @@ class Homepage extends StatelessWidget {
   }
 }
 
-class SideMenuItems extends StatelessWidget {
-  const SideMenuItems({super.key, required this.title, required this.onNext, required this.icon, required this.width, required this.height});
+class SideMenuItems extends StatefulWidget {
+  const SideMenuItems({
+    Key? key,
+    required this.title,
+    this.icon,
+    this.width,
+    this.height,
+    required this.onNext,
+  }) : super(key: key);
   final String title;
   final String? icon;
   final double? width;
   final double? height;
   final VoidCallback onNext;
+
+  @override
+  State<SideMenuItems> createState() => _SideMenuItemsState();
+}
+
+class _SideMenuItemsState extends State<SideMenuItems> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onNext,
+      onTap: widget.onNext,
       child: Column(
         children: [
           Row(
             children: [
-              Image.asset(icon!, width:width, height: height,),
+              Image.asset(widget.icon!, width:widget.width, height: widget.height,),
               SizedBox(width: 10,),
-              Text(title,
+              Text(widget.title,
               style: TextStyle(
                 color: primaryColor,
                 fontSize: 13,

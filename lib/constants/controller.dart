@@ -6,16 +6,20 @@
 import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/offers_management.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
 
 import '../screens/authentication/welcome_back.dart';
 import '../screens/offers_management/create_an_offer_screen.dart';
+import '../screens/payout_transaction/payout_transaction.dart';
 
 class PAGES {
   static const int dashbaord = 0;
   static const int profile = 1;
   static const int home = 2;
   static const int createAnOfferScreen = 3;
-  static const int welcomeScreen = 4;
+  static const int payOutTransaction = 4;
+  static const int welcomeScreen = 5;
+  static const int walletManagement = 6;
 }
 
 class PAGE {
@@ -45,15 +49,15 @@ class _State {
         title: "User accounts",
         page: const UserAccountScreen(),
         icon: userAccountIcon,
-        width: 24,
-        height: 24),
+        width: 28,
+        height: 28),
     PAGE(
         index: PAGES.profile,
         title: "Offer Management",
         page: OffersManagementScreen(),
         icon: offerManagementIcon,
-        width: 20,
-        height: 20),
+        width: 24,
+        height: 24),
     PAGE(
         index: PAGES.home,
         title: "Page 4",
@@ -63,14 +67,31 @@ class _State {
         index: PAGES.createAnOfferScreen,
         title: "page5",
         page: CreateAnOfferScreen(),
-         showInSideBar: false
+        showInSideBar: false),
+    PAGE(
+        index: PAGES.payOutTransaction,
+        title: "Payout Transactions",
+        page: const PayOutTransactionScreen(),
+        icon: payOutTransactionIcon,
+        width: 24,
+        height: 24,
+         //showInSideBar: false
         ),
     PAGE(
         index: PAGES.welcomeScreen,
-        title: "page5",
-        page: WelcomeBack(),
+        title: "page7",
+        page: const WelcomeBack(),
         showInSideBar: false
-    )
+    ),
+    PAGE(
+        index: PAGES.walletManagement,
+        title: "Wallet Management",
+        page: const AllWallets(),
+        icon: walletManagementIcon,
+        width: 24,
+        height: 24,
+         //showInSideBar: false
+        ),
   ];
 }
 
