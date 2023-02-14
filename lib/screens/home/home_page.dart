@@ -114,7 +114,7 @@ class Homepage extends StatelessWidget {
                     InkWell(
                       onTap: (){
                         Navigator.pushAndRemoveUntil(
-                            context, MaterialPageRoute(builder: (context) =>const WelcomeBack()), (route) => false);
+                            context, MaterialPageRoute(builder: (context) =>const WelcomeBack(goOtpScreen: false,)), (route) => false);
                       },
                       child: Row(
                         children: [

@@ -17,7 +17,7 @@ class PayOutTransactionTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         child: DefaultTabController(
-          length: 6,
+          length: 4,
           initialIndex: 0,
           child: Column(
             

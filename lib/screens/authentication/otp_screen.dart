@@ -23,6 +23,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   StreamController<ErrorAnimationType>? errorController;
   final TextEditingController controller = TextEditingController(text: "");
+  String pin = "";
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
@@ -35,7 +36,7 @@ class _OtpScreenState extends State<OtpScreen> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          SideBar(),
+          SideBar(isWelcomeBack: true,firstTimer: false,),
           Container(
             width: 510,
             padding: const EdgeInsets.only(top: 200,left: 100),
@@ -60,9 +61,12 @@ class _OtpScreenState extends State<OtpScreen> {
                     fontSize: 12,
                     fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
                 const SizedBox(height: 20,),
-                PinField(errorController: errorController, controller: controller),
+                PinField(errorController: errorController, controller: controller,
+                  onChanged: (String value) {
+                  pin = value;
+                },),
                 const SizedBox(height: 60,),
-                const KyshiDynamicButtons(),
+                const KyshiDynamicButtons(goDashBoard: true,),
                 const SizedBox(height: 30,),
               ],
             ),

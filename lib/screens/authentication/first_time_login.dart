@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -24,6 +25,7 @@ class _FirstTimerState extends State<FirstTimer> {
   StreamController<ErrorAnimationType>? errorController;
   String currentText = "";
   bool hasError = false;
+  String pin = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -38,8 +40,8 @@ class _FirstTimerState extends State<FirstTimer> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          SideBar(),
-          SizedBox(width: 20,),
+          const SideBar(),
+          const SizedBox(width: 20,),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +76,12 @@ class _FirstTimerState extends State<FirstTimer> {
                       fontSize: 18,
                       fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
                 const SizedBox(height: 10,),
-                PinField(errorController: errorController, controller: controller),
+                PinField(errorController: errorController,
+                    controller: controller, onChanged: (String value) {
+                  setState(() {
+                    pin = value;
+                  });
+                  },),
                 // Directionality(
                 //   // Specify direction if desired
                 //   textDirection: TextDirection.ltr,
@@ -135,9 +142,13 @@ class _FirstTimerState extends State<FirstTimer> {
                 //   ),
                 // ),
                 const SizedBox(height: 10,),
-                KyshiButtonResponsive(color: primaryColor, onPressed: (){
-                  pageProvider.gotoPage(PAGES.welcomeScreen);
-                },text: "Complete Setup",size: 500,),
+                KyshiButtonResponsive(color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue, onPressed: (){
+                 if(pin.length >= 6){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const WelcomeBack(goOtpScreen: false,)));
+                 }else {
+                   return;
+                 }
+                },text: "Complete Setupp",size: 500,),
                 ],
             ),
           ),
@@ -151,11 +162,12 @@ class PinField extends StatelessWidget {
   const PinField({
     Key? key,
     required this.errorController,
-    required this.controller,
+    required this.controller, required this.onChanged,
   }) : super(key: key);
 
   final StreamController<ErrorAnimationType>? errorController;
   final TextEditingController controller;
+  final Function (String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -213,12 +225,7 @@ class PinField extends StatelessWidget {
         // onTap: () {
         //   print("Pressed");
         // },
-        onChanged: (value) {
-          // debugPrint(value);
-          // setState(() {
-          //   currentText = value;
-          // });
-        },
+        onChanged: onChanged,
         beforeTextPaste: (text) {
           debugPrint("Allowing to paste $text");
           //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.

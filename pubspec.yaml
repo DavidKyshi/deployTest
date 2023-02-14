@@ -32,6 +32,7 @@ dependencies:
   flutter_svg: ^1.1.6
   provider: ^6.0.5
   intl: ^0.18.0
+#  shared_preferences: ^2.0.10
 #  pinput: any
   pin_code_fields: ^7.4.0
   lottie: ^1.0.1

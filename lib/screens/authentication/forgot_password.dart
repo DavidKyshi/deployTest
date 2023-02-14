@@ -5,6 +5,7 @@ import 'package:kyshi_operations_dashboard/screens/authentication/otp_screen.dar
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
+import 'package:provider/provider.dart';
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
@@ -100,12 +101,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 }
 
 class KyshiDynamicButtons extends StatelessWidget {
+  final bool goDashBoard;
   const KyshiDynamicButtons({
-    Key? key,
+    Key? key,  this.goDashBoard = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageViewProvider>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -130,6 +133,7 @@ class KyshiDynamicButtons extends StatelessWidget {
          ),
        ),
         KyshiButtonResponsive(color: primaryColor, onPressed: (){
+          goDashBoard ? Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Homepage()), (route) => false):
           Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpScreen()));
         },text: "Submit",size: 200,),
         // Text("Forgot password?",style: TextStyle(color: primaryColor,
