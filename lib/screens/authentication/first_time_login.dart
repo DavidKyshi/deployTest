@@ -36,106 +36,112 @@ class _FirstTimerState extends State<FirstTimer> {
     final pageProvider = Provider.of<PageViewProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Hello! I know it’s first login.",style: TextStyle(color: primaryColor,
-                fontSize: 32,
-                fontFamily: 'PushPenny',fontWeight: FontWeight.w700),),
-            RichText(text: TextSpan(
-              text: "Please, check your browser’s address bar to be sure you’re on",
-                style: TextStyle(color: kyshiGreyishBlue,fontSize: 12,fontFamily: 'PushPenny',fontWeight: FontWeight.w400),
+      body: Row(
+        children: [
+          SideBar(),
+          SizedBox(width: 20,),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextSpan(
-                  text: "https://kyshiadmin.co",style: TextStyle(color: kyshiGreen)
-                )
-              ]
-            ),),
-            const SizedBox(height: 40,),
-            Text("Whenever you sign in to your admin account, you will need to enter \nboth your password and a security code sent to your device.",
-              style: TextStyle(color: kyshiGreyishBlue,
-                fontSize: 12,
-                fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
-            const SizedBox(height: 60,),
-            Text("Scan this QR code and enter the 6 digit OTP \ndisplayed on the app",
-              style: TextStyle(color: kyshiGreyishBlue,
-                  fontSize: 18,
-                  fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
-            Image.asset(qrCode),
-            const SizedBox(height: 10,),
-            Text("Enter the 6 digit security code",
-              style: TextStyle(color: kyshiGreyishBlue,
-                  fontSize: 18,
-                  fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
-            const SizedBox(height: 10,),
-            PinField(errorController: errorController, controller: controller),
-            // Directionality(
-            //   // Specify direction if desired
-            //   textDirection: TextDirection.ltr,
-            //   child: Pinput(
-            //     controller: controller,
-            //     autofocus: false,
-            //     length: 6,
-            //     // focusNode: focusNode,
-            //     androidSmsAutofillMethod:
-            //     AndroidSmsAutofillMethod.smsUserConsentApi,
-            //     listenForMultipleSmsOnAndroid: true,
-            //     defaultPinTheme: defaultPinTheme,
-            //     hapticFeedbackType: HapticFeedbackType.lightImpact,
-            //     onCompleted: (pin) {
-            //       // if (widget.isSignUp) {
-            //       //   BlocProvider.of<VerifyDeviceBloc>(context).add(
-            //       //       VerifySignUpOtpEvent(
-            //       //           otp: controller.text,
-            //       //           phoneNumber: context
-            //       //               .read<VerifyDeviceBloc>()
-            //       //               .state
-            //       //               ?.phoneNumber));
-            //       // } else {
-            //       //   BlocProvider.of<VerifyDeviceBloc>(context)
-            //       //       .add(VerifyOTPEvent(otp: controller.text));
-            //       // }
-            //     },
-            //     onChanged: (text) {
-            //       // setState(() {
-            //       //   hasError = false;
-            //       // });
-            //       // BlocProvider.of<VerifyDeviceBloc>(context)
-            //       //     .add(SubmitOTPEvent(otp: text));
-            //     },
-            //     validator: (value) {
-            //       // return hasError ? 'Pin is incorrect' : null;
-            //     },
-            //
-            //     focusedPinTheme: defaultPinTheme.copyWith(
-            //       decoration: defaultPinTheme.decoration?.copyWith(
-            //         borderRadius: BorderRadius.circular(8),
-            //         border: Border.all(color: focusedBorderColor),
-            //       ),
-            //     ),
-            //     submittedPinTheme: defaultPinTheme.copyWith(
-            //       decoration: defaultPinTheme.decoration?.copyWith(
-            //         color: fillColor,
-            //         borderRadius: BorderRadius.circular(8),
-            //         border: Border.all(
-            //             color: hasError
-            //                 ? Colors.red
-            //                 : focusedBorderColor),
-            //       ),
-            //     ),
-            //     errorPinTheme: defaultPinTheme.copyBorderWith(
-            //       border: Border.all(color: Colors.redAccent),
-            //     ),
-            //   ),
-            // ),
-            const SizedBox(height: 10,),
-            KyshiButtonResponsive(color: primaryColor, onPressed: (){
-              pageProvider.gotoPage(PAGES.welcomeScreen);
-            },text: "Complete Setup",size: 500,),
-            ],
-        ),
+                Text("Hello! I know it’s first login.",style: TextStyle(color: primaryColor,
+                    fontSize: 32,
+                    fontFamily: 'PushPenny',fontWeight: FontWeight.w700),),
+                RichText(text: TextSpan(
+                  text: "Please, check your browser’s address bar to be sure you’re on",
+                    style: TextStyle(color: kyshiGreyishBlue,fontSize: 12,fontFamily: 'PushPenny',fontWeight: FontWeight.w400),
+                  children: [
+                    TextSpan(
+                      text: "https://kyshiadmin.co",style: TextStyle(color: kyshiGreen)
+                    )
+                  ]
+                ),),
+                const SizedBox(height: 40,),
+                Text("Whenever you sign in to your admin account, you will need to enter \nboth your password and a security code sent to your device.",
+                  style: TextStyle(color: kyshiGreyishBlue,
+                    fontSize: 12,
+                    fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
+                const SizedBox(height: 60,),
+                Text("Scan this QR code and enter the 6 digit OTP \ndisplayed on the app",
+                  style: TextStyle(color: kyshiGreyishBlue,
+                      fontSize: 18,
+                      fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
+                Image.asset(qrCode),
+                const SizedBox(height: 10,),
+                Text("Enter the 6 digit security code",
+                  style: TextStyle(color: kyshiGreyishBlue,
+                      fontSize: 18,
+                      fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
+                const SizedBox(height: 10,),
+                PinField(errorController: errorController, controller: controller),
+                // Directionality(
+                //   // Specify direction if desired
+                //   textDirection: TextDirection.ltr,
+                //   child: Pinput(
+                //     controller: controller,
+                //     autofocus: false,
+                //     length: 6,
+                //     // focusNode: focusNode,
+                //     androidSmsAutofillMethod:
+                //     AndroidSmsAutofillMethod.smsUserConsentApi,
+                //     listenForMultipleSmsOnAndroid: true,
+                //     defaultPinTheme: defaultPinTheme,
+                //     hapticFeedbackType: HapticFeedbackType.lightImpact,
+                //     onCompleted: (pin) {
+                //       // if (widget.isSignUp) {
+                //       //   BlocProvider.of<VerifyDeviceBloc>(context).add(
+                //       //       VerifySignUpOtpEvent(
+                //       //           otp: controller.text,
+                //       //           phoneNumber: context
+                //       //               .read<VerifyDeviceBloc>()
+                //       //               .state
+                //       //               ?.phoneNumber));
+                //       // } else {
+                //       //   BlocProvider.of<VerifyDeviceBloc>(context)
+                //       //       .add(VerifyOTPEvent(otp: controller.text));
+                //       // }
+                //     },
+                //     onChanged: (text) {
+                //       // setState(() {
+                //       //   hasError = false;
+                //       // });
+                //       // BlocProvider.of<VerifyDeviceBloc>(context)
+                //       //     .add(SubmitOTPEvent(otp: text));
+                //     },
+                //     validator: (value) {
+                //       // return hasError ? 'Pin is incorrect' : null;
+                //     },
+                //
+                //     focusedPinTheme: defaultPinTheme.copyWith(
+                //       decoration: defaultPinTheme.decoration?.copyWith(
+                //         borderRadius: BorderRadius.circular(8),
+                //         border: Border.all(color: focusedBorderColor),
+                //       ),
+                //     ),
+                //     submittedPinTheme: defaultPinTheme.copyWith(
+                //       decoration: defaultPinTheme.decoration?.copyWith(
+                //         color: fillColor,
+                //         borderRadius: BorderRadius.circular(8),
+                //         border: Border.all(
+                //             color: hasError
+                //                 ? Colors.red
+                //                 : focusedBorderColor),
+                //       ),
+                //     ),
+                //     errorPinTheme: defaultPinTheme.copyBorderWith(
+                //       border: Border.all(color: Colors.redAccent),
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(height: 10,),
+                KyshiButtonResponsive(color: primaryColor, onPressed: (){
+                  pageProvider.gotoPage(PAGES.welcomeScreen);
+                },text: "Complete Setup",size: 500,),
+                ],
+            ),
+          ),
+        ],
       ),
     );
   }
