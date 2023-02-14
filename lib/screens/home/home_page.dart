@@ -141,7 +141,7 @@ class Homepage extends StatelessWidget {
     )
              ),
               Expanded(
-                  flex: 5,
+                  flex: 4,
                   child: 
                  PageView(
                 controller: provider.pageController,

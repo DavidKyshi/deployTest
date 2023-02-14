@@ -263,14 +263,16 @@ class AllOfferTitleTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: TextStyle(color: primaryColor,
-          fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
-         const SizedBox(height: 40,),
-         name
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: TextStyle(color: primaryColor,
+            fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
+           const SizedBox(height: 40,),
+           name
+          ],
+        ),
       ),
     );
   }
