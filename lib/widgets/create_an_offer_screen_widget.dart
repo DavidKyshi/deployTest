@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/foundation.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
@@ -371,33 +371,74 @@ class BankDetails extends StatelessWidget {
         ),
         borderRadius:BorderRadius.circular(10)
       ),
-      child: Column(
-        children: [
-          Text('BANK DETAILS',
-          style: TextStyle(
-            color: primaryColor,
-            fontSize: 10, fontWeight: FontWeight.w400
-          ),
-          ),
-          Container(
-            width: 440,
-            height: 395.5,
-            decoration: const BoxDecoration(
-              color: Color(0xffF8F9FE),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('BANK DETAILS',
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 10, fontWeight: FontWeight.w400
+              ),
+              ),
+           // SizedBox(height: 4,),
+              Divider(color: Color(0xff6E80A3),),
+                ],
+              ),
             ),
-            child: Column(
-              children: [
-                const Text('Currency',
-                style: TextStyle(
-                  color:Color(0xff6E80A3),
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 395.5,
+              decoration: const BoxDecoration(
+                color: Color(0xffF8F9FE),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 30, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Currency',
+                    style: TextStyle(
+                      color:Color(0xff6E80A3),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400
+                    ),
+                    ),
+                    Row(
+                      children: [
+                        Text('Nigerian Naira'),
+                        Container(
+                          width: 38,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: Color(0xff7880AA),
+                            borderRadius: BorderRadius.circular(2)
+                          ),
+                          child: Center(
+                            child: Text('N NGN',
+                            style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400
+                            ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
-                )
-              ],
+              )
             )
-          )
-        ],
+          ],
+        ),
       )
     );
   }

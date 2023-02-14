@@ -8,12 +8,14 @@ import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/offers_management.dart';
 
 import '../screens/offers_management/create_an_offer_screen.dart';
+import '../screens/payout_transaction/payout_transaction.dart';
 
 class PAGES {
   static const int dashbaord = 0;
   static const int profile = 1;
   static const int home = 2;
   static const int createAnOfferScreen = 3;
+  static const int payOutTransaction = 4;
 }
 
 class PAGE {
@@ -61,8 +63,14 @@ class _State {
         index: PAGES.createAnOfferScreen,
         title: "page5",
         page: CreateAnOfferScreen(),
-         showInSideBar: false
-        )
+        showInSideBar: false),
+    PAGE(
+        index: PAGES.payOutTransaction,
+        title: "Payout Transactions",
+        page: const PayOutTransactionScreen(),
+        icon: payOutTransactionIcon,
+        width: 24,
+        height: 24),
   ];
 }
 
