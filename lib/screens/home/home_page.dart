@@ -1,5 +1,6 @@
 
 
+import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -93,7 +94,7 @@ class Homepage extends StatelessWidget {
                     border: Border.all(color: Color(0xff233375), width: 2),
                     borderRadius: BorderRadius.circular(50)
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text('EI',
                     style: TextStyle(
                       color: Color(0xff233375),
@@ -109,18 +110,24 @@ class Homepage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Text('Log out',
-                        style: TextStyle(
-                          color: Color(0xff233375),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                           fontFamily: 'PushPenny'
-                        ),
-                        ),
-                        Icon(Icons.logout, color: Color(0xff233375),)
-                      ],
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushAndRemoveUntil(
+                            context, MaterialPageRoute(builder: (context) =>const WelcomeBack()), (route) => false);
+                      },
+                      child: Row(
+                        children: [
+                          Text('Log out',
+                          style: TextStyle(
+                            color: Color(0xff233375),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                             fontFamily: 'PushPenny'
+                          ),
+                          ),
+                          Icon(Icons.logout, color: Color(0xff233375),)
+                        ],
+                      ),
                     ),
                     Text('Change password',
                     style: TextStyle(

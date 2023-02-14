@@ -4,6 +4,7 @@ import 'package:kyshi_operations_dashboard/screens/user_account_page/user_accoun
 const UserAccountPageRoute = 'UserAccount';
 const OfferManagementPageRoute = 'OfferManagement';
 const UserAccountTabPageRoute = 'UserAccountTab';
+const welcomeBack = "welcomeBack";
 // const AuthenticationPageRoute = 'Authentication';
 
 List sideMenuItems =[
