@@ -1,5 +1,7 @@
 
 
+import 'package:kyshi_operations_dashboard/screens/authentication/first_time_login.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
 import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +36,7 @@ final pageProvider = PageViewProvider();
             }
           )
         ),
-        home: const Homepage(),
+        home:  FirstTimer(),
         routes: {
           UserAccountScreen.route:(context)=>UserAccountScreen(),
         },
