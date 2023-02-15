@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/helper/sharedPreferences.dart';
+import 'package:kyshi_operations_dashboard/screens/authentication/otp_screen.dart';
+import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:lottie/lottie.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 final TextEditingController emailController = TextEditingController(text: "");
 final TextEditingController oldPasswordController = TextEditingController(text: "");
@@ -185,6 +189,7 @@ void showMessageDialog(BuildContext context, lottieType, buttonText, {additional
                     ),
                     const SizedBox(height: 20,),
                     KyshiButtonResponsive(color: primaryColor, onPressed:popScreen? (){
+                      // addBoolToSF("goOtpScreen", true);
                       Navigator.pop(context);
                       successMessageDialog(context, "SIGN IN", btnFunction: (){}, additionalBtnFunction: (){}, additionalButtonColor: Colors.red, headline: "Awesome!",
                         message: "Olamide, You are good to go", subMessage: "You can log in to your account now",);
@@ -272,6 +277,7 @@ void successMessageDialog(BuildContext context, buttonText, {additionalButton,
                   ),
                   KyshiButtonResponsive(color: primaryColor, onPressed: (){
                     Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const WelcomeBack(goOtpScreen: true)), (route) => false);
                   },text: buttonText,size: 550,),
                   const SizedBox(height: 60,)
                 ],

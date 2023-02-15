@@ -4,9 +4,11 @@
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:kyshi_operations_dashboard/screens/user_account_page/identification_summary.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/kyshi_card.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/kyshi_connect_services.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/transaction_summary.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/transactions.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet_beneficiaries.dart';
 
 import '../../helper/screen_export.dart';
@@ -95,9 +97,9 @@ class UserAccountTab extends StatelessWidget {
                     KyshiConnectServices(),
                     KyshiCard(),
 
-                    Center(child: Text('Transactions')),
+                   TransactionHistory(),
                     TransactionSummaryBoard(),
-                    Center(child: Text('Identification Summary')),
+                   IdentificationSummary(),
                   ],
                 ),
               ),

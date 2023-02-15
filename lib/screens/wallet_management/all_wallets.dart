@@ -84,8 +84,8 @@ class _AllWalletsState extends State<AllWallets> {
             padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
             child:Column(
               children: [
-                const SearchField(),
-                const SizedBox(height: 10,),
+                // const SearchField(),
+                // const SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
                   child: Stack(

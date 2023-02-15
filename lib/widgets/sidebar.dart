@@ -2,6 +2,7 @@
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../helper/screen_export.dart';
+import '../screens/authentication/welcome_back.dart';
 
 class SideBar extends StatelessWidget {
   final bool firstTimer;
@@ -122,31 +123,37 @@ class SideBar extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 10,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text('Log out',
-                        style: TextStyle(
-                          color: Color(0xff233375),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                           fontFamily: 'PushPenny'
-                        ),
-                        ),
-                        Icon(Icons.logout, color: Color(0xff233375),)
-                      ],
-                    ),
-                    Text('Change password',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Color(0xFF21D184),
-                      fontSize: 12
-                    ),
-                    )
-                  ],
+                InkWell(
+                  onTap: (){
+                    Navigator.pushAndRemoveUntil(
+                        context, MaterialPageRoute(builder: (context) =>const WelcomeBack(goOtpScreen: false,)), (route) => false);
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Log out',
+                          style: TextStyle(
+                            color: Color(0xff233375),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                             fontFamily: 'PushPenny'
+                          ),
+                          ),
+                          Icon(Icons.logout, color: Color(0xff233375),)
+                        ],
+                      ),
+                      Text('Change password',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Color(0xFF21D184),
+                        fontSize: 12
+                      ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

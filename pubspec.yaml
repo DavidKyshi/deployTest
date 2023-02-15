@@ -32,6 +32,9 @@ dependencies:
   flutter_svg: ^1.1.6
   provider: ^6.0.5
   intl: ^0.18.0
+  dio: ^5.0.0
+  flutter_dotenv: ^5.0.2
+#  shared_preferences: ^2.0.10
 #  pinput: any
   pin_code_fields: ^7.4.0
   lottie: ^1.0.1
@@ -66,6 +69,7 @@ flutter:
   assets:
     - assets/images/
     - assets/lottie/
+    - assets/env/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

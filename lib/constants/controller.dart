@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/offers_management.dart';
 import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/wallet_management_tab.dart';
 
 import '../screens/authentication/welcome_back.dart';
 import '../screens/offers_management/create_an_offer_screen.dart';
@@ -80,13 +81,13 @@ class _State {
     PAGE(
         index: PAGES.welcomeScreen,
         title: "page7",
-        page: const WelcomeBack(),
+        page: const WelcomeBack(goOtpScreen: false,),
         showInSideBar: false
     ),
     PAGE(
         index: PAGES.walletManagement,
         title: "Wallet Management",
-        page: const AllWallets(),
+        page: const WalletTab(),
         icon: walletManagementIcon,
         width: 24,
         height: 24,
