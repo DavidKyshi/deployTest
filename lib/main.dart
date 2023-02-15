@@ -36,7 +36,8 @@ final pageProvider = PageViewProvider();
             }
           )
         ),
-        home:  FirstTimer(),
+        home:  Homepage(),
+        //FirstTimer(),
         routes: {
           UserAccountScreen.route:(context)=>UserAccountScreen(),
         },
