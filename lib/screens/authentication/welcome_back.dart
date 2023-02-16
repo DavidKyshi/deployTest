@@ -29,7 +29,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
   // late Future<bool goOtpScreen;
   @override
   void initState() {
-    print("${widget.goOtpScreen} OTPN VALUE GOTTEN from initstate");
+    // print("${widget.goOtpScreen} OTPN VALUE GOTTEN from initstate");
     // TODO: implement initState
     // focusedBorderColor = kyshiGreyishBlue;
     // fillColor = const Color.fromRGBO(243, 246, 249, 0);
@@ -132,7 +132,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
                 const SizedBox(height: 30,),
                 KyshiButtonResponsive(color:primaryColor,
                  onPressed:(){
-                  print("${widget.goOtpScreen} OTPN VALUE GOTTEN");
+                  // print("${widget.goOtpScreen} OTPN VALUE GOTTEN");
                   widget.goOtpScreen  ? Navigator.push(context, MaterialPageRoute(builder: (context)=> const OtpScreen())):
                   showMessageDialog(
                     context, success, "Create new password",

@@ -24,6 +24,7 @@ final pageProvider = PageViewProvider();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("${dotenv.env['API_URL']} CHECKING ENV FILE");
     return MultiProvider(
        providers: [
         ChangeNotifierProvider(create: (_) => pageProvider),

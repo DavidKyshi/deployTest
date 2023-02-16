@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 import '../helper/internalDio.dart';
 
@@ -22,12 +27,20 @@ class UserService{
     }
   }
 
-  Future<Response> getPosts ({required Map<String, dynamic> data})async{
+  Future<Response> getAllUsers ()async{
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/users");
     try{
-      Response response = await customInternalDio.get("the url to call",);
-      return response.data;
+      // customInternalDio.get("/ops/users",)
+      final response = await http.get(uri);
+      dynamic data = json.decode(response.body);
+      return data;
     }catch(e){
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
       if (e is DioError){
+        print("${e.response?.data}hkhgjghbjhgb");
         throw e.response?.data;
       }
       rethrow;
