@@ -10,9 +10,11 @@ import 'helper/screen_export.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  // Get.put(MenuController());
-  await dotenv.load(fileName: 'assets/env/.env');
-  // Get.put(NavigationController());
+  try {
+    await dotenv.load(fileName: 'assets/env/.env');
+  } catch (e) {
+    
+  }
   runApp( MyApp());
 }
 
