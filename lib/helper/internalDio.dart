@@ -10,7 +10,7 @@ class InternalDioClient {
         headers: {
           "Content-Type": "application/json",
           "Connection": 'keep-alive',
-          "x-api-key": dotenv.env['INTERNAL_TOKEN']
+          // "x-api-key": dotenv.env['INTERNAL_TOKEN']
         });
     dio = Dio(options);
   }

@@ -1,8 +1,11 @@
 
 
+import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
+import 'package:kyshi_operations_dashboard/models/users.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/otp_screen.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:kyshi_operations_dashboard/userService/userService.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +52,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     // );
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +104,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     );
   }
 }
+getUsers()async{
+  Response response =await UserService().getAllUsers();
+  Users users =Users.fromJson(response.data);
+  print("STATUS CODE ${response.statusCode}");
+  print("${users.data} ALL USERS");
+}
 
 class KyshiDynamicButtons extends StatelessWidget {
   final bool goDashBoard;
@@ -133,8 +144,12 @@ class KyshiDynamicButtons extends StatelessWidget {
          ),
        ),
         KyshiButtonResponsive(color: primaryColor, onPressed: (){
-          goDashBoard ? Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Homepage()), (route) => false):
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpScreen()));
+          if(goDashBoard) {
+            getUsers();
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Homepage()), (route) => false);
+          }else{
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpScreen()));
+          }
         },text: "Submit",size: 200,),
         // Text("Forgot password?",style: TextStyle(color: primaryColor,
         //     fontWeight: FontWeight.w400,fontFamily: 'PushPenny',fontSize: 12),)

@@ -34,6 +34,7 @@ dependencies:
   intl: ^0.18.0
   dio: ^5.0.0
   flutter_dotenv: ^5.0.2
+  http: ^0.13.5
 #  shared_preferences: ^2.0.10
 #  pinput: any
   pin_code_fields: ^7.4.0
