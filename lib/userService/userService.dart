@@ -32,9 +32,12 @@ class UserService{
     final Uri uri = Uri.parse("$baseUrl/ops/users");
     try{
       // customInternalDio.get("/ops/users",)
-      final response = await http.get(uri);
-      dynamic data = json.decode(response.body);
-      return data;
+      Response response = await customInternalDio.get("/ops/users",);
+      // http.get(uri);
+      print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print("$response ALL DATA");
+      return response;
     }catch(e){
       if (kDebugMode) {
         print("$e An error occurred");

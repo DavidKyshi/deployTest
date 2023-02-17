@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
@@ -11,6 +12,8 @@ import 'package:provider/provider.dart';
 
 
 import '../../helper/screen_export.dart';
+import '../../models/users.dart';
+import '../../userService/userService.dart';
 
 class FirstTimer extends StatefulWidget {
    FirstTimer({Key? key}) : super(key: key);
@@ -31,6 +34,13 @@ class _FirstTimerState extends State<FirstTimer> {
     // TODO: implement initState
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
+  }
+  getUsers()async{
+    print("GETTING USERS");
+    Response response =await UserService().getAllUsers();
+    Users users =Users.fromJson(response.data);
+    print("${users.data![0].firstName}");
+    // print("${response["data"][0]["id"]} ALL USERS");
   }
 
   @override
@@ -144,11 +154,12 @@ class _FirstTimerState extends State<FirstTimer> {
                 const SizedBox(height: 10,),
                 KyshiButtonResponsive(color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue, onPressed: (){
                  if(pin.length >= 6){
+                   getUsers();
                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const WelcomeBack(goOtpScreen: false,)));
                  }else {
                    return;
                  }
-                },text: "Complete Setupp",size: 500,),
+                },text: "Complete Setup",size: 500,),
                 ],
             ),
           ),

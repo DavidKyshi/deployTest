@@ -92,20 +92,20 @@ class Datum {
   bool? isSuperuser;
   bool? isStaff;
   bool? isActive;
-  DateTime? dateJoined;
-  DateTime? createdAt;
-  DateTime? modifiedAt;
+  String? dateJoined;
+  String? createdAt;
+  String? modifiedAt;
   String? email;
   String? phoneNumber;
   String? firstName;
   String? lastName;
   String? middleName;
   String? title;
-  DateTime? dob;
-  Gender? gender;
-  CountryOfResidence? nationality1;
+  String? dob;
+  String? gender;
+  String? nationality1;
   String? nationality2;
-  CountryOfResidence? countryOfResidence;
+  String? countryOfResidence;
   dynamic bvn;
   BvnData? bvnData;
   bool? bvnVerified;
@@ -119,46 +119,47 @@ class Datum {
   String? occupation;
   bool? eligibleForFreeSwap;
   String? deviceImeNumber;
-  DeviceName? deviceName;
-  DevicePlatform? devicePlatform;
+  String? deviceName;
+  String? devicePlatform;
   String? deviceModel;
   String? deviceFcmToken;
   bool? deviceVerified;
-  RiskRating? riskRating;
+  String? riskRating;
   String? riskScore;
   String? firebaseUid;
   dynamic profileImage;
   List<dynamic>? groups;
   List<dynamic>? userPermissions;
 
+
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     beneficiaries: json["beneficiaries"] == null ? [] : List<dynamic>.from(json["beneficiaries"]!.map((x) => x)),
     wallets: json["wallets"] == null ? [] : List<Wallet>.from(json["wallets"]!.map((x) => Wallet.fromJson(x))),
-    lastLogin: json["last_login"],
+    lastLogin: json["last_login"] ?? "",
     isSuperuser: json["is_superuser"],
-    isStaff: json["is_staff"],
-    isActive: json["is_active"],
-    dateJoined: json["date_joined"] == null ? null : DateTime.parse(json["date_joined"]),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
-    email: json["email"],
-    phoneNumber: json["phone_number"],
+    isStaff: json["is_staff"] ?? false,
+    isActive: json["is_active"] ?? false,
+    dateJoined: json["date_joined"] ?? "",
+    createdAt: json["created_at"] ?? "",
+    modifiedAt: json["modified_at"] ?? "",
+    email: json["email"] ?? "",
+    phoneNumber: json["phone_number"] ?? "",
     firstName: json["first_name"],
     lastName: json["last_name"],
     middleName: json["middle_name"],
     title: json["title"],
-    dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
-    gender: genderValues.map[json["gender"]]!,
-    nationality1: countryOfResidenceValues.map[json["nationality_1"]]!,
-    nationality2: json["nationality_2"],
-    countryOfResidence: countryOfResidenceValues.map[json["country_of_residence"]]!,
-    bvn: json["bvn"],
+    dob: json["dob"] ?? "",
+    gender: json["gender"] ?? "",
+    nationality1: json["nationality_1"] ?? "",
+    nationality2: json["nationality_2"] ?? "",
+    countryOfResidence: json["country_of_residence"] ?? "",
+    bvn: json["bvn"] ?? "",
     bvnData: json["bvn_data"] == null ? null : BvnData.fromJson(json["bvn_data"]),
-    bvnVerified: json["bvn_verified"],
-    canTransact: json["can_transact"],
-    emailVerified: json["email_verified"],
-    phoneVerified: json["phone_verified"],
+    bvnVerified: json["bvn_verified"] ?? false,
+    canTransact: json["can_transact"] ?? false,
+    emailVerified: json["email_verified"] ?? false,
+    phoneVerified: json["phone_verified"]?? false,
     authMethod: authMethodValues.map[json["auth_method"]]!,
     referrerCode: json["referrer_code"],
     referralCode: json["referral_code"],
@@ -166,15 +167,15 @@ class Datum {
     occupation: json["occupation"],
     eligibleForFreeSwap: json["eligible_for_free_swap"],
     deviceImeNumber: json["device_ime_number"],
-    deviceName: deviceNameValues.map[json["device_name"]]!,
-    devicePlatform: devicePlatformValues.map[json["device_platform"]]!,
-    deviceModel: json["device_model"],
-    deviceFcmToken: json["device_fcm_token"],
+    deviceName: json["device_name"] ??"",
+    devicePlatform: json["device_platform"] ?? "",
+    deviceModel: json["device_model"] ?? "",
+    deviceFcmToken: json["device_fcm_token"] ?? "",
     deviceVerified: json["device_verified"],
-    riskRating: riskRatingValues.map[json["risk_rating"]]!,
-    riskScore: json["risk_score"],
-    firebaseUid: json["firebase_uid"],
-    profileImage: json["profile_image"],
+    riskRating: json["risk_rating"] ?? "",
+    riskScore: json["risk_score"] ?? "",
+    firebaseUid: json["firebase_uid"] ?? "",
+    profileImage: json["profile_image"] ?? "",
     groups: json["groups"] == null ? [] : List<dynamic>.from(json["groups"]!.map((x) => x)),
     userPermissions: json["user_permissions"] == null ? [] : List<dynamic>.from(json["user_permissions"]!.map((x) => x)),
   );
@@ -187,16 +188,16 @@ class Datum {
     "is_superuser": isSuperuser,
     "is_staff": isStaff,
     "is_active": isActive,
-    "date_joined": dateJoined?.toIso8601String(),
-    "created_at": createdAt?.toIso8601String(),
-    "modified_at": modifiedAt?.toIso8601String(),
+    "date_joined": dateJoined ?? "",
+    "created_at": createdAt ?? "",
+    "modified_at": modifiedAt ?? "",
     "email": email,
     "phone_number": phoneNumber,
     "first_name": firstName,
     "last_name": lastName,
     "middle_name": middleName,
     "title": title,
-    "dob": "${dob!.year.toString().padLeft(4, '0')}-${dob!.month.toString().padLeft(2, '0')}-${dob!.day.toString().padLeft(2, '0')}",
+    "dob": dob ?? "",
     "gender": genderValues.reverse[gender],
     "nationality_1": countryOfResidenceValues.reverse[nationality1],
     "nationality_2": nationality2,
