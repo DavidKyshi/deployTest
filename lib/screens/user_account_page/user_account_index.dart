@@ -6,6 +6,8 @@ import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../customWidget/searchField.dart';
+import '../../models/users.dart';
+import '../../providers/users.dart';
 
 class UserAccountIndex extends StatefulWidget {
   const UserAccountIndex({Key? key}) : super(key: key);
@@ -15,8 +17,7 @@ class UserAccountIndex extends StatefulWidget {
 }
 
 class _UserAccountIndexState extends State<UserAccountIndex> {
-
-
+  Users? user;
   final List<String> names = ["Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright",
     "Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright","Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright"];
   final List<Widget> action = [Column(
@@ -37,6 +38,13 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   final List<IconData> icons = [Icons.mail,Icons.phone,Icons.wallet_giftcard_rounded,Icons.check_circle_rounded];
 
   ScrollController? controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    user = Provider.of<UsersProvider>(context, listen: false).users;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
@@ -70,9 +78,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].firstName ?? ""));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -85,9 +93,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].lastName ?? "No Name"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -100,9 +108,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text("${ages[index]}"));
+                                  child: Text(user?.data![index].middleName ?? "No name"));
                             },
-                            itemCount: ages.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -115,9 +123,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].email ?? "No Email"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -130,9 +138,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].phoneNumber ?? "No Email"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -145,9 +153,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].phoneNumber ?? "No Age"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -160,9 +168,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].bvn ?? "No Age"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -175,9 +183,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].countryOfResidence ?? "Homeless"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -190,9 +198,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             itemBuilder: (context,index){
                               return Container(
                                   padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(names[index]));
+                                  child: Text(user?.data![index].nationality1 ?? "No country"));
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),),
                         const SizedBox(width: 10,),
@@ -216,7 +224,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                 ),
                               );
                             },
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         )),
                         const SizedBox(width: 25,),
@@ -243,7 +251,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                     ),
                                   ),
                                 ),
-                            itemCount: names.length,
+                            itemCount: user?.data?.length,
                           ),
                         ),
                         )

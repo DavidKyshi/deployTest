@@ -106,9 +106,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 }
 getUsers()async{
   Response response =await UserService().getAllUsers();
-  Users users =Users.fromJson(response.data);
-  print("STATUS CODE ${response.statusCode}");
-  print("${users.data} ALL USERS");
+  // Users users =Users.fromJson(response.data);
+  // print("STATUS CODE ${response.statusCode}");
+  // print("${users.data} ALL USERS");
 }
 
 class KyshiDynamicButtons extends StatelessWidget {
