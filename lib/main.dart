@@ -42,7 +42,7 @@ final pageProvider = PageViewProvider();
             }
           )
         ),
-        home:  Homepage(),
+        home:  FirstTimer(),
         //FirstTimer(),
         routes: {
           UserAccountScreen.route:(context)=>UserAccountScreen(),
