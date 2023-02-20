@@ -12,7 +12,7 @@ class UsersProvider extends ChangeNotifier{
    Future<Users> getUsers () async{
      Response response =await UserService().getAllUsers();
      Users user =Users.fromJson(response.data);
-     print("${user.data![0].lastName} GETTING FIRSTNAME reading");
+     // print("${user.data![0].lastName} GETTING FIRSTNAME reading");
     _users = user;
    notifyListeners();
    return user;

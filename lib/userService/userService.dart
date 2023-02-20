@@ -34,9 +34,9 @@ class UserService{
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get("/ops/users",);
       // http.get(uri);
-      print("${response.statusCode} ALL THE RESULT");
+      // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      // print("$response ALL DATA");
       return response;
     }catch(e){
       if (kDebugMode) {

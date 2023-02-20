@@ -116,7 +116,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                         const SizedBox(width: 10,),
                         UserAccountTable(title: "Email Address",name: SizedBox(
                           height: 500,
-                          width: 100,
+                          width: 200,
                           child: ListView.builder(
                             controller: controller,
                             physics: const PageScrollPhysics(),
@@ -131,7 +131,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                         const SizedBox(width: 10,),
                         UserAccountTable(title: "Phone Number",name: SizedBox(
                           height: 500,
-                          width: 100,
+                          width: 200,
                           child: ListView.builder(
                             controller: controller,
                             physics: const PageScrollPhysics(),
