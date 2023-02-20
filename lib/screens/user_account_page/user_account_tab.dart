@@ -20,7 +20,7 @@ import 'create_offer.dart';
 class UserAccountTab extends StatelessWidget {
 
   const UserAccountTab({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

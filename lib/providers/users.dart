@@ -4,18 +4,30 @@ import 'package:kyshi_operations_dashboard/models/users.dart';
 
 import '../userService/userService.dart';
 
-class UsersProvider extends ChangeNotifier{
-   Users? _users;
+class UsersProvider extends ChangeNotifier {
+  List<User> users = [];
+  String? currentSelectedUserId;
 
-  get users => _users;
-
-   Future<Users> getUsers () async{
-     Response response =await UserService().getAllUsers();
-     Users user =Users.fromJson(response.data);
-     print("${user.data![0].lastName} GETTING FIRSTNAME reading");
-    _users = user;
-   notifyListeners();
-   return user;
+  void selectUser(String id) {
+    currentSelectedUserId = id;
   }
 
+  User? getUserById([String? id]) {
+    if (users.isEmpty) return null;
+    if (id==null && currentSelectedUserId==null) return null;
+
+    return users.firstWhere(
+        (element) => element.id == (id ?? currentSelectedUserId),
+        orElse: null);
+  }
+
+  Future<List<User>> getUsers() async {
+    Map<String, dynamic> responseData = await UserService().getAllUsers();
+    final data = List.from(responseData['data']);
+    users = List<User>.from(data.map((x) => User.fromJson(x)));
+    // print("${user.data![0].lastName} GETTING FIRSTNAME reading");
+    // _users = user;
+    notifyListeners();
+    return users;
+  }
 }

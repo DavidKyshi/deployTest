@@ -17,204 +17,209 @@ class UserAccountIndex extends StatefulWidget {
 }
 
 class _UserAccountIndexState extends State<UserAccountIndex> {
-  Users? user;
-  final List<String> names = ["Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright",
-    "Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright","Mohammed","Rab","Gbemi","david","Tobiloba","George","Bright"];
-  final List<Widget> action = [Column(
-    children: [
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 2),
-        decoration: BoxDecoration(
-            color: primaryColor,
-            borderRadius: BorderRadius.circular(24)
+  User? user;
+  final List<String> names = [
+    "Mohammed",
+    "Rab",
+    "Gbemi",
+    "david",
+    "Tobiloba",
+    "George",
+    "Bright",
+    "Mohammed",
+    "Rab",
+    "Gbemi",
+    "david",
+    "Tobiloba",
+    "George",
+    "Bright",
+    "Mohammed",
+    "Rab",
+    "Gbemi",
+    "david",
+    "Tobiloba",
+    "George",
+    "Bright"
+  ];
+  final List<Widget> action = [
+    Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(24)),
+          child: const Text(
+            "View",
+            style: TextStyle(
+                fontFamily: "PushPenny",
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+                fontSize: 10),
+          ),
         ),
-        child: const Text("View",style: TextStyle(fontFamily: "PushPenny",
-            fontWeight: FontWeight.w400,color: Colors.white,fontSize: 10),),
-      ),
-      const SizedBox(height: 30,)
-    ],
-  )];
-  final List<int> ages = [1,2,3,4,5];
-  final List<IconData> icons = [Icons.mail,Icons.phone,Icons.wallet_giftcard_rounded,Icons.check_circle_rounded];
-
+        const SizedBox(
+          height: 30,
+        )
+      ],
+    )
+  ];
+  final List<int> ages = [1, 2, 3, 4, 5];
+  final List<IconData> icons = [
+    Icons.mail,
+    Icons.phone,
+    Icons.wallet_giftcard_rounded,
+    Icons.check_circle_rounded
+  ];
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
   ScrollController? controller;
 
   @override
   void initState() {
     // TODO: implement initState
-    user = Provider.of<UsersProvider>(context, listen: false).users;
+    // user = Provider.of<UsersProvider>(context, listen: false).users;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
+    // user = userProvider.getUserById();
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
-            child:Column(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            child: Column(
               children: [
                 const SearchField(),
-                const SizedBox(height: 10,),
-                SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
-                    height:600,
-                    width: MediaQuery.of(context).size.width,
-                    decoration:  BoxDecoration(
-                        color:const Color(0XFFEAEBF1),
-                        borderRadius: BorderRadius.circular(12)
-                    ),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        UserAccountTable(title: "First Name",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].firstName ?? ""));
-                            },
-                            itemCount: user?.data?.length,
+                const SizedBox(
+                  height: 10,
+                ),
+               // if (user == null) Text("User not found"),
+               // if (user != null)
+                  SingleChildScrollView(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 25),
+                      height: 600,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: const Color(0XFFEAEBF1),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: ListView(
+                        // scrollDirection: Axis.horizontal,
+                        children: [
+                          /// Header Row
+
+                          Row(
+                           // crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                             UserAccountTableRow(title: 'First Name',),
+                              UserAccountTableRow(title: 'Last Name',),
+                             UserAccountTableRow(title: 'Middle Name',),
+                              UserAccountTableRow(title: 'Email  Address',),
+                              UserAccountTableRow(title: 'Phone Number',),
+                              UserAccountTableRow(title: 'Date of Birth',),
+                              UserAccountTableRow(title: 'BVN',),
+                              UserAccountTableRow(title: 'Residence',),
+                              UserAccountTableRow(title: 'Nationality',),
+                              UserAccountTableRow(title: 'Status',),
+                              UserAccountTableRow(title: 'Action',),
+                            ],
                           ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Last Name",name: SizedBox(
-                          height: 500,
+
+                         
+
+                          ...userProvider.users
+                              .map((user) => Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      UserAccountTableCell(
+                                       
+                                        name: Container(
+                                          color: Colors.amber,
+                                          // height: 500,
+                                           width: 78,
+                                          child: Text(user.firstName??""),
+                                        ),
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 10,
+                                      // ),
+                                      UserAccountTableCell(
+                                      
+                                        name: SizedBox(
+                                          // height: 500,
+                                           width: 78,
+                                          child: Text(user.lastName??""),
+                                        ),
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 10,
+                                      // ),
+                                      UserAccountTableCell(
+                                       // title: "Middle Name",
+                                        name: SizedBox(
+                                          // height: 500,
+                                           width: 78,
+                                          child: Text(user.middleName??""),
+                                        ),
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 10,
+                                      // ),
+                                      UserAccountTableCell(
+                                        name: SizedBox(
+                                          // height: 500,
+                                         //  width: 158,
+                                          child: Text(user.email??""),
+                                        ),
+                                      ),
+                                      UserAccountTableCell(
+                                      
+                                        name: SizedBox(
+                                          // height: 500,
+                                         //  width: 100,
+                                          child: Text(user.phoneNumber??""),
+                                        ),
+                                      ),
+                                      UserAccountTableCell(
+                                        name: SizedBox(
+                                          // height: 500,
+                                          // width: 73,
+                                          child: Text( user.dob??""),
+                                        ),
+                                      ),
+                                      UserAccountTableCell(
+                                        name: SizedBox(
+                                          // height: 500,
+                                           //width: 83,
+                                          child: Text(user.bvn??""),
+                                        ),
+                                      ),
+                                      UserAccountTableCell(
+                                        name: SizedBox(
+                                          // height: 500,
+                                           width: 83,
+                                          child: Text(user.countryOfResidence??""),
+                                        ),
+                                      ),
+                                      UserAccountTableCell(
+                                        name: SizedBox(
+                                          // height: 500,
+                                           width: 83,
+                                          child: Text(user.nationality1??""),
+                                        ),
+                                      ),
+                                      SizedBox(
+                         // height: 500,
                           width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].lastName ?? "No Name"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Middle Name",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].middleName ?? "No name"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Email Address",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].email ?? "No Email"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Phone Number",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].phoneNumber ?? "No Email"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Date of Birth",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].phoneNumber ?? "No Age"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "BVN",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].bvn ?? "No Age"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Residence",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].countryOfResidence ?? "Homeless"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Nationality",name: SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(user?.data![index].nationality1 ?? "No country"));
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        ),),
-                        const SizedBox(width: 10,),
-                        UserAccountTable(title: "Status",name:
-                        SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index){
-                              return Container(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
-                                child: Row(
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                               mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(icons[0],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
                                     Icon(icons[1],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
@@ -222,48 +227,53 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                     Icon(icons[3],size: 18,color: const Color(0XFF23CE6B).withOpacity(0.4),),
                                   ],
                                 ),
-                              );
-                            },
-                            itemCount: user?.data?.length,
-                          ),
-                        )),
-                        const SizedBox(width: 25,),
-                        UserAccountTable(title: "Action",name:
-                        SizedBox(
-                          height: 500,
-                          width: 100,
-                          child: ListView.builder(
-                            controller: controller,
-                            physics: const PageScrollPhysics(),
-                            itemBuilder: (context,index)=>
-                                InkWell(
-                                  onTap: () => pageProvider.gotoPage(PAGES.home),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 15),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 2),
-                                      decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius: BorderRadius.circular(24)
-                                      ),
-                                      child: const Text("View",style: TextStyle(fontFamily: "PushPenny",
-                                          fontWeight: FontWeight.w400,color: Colors.white,fontSize: 10),textAlign: TextAlign.center,),
-                                    ),
-                                  ),
-                                ),
-                            itemCount: user?.data?.length,
-                          ),
                         ),
-                        )
-                      ],
+                                      UserAccountTableCell(
+                                      //  title: "Action",
+                                        name: SizedBox(
+                                          
+                                          child: InkWell(
+                                              onTap: () {
+                                                userProvider
+                                                    .selectUser(user.id!);
+                                                pageProvider
+                                                    .gotoPage(PAGES.home);
+                                              },
+                                              child: Container(
+                                                height: 20,
+                                          width: 60,
+                                                padding: const EdgeInsets
+                                                        .symmetric(
+                                                    horizontal: 15,
+                                                    vertical: 2),
+                                                decoration: BoxDecoration(
+                                                    color: primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24)),
+                                                child: const Text(
+                                                  "View",
+                                                  style: TextStyle(
+                                                      fontFamily: "PushPenny",
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white,
+                                                      fontSize: 10),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )),
+                                        ),
+                                      )
+                                    ],
+                                  ))
+                              .toList()
+                        ],
+                      ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ),
-        )
-    );
+        ));
   }
-
 }

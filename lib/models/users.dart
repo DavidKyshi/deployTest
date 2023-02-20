@@ -4,12 +4,13 @@
 
 import 'dart:convert';
 
-Users usersFromJson(String str) => Users.fromJson(json.decode(str));
+UserApiResponse usersFromJson(String str) =>
+    UserApiResponse.fromJson(json.decode(str));
 
-String usersToJson(Users data) => json.encode(data.toJson());
+String usersToJson(UserApiResponse data) => json.encode(data.toJson());
 
-class Users {
-  Users({
+class UserApiResponse {
+  UserApiResponse({
     this.page,
     this.totalPages,
     this.totalItems,
@@ -19,25 +20,30 @@ class Users {
   int? page;
   int? totalPages;
   int? totalItems;
-  List<Datum>? data;
+  List<User>? data;
 
-  factory Users.fromJson(Map<String, dynamic> json) => Users(
-    page: json["page"],
-    totalPages: json["total_pages"],
-    totalItems: json["total_items"],
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-  );
+  factory UserApiResponse.fromJson(Map<String, dynamic> json) =>
+      UserApiResponse(
+        page: json["page"],
+        totalPages: json["total_pages"],
+        totalItems: json["total_items"],
+        data: json["data"] == null
+            ? []
+            : List<User>.from(json["data"]!.map((x) => User.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "page": page,
-    "total_pages": totalPages,
-    "total_items": totalItems,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
+        "page": page,
+        "total_pages": totalPages,
+        "total_items": totalItems,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
 }
 
-class Datum {
-  Datum({
+class User {
+  User({
     this.id,
     this.beneficiaries,
     this.wallets,
@@ -131,118 +137,132 @@ class Datum {
   List<dynamic>? groups;
   List<dynamic>? userPermissions;
 
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    id: json["id"],
-    beneficiaries: json["beneficiaries"] == null ? [] : List<dynamic>.from(json["beneficiaries"]!.map((x) => x)),
-    wallets: json["wallets"] == null ? [] : List<Wallet>.from(json["wallets"]!.map((x) => Wallet.fromJson(x))),
-    lastLogin: json["last_login"] ?? "",
-    isSuperuser: json["is_superuser"],
-    isStaff: json["is_staff"] ?? false,
-    isActive: json["is_active"] ?? false,
-    dateJoined: json["date_joined"] ?? "",
-    createdAt: json["created_at"] ?? "",
-    modifiedAt: json["modified_at"] ?? "",
-    email: json["email"] ?? "",
-    phoneNumber: json["phone_number"] ?? "",
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    middleName: json["middle_name"],
-    title: json["title"],
-    dob: json["dob"] ?? "",
-    gender: json["gender"] ?? "",
-    nationality1: json["nationality_1"] ?? "",
-    nationality2: json["nationality_2"] ?? "",
-    countryOfResidence: json["country_of_residence"] ?? "",
-    bvn: json["bvn"] ?? "",
-    bvnData: json["bvn_data"] == null ? null : BvnData.fromJson(json["bvn_data"]),
-    bvnVerified: json["bvn_verified"] ?? false,
-    canTransact: json["can_transact"] ?? false,
-    emailVerified: json["email_verified"] ?? false,
-    phoneVerified: json["phone_verified"]?? false,
-    authMethod: authMethodValues.map[json["auth_method"]]!,
-    referrerCode: json["referrer_code"],
-    referralCode: json["referral_code"],
-    referralChannel: json["referral_channel"],
-    occupation: json["occupation"],
-    eligibleForFreeSwap: json["eligible_for_free_swap"],
-    deviceImeNumber: json["device_ime_number"],
-    deviceName: json["device_name"] ??"",
-    devicePlatform: json["device_platform"] ?? "",
-    deviceModel: json["device_model"] ?? "",
-    deviceFcmToken: json["device_fcm_token"] ?? "",
-    deviceVerified: json["device_verified"],
-    riskRating: json["risk_rating"] ?? "",
-    riskScore: json["risk_score"] ?? "",
-    firebaseUid: json["firebase_uid"] ?? "",
-    profileImage: json["profile_image"] ?? "",
-    groups: json["groups"] == null ? [] : List<dynamic>.from(json["groups"]!.map((x) => x)),
-    userPermissions: json["user_permissions"] == null ? [] : List<dynamic>.from(json["user_permissions"]!.map((x) => x)),
-  );
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        beneficiaries: json["beneficiaries"] == null
+            ? []
+            : List<dynamic>.from(json["beneficiaries"]!.map((x) => x)),
+        wallets: json["wallets"] == null
+            ? []
+            : List<Wallet>.from(
+                json["wallets"]!.map((x) => Wallet.fromJson(x))),
+        lastLogin: json["last_login"] ?? "",
+        isSuperuser: json["is_superuser"],
+        isStaff: json["is_staff"] ?? false,
+        isActive: json["is_active"] ?? false,
+        dateJoined: json["date_joined"] ?? "",
+        createdAt: json["created_at"] ?? "",
+        modifiedAt: json["modified_at"] ?? "",
+        email: json["email"] ?? "",
+        phoneNumber: json["phone_number"] ?? "",
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        middleName: json["middle_name"],
+        title: json["title"],
+        dob: json["dob"] ?? "",
+        gender: json["gender"] ?? "",
+        nationality1: json["nationality_1"] ?? "",
+        nationality2: json["nationality_2"] ?? "",
+        countryOfResidence: json["country_of_residence"] ?? "",
+        bvn: json["bvn"] ?? "",
+        bvnData: json["bvn_data"] == null
+            ? null
+            : BvnData.fromJson(json["bvn_data"]),
+        bvnVerified: json["bvn_verified"] ?? false,
+        canTransact: json["can_transact"] ?? false,
+        emailVerified: json["email_verified"] ?? false,
+        phoneVerified: json["phone_verified"] ?? false,
+        authMethod: authMethodValues.map[json["auth_method"]]!,
+        referrerCode: json["referrer_code"],
+        referralCode: json["referral_code"],
+        referralChannel: json["referral_channel"],
+        occupation: json["occupation"],
+        eligibleForFreeSwap: json["eligible_for_free_swap"],
+        deviceImeNumber: json["device_ime_number"],
+        deviceName: json["device_name"] ?? "",
+        devicePlatform: json["device_platform"] ?? "",
+        deviceModel: json["device_model"] ?? "",
+        deviceFcmToken: json["device_fcm_token"] ?? "",
+        deviceVerified: json["device_verified"],
+        riskRating: json["risk_rating"] ?? "",
+        riskScore: json["risk_score"] ?? "",
+        firebaseUid: json["firebase_uid"] ?? "",
+        profileImage: json["profile_image"] ?? "",
+        groups: json["groups"] == null
+            ? []
+            : List<dynamic>.from(json["groups"]!.map((x) => x)),
+        userPermissions: json["user_permissions"] == null
+            ? []
+            : List<dynamic>.from(json["user_permissions"]!.map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "beneficiaries": beneficiaries == null ? [] : List<dynamic>.from(beneficiaries!.map((x) => x)),
-    "wallets": wallets == null ? [] : List<dynamic>.from(wallets!.map((x) => x.toJson())),
-    "last_login": lastLogin,
-    "is_superuser": isSuperuser,
-    "is_staff": isStaff,
-    "is_active": isActive,
-    "date_joined": dateJoined ?? "",
-    "created_at": createdAt ?? "",
-    "modified_at": modifiedAt ?? "",
-    "email": email,
-    "phone_number": phoneNumber,
-    "first_name": firstName,
-    "last_name": lastName,
-    "middle_name": middleName,
-    "title": title,
-    "dob": dob ?? "",
-    "gender": genderValues.reverse[gender],
-    "nationality_1": countryOfResidenceValues.reverse[nationality1],
-    "nationality_2": nationality2,
-    "country_of_residence": countryOfResidenceValues.reverse[countryOfResidence],
-    "bvn": bvn,
-    "bvn_data": bvnData?.toJson(),
-    "bvn_verified": bvnVerified,
-    "can_transact": canTransact,
-    "email_verified": emailVerified,
-    "phone_verified": phoneVerified,
-    "auth_method": authMethodValues.reverse[authMethod],
-    "referrer_code": referrerCode,
-    "referral_code": referralCode,
-    "referral_channel": referralChannel,
-    "occupation": occupation,
-    "eligible_for_free_swap": eligibleForFreeSwap,
-    "device_ime_number": deviceImeNumber,
-    "device_name": deviceNameValues.reverse[deviceName],
-    "device_platform": devicePlatformValues.reverse[devicePlatform],
-    "device_model": deviceModel,
-    "device_fcm_token": deviceFcmToken,
-    "device_verified": deviceVerified,
-    "risk_rating": riskRatingValues.reverse[riskRating],
-    "risk_score": riskScore,
-    "firebase_uid": firebaseUid,
-    "profile_image": profileImage,
-    "groups": groups == null ? [] : List<dynamic>.from(groups!.map((x) => x)),
-    "user_permissions": userPermissions == null ? [] : List<dynamic>.from(userPermissions!.map((x) => x)),
-  };
+        "id": id,
+        "beneficiaries": beneficiaries == null
+            ? []
+            : List<dynamic>.from(beneficiaries!.map((x) => x)),
+        "wallets": wallets == null
+            ? []
+            : List<dynamic>.from(wallets!.map((x) => x.toJson())),
+        "last_login": lastLogin,
+        "is_superuser": isSuperuser,
+        "is_staff": isStaff,
+        "is_active": isActive,
+        "date_joined": dateJoined ?? "",
+        "created_at": createdAt ?? "",
+        "modified_at": modifiedAt ?? "",
+        "email": email,
+        "phone_number": phoneNumber,
+        "first_name": firstName,
+        "last_name": lastName,
+        "middle_name": middleName,
+        "title": title,
+        "dob": dob ?? "",
+        "gender": genderValues.reverse[gender],
+        "nationality_1": countryOfResidenceValues.reverse[nationality1],
+        "nationality_2": nationality2,
+        "country_of_residence":
+            countryOfResidenceValues.reverse[countryOfResidence],
+        "bvn": bvn,
+        "bvn_data": bvnData?.toJson(),
+        "bvn_verified": bvnVerified,
+        "can_transact": canTransact,
+        "email_verified": emailVerified,
+        "phone_verified": phoneVerified,
+        "auth_method": authMethodValues.reverse[authMethod],
+        "referrer_code": referrerCode,
+        "referral_code": referralCode,
+        "referral_channel": referralChannel,
+        "occupation": occupation,
+        "eligible_for_free_swap": eligibleForFreeSwap,
+        "device_ime_number": deviceImeNumber,
+        "device_name": deviceNameValues.reverse[deviceName],
+        "device_platform": devicePlatformValues.reverse[devicePlatform],
+        "device_model": deviceModel,
+        "device_fcm_token": deviceFcmToken,
+        "device_verified": deviceVerified,
+        "risk_rating": riskRatingValues.reverse[riskRating],
+        "risk_score": riskScore,
+        "firebase_uid": firebaseUid,
+        "profile_image": profileImage,
+        "groups":
+            groups == null ? [] : List<dynamic>.from(groups!.map((x) => x)),
+        "user_permissions": userPermissions == null
+            ? []
+            : List<dynamic>.from(userPermissions!.map((x) => x)),
+      };
 }
 
 enum AuthMethod { FIREBASE }
 
-final authMethodValues = EnumValues({
-  "firebase": AuthMethod.FIREBASE
-});
+final authMethodValues = EnumValues({"firebase": AuthMethod.FIREBASE});
 
 class BvnData {
   BvnData();
 
-  factory BvnData.fromJson(Map<String, dynamic> json) => BvnData(
-  );
+  factory BvnData.fromJson(Map<String, dynamic> json) => BvnData();
 
-  Map<String, dynamic> toJson() => {
-  };
+  Map<String, dynamic> toJson() => {};
 }
 
 enum CountryOfResidence { NG, GB, US }
@@ -263,23 +283,16 @@ final deviceNameValues = EnumValues({
 
 enum DevicePlatform { ANDROID }
 
-final devicePlatformValues = EnumValues({
-  "android": DevicePlatform.ANDROID
-});
+final devicePlatformValues = EnumValues({"android": DevicePlatform.ANDROID});
 
 enum Gender { F, M }
 
-final genderValues = EnumValues({
-  "F": Gender.F,
-  "M": Gender.M
-});
+final genderValues = EnumValues({"F": Gender.F, "M": Gender.M});
 
 enum RiskRating { MEDIUM, HIGH }
 
-final riskRatingValues = EnumValues({
-  "high": RiskRating.HIGH,
-  "medium": RiskRating.MEDIUM
-});
+final riskRatingValues =
+    EnumValues({"high": RiskRating.HIGH, "medium": RiskRating.MEDIUM});
 
 class Wallet {
   Wallet({
@@ -329,52 +342,61 @@ class Wallet {
   String? usernationalidentity;
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-    id: json["id"],
-    currency: json["currency"],
-    approvedFundingSources: json["approved_funding_sources"] == null ? [] : List<dynamic>.from(json["approved_funding_sources"]!.map((x) => x)),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
-    status: json["status"],
-    availableBalance: json["available_balance"],
-    totalBalance: json["total_balance"],
-    provider: json["provider"],
-    clientId: json["client_id"],
-    accountId: json["account_id"],
-    accountNumber: json["account_number"],
-    accountName: json["account_name"],
-    bankCode: json["bank_code"],
-    bankName: json["bank_name"],
-    activationDate: json["activation_date"],
-    idvUrl: json["idv_url"],
-    user: json["user"],
-    tier: json["tier"],
-    address: json["address"],
-    usernationalidentity: json["usernationalidentity"],
-  );
+        id: json["id"],
+        currency: json["currency"],
+        approvedFundingSources: json["approved_funding_sources"] == null
+            ? []
+            : List<dynamic>.from(
+                json["approved_funding_sources"]!.map((x) => x)),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        modifiedAt: json["modified_at"] == null
+            ? null
+            : DateTime.parse(json["modified_at"]),
+        status: json["status"],
+        availableBalance: json["available_balance"],
+        totalBalance: json["total_balance"],
+        provider: json["provider"],
+        clientId: json["client_id"],
+        accountId: json["account_id"],
+        accountNumber: json["account_number"],
+        accountName: json["account_name"],
+        bankCode: json["bank_code"],
+        bankName: json["bank_name"],
+        activationDate: json["activation_date"],
+        idvUrl: json["idv_url"],
+        user: json["user"],
+        tier: json["tier"],
+        address: json["address"],
+        usernationalidentity: json["usernationalidentity"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "currency": currency,
-    "approved_funding_sources": approvedFundingSources == null ? [] : List<dynamic>.from(approvedFundingSources!.map((x) => x)),
-    "created_at": createdAt?.toIso8601String(),
-    "modified_at": modifiedAt?.toIso8601String(),
-    "status": status,
-    "available_balance": availableBalance,
-    "total_balance": totalBalance,
-    "provider": provider,
-    "client_id": clientId,
-    "account_id": accountId,
-    "account_number": accountNumber,
-    "account_name": accountName,
-    "bank_code": bankCode,
-    "bank_name": bankName,
-    "activation_date": activationDate,
-    "idv_url": idvUrl,
-    "user": user,
-    "tier": tier,
-    "address": address,
-    "usernationalidentity": usernationalidentity,
-  };
+        "id": id,
+        "currency": currency,
+        "approved_funding_sources": approvedFundingSources == null
+            ? []
+            : List<dynamic>.from(approvedFundingSources!.map((x) => x)),
+        "created_at": createdAt?.toIso8601String(),
+        "modified_at": modifiedAt?.toIso8601String(),
+        "status": status,
+        "available_balance": availableBalance,
+        "total_balance": totalBalance,
+        "provider": provider,
+        "client_id": clientId,
+        "account_id": accountId,
+        "account_number": accountNumber,
+        "account_name": accountName,
+        "bank_code": bankCode,
+        "bank_name": bankName,
+        "activation_date": activationDate,
+        "idv_url": idvUrl,
+        "user": user,
+        "tier": tier,
+        "address": address,
+        "usernationalidentity": usernationalidentity,
+      };
 }
 
 class EnumValues<T> {
