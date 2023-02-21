@@ -47,6 +47,7 @@ final pageProvider = PageViewProvider();
           )
         ),
         home:  FirstTimer(),
+        //FirstTimer(),
         routes: {
           UserAccountScreen.route:(context)=>UserAccountScreen(),
         },

@@ -27,13 +27,34 @@ class SearchField extends StatefulWidget {
   final String? helperText, errorText;
 
   // final bool readOnly,obscureText;
-  final bool?  enabled, isDense;
+  final bool? enabled, isDense;
   final String? hintText, initialValue;
-  const SearchField({Key? key, this.controller, this.focusNode, this.keyboardType,
-    this.onChanged, this.validator, this.onTap, this.onSaved, this.borderRadius,
-    this.prefixIcon, this.suffixIcon, this.labelText, this.maxLength, this.connectBorder,
-    this.errorBorderColor, this.focusBorderColor, this.inputFormatters, this.helperText,
-    this.errorText,  this.enabled, this.isDense, this.hintText, this.initialValue, this.createOffer = false}) : super(key: key);
+  const SearchField(
+      {Key? key,
+      this.controller,
+      this.focusNode,
+      this.keyboardType,
+      this.onChanged,
+      this.validator,
+      this.onTap,
+      this.onSaved,
+      this.borderRadius,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.labelText,
+      this.maxLength,
+      this.connectBorder,
+      this.errorBorderColor,
+      this.focusBorderColor,
+      this.inputFormatters,
+      this.helperText,
+      this.errorText,
+      this.enabled,
+      this.isDense,
+      this.hintText,
+      this.initialValue,
+      this.createOffer = false})
+      : super(key: key);
 
   @override
   State<SearchField> createState() => _SearchFieldState();
@@ -46,13 +67,12 @@ class _SearchFieldState extends State<SearchField> {
     return Container(
       height: 70,
       decoration: BoxDecoration(
-        color: const Color(0XFFEAEBF1),
-        borderRadius: BorderRadius.circular(48)
-      ),
+          color: const Color(0XFFEAEBF1),
+          borderRadius: BorderRadius.circular(48)),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        keyboardType: widget.keyboardType?? TextInputType.text,
-        controller:widget.controller,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
+        controller: widget.controller,
         focusNode: widget.focusNode,
         initialValue: widget.initialValue,
         validator: widget.validator,
@@ -62,48 +82,65 @@ class _SearchFieldState extends State<SearchField> {
         inputFormatters: widget.inputFormatters,
         maxLength: widget.maxLength,
         // obscureText: obscureText,
-        style:  TextStyle(
+        style: TextStyle(
             color: kyshiGreyishBlue,
-            fontSize:16.0 ,
-            fontWeight:  FontWeight.w300),
+            fontSize: 16.0,
+            fontWeight: FontWeight.w300),
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: const EdgeInsets.symmetric(vertical:40,horizontal:60),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 40, horizontal: 60),
           suffixIcon: InkWell(
-            onTap: (){
+            onTap: () {
               print("fjknjkfnjfn");
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/16,
+              margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 16,
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () => pageProvider.gotoPage(PAGES.createAnOfferScreen),
+                    onTap: () =>
+                        pageProvider.gotoPage(PAGES.createAnOfferScreen),
                     child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 13, horizontal: 35),
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(48)),
-                    child: const Text("Create offer",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
-                                  ),
-                  ),
-                const SizedBox(width: 15,),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 30),
-                    decoration: BoxDecoration(
-                      color: const Color(0XFFFFFFFF),
-                      borderRadius: BorderRadius.circular(48)
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 13, horizontal: 35),
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(48)),
+                      child: const Text(
+                        "Create offer",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny'),
+                      ),
                     ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 30),
+                    decoration: BoxDecoration(
+                        color: const Color(0XFFFFFFFF),
+                        borderRadius: BorderRadius.circular(48)),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Export CSV",style: TextStyle(color: primaryLimeGreen),),
-                        const SizedBox(width: 10,),
+                        Text(
+                          "Export CSV",
+                          style: TextStyle(color: primaryLimeGreen),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         SvgPicture.asset(documentSvg),
                       ],
                     ),
@@ -114,7 +151,7 @@ class _SearchFieldState extends State<SearchField> {
           ),
           isDense: widget.isDense,
           errorText: widget.errorText,
-          hintStyle:  TextStyle(
+          hintStyle: TextStyle(
               color: kyshiGreyishBlue,
               fontFamily: 'Gilroy',
               fontSize: 16.0,
@@ -124,26 +161,26 @@ class _SearchFieldState extends State<SearchField> {
             borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
             borderSide: const BorderSide(color: Color(0xffE6E7E9)),
           ),
-          disabledBorder:  OutlineInputBorder(
+          disabledBorder: OutlineInputBorder(
             borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
-            borderSide: const BorderSide(color:Color(0xffE6E7E9)),
+            borderSide: const BorderSide(color: Color(0xffE6E7E9)),
           ),
           labelText: '',
           focusedErrorBorder: OutlineInputBorder(
-              borderRadius:  widget.borderRadius ??BorderRadius.circular(48),
+              borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
               borderSide: const BorderSide(color: Colors.red)),
           errorBorder: OutlineInputBorder(
               borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
               borderSide:
-              BorderSide(color: widget.errorBorderColor ?? Colors.red)),
+                  BorderSide(color: widget.errorBorderColor ?? Colors.red)),
           focusedBorder: OutlineInputBorder(
               borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
-              borderSide:
-              BorderSide(color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
+              borderSide: BorderSide(
+                  color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
           prefixIcon: InkWell(
             onTap: () {},
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,9 +188,11 @@ class _SearchFieldState extends State<SearchField> {
                   Container(
                     decoration: const BoxDecoration(
                         border: Border(
-                            right: BorderSide(width: 2, color: Colors.black54))),
+                            right:
+                                BorderSide(width: 2, color: Colors.black54))),
                     padding: const EdgeInsets.symmetric(horizontal: 13),
-                    margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,23 +211,40 @@ class _SearchFieldState extends State<SearchField> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 10,),
-                  Icon(Icons.search_outlined,
-                      color: kyshiGreyishBlue),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Icon(Icons.search_outlined, color: kyshiGreyishBlue),
                 ],
               ),
             ),
           ),
           hintText: widget.hintText,
         ),
-        onChanged:widget.onChanged,
+        onChanged: widget.onChanged,
         onSaved: widget.onSaved,
       ),
     );
   }
 }
 
-class UserAccountTable extends StatelessWidget {
+class UserAccountTableRow extends StatelessWidget {
+  const UserAccountTableRow({super.key, this.title});
+  final String? title;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+              title ?? "",
+              style: TextStyle(
+                  color: primaryColor,
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12),
+            );
+  }
+}
+
+class UserAccountTableCell extends StatelessWidget {
   final String? title;
   final Widget? name;
   final bool icons;
@@ -202,11 +258,21 @@ class UserAccountTable extends StatelessWidget {
   final String? status;
   final String? nationality;
   final String? action;
-   const UserAccountTable({
-    Key? key,this.title, this.lastName,
-    this.middleName, this.emailAddress, this.phoneNumber,
-    this.dateOfBirth, this.BVN, this.residence,
-    this.status, this.nationality, this.action, this.name, this.icons = false,
+  const UserAccountTableCell({
+    Key? key,
+    this.title,
+    this.lastName,
+    this.middleName,
+    this.emailAddress,
+    this.phoneNumber,
+    this.dateOfBirth,
+    this.BVN,
+    this.residence,
+    this.status,
+    this.nationality,
+    this.action,
+    this.name,
+    this.icons = false,
   }) : super(key: key);
 
   @override
@@ -216,48 +282,59 @@ class UserAccountTable extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title ?? "", style: TextStyle(color: primaryColor,
-            fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
-            const SizedBox(height: 40,),
-          name ?? Container()
+            // Text(
+            //   title ?? "",
+            //   style: TextStyle(
+            //       color: primaryColor,
+            //       fontFamily: 'PushPenny',
+            //       fontWeight: FontWeight.w500,
+            //       fontSize: 12),
+            // ),
+            // const SizedBox(
+            //   height: 40,
+            // ),
+            name ?? Container()
           ],
         ),
-
       ],
     );
   }
 }
 
-
 class CreateOfferTitleTable extends StatelessWidget {
   final String title;
-   final Widget name;
-   const CreateOfferTitleTable({
-    Key? key, required this.title, required this.name
-  }) : super(key: key);
+  final Widget name;
+  const CreateOfferTitleTable(
+      {Key? key, required this.title, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(color: primaryColor,
-        fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
-       const SizedBox(height: 40,),
-       name
+        Text(
+          title,
+          style: TextStyle(
+              color: primaryColor,
+              fontFamily: 'PushPenny',
+              fontWeight: FontWeight.w500,
+              fontSize: 12),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        name
       ],
     );
   }
 }
 
-
-
 class AllOfferTitleTable extends StatelessWidget {
   final String title;
-   final Widget name;
-   const AllOfferTitleTable({
-    Key? key, required this.title, required this.name
-  }) : super(key: key);
+  final Widget name;
+  const AllOfferTitleTable({Key? key, required this.title, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -267,15 +344,21 @@ class AllOfferTitleTable extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: primaryColor,
-            fontFamily: 'PushPenny',fontWeight: FontWeight.w500,fontSize: 12),),
-           const SizedBox(height: 40,),
-           name
+            Text(
+              title,
+              style: TextStyle(
+                  color: primaryColor,
+                  fontFamily: 'PushPenny',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            name
           ],
         ),
       ),
     );
   }
 }
-
-

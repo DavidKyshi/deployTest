@@ -64,8 +64,9 @@ class ReferralProgramContainer extends StatelessWidget {
 }
 
 class ProfilePictureCard extends StatelessWidget {
-  const ProfilePictureCard({super.key});
-
+   ProfilePictureCard({super.key, required this.firstName, required this.lastName});
+   final String firstName;
+   final String lastName;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -99,7 +100,7 @@ class ProfilePictureCard extends StatelessWidget {
             height: 15,
           ),
           Text(
-            'Bright George',
+            '${firstName} ${lastName}',
             style: TextStyle(
               color: Color(0xff222B4A),
               fontWeight: FontWeight.w500,

@@ -27,7 +27,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
               children: [
                 UserProfileButtonContainer(text: 'User Profile Picture',),
                 SizedBox(height: 10,),
-                ProfilePictureCard()
+                ProfilePictureCard(firstName: 'input', lastName: 'name',)
               ],
             ),
             SizedBox(width: 30,),
