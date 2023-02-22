@@ -1,7 +1,3 @@
-
-
-
-
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/screens/user_account_page/identification_summary.dart';
@@ -16,11 +12,9 @@ import '../../helper/screen_export.dart';
 import 'accept_offer.dart';
 import 'create_offer.dart';
 
-
 class UserAccountTab extends StatelessWidget {
-
   const UserAccountTab({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,7 +25,6 @@ class UserAccountTab extends StatelessWidget {
         child: DefaultTabController(
           length: 9,
           initialIndex: 0,
-
           child: Column(
             children: [
               Container(
@@ -39,7 +32,7 @@ class UserAccountTab extends StatelessWidget {
                   isScrollable: true,
                   labelColor: Color(0xff233375),
                   labelStyle: TextStyle(
-                     fontFamily: "PushPenny",
+                    fontFamily: "PushPenny",
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
@@ -83,12 +76,12 @@ class UserAccountTab extends StatelessWidget {
                 ),
               ),
               Container(
-
-                height: MediaQuery.of(context).size.height/1.1, //height of TabBarView
+                height: MediaQuery.of(context).size.height /
+                    1.1, //height of TabBarView
                 decoration: const BoxDecoration(
-                    border:
-                        Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-                child:  TabBarView(
+                    border: Border(
+                        top: BorderSide(color: Colors.grey, width: 0.5))),
+                child: TabBarView(
                   children: [
                     AccountKYC(),
                     WalletAndBeneficiaries(),
@@ -96,23 +89,22 @@ class UserAccountTab extends StatelessWidget {
                     AcceptOfferTable(),
                     KyshiConnectServices(),
                     KyshiCard(),
-
-                   TransactionHistory(),
+                    TransactionHistory(),
                     TransactionSummaryBoard(),
-                   IdentificationSummary(),
+                    IdentificationSummary(),
                   ],
                 ),
               ),
 
-      //       Container(
-      //          width: 1179.83,
-      // height:  97.55,
-      // color: Color(0xffF9F9F9),
-      //         child: Row(
-      //           children: [
-      //             LastDaysFilter(),
-      //           ],
-      //         ))
+              //       Container(
+              //          width: 1179.83,
+              // height:  97.55,
+              // color: Color(0xffF9F9F9),
+              //         child: Row(
+              //           children: [
+              //             LastDaysFilter(),
+              //           ],
+              //         ))
             ],
           ),
         ),

@@ -14,9 +14,6 @@ class AccountKYC extends StatefulWidget {
 }
 
 class _AccountKYCState extends State<AccountKYC> {
-
-
-
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
 
@@ -28,7 +25,9 @@ class _AccountKYCState extends State<AccountKYC> {
 
   @override
   Widget build(BuildContext context) {
-   final  user = userProvider.getUserById();
+    final user = userProvider.getUserById();
+    String formattedDateTime = convertDateTime(user!.dateJoined ?? "");
+    String createdAt = convertDateTime(user.createdAt ?? "");
     return SingleChildScrollView(
       // scrollDirection: Axis.horizontal,
       child: Padding(
@@ -51,10 +50,12 @@ class _AccountKYCState extends State<AccountKYC> {
                           height: 10,
                         ),
                         ProfilePictureCard(
-                          firstName:
-                              user!.firstName ?? " No firstname",
-                          lastName:
-                              user.lastName ?? "No lasttname",
+                          firstName: user.firstName ?? "",
+                          lastName: user.lastName ?? "",
+                          profileImage: user.profileImage == "" ||
+                                  user.profileImage == null
+                              ? profilePicture
+                              : user.profileImage,
                         )
                       ],
                     ),
@@ -69,11 +70,25 @@ class _AccountKYCState extends State<AccountKYC> {
                         ),
                         Row(
                           children: [
-                            BioDataParameters(),
+                            BioDataParameters(
+                              dateOfBirth: user.dob ?? "",
+                              dateOfRegistration: formattedDateTime,
+                              email: user.email ?? "",
+                              emailStatus: user.emailVerified ?? false,
+                              firstName: user.firstName ?? "",
+                              gender: user.gender ?? "",
+                              lastName: user.lastName ?? "",
+                              middleName: user.middleName ?? "",
+                              nationality: user.nationality1 ?? "",
+                              occupation: user.occupation ?? "",
+                              phoneNumberStatus: user.phoneVerified ?? false,
+                              phoneNumber: user.phoneNumber ?? "",
+                              residence: user.countryOfResidence ?? "",
+                            ),
                             SizedBox(
                               width: 20,
                             ),
-                            NatureAndPurposeOfAccount(),
+                            NatureAndPurposeOfAccount(currency: "GBP",),
                             SizedBox(
                               height: 10,
                             ),
@@ -97,7 +112,7 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        RiskStatusCard(),
+                        RiskStatusCard(riskRatingg: user.riskRating??"", riskScore: user.riskScore??"",),
                         //  UserProfileButtonContainer(text: 'Risk Status',),
                       ],
                     ),
@@ -126,7 +141,7 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        ReferralProgramBoard()
+                        ReferralProgramBoard(code: user.referralCode??"",)
                       ],
                     ),
                   ],
@@ -144,7 +159,7 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        KycRecordsBoard()
+                        KycRecordsBoard(createdAt: createdAt,)
                       ],
                     ),
                     SizedBox(
@@ -158,7 +173,7 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        DocumentBoard()
+                        DocumentBoard(createdAt: createdAt,)
                       ],
                     ),
                   ],

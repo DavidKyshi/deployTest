@@ -10,7 +10,7 @@ class PageNotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Stack(
+      body: Stack(
         clipBehavior: Clip.none,
         children: [
           Container(
@@ -32,16 +32,18 @@ class PageNotFoundScreen extends StatelessWidget {
                         height: 40,
                       ),
                     ),
-
                   ],
                 ),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text("© 2022 Kyshi Limited. All rights reserved.",style:
-                  TextStyle(
-                      color: Color(0XFF233375),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,fontFamily: 'PushPenny'),),
+                  child: Text(
+                    "© 2022 Kyshi Limited. All rights reserved.",
+                    style: TextStyle(
+                        color: Color(0XFF233375),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        fontFamily: 'PushPenny'),
+                  ),
                 )
               ],
             ),
@@ -63,49 +65,86 @@ class PageNotFoundScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(height: 50,),
-                              Text("Ooops...",style: TextStyle(color: primaryColor,
-                                  fontSize: 64,
-                                  fontFamily: 'PushPenny',fontWeight: FontWeight.w700),),
-                              Text("Page Not Found",style: TextStyle(color: primaryColor,
-                                  fontSize: 64,
-                                  fontFamily: 'PushPenny',fontWeight: FontWeight.w500),),
-                              Text("Sorry. the content you’re looking for doesn’t exist.\nEither it was removed, or you mistyped the link. ",style: TextStyle(color: kyshiGreyishBlue,
-                                  fontSize: 18,
-                                  fontFamily: 'PushPenny',fontWeight: FontWeight.w400,overflow: TextOverflow.ellipsis),),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              Text(
+                                "Ooops...",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 64,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              Text(
+                                "Page Not Found",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontSize: 64,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                "Sorry. the content you’re looking for doesn’t exist.\nEither it was removed, or you mistyped the link. ",
+                                style: TextStyle(
+                                    color: kyshiGreyishBlue,
+                                    fontSize: 18,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w400,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
                               SizedBox(height: 30),
-                              KyshiButtonResponsive(color: primaryColor, onPressed: (){},size: 200,child: Row(children: [
-                                SvgPicture.asset(outArrow),
-                                const SizedBox(width: 7,),
-                                Text("Go Back Home",style: buttonTextStyleResponsive,)
-                              ],),)
+                              KyshiButtonResponsive(
+                                color: primaryColor,
+                                onPressed: () {},
+                                size: 200,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(outArrow),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Text(
+                                      "Go Back Home",
+                                      style: buttonTextStyleResponsive,
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                          const SizedBox(width: 20,),
-                          Center(child: SvgPicture.asset(errorCode,width: 150,))
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Center(
+                              child: SvgPicture.asset(
+                            errorCode,
+                            width: 150,
+                          ))
                         ],
                       ),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
           //...
         ],
       ),
-
     );
   }
-  Column buildColumn({required String title,required String image ,required bool svg}) {
+
+  Column buildColumn(
+      {required String title, required String image, required bool svg}) {
     return Column(
       children: [
         svg ? SvgPicture.asset(image) : Image.asset(image),
         SizedBox(
           height: 15,
         ),
-        Text(title,
+        Text(
+          title,
           style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w400,

@@ -14,22 +14,21 @@ class PayOutTransactionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            Text('Transactions',
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Transactions',
             style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
-              fontFamily: "PushPenny",
-              color: primaryColor
-            ),
-            ),
-            PayOutTransactionTab(),
-          ],
-        )
-      ),
+                fontSize: 32,
+                fontWeight: FontWeight.w700,
+                fontFamily: "PushPenny",
+                color: primaryColor),
+          ),
+          PayOutTransactionTab(),
+        ],
+      )),
     );
   }
 }

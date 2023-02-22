@@ -10,15 +10,18 @@ class UsersProvider extends ChangeNotifier {
 
   void selectUser(String id) {
     currentSelectedUserId = id;
+    notifyListeners();
   }
 
   User? getUserById([String? id]) {
     if (users.isEmpty) return null;
-    if (id==null && currentSelectedUserId==null) return null;
-
+    if (id == null && currentSelectedUserId == null) return null;
+    // notifyListeners();
     return users.firstWhere(
         (element) => element.id == (id ?? currentSelectedUserId),
         orElse: null);
+        
+
   }
 
   Future<List<User>> getUsers() async {

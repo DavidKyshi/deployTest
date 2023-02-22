@@ -1,4 +1,3 @@
-
 import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_tab.dart';
 
 const UserAccountPageRoute = 'UserAccount';
@@ -7,12 +6,10 @@ const UserAccountTabPageRoute = 'UserAccountTab';
 const welcomeBack = "welcomeBack";
 // const AuthenticationPageRoute = 'Authentication';
 
-List sideMenuItems =[
-UserAccountPageRoute,
-OfferManagementPageRoute,
+List sideMenuItems = [
+  UserAccountPageRoute,
+  OfferManagementPageRoute,
 // AuthenticationPageRoute
 ];
-List otherPages =[
-  UserAccountTabPageRoute
-];
+List otherPages = [UserAccountTabPageRoute];
 //UserAccountTab

@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/page_not_found/page_not_found.dart';
 
 class UserProfileButtonContainer extends StatelessWidget {
-  UserProfileButtonContainer({super.key, required this.text,});
+  UserProfileButtonContainer({
+    super.key,
+    required this.text,
+  });
   final String text;
   @override
   Widget build(BuildContext context) {
@@ -64,9 +68,13 @@ class ReferralProgramContainer extends StatelessWidget {
 }
 
 class ProfilePictureCard extends StatelessWidget {
-   ProfilePictureCard({super.key, required this.firstName, required this.lastName});
-   final String firstName;
-   final String lastName;
+  ProfilePictureCard(
+      {super.key,
+      required this.firstName,
+      required this.lastName,
+      required this.profileImage});
+  final String firstName, lastName, profileImage;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,7 +99,7 @@ class ProfilePictureCard extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(width: 1.3, color: Colors.black),
                   image: DecorationImage(
-                      image: AssetImage(profilePicture), fit: BoxFit.fill),
+                      image: AssetImage(profileImage), fit: BoxFit.fill),
                 ),
               ),
             ),
@@ -203,13 +211,52 @@ class ExportButton extends StatelessWidget {
   }
 }
 
+String convertDateTime(String dateTimeStr) {
+  // Parse the date-time string
+  DateTime dateTime = DateTime.parse(dateTimeStr);
+
+  // Create a DateFormat object with the desired format
+  DateFormat dateFormat = DateFormat("dd-MM-yyyy • hh:mm a");
+
+  // Convert the DateTime object to a formatted string
+  String formattedDateTime = dateFormat.format(dateTime);
+
+  return formattedDateTime;
+}
+
 class BioDataParameters extends StatelessWidget {
-  const BioDataParameters({super.key});
+  const BioDataParameters(
+      {super.key,
+      required this.firstName,
+      required this.middleName,
+      required this.lastName,
+      required this.gender,
+      required this.dateOfBirth,
+      required this.email,
+      required this.emailStatus,
+      required this.phoneNumber,
+      required this.phoneNumberStatus,
+      required this.occupation,
+      required this.nationality,
+      required this.residence,
+      required this.dateOfRegistration});
+  final String firstName,
+      middleName,
+      lastName,
+      gender,
+      dateOfBirth,
+      email,
+      phoneNumber,
+      occupation,
+      nationality,
+      residence,
+      dateOfRegistration;
+  final bool emailStatus, phoneNumberStatus;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 293.22,
+      width: 350,
       height: 533.82,
       decoration: BoxDecoration(
           color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
@@ -217,167 +264,171 @@ class BioDataParameters extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BioDataTitleTextStyle(
-                    text: 'First Name',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Middle Name',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Last Name',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Gender',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Date of Birth',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Email',
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  BioDataSubTitleTextStyle(
-                    text: 'Status',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Phone',
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  BioDataSubTitleTextStyle(
-                    text: 'Status',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Occupation',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Nationality',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Residence',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioDataTitleTextStyle(
-                    text: 'Date Registered',
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BioDataTitleTextStyle(
+                      text: 'First Name',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Middle Name',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Last Name',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Gender',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Date of Birth',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Email',
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: 'Status',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Phone',
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    BioDataSubTitleTextStyle(
+                      text: 'Status',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Occupation',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Nationality',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Residence',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    BioDataTitleTextStyle(
+                      text: 'Date Registered',
+                    ),
+                  ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BioDataSubTitleTextStyle(
-                      text: 'Bright',
+                      text: firstName,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'Nwapocha',
+                      text: middleName,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'George',
+                      text: lastName,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'Male',
+                      text: gender,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: '07/06/1990',
+                      text: dateOfBirth,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'brightgerg@yahoo.com',
+                      text: email,
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     BioDataStatusTextStyle(
-                      isActive: true,
-                      text: 'Verified',
+                      isActive: emailStatus,
+                      text: emailStatus == true ? "Verified" : "Unverified",
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: '+2347039429722',
+                      text: phoneNumber,
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     BioDataStatusTextStyle(
-                      isActive: false,
-                      text: 'Unverified',
+                      isActive: phoneNumberStatus,
+                      text:
+                          phoneNumberStatus == true ? "Verified" : "Unverified",
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'Product Designer',
+                      text: occupation,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'Nigerian',
+                      text: nationality,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: 'Nigeria',
+                      text: residence,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: '27-12-2021 • 06:48 PM',
+                      text: dateOfRegistration,
                     )
                   ],
                 ),
@@ -387,6 +438,7 @@ class BioDataParameters extends StatelessWidget {
     );
   }
 }
+
 class IdentificationData extends StatelessWidget {
   const IdentificationData({super.key});
 
@@ -529,7 +581,6 @@ class IdentificationData extends StatelessWidget {
   }
 }
 
-
 class BioDataTitleTextStyle extends StatelessWidget {
   const BioDataTitleTextStyle({super.key, required this.text});
   final String text;
@@ -574,12 +625,12 @@ class BioDataStatusTextStyle extends StatelessWidget {
 }
 
 class NatureAndPurposeOfAccount extends StatelessWidget {
-  const NatureAndPurposeOfAccount({super.key});
-
+  const NatureAndPurposeOfAccount({super.key, required this.currency});
+   final String currency;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 476.35,
+      width: 476,
       height: 534.82,
       decoration: BoxDecoration(
           color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
@@ -659,38 +710,38 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
                 Column(
                   children: [
                     NatureAndPurposeIsActiveTextStyle(
-                      text: 'NGN',
-                      isActiveText: 'Active',
-                      status: false,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NatureAndPurposeIsActiveTextStyle(
-                      text: 'GBP',
-                      isActiveText: 'Inactive',
-                      status: true,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                Column(
-                  children: [
-                    NatureAndPurposeIsActiveTextStyle(
-                      text: 'USD',
-                      isActiveText: 'Inactive',
+                      text: currency,
+                      isActiveText: 'Pending',
                       status: true,
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    NatureAndPurposeIsActiveTextStyle(
-                      text: 'CAD',
-                      isActiveText: 'Inactive',
-                      status: true,
-                    ),
+                //     NatureAndPurposeIsActiveTextStyle(
+                //       text: 'GBP',
+                //       isActiveText: 'Inactive',
+                //       status: true,
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   width: 40,
+                // ),
+                // Column(
+                //   children: [
+                //     NatureAndPurposeIsActiveTextStyle(
+                //       text: 'USD',
+                //       isActiveText: 'Inactive',
+                //       status: true,
+                //     ),
+                //     SizedBox(
+                //       height: 20,
+                //     ),
+                //     NatureAndPurposeIsActiveTextStyle(
+                //       text: 'CAD',
+                //       isActiveText: 'Inactive',
+                //       status: true,
+                //     ),
                   ],
                 )
               ],
@@ -790,13 +841,14 @@ class NatureAndPurposeHeadingTextStyle extends StatelessWidget {
         ),
         isShow
             ? InkWell(
-              onTap: (){
-                Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const PageNotFoundScreen()),
-  );
-              },
-              child: Text(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PageNotFoundScreen()),
+                  );
+                },
+                child: Text(
                   'Show more',
                   style: TextStyle(
                       color: Color(0xff23CE6B),
@@ -804,7 +856,7 @@ class NatureAndPurposeHeadingTextStyle extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       decoration: TextDecoration.underline),
                 ),
-            )
+              )
             : SizedBox()
       ],
     );
@@ -885,7 +937,7 @@ class NatureAndPurposeIsActiveTextStyle extends StatelessWidget {
         Text(
           isActiveText,
           style: TextStyle(
-              color: status != true ? Color(0xff23CE6B) : Color(0xffFF5C5C),
+              color: status != true ? Color(0xff23CE6B) : Color(0xffFBCD58),
               fontWeight: FontWeight.w400,
               fontSize: 14),
         )
@@ -895,8 +947,9 @@ class NatureAndPurposeIsActiveTextStyle extends StatelessWidget {
 }
 
 class RiskStatusCard extends StatelessWidget {
-  const RiskStatusCard({super.key});
-
+  const RiskStatusCard({super.key, required this.riskScore, required this.riskRatingg});
+  final String riskScore;
+ final String riskRatingg;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -932,7 +985,7 @@ class RiskStatusCard extends StatelessWidget {
                     children: [
                       RichText(
                           text: TextSpan(
-                              text: '01',
+                              text: riskScore,
                               style: TextStyle(
                                   color: Color(0xff233375),
                                   fontSize: 40,
@@ -983,12 +1036,12 @@ class RiskStatusCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Medium',
+                        riskRatingg,
                         style: TextStyle(
                             fontFamily: "PushPenny",
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xffFBCD58)),
+                            color: riskScore == "Medium"?Color(0xffFBCD58): riskScore == "Low"? Color(0xff6E80A3) : Colors.green),
                       ),
                       Text(
                         'Risk Rating',
@@ -1143,8 +1196,8 @@ class IdentificationStatusBoard extends StatelessWidget {
 }
 
 class ReferralProgramBoard extends StatelessWidget {
-  const ReferralProgramBoard({super.key});
-
+  const ReferralProgramBoard({super.key, required this.code});
+ final String code;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1177,7 +1230,7 @@ class ReferralProgramBoard extends StatelessWidget {
                               color: Color(0xff233375)),
                         ),
                         Text(
-                          '₦10,078.00',
+                          '₦0.00',
                           style: TextStyle(
                             color: Color(0xff233375),
                             fontFamily: 'PushPenny',
@@ -1201,7 +1254,7 @@ class ReferralProgramBoard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Code -  BRG0091',
+                            'Code -  ${code}',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -1253,55 +1306,55 @@ class ReferralProgramBoard extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            NatureAndPurposeTextStyle(
-                              text: 'Dele Oguniran',
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            NatureAndPurposeTextStyle(
-                              text: 'Adewale Obanla',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Column(
-                          children: [
-                            NatureAndPurposeTextStyle(
-                              text: 'Thomas Johnson',
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            NatureAndPurposeTextStyle(
-                              text: 'Funke Adejumo',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Column(
-                          children: [
-                            NatureAndPurposeTextStyle(
-                              text: 'Ehis Teghang',
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            NatureAndPurposeTextStyle(
-                              text: 'Folawiyo Akin',
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
+                    // Row(
+                    //   children: [
+                    //     Column(
+                    //       children: [
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Dele Oguniran',
+                    //         ),
+                    //         SizedBox(
+                    //           height: 20,
+                    //         ),
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Adewale Obanla',
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     Column(
+                    //       children: [
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Thomas Johnson',
+                    //         ),
+                    //         SizedBox(
+                    //           height: 20,
+                    //         ),
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Funke Adejumo',
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     Column(
+                    //       children: [
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Ehis Teghang',
+                    //         ),
+                    //         SizedBox(
+                    //           height: 20,
+                    //         ),
+                    //         NatureAndPurposeTextStyle(
+                    //           text: 'Folawiyo Akin',
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // )
                   ],
                 ),
               )),
@@ -1345,8 +1398,8 @@ class KYCRecordsAndDocunmentContainer extends StatelessWidget {
 }
 
 class KycRecordsBoard extends StatelessWidget {
-  const KycRecordsBoard({super.key});
-
+  const KycRecordsBoard({super.key, required this.createdAt});
+  final String createdAt;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1380,13 +1433,12 @@ class KycRecordsBoard extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(
-                        text: 'Nov 28, 2022 • 3:58 PM'),
-                        SizedBox(height: 30),
-                    KycRecordsAndDocumentBoardSubText(
-                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        text: createdAt),
+                    SizedBox(height: 30),
+                    // KycRecordsAndDocumentBoardSubText(
+                    //     text: 'Nov 28, 2022 • 3:58 PM'),
                   ],
                 ),
-
                 SizedBox(width: 50),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1394,26 +1446,39 @@ class KycRecordsBoard extends StatelessWidget {
                     KycRecordsAndDocumentBoardTitle(
                       text: 'REASON',
                     ),
-                                    SizedBox(height: 30),
+                    SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(text: 'IDV'),
                     SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(text: 'Fraud'),
                   ],
                 ),
-                                SizedBox(width: 50),
+                SizedBox(width: 50),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      
                       KycRecordsAndDocumentBoardTitle(
                         text: 'STATUS',
                       ),
                       SizedBox(height: 30),
-                      KycRecordsAndDocumentBoardButton(color: Color(0xff23CE6B), imageHeight: 20, imageWidth: 20, text: 'Passed', width: 132, image: 'assets/images/check.png',),
+                      KycRecordsAndDocumentBoardButton(
+                        color: Color(0xff23CE6B),
+                        imageHeight: 20,
+                        imageWidth: 20,
+                        text: 'Passed',
+                        width: 132,
+                        image: 'assets/images/check.png',
+                      ),
                       SizedBox(height: 30),
-                       KycRecordsAndDocumentBoardButton(color: Color(0xffFBCD58), imageHeight: 20, imageWidth: 20, text: 'Pending', width: 132, image: 'assets/images/check.png',)
+                      KycRecordsAndDocumentBoardButton(
+                        color: Color(0xffFBCD58),
+                        imageHeight: 20,
+                        imageWidth: 20,
+                        text: 'Pending',
+                        width: 132,
+                        image: 'assets/images/check.png',
+                      )
                     ],
                   ),
                 ),
@@ -1427,8 +1492,8 @@ class KycRecordsBoard extends StatelessWidget {
 }
 
 class DocumentBoard extends StatelessWidget {
-  const DocumentBoard({super.key});
-
+  const DocumentBoard({super.key, required this.createdAt});
+  final String createdAt;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1462,13 +1527,12 @@ class DocumentBoard extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(
-                        text: 'Nov 28, 2022 • 3:58 PM'),
-                        SizedBox(height: 30),
-                    KycRecordsAndDocumentBoardSubText(
-                        text: 'Nov 28, 2022 • 3:58 PM'),
+                        text: createdAt),
+                    SizedBox(height: 30),
+                    // KycRecordsAndDocumentBoardSubText(
+                    //     text: 'Nov 28, 2022 • 3:58 PM'),
                   ],
                 ),
-
                 SizedBox(width: 50),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1476,26 +1540,39 @@ class DocumentBoard extends StatelessWidget {
                     KycRecordsAndDocumentBoardTitle(
                       text: 'IMAGES',
                     ),
-                                    SizedBox(height: 30),
+                    SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(text: '2'),
                     SizedBox(height: 30),
                     KycRecordsAndDocumentBoardSubText(text: '1'),
                   ],
                 ),
-                                SizedBox(width: 50),
+                SizedBox(width: 50),
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      
                       KycRecordsAndDocumentBoardTitle(
                         text: 'ACTION',
                       ),
                       SizedBox(height: 30),
-                      KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',),
+                      KycRecordsAndDocumentBoardButton(
+                        color: Color(0xff233375),
+                        imageHeight: 20,
+                        imageWidth: 20,
+                        text: 'View',
+                        width: 132,
+                        image: 'assets/images/eye.png',
+                      ),
                       SizedBox(height: 30),
-                       KycRecordsAndDocumentBoardButton(color: Color(0xff233375), imageHeight: 20, imageWidth: 20, text: 'View', width: 132, image: 'assets/images/eye.png',)
+                      KycRecordsAndDocumentBoardButton(
+                        color: Color(0xff233375),
+                        imageHeight: 20,
+                        imageWidth: 20,
+                        text: 'View',
+                        width: 132,
+                        image: 'assets/images/eye.png',
+                      )
                     ],
                   ),
                 ),
@@ -1541,15 +1618,15 @@ class KycRecordsAndDocumentBoardSubText extends StatelessWidget {
 }
 
 class KycRecordsAndDocumentBoardButton extends StatelessWidget {
-  KycRecordsAndDocumentBoardButton(
-      {super.key,
-      required this.color,
-      required this.imageHeight,
-      required this.imageWidth,
-      required this.width,
-      required this.text,
-      required this.image,
-      });
+  KycRecordsAndDocumentBoardButton({
+    super.key,
+    required this.color,
+    required this.imageHeight,
+    required this.imageWidth,
+    required this.width,
+    required this.text,
+    required this.image,
+  });
   double width;
   double imageHeight;
   double imageWidth;
@@ -1576,7 +1653,9 @@ class KycRecordsAndDocumentBoardButton extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontFamily: "PushPenny"),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Image.asset(
             image,
             width: 24,

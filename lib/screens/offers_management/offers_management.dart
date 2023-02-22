@@ -12,9 +12,7 @@ class OffersManagementScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            OfferManagementTab()
-          ],
+          children: [OfferManagementTab()],
         ),
       ),
     );

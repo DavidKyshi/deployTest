@@ -14,10 +14,16 @@ class UserTransactions {
   String phoneNumber;
   String status;
 
-  UserTransactions({required this.wallet,
-    required this.dates,required this.rate,required this.phoneNumber,
-    required this.provider,required this.amount, required this.status});
+  UserTransactions(
+      {required this.wallet,
+      required this.dates,
+      required this.rate,
+      required this.phoneNumber,
+      required this.provider,
+      required this.amount,
+      required this.status});
 }
+
 class KyshiCard extends StatefulWidget {
   const KyshiCard({Key? key}) : super(key: key);
 
@@ -26,113 +32,191 @@ class KyshiCard extends StatefulWidget {
 }
 
 class _KyshiCardState extends State<KyshiCard> {
-  List<String> dates = ["Nov 28, 20223:58 PM","Nov 28, 20223:58 PM","Nov 28, 20223:58 PM"];
-  List<String> wallets = ["NGN","GBP","USD"];
-  List<String> items =["Dates","Wallet","Provider","Phone Number", "Exchange rate","Status"];
-  List<String> provider = ["Seerbit","Seerbit","Seerbit"];
-  List<String> rate = ["£1/₦900","£1/₦900","£1/₦900"];
-  List<String> status = ["Successful","Successful","Failed"];
-  List<String> amount = ["3000","3000","3000"];
-  List<String> phoneNumber = ["+2341988736636","+2341988736636","+2341988736636"];
+  List<String> dates = [
+    "Nov 28, 20223:58 PM",
+    "Nov 28, 20223:58 PM",
+    "Nov 28, 20223:58 PM"
+  ];
+  List<String> wallets = ["NGN", "GBP", "USD"];
+  List<String> items = [
+    "Dates",
+    "Wallet",
+    "Provider",
+    "Phone Number",
+    "Exchange rate",
+    "Status"
+  ];
+  List<String> provider = ["Seerbit", "Seerbit", "Seerbit"];
+  List<String> rate = ["£1/₦900", "£1/₦900", "£1/₦900"];
+  List<String> status = ["Successful", "Successful", "Failed"];
+  List<String> amount = ["3000", "3000", "3000"];
+  List<String> phoneNumber = [
+    "+2341988736636",
+    "+2341988736636",
+    "+2341988736636"
+  ];
   List<UserTransactions> userList = [
-    UserTransactions(wallet: "NGN", dates: "Nov 28, 20223:58 PM", status: 'Failed', rate: '£1/₦900', provider: 'Seerbit', phoneNumber: '+23049949904004', amount: '3000'),
-    UserTransactions(wallet: "GBP", dates: "Nov 28, 20223:58 PM", amount: '3000', phoneNumber: '+23049949904004', rate: '£1/₦900', status: 'Successful', provider: 'Seerbit'),
-    UserTransactions(wallet: "USD", dates: "Nov 28, 20223:58 PM", amount: '3000', phoneNumber: '+23049949904004', rate: '£1/₦900', status: 'Successful', provider: 'Seerbit'),
+    UserTransactions(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        status: 'Failed',
+        rate: '£1/₦900',
+        provider: 'Seerbit',
+        phoneNumber: '+23049949904004',
+        amount: '3000'),
+    UserTransactions(
+        wallet: "GBP",
+        dates: "Nov 28, 20223:58 PM",
+        amount: '3000',
+        phoneNumber: '+23049949904004',
+        rate: '£1/₦900',
+        status: 'Successful',
+        provider: 'Seerbit'),
+    UserTransactions(
+        wallet: "USD",
+        dates: "Nov 28, 20223:58 PM",
+        amount: '3000',
+        phoneNumber: '+23049949904004',
+        rate: '£1/₦900',
+        status: 'Successful',
+        provider: 'Seerbit'),
   ];
   ScrollController? controller;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-             Container(
-               padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
-               width: MediaQuery.of(context).size.width / 1.6,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              width: MediaQuery.of(context).size.width / 1.6,
               decoration: BoxDecoration(
-                color: const Color(0XFFF4F5F8),
-                borderRadius: BorderRadius.circular(12)
+                  color: const Color(0XFFF4F5F8),
+                  borderRadius: BorderRadius.circular(12)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 400,
+                    height: 200,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.98),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildRow(
+                            title: "Activation date\nNov 28, 2022•3:58 PM",
+                            image: SvgPicture.asset(logo)),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SvgPicture.asset(sound),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        buildRow(
+                            title: "Bright George Card balance",
+                            image: const SizedBox()),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        buildRow(
+                            title: "\$10,000",
+                            image: SvgPicture.asset(visa),
+                            isBold: true)
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 400,
+                    height: 200,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.98),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildRow(
+                            title: "Virtual Dollar Card",
+                            image: SvgPicture.asset(logo)),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SvgPicture.asset(sound),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        buildRow(
+                            title: "**** **** **** 90182",
+                            image: const Icon(Icons.copy),
+                            isBold: true),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildRow(
+                                title: "Valid thru",
+                                image: const Text(
+                                  "CVV",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                            const SizedBox()
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildRow(
+                                title: "07/24    ",
+                                image: const Text(
+                                  "    ***",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                            const SizedBox()
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                 children: [
-                   Container(
-                     width: 400,
-                     height: 200,
-                     padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 15),
-                     decoration: BoxDecoration(
-                       color: primaryColor.withOpacity(0.98),
-                       borderRadius: BorderRadius.circular(10),
-                     ),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         buildRow(title: "Activation date\nNov 28, 2022•3:58 PM",image:SvgPicture.asset(logo) ),
-                         const SizedBox(height: 20,),
-                         SvgPicture.asset(sound),
-                         const SizedBox(height: 20,),
-                         buildRow(title: "Bright George Card balance", image: const SizedBox()),
-                         const SizedBox(height: 20,),
-                         buildRow(title: "\$10,000", image: SvgPicture.asset(visa),isBold: true)
-                       ],
-                     ),
-                   ),
-                   Container(
-                     width: 400,
-                     height: 200,
-                     padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 15),
-                     decoration: BoxDecoration(
-                       color: primaryColor.withOpacity(0.98),
-                       borderRadius: BorderRadius.circular(10),
-                     ),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         buildRow(title: "Virtual Dollar Card",image:SvgPicture.asset(logo) ),
-                         const SizedBox(height: 20,),
-                         SvgPicture.asset(sound),
-                         const SizedBox(height: 20,),
-                         buildRow(title: "**** **** **** 90182", image: const Icon(Icons.copy),isBold: true),
-                         const SizedBox(height: 20,),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             buildRow(title: "Valid thru", image: const Text("CVV",style: TextStyle(color: Colors.white),)),
-                             const SizedBox()
-                           ],
-                         ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             buildRow(title: "07/24    ", image: const Text("    ***",style: TextStyle(color: Colors.white),)),
-                             const SizedBox()
-                           ],
-                         )
-                       ],
-                     ),
-                   ),
-                 ],
-               ),
             ),
-            const SizedBox(height: 20,),
-            const SearchFieldDropdown(dropDownTitle: "Card",),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
+            const SearchFieldDropdown(
+              dropDownTitle: "Card",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             SingleChildScrollView(
               child: Container(
-                height:600,
-                decoration:  BoxDecoration(
-                    color:const Color(0XFFEAEBF1),
-                    borderRadius: BorderRadius.circular(12)
-                ),
+                height: 600,
+                decoration: BoxDecoration(
+                    color: const Color(0XFFEAEBF1),
+                    borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding:const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: DataTable(
                   columns: const <DataColumn>[
-                    DataColumn(label: Text("Dates"),
+                    DataColumn(
+                      label: Text("Dates"),
                       // tooltip: "To Display name"
                     ),
                     DataColumn(label: Text("Wallet")),
@@ -142,33 +226,32 @@ class _KyshiCardState extends State<KyshiCard> {
                     DataColumn(label: Text("Exchange rate")),
                     DataColumn(label: Text("Status")),
                   ],
-                  rows: userList.map(
+                  rows: userList
+                      .map(
                         (user) => DataRow(
-                      cells: [
-                        DataCell(
-                          Text(user.dates),
+                          cells: [
+                            DataCell(
+                              Text(user.dates),
+                            ),
+                            DataCell(
+                              Text(user.wallet),
+                            ),
+                            DataCell(
+                              Text(user.provider),
+                            ),
+                            DataCell(
+                              Text(user.phoneNumber),
+                            ),
+                            DataCell(
+                              Text(user.amount),
+                            ),
+                            DataCell(Text(user.rate)),
+                            DataCell(Text(user.status)),
+                          ],
                         ),
-                        DataCell(
-                          Text(user.wallet),
-                        ),
-                        DataCell(
-                          Text(user.provider),
-                        ),
-                        DataCell(
-                          Text(user.phoneNumber),
-                        ),
-                        DataCell(
-                          Text(user.amount),
-                        ),
-                        DataCell(
-                            Text(user.rate)
-                        ),
-                        DataCell(
-                            Text(user.status)
-                        ),
-                      ],
-                    ),
-                  ).toList(),),
+                      )
+                      .toList(),
+                ),
               ),
               // Container(
               //   padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
@@ -323,13 +406,23 @@ class _KyshiCardState extends State<KyshiCard> {
     );
   }
 
-  Row buildRow({required String title,required Widget image,bool isBold = false}) {
+  Row buildRow(
+      {required String title, required Widget image, bool isBold = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title,style: TextStyle(fontWeight: FontWeight.w500,fontSize:isBold ? 28 : 10,fontFamily: 'PushPenny',color: Colors.white),),
-       const SizedBox(width: 15,),
-       image
+        Text(
+          title,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: isBold ? 28 : 10,
+              fontFamily: 'PushPenny',
+              color: Colors.white),
+        ),
+        const SizedBox(
+          width: 15,
+        ),
+        image
       ],
     );
   }
@@ -368,14 +461,14 @@ class CardDetailRow extends StatelessWidget {
             },
             child: const Center(
                 child: Text(
-                  "Tap to copy",
-                  style: TextStyle(
-                      fontFamily: 'PushPenny',
-                      color: Colors.red,
-                      fontSize: 12,
-                      // decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.w400),
-                )),
+              "Tap to copy",
+              style: TextStyle(
+                  fontFamily: 'PushPenny',
+                  color: Colors.red,
+                  fontSize: 12,
+                  // decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w400),
+            )),
           ),
         ],
         Row(
