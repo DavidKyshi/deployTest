@@ -369,7 +369,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           ),
                         ],
                       ),
-                    ).toList(),),
+                    ).toList(),
+                  ),
                 ),
               ),
               // Container(
