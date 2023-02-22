@@ -151,16 +151,36 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                   Text(user.phoneNumber ?? ""),
                 ),
                 DataCell(
-                    Text(user.dob ?? "")
+                    Text(user.dob ?? "",style: TextStyle(
+                      color: primaryColor,
+                      fontFamily: 'PushPenny',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14
+                    ),)
                 ),
                 DataCell(
-                    Text(user.bvn ?? "")
+                    Text(user.bvn ?? "",style: TextStyle(
+                        color: primaryColor,
+                        fontFamily: 'PushPenny',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14
+                    ))
                 ),
                 DataCell(
-                  Text(user.countryOfResidence ?? ""),
+                  Text(user.countryOfResidence ?? "",style: TextStyle(
+                      color: primaryColor,
+                      fontFamily: 'PushPenny',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14
+                  )),
                 ),
                 DataCell(
-                    Text(user.nationality2 ?? "")
+                    Text(user.nationality1 ?? "",style: TextStyle(
+                        color: primaryColor,
+                        fontFamily: 'PushPenny',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14
+                    ))
                 ),
                  DataCell(
                       Row(
@@ -179,19 +199,17 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                         onTap: () {
                           userProvider.selectUser(user.id!);
                           pageProvider.gotoPage(PAGES.home);
+                          userProvider.getConnectSerivices();
+                          userProvider.getTransactions();
                         },
                         child: Container(
                           height: 20,
                           width: 60,
-                          padding: const EdgeInsets
-                              .symmetric(
-                              horizontal: 15,
-                              vertical: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                           decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius:
-                              BorderRadius.circular(
-                                  24)),
+                              BorderRadius.circular(24)),
                           child: const Text(
                             "View",
                             style: TextStyle(
@@ -218,57 +236,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 // ),
               ],
             ),).toList()
-                        // userList.map(
-                        //       (user) => DataRow(
-                        //     cells: [
-                        //       DataCell(
-                        //         Text(user.dates),
-                        //       ),
-                        //       DataCell(
-                        //         Text(user.type),
-                        //       ),
-                        //       DataCell(
-                        //         Text(user.beneficiary),
-                        //       ),
-                        //       DataCell(
-                        //         Text(user.channel),
-                        //       ),
-                        //       DataCell(
-                        //         Text(user.amount),
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.charges)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.offer)
-                        //       ),
-                        //       DataCell(
-                        //         Text(user.processor),
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.sender)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.purpose)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.recipient)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.operation ?? " ")
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.id)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.ledger)
-                        //       ),
-                        //       DataCell(
-                        //           Text(user.status)
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ).toList(),),
                     ),
                   ),)
                 // ListView(

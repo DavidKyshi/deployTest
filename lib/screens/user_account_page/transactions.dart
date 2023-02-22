@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/transactions.dart';
+import '../../providers/users.dart';
+import '../../styleguide/colors.dart';
+import '../../styleguide/image_asset.dart';
 
 class UserTransactionHistory {
   String wallet;
@@ -42,6 +49,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   List<String> rate = ["£1/₦900","£1/₦900","£1/₦900"];
   List<String> status = ["Successful","Successful","Failed"];
   List<String> amount = ["3000","3000","3000"];
+  List<TransactionsData>? transactions;
   List<String> phoneNumber = ["+2341988736636","+2341988736636","+2341988736636"];
   List<UserTransactionHistory> userList = [
     UserTransactionHistory(wallet: "NGN", dates: "Nov 28, 20223:58 PM", channel: "Fund", charges:
@@ -62,6 +70,12 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301", id: "6086346c-c5ac-98-6086346c-c5ac-98", ledger: "NIL", processor: 'VFDBank')
   ];
   ScrollController? controller;
+   @override
+  void initState() {
+     transactions =Provider.of<UsersProvider>(context, listen: false).transactions;
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -82,76 +96,276 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 padding:const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    dataRowHeight: 60,
-                    columns: const <DataColumn>[
-                      DataColumn(label: Text("Dates"),
-                        // tooltip: "To Display name"
+                  child:transactions!.isEmpty?
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Date",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Type",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Beneficiary",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Channel",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Charges",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Offer",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Sender",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Purpose",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Recipient",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Operation",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("ID",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                          Text("Ledger",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          )),
+                        ],
                       ),
-                      DataColumn(label: Text("Type")),
-                      DataColumn(label: Text("Beneficiary")),
-                      DataColumn(label: Text("Channel")),
-                      DataColumn(label: Text("Amount")),
-                      DataColumn(label: Text("Charges")),
-                      DataColumn(label: Text("Offer")),
-                      DataColumn(label: Text("Processor"),
-                        // tooltip: "To Display name"
-                      ),
-                      DataColumn(label: Text("Sender")),
-                      DataColumn(label: Text("Purpose")),
-                      DataColumn(label: Text("Recipient")),
-                      DataColumn(label: Text("Operation")),
-                      DataColumn(label: Text("ID")),
-                      DataColumn(label: Text("Ledger")),
-                      DataColumn(label: Text("Status")),
+                      const SizedBox(height: 100,),
+                      SvgPicture.asset(empty),
+                      Text("The user is yet to make a transaction,\n  it will appear here when the user\n does",style: TextStyle(
+                        color: primaryColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'PushPenny',
+                      ),)
                     ],
-                    rows: userList.map(
-                          (user) => DataRow(
+                  ):
+                  DataTable(
+                    dataRowHeight: 60,
+                    columns:  <DataColumn>[
+                      DataColumn(label: Text("Dates",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      )),
+                        // tooltip: "To Display name"
+                      ),
+                      DataColumn(label: Text("Type",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Beneficiary",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Channel",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Amount",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Charges",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Offer",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Processor",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      )),
+                        // tooltip: "To Display name"
+                      ),
+                      DataColumn(label: Text("Sender",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Purpose",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Recipient",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Operation",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("ID",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Ledger",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                      DataColumn(label: Text("Status",style: TextStyle(
+                          color: primaryColor,
+                          fontFamily: 'PushPenny',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ))),
+                    ],
+                    rows: transactions!.map(
+                          (trx) => DataRow(
                         cells: [
                           DataCell(
-                            Text(user.dates),
+                            Text("${trx.createdAt}",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
                           ),
                           DataCell(
-                            Text(user.type),
+                            Text(trx.type ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
                           ),
                           DataCell(
-                            Text(user.beneficiary),
+                            Text(trx.beneficiary ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
                           ),
                           DataCell(
-                            Text(user.channel),
+                            Text(trx.channel ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
                           ),
                           DataCell(
-                            Text(user.amount),
+                            Text(trx.amount ?? ""),
                           ),
                           DataCell(
-                              Text(user.charges)
+                              Text(trx.serviceCharge ?? "")
+                          ),
+                          const DataCell(
+                              Text( "NIL")
                           ),
                           DataCell(
-                              Text(user.offer)
+                              Text(trx.processor ?? "",style: TextStyle(
+                                  color: primaryColor,
+                                  fontFamily: 'PushPenny',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14
+                              )),
+                          ),
+                          const DataCell(
+                              Text( "No sender")
+                          ),
+                          const DataCell(
+                              Text("No purpose")
                           ),
                           DataCell(
-                              Text(user.processor),
+                              Text(trx.beneficiary ?? "",style: TextStyle(
+                                  color: primaryColor,
+                                  fontFamily: 'PushPenny',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14
+                              ))
+                          ),
+                           const DataCell(
+                              Text( "")
+                          ),
+                          const DataCell(
+                              Text( "No ID")
                           ),
                           DataCell(
-                              Text(user.sender)
+                              Text(trx.ledgerOperation ?? "")
                           ),
                           DataCell(
-                              Text(user.purpose)
-                          ),
-                          DataCell(
-                              Text(user.recipient)
-                          ),
-                          DataCell(
-                              Text(user.operation ?? " ")
-                          ),
-                          DataCell(
-                              Text(user.id)
-                          ),
-                          DataCell(
-                              Text(user.ledger)
-                          ),
-                          DataCell(
-                              Text(user.status)
+                              Text(trx.status ?? "",style: TextStyle(
+                                  color: primaryColor,
+                                  fontFamily: 'PushPenny',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14
+                              ))
                           ),
                         ],
                       ),

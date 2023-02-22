@@ -46,4 +46,58 @@ class UserService {
       rethrow;
     }
   }
+  Future<Map<String, dynamic>> getKyshiConnectServices({required String userId}) async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/kyshi-connect");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+        "/ops/kyshi-connect",
+        queryParameters: {
+          "user_id":userId
+        }
+      );
+      // http.get(uri);
+      // print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print("$response ALL DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getKyshiConnectTransactions() async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/dashboard/transactions");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/dashboard/transactions",
+          // queryParameters: {
+          //   "user_id":userId
+          // }
+      );
+      // http.get(uri);
+      // print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print("$response ALL TRANSACTION DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
 }

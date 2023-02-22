@@ -1,7 +1,11 @@
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet/wallet_details.dart';
+import 'package:provider/provider.dart';
 
-import '../../helper/screen_export.dart';
-import '../../styleguide/colors.dart';
+import '../../../helper/screen_export.dart';
+import '../../../models/users.dart';
+import '../../../providers/users.dart';
+import '../../../styleguide/colors.dart';
 
 class WalletAndBeneficiaries extends StatefulWidget {
   const WalletAndBeneficiaries({Key? key}) : super(key: key);
@@ -17,6 +21,14 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
   final List<String> route = ["NIL", "NIL"];
   final List<String> sortCode = ["10019921", "10019921"];
   final List<String> currency = ["NGN", "NGN"];
+  User? user;
+
+  @override
+  void initState() {
+    user = Provider.of<UsersProvider>(context, listen: false).getUserById();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,215 +49,216 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         walletStatus(
-                            title: "NGN wallet details",
+                            title: "${user?.wallets![index].currency} wallet details",
                             subTitle: "SET",
                             color: primaryColor,
                             backgroundColor: primaryColor,
                             containerColor: const Color(0x0ff9f9f9),
                             padding2: 60,
                             padding1: 10),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     walletStatus(title: "NGN wallet details", subTitle: "SET",
-                        //         color: primaryColor, backgroundColor:primaryColor, containerColor: const Color(0x0ff9f9f9), padding2: 60, padding1: 10),
-                        //     walletStatus(title: "GBP wallet deleted", subTitle: 'Re-open application',
-                        //         color: Colors.white, backgroundColor:kyshiGreen, containerColor: kyshiRed, padding2: 14, padding1: 10 )
-                        //   ],
-                        // ),
                         const SizedBox(
                           height: 20,
                         ),
-                        Stack(
-                          clipBehavior: Clip.none,
-                          fit: StackFit.loose,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              padding: const EdgeInsets.only(
-                                  top: 15, left: 15, right: 60, bottom: 40),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color(0XFF8C8C8C)
-                                          .withOpacity(0.2)),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "WALLET BALANCE",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: 'PushPenny',
-                                            color: primaryColor),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      Container(
-                                        width: 90,
-                                        height: 20,
-                                        // padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
-                                        decoration: BoxDecoration(
-                                            color: kyshiGreen,
-                                            border:
-                                                Border.all(color: primaryColor),
-                                            borderRadius:
-                                                BorderRadius.circular(19)),
-                                        child: const Text(
-                                          "Active",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontFamily: 'PushPenny',
-                                              fontWeight: FontWeight.w400),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  RichText(
-                                      text: TextSpan(
-                                          text: "₦10,078,092.00",
-                                          style: TextStyle(
-                                              color: primaryColor,
-                                              fontSize: 40,
-                                              fontWeight: FontWeight.w500))),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        top: 10,
-                                        bottom: 10,
-                                        right: 50,
-                                        left: 15),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: primaryColor),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                        Container(
+                          width: MediaQuery.of(context).size.width/2,
+                          height: MediaQuery.of(context).size.height/3,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            fit: StackFit.loose,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                padding: const EdgeInsets.only(
+                                    top: 15, left: 15, right: 60, bottom: 40),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: const Color(0XFF8C8C8C)
+                                            .withOpacity(0.2)),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
                                       children: [
                                         Text(
-                                          "BOnus balance",
+                                          "WALLET BALANCE",
                                           style: TextStyle(
+                                              fontSize: 12,
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 8,
                                               fontFamily: 'PushPenny',
-                                              color: kyshiGreyishBlue),
+                                              color: primaryColor),
                                         ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: "₦10,078.00",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 20,
-                                                color: kyshiGreyishBlue),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Container(
+                                          width: 90,
+                                          height: 20,
+                                          // padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                                          decoration: BoxDecoration(
+                                              color: const Color(0XFF8C8C8C),
+                                              border:
+                                                  Border.all(color: primaryColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(19)),
+                                          child:  Text(
+                                            "${user?.wallets![index].status}",
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                fontFamily: 'PushPenny',
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
                                           ),
                                         )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                                top: 200,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 15),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  // height: 500,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0XFFF8F9FE),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "BANK ACCOUNT DETAILS",
-                                        style: TextStyle(
-                                            color: primaryColor,
-                                            fontSize: 12,
-                                            fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const Divider(
-                                        color: Colors.white,
-                                        height: 2,
-                                        thickness: 2,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      bankAccountDetails(
-                                          detail: "Account Number",
-                                          value: '01488787992'),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      bankAccountDetails(
-                                          detail: "Account Name",
-                                          value: 'Bright George'),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      bankAccountDetails(
-                                          detail: "Bank Name",
-                                          value: 'VFD Bank'),
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 10),
-                                        decoration: BoxDecoration(
-                                            color: primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(24)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: const [
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            Text(
-                                              "View full wallet details",
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: "₦${user?.wallets![index].availableBalance}",
+                                            style: TextStyle(
+                                                color: primaryColor,
+                                                fontSize: 40,
+                                                fontWeight: FontWeight.w500))),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 10,
+                                          bottom: 10,
+                                          right: 50,
+                                          left: 15),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: primaryColor),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Bonus balance",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 8,
+                                                fontFamily: 'PushPenny',
+                                                color: kyshiGreyishBlue),
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: "₦${user?.wallets![index].totalBalance}",
                                               style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: 'PushPenny'),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 20,
+                                                  color: kyshiGreyishBlue),
                                             ),
-                                            Icon(Icons.calendar_today_outlined),
-                                            SizedBox(
-                                              width: 20,
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  top: 200,
+                                  child: InkWell(
+                                    onTap: (){
+                                      print("bkhbdhkbdhbdhbd ");
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> WalletDetails(wallet: user?.wallets![index],)));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 15),
+                                      width: MediaQuery.of(context).size.width / 3,
+                                      // height: 500,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0XFFF8F9FE),
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "BANK ACCOUNT DETAILS",
+                                            style: TextStyle(
+                                                color: primaryColor,
+                                                fontSize: 12,
+                                                fontFamily: 'PushPenny',
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          const Divider(
+                                            color: Colors.white,
+                                            height: 2,
+                                            thickness: 2,
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          bankAccountDetails(
+                                              detail: "Account Number",
+                                              value: '${user?.wallets![index].accountNumber ?? ""}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          bankAccountDetails(
+                                              detail: "Account Name",
+                                              value: '${user?.wallets![index].accountName ?? "no name"}'),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          bankAccountDetails(
+                                              detail: "Bank Name",
+                                              value: '${user?.wallets![index].bankName ?? "no bank"}'),
+                                          const SizedBox(
+                                            height: 40,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8, horizontal: 10),
+                                            decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(24)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children:  const [
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(
+                                                  "View full wallet details",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily: 'PushPenny'),
+                                                ),
+                                                Icon(Icons.calendar_today_outlined),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ))
-                          ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          ),
                         ),
                       ],
                     );
                   },
-                  itemCount: 4,
+                  itemCount: user?.wallets?.length,
                 ),
               ),
               // const SizedBox(height: 11,),
