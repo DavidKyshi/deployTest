@@ -5,10 +5,11 @@ import 'package:kyshi_operations_dashboard/screens/user_account_page/kyshi_card.
 import 'package:kyshi_operations_dashboard/screens/user_account_page/kyshi_connect_services.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/transaction_summary.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/transactions.dart';
-import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet_beneficiaries.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet/wallet_beneficiaries.dart';
 
 import '../../helper/screen_export.dart';
 
+import '../../styleguide/colors.dart';
 import 'accept_offer.dart';
 import 'create_offer.dart';
 
@@ -27,6 +28,23 @@ class UserAccountTab extends StatelessWidget {
           initialIndex: 0,
           child: Column(
             children: [
+              Row(
+                children: [
+                  Text("User Accounts",style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'PushPenny',
+                      color: primaryColor
+                  ),),
+                  Icon(Icons.arrow_forward_ios,color: primaryColor,size: 14,),
+                  Text("Account Profile",style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'PushPenny',
+                      color: kyshiGreyishBlue
+                  ),),
+                ],
+              ),
               Container(
                 child: const TabBar(
                   isScrollable: true,

@@ -1,4 +1,16 @@
+
+
+
+
+
+import 'dart:developer';
+
+import 'package:provider/provider.dart';
+
 import '../../helper/screen_export.dart';
+import '../../models/connectServices.dart';
+import '../../providers/users.dart';
+import '../../styleguide/colors.dart';
 
 class UserTransactions {
   String wallet;
@@ -27,29 +39,15 @@ class KyshiConnectServices extends StatefulWidget {
 }
 
 class _KyshiConnectServicesState extends State<KyshiConnectServices> {
-  List<String> dates = [
-    "Nov 28, 20223:58 PM",
-    "Nov 28, 20223:58 PM",
-    "Nov 28, 20223:58 PM"
-  ];
-  List<String> wallets = ["NGN", "GBP", "USD"];
-  List<String> items = [
-    "Dates",
-    "Wallet",
-    "Provider",
-    "Phone Number",
-    "Exchange rate",
-    "Status"
-  ];
-  List<String> provider = ["Seerbit", "Seerbit", "Seerbit"];
-  List<String> rate = ["£1/₦900", "£1/₦900", "£1/₦900"];
-  List<String> status = ["Successful", "Successful", "Failed"];
-  List<String> amount = ["3000", "3000", "3000"];
-  List<String> phoneNumber = [
-    "+2341988736636",
-    "+2341988736636",
-    "+2341988736636"
-  ];
+  List<String> dates = ["Nov 28, 20223:58 PM","Nov 28, 20223:58 PM","Nov 28, 20223:58 PM"];
+  List<String> wallets = ["NGN","GBP","USD"];
+  List<String> items =["Dates","Wallet","Provider","Phone Number", "Exchange rate","Status"];
+  List<String> provider = ["Seerbit","Seerbit","Seerbit"];
+  List<String> rate = ["£1/₦900","£1/₦900","£1/₦900"];
+  List<String> status = ["Successful","Successful","Failed"];
+  List<String> amount = ["3000","3000","3000"];
+  List<String> phoneNumber = ["+2341988736636","+2341988736636","+2341988736636"];
+  List<Services>? connectServices;
   List<UserTransactions> userList = [
     UserTransactions(
         wallet: "NGN",
@@ -78,18 +76,20 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
   ];
   ScrollController? controller;
   @override
+  void initState() {
+    connectServices = Provider.of<UsersProvider>(context, listen: false).connectService;
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
-          children: [
-            const SearchFieldDropdown(
-              dropDownTitle: "Health Plans",
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+          children:  [
+            const SearchFieldDropdown(dropDownTitle: "Airtime",),
+            const SizedBox(height: 20,),
             SingleChildScrollView(
               child: Container(
                 height: 600,
@@ -97,9 +97,70 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                     color: const Color(0XFFEAEBF1),
                     borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: DataTable(
+                padding:const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
+                child:connectServices!.isEmpty ?
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Dates",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Wallet",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Provider",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Phone Number",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Amount (₦)",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 100,),
+                    SvgPicture.asset(empty),
+                    Text("The user is yet to make transaction"
+                        " \nwith Kyshi connect services,"
+                        "  it will\n appear here when the user does",style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'PushPenny',
+                    ),)
+                  ],
+                ) :
+                DataTable(
                   columns: const <DataColumn>[
                     DataColumn(
                       label: Text("Dates"),
@@ -112,31 +173,54 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                     DataColumn(label: Text("Exchange rate")),
                     DataColumn(label: Text("Status")),
                   ],
-                  rows: userList
-                      .map(
-                        (user) => DataRow(
-                          cells: [
-                            DataCell(
-                              Text(user.dates),
-                            ),
-                            DataCell(
-                              Text(user.wallet),
-                            ),
-                            DataCell(
-                              Text(user.provider),
-                            ),
-                            DataCell(
-                              Text(user.phoneNumber),
-                            ),
-                            DataCell(
-                              Text(user.amount),
-                            ),
-                            DataCell(Text(user.rate)),
-                            DataCell(Text(user.status)),
-                          ],
-                        ),
-                      )
-                      .toList(),
+                  rows:connectServices!.map(
+                        (service) =>
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Text("${service.createdAt}",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14
+                        )),
+                      ),
+                      DataCell(
+                        Text(service.currency ?? "",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14
+                        )),
+                      ),
+                      const DataCell(
+                        Text("Seerbit"),
+                      ),
+                      const DataCell(
+                        Text( "No phone number"),
+                      ),
+                      DataCell(
+                        Text(service.amount ?? "",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14
+                        )),
+                      ),
+                      const DataCell(
+                          Text("No rate")
+                      ),
+                      DataCell(
+                          Text(service.status ?? "",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          ))
+                      ),
+                    ],
+                  ),
+                  ).toList()
                 ),
               ),
               // Container(

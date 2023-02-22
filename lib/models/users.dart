@@ -118,7 +118,7 @@ class User {
   bool? canTransact;
   bool? emailVerified;
   bool? phoneVerified;
-  AuthMethod? authMethod;
+  String? authMethod;
   String? referrerCode;
   String? referralCode;
   String? referralChannel;
@@ -172,7 +172,7 @@ class User {
         canTransact: json["can_transact"] ?? false,
         emailVerified: json["email_verified"] ?? false,
         phoneVerified: json["phone_verified"] ?? false,
-        authMethod: authMethodValues.map[json["auth_method"]]!,
+        authMethod: json["auth_method"],
         referrerCode: json["referrer_code"],
         referralCode: json["referral_code"],
         referralChannel: json["referral_channel"],
@@ -229,7 +229,7 @@ class User {
         "can_transact": canTransact,
         "email_verified": emailVerified,
         "phone_verified": phoneVerified,
-        "auth_method": authMethodValues.reverse[authMethod],
+        "auth_method": authMethod,
         "referrer_code": referrerCode,
         "referral_code": referralCode,
         "referral_channel": referralChannel,
