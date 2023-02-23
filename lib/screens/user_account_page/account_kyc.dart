@@ -127,7 +127,7 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        IdentificationStatusBoard()
+                        IdentificationStatusBoard(bvn: user.bvn, bvnVerified: user.bvnVerified?? false, canTransact: user.canTransact??false,)
                       ],
                     ),
                     SizedBox(

@@ -81,7 +81,7 @@ class CreateAnOfferCard extends StatelessWidget {
                         width: 10,
                       ),
                       const Text(
-                        '£10.00',
+                        '£0.00',
                         style: TextStyle(
                             color: Color(0xff6F6F6F),
                             fontSize: 10,
@@ -126,7 +126,7 @@ class ExchangeTextField extends StatelessWidget {
               child: TextFormField(
                 decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: '1,000',
+                    hintText: '0.00',
                     hintStyle: TextStyle(
                         color: Color(0xff233375),
                         fontSize: 24,
@@ -303,7 +303,7 @@ class SummaryBox extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      '£1010.00',
+                      '£0.00',
                       style: TextStyle(
                           color: primaryColor,
                           fontSize: 18,
@@ -354,7 +354,7 @@ class SummaryBox extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
-                              '970',
+                              '0',
                               style: TextStyle(
                                   color: primaryColor,
                                   fontSize: 18,
@@ -439,7 +439,7 @@ class BankDetails extends StatelessWidget {
                     color: Color(0xffF8F9FE),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 30, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -450,9 +450,12 @@ class BankDetails extends StatelessWidget {
                               fontSize: 10,
                               fontWeight: FontWeight.w400),
                         ),
-                        Row(
+                        Column(
+                          children: [
+                            Row(
                           children: [
                             Text('Nigerian Naira'),
+                            SizedBox(width: 30,),
                             Container(
                               width: 38,
                               height: 14,
@@ -470,10 +473,132 @@ class BankDetails extends StatelessWidget {
                               ),
                             )
                           ],
-                        )
+                        ),
+                        Divider()
+                          ],
+                        ),
+                        SizedBox(height: 40,),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Bank Name'),
+                            // SizedBox(width: 50,),
+                            Icon(Icons.arrow_drop_down,
+                            size: 20,
+                            color: Color(0xff23CE6B),
+                            )
+                          ],
+                        ),
+                        Divider()
+                          ],
+                        ),
+                         SizedBox(height: 40,),
+                        Column(
+                          children: [
+                            Row(
+                          children: [
+                            Text('Account number'),
+                            // Container(
+                            //   width: 38,
+                            //   height: 14,
+                            //   decoration: BoxDecoration(
+                            //       color: Color(0xff7880AA),
+                            //       borderRadius: BorderRadius.circular(2)),
+                            //   child: Center(
+                            //     child: Text(
+                            //       'N NGN',
+                            //       style: TextStyle(
+                            //           fontSize: 9,
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        Divider()
+                          ],
+                        ),
+                         SizedBox(height: 40,),
+                        Column(
+                          children: [
+                            Row(
+                          children: [
+                            Text('Beneficiary (Autofill)'),
+                            // Container(
+                            //   width: 38,
+                            //   height: 14,
+                            //   decoration: BoxDecoration(
+                            //       color: Color(0xff7880AA),
+                            //       borderRadius: BorderRadius.circular(2)),
+                            //   child: Center(
+                            //     child: Text(
+                            //       'N NGN',
+                            //       style: TextStyle(
+                            //           fontSize: 9,
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        Divider()
+                          ],
+                        ),
+                         SizedBox(height: 40,),
+                        Column(
+                          children: [
+                            Row(
+                          children: [
+                            Text('Purpose'),
+                            // Container(
+                            //   width: 38,
+                            //   height: 14,
+                            //   decoration: BoxDecoration(
+                            //       color: Color(0xff7880AA),
+                            //       borderRadius: BorderRadius.circular(2)),
+                            //   child: Center(
+                            //     child: Text(
+                            //       'N NGN',
+                            //       style: TextStyle(
+                            //           fontSize: 9,
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        Divider()
+                          ],
+                        ),
                       ],
                     ),
-                  ))
+                  )
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    width: 444,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          fontFamily: "PushPenny"
+                        ),
+                      ),
+                    ),
+                  )
             ],
           ),
         ));

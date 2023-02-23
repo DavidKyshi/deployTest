@@ -59,501 +59,523 @@ class _ClosedOfferTableState extends State<ClosedOfferTable> {
                   decoration: BoxDecoration(
                       color: const Color(0XFFEAEBF1),
                       borderRadius: BorderRadius.circular(12)),
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 340,
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        border: Border(
-                          right: BorderSide(
-                            color: primaryColor,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      child: Row(
+                  child:
+                  Column(
+                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AllOfferTitleTable(
-                            title: 'Created',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 83,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: PageScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      // padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        date[index],
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: date.length,
-                              ),
-                            ),
+                          Image.asset('assets/images/book-search.png',
+                          width: 66,height: 67,
                           ),
-                          SizedBox(
-                            width: 20,
+                          Text('We currently don’t have a closed offer \n at the Kyshi marketplace,  it will \n appear here when we do',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            fontFamily: "PushPenny",
+                            color: primaryColor
                           ),
-                          AllOfferTitleTable(
-                            title: 'User',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 155,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        createdBy[index],
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: createdBy.length,
-                              ),
-                            ),
                           ),
                         ],
-                      ),
-                    ),
+                      ) 
+                  // ListView(scrollDirection: Axis.horizontal, 
+                  // children: [
+                  //   Container(
+                  //     height: MediaQuery.of(context).size.height,
+                  //     width: 340,
+                  //     decoration: BoxDecoration(
+                  //       //color: Colors.amber,
+                  //       border: Border(
+                  //         right: BorderSide(
+                  //           color: primaryColor,
+                  //           width: 2,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 20, horizontal: 25),
+                  //     child: Row(
+                  //       children: [
+                  //         AllOfferTitleTable(
+                  //           title: 'Created',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 83,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: PageScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     // padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       date[index],
+                  //                       style: TextStyle(
+                  //                           fontSize: 14,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: Color(0xff233375)),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 30,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: date.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 20,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'User',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 155,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //  padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       createdBy[index],
+                  //                       style: TextStyle(
+                  //                           fontSize: 14,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: Color(0xff233375)),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 30,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: createdBy.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        color: Colors.white,
-                        border: Border(
-                          right: BorderSide(
-                            color: Color(0xffF4F5F8),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Currency',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        currency[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: currency.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Amount',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 60,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        amount[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: amount.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Fee (%)',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        fee[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: fee.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Charges',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        charges[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: charges.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //  hkhkkhkhkkhkhkhkhkhkhkhkhkhkhkhhkhkhkhkh
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        color: Colors.white,
-                        border: Border(
-                          right: BorderSide(
-                            color: Color(0xffF4F5F8),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Currency',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        currency[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: currency.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Amount',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 60,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        amount[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: amount.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Fee (%)',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        fee[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: fee.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Charges',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        charges[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: charges.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  //   Container(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 20, horizontal: 25),
+                  //     decoration: BoxDecoration(
+                  //       //color: Colors.amber,
+                  //       color: Colors.white,
+                  //       border: Border(
+                  //         right: BorderSide(
+                  //           color: Color(0xffF4F5F8),
+                  //           width: 2,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         AllOfferTitleTable(
+                  //           title: 'Currency',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //  padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       currency[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: currency.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Amount',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 60,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       amount[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: amount.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Fee (%)',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       fee[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: fee.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Charges',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       charges[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: charges.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   //  hkhkkhkhkkhkhkhkhkhkhkhkhkhkhkhhkhkhkhkh
+                  //   Container(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 20, horizontal: 25),
+                  //     decoration: BoxDecoration(
+                  //       //color: Colors.amber,
+                  //       color: Colors.white,
+                  //       border: Border(
+                  //         right: BorderSide(
+                  //           color: Color(0xffF4F5F8),
+                  //           width: 2,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         AllOfferTitleTable(
+                  //           title: 'Currency',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //  padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       currency[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: currency.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Amount',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 60,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       amount[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: amount.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Fee (%)',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       fee[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: fee.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 30,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Charges',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 35,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //   padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       charges[index],
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: charges.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
 
-                    //tttttttttt
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      // width: 640,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Rate',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 52,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: PageScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      // padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        rate[index],
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: rate.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Expire',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 83,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        date[index],
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: date.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'ID',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 65,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        id[index],
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: id.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Status',
-                            name: SizedBox(
-                                height: MediaQuery.of(context).size.height,
-                                width: 100,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    OfferButton(
-                                      isBorder: false,
-                                      text: 'CLOSED',
-                                    ),
-                                    SizedBox(
-                                      height: 35,
-                                    ),
-                                    InkWell(
-                                        onTap: () {
-                                          acceptOfferAlertBox(context);
-                                          print('working');
-                                        },
-                                        child: OfferButton(
-                                          isBorder: false,
-                                          text: 'CLOSED',
-                                        )),
-                                    SizedBox(
-                                      height: 35,
-                                    ),
-                                    OfferButton(
-                                      isBorder: false,
-                                      text: 'CLOSED',
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ])),
+                  //   //tttttttttt
+                  //   Container(
+                  //     height: MediaQuery.of(context).size.height,
+                  //     // width: 640,
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 20, horizontal: 25),
+                  //     child: Row(
+                  //       children: [
+                  //         AllOfferTitleTable(
+                  //           title: 'Rate',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 52,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: PageScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     // padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       rate[index],
+                  //                       style: TextStyle(
+                  //                           fontSize: 14,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: Color(0xff233375)),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 40,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: rate.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 20,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Expire',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 83,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //  padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   children: [
+                  //                     Text(
+                  //                       date[index],
+                  //                       style: TextStyle(
+                  //                           fontSize: 14,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: Color(0xff233375)),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 20,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: date.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 20,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'ID',
+                  //           name: SizedBox(
+                  //             height: MediaQuery.of(context).size.height,
+                  //             width: 65,
+                  //             child: ListView.builder(
+                  //               // controller: controller,
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               itemBuilder: (context, index) {
+                  //                 return Container(
+                  //                     //  padding: const EdgeInsets.symmetric(vertical: 15),
+                  //                     child: Column(
+                  //                   crossAxisAlignment:
+                  //                       CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     Text(
+                  //                       id[index],
+                  //                       style: TextStyle(
+                  //                           fontSize: 14,
+                  //                           fontWeight: FontWeight.w400,
+                  //                           color: Color(0xff233375)),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 20,
+                  //                     )
+                  //                   ],
+                  //                 ));
+                  //               },
+                  //               itemCount: id.length,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 20,
+                  //         ),
+                  //         AllOfferTitleTable(
+                  //           title: 'Status',
+                  //           name: SizedBox(
+                  //               height: MediaQuery.of(context).size.height,
+                  //               width: 100,
+                  //               child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   OfferButton(
+                  //                     isBorder: false,
+                  //                     text: 'CLOSED',
+                  //                   ),
+                  //                   SizedBox(
+                  //                     height: 35,
+                  //                   ),
+                  //                   InkWell(
+                  //                       onTap: () {
+                  //                         acceptOfferAlertBox(context);
+                  //                         print('working');
+                  //                       },
+                  //                       child: OfferButton(
+                  //                         isBorder: false,
+                  //                         text: 'CLOSED',
+                  //                       )),
+                  //                   SizedBox(
+                  //                     height: 35,
+                  //                   ),
+                  //                   OfferButton(
+                  //                     isBorder: false,
+                  //                     text: 'CLOSED',
+                  //                   ),
+                  //                 ],
+                  //               )),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ]
+                  // )
+                  ),
               //  Positioned(
               //  left: 490,
               //   top: 125,

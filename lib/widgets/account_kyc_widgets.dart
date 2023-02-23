@@ -1041,7 +1041,7 @@ class RiskStatusCard extends StatelessWidget {
                             fontFamily: "PushPenny",
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
-                            color: riskScore == "Medium"?Color(0xffFBCD58): riskScore == "Low"? Color(0xff6E80A3) : Colors.green),
+                            color: riskRatingg == "medium"?Color(0xffFBCD58): riskRatingg == "low"? Color(0xff6E80A3) : Colors.green),
                       ),
                       Text(
                         'Risk Rating',
@@ -1067,8 +1067,10 @@ class RiskStatusCard extends StatelessWidget {
 }
 
 class IdentificationStatusBoard extends StatelessWidget {
-  const IdentificationStatusBoard({super.key});
-
+  const IdentificationStatusBoard({super.key, required this.canTransact, required this.bvnVerified, required this.bvn});
+   final bool canTransact;
+   final String bvn;
+   final bool bvnVerified;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1137,21 +1139,21 @@ class IdentificationStatusBoard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BioDataStatusTextStyle(
-                  isActive: true,
-                  text: 'Active',
+                  isActive: canTransact,
+                  text: canTransact==true? 'Active' : 'InActive',
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 BioDataSubTitleTextStyle(
-                  text: '11215672819',
+                  text: bvn,
                 ),
                 SizedBox(
                   height: 6,
                 ),
                 BioDataStatusTextStyle(
-                  isActive: true,
-                  text: 'Verified',
+                  isActive: bvnVerified,
+                  text: bvnVerified == true? 'Verified': "Unverified",
                 ),
                 SizedBox(
                   height: 20,

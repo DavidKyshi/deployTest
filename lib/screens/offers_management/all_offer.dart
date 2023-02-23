@@ -252,7 +252,7 @@ formattedDateTime,
                                                   color: Color(0xff233375)),
                                             ),
                                             SizedBox(
-                                              height: 30,
+                                              height: 10,
                                             )
                                           ],
                                         ));
@@ -447,7 +447,7 @@ formattedDateTime,
                                   title: 'Amount',
                                   name: SizedBox(
                                     height: MediaQuery.of(context).size.height,
-                                    width: 60,
+                                    width: 70,
                                     child: ListView.builder(
                                       // controller: controller,
                                       physics: NeverScrollableScrollPhysics(),
@@ -576,7 +576,7 @@ formattedDateTime,
                                   title: 'Expire',
                                   name: SizedBox(
                                     height: MediaQuery.of(context).size.height,
-                                    width: 83,
+                                    width: 95,
                                     child: ListView.builder(
                                       // controller: controller,
                                       physics: NeverScrollableScrollPhysics(),
@@ -609,7 +609,7 @@ formattedDateTime,
                                   title: 'ID',
                                   name: SizedBox(
                                     height: MediaQuery.of(context).size.height,
-                                    width: 65,
+                                    width: 140,
                                     child: ListView.builder(
                                       // controller: controller,
                                       physics: NeverScrollableScrollPhysics(),
@@ -628,7 +628,7 @@ formattedDateTime,
                                                   color: Color(0xff233375)),
                                             ),
                                             SizedBox(
-                                              height: 20,
+                                              height: 10,
                                             )
                                           ],
                                         ));
@@ -646,7 +646,7 @@ formattedDateTime,
                                       height: MediaQuery.of(context).size.height,
                                       width: 100,
                                       child: ListView.builder(
-                                         itemCount: offersData.length,
+                                         itemCount: 3,
                                          physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index){
                                           return Container(

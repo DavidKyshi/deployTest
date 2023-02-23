@@ -74,7 +74,7 @@ class TransactionSummaryBoard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/images/graph.png',
+                  'assets/images/graph2.png',
                   width: 633,
                   height: 300,
                   //color: Colors.amber,
@@ -116,7 +116,11 @@ class TransactionSummaryBoard extends StatelessWidget {
                           SizedBox(
                             width: 20,
                           ),
-                          CalenderPickDateStatement()
+                          CalenderPickDateStatement(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          CalenderPickDateStatement2(),
                         ],
                       ),
                     ],

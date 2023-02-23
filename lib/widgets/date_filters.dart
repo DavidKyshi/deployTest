@@ -386,3 +386,75 @@ class _CalenderPickDateStatementState extends State<CalenderPickDateStatement> {
     );
   }
 }
+
+
+class CalenderPickDateStatement2 extends StatefulWidget {
+  const CalenderPickDateStatement2({super.key});
+
+  @override
+  State<CalenderPickDateStatement2> createState() =>
+      _CalenderPickDateStatement2State();
+}
+
+class _CalenderPickDateStatement2State extends State<CalenderPickDateStatement2> {
+  DateTime date = DateTime.now();
+  late var formattedDate;
+
+  @override
+  void initState() {
+    formattedDate = DateFormat('d-MMM-yy').format(date);
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
+  // final difference = daysBetween(date,lastdate);
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () async {
+        await showDatePicker(
+          context: context,
+          firstDate: DateTime(2022),
+          lastDate: DateTime(2030),
+          initialDate: date,
+        ).then((selectedDate) {
+          if (selectedDate != null) {
+            setState(() {
+              date = selectedDate;
+              formattedDate = DateFormat('d-MMM-yy').format(selectedDate);
+            });
+          }
+        });
+
+        // setState(() {
+        //   firstDate
+        // });
+      },
+      child: Container(
+        width: 152,
+        height: 49,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Color(0xffDDDDDD),
+            ),
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Text(
+            formattedDate,
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                fontFamily: "PushPenny",
+                color: Color(0xff0D2C65)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
