@@ -39,8 +39,69 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
           child: Column(
             children: [
               SizedBox(
-                height: 800,
-                child: GridView.builder(
+                height:user!.wallets!.isEmpty? 400: 800,
+                child:user!.wallets!.isEmpty?
+                Column(
+                  children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text("Dates",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Wallet",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Provider",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Phone Number",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Amount (₦)",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Exchange rate",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //     Text("Exchange rate",style: TextStyle(
+                    //         color: primaryColor,
+                    //         fontFamily: 'PushPenny',
+                    //         fontWeight: FontWeight.w500,
+                    //         fontSize: 12
+                    //     )),
+                    //   ],
+                    // ),
+                    const SizedBox(height: 100,),
+                    SvgPicture.asset(empty),
+                    Text("The user has not created a wallet yet"
+                        "  it will\n appear here when the user does",style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'PushPenny',
+                    ),)
+                  ],
+                ) :
+                GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
@@ -50,16 +111,16 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                       children: [
                         walletStatus(
                             title: "${user?.wallets![index].currency} wallet details",
-                            subTitle: "SET",
+                            subTitle:user?.wallets![index].status == "PENDING"? "Rejected": "SET",
                             color: primaryColor,
-                            backgroundColor: primaryColor,
+                            backgroundColor:user?.wallets![index].status == "PENDING" ? kyshiRed: primaryColor,
                             containerColor: const Color(0x0ff9f9f9),
                             padding2: 60,
                             padding1: 10),
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width/2,
                           height: MediaQuery.of(context).size.height/3,
                           child: Stack(
@@ -267,6 +328,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                 height: 15,
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 decoration: BoxDecoration(
@@ -286,175 +348,354 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
+                    user!.wallets!.isEmpty || user!.beneficiaries!.isEmpty?
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        UserAccountTableCell(
-                          title: "BANK NAME",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(bankNames[index]));
-                              },
-                              itemCount: bankNames.length,
-                            ),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("BANK NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("ACC NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("ROUTING NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("SORT CODE NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("FIN.INST. NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("BRANCH TRANSIT NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("CURRENCY",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "ACCT NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(accountNum[index]));
-                              },
-                              itemCount: accountNum.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "NAME",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(names[index]));
-                              },
-                              itemCount: names.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "ROUTING NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "SORT CODE NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(sortCode[index]));
-                              },
-                              itemCount: sortCode.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "FIN. INST NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "BRANCH. TRANSIT NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "CURRENCY",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(currency[index]));
-                              },
-                              itemCount: currency.length,
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 100,),
+                        SvgPicture.asset(empty),
+                        Text("This account is yet to be funded,  it will appear\n"
+                            " here when the user does",style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'PushPenny',
+                        ),)
                       ],
+                    ):
+                    DataTable(
+                        columns:  <DataColumn>[
+                          DataColumn(
+                            label: Text("BANK NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10
+                            )),
+                            // tooltip: "To Display name"
+                          ),
+                          DataColumn(label:  Text("ACC NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:Text("NAME",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label: Text("ROUTING NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("SORT CODE NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label: Text("FIN.INST. NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("BRANCH TRANSIT NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("CURRENCY",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          )))
+                        ],
+                        rows:user!.wallets!.map(
+                              (service) =>
+                              DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(service.bankName ?? "",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  DataCell(
+                                    Text(service.accountNumber ?? "",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                   DataCell(
+                                    Text(service.accountName ?? ""),
+                                  ),
+                                  DataCell(
+                                    Text( "No routing no",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                   const DataCell(
+                                      Text( "No sort code")
+                                  ),
+                                  DataCell(
+                                    Text( "No FIN.INST. NO",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  const DataCell(
+                                      Text( "No BRANCH TRANSIT NO")
+                                  ),
+                                  DataCell(
+                                      Text(service.currency ?? "",style: TextStyle(
+                                          color: primaryColor,
+                                          fontFamily: 'PushPenny',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14
+                                      ))
+                                  ),
+                                ],
+                              ),
+                        ).toList()
                     )
+                    // Row(
+                    //   children: [
+                    //     UserAccountTableCell(
+                    //       title: "BANK NAME",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(bankNames[index]));
+                    //           },
+                    //           itemCount: bankNames.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "ACCT NO",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(accountNum[index]));
+                    //           },
+                    //           itemCount: accountNum.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "NAME",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(names[index]));
+                    //           },
+                    //           itemCount: names.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "ROUTING NO",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(route[index]));
+                    //           },
+                    //           itemCount: route.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "SORT CODE NO",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(sortCode[index]));
+                    //           },
+                    //           itemCount: sortCode.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "FIN. INST NO",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(route[index]));
+                    //           },
+                    //           itemCount: route.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "BRANCH. TRANSIT NO",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(route[index]));
+                    //           },
+                    //           itemCount: route.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     UserAccountTableCell(
+                    //       title: "CURRENCY",
+                    //       name: SizedBox(
+                    //         height: 350,
+                    //         width: 100,
+                    //         child: ListView.builder(
+                    //           // controller: controller,
+                    //           physics: const PageScrollPhysics(),
+                    //           itemBuilder: (context, index) {
+                    //             return Container(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     vertical: 15),
+                    //                 child: Text(currency[index]));
+                    //           },
+                    //           itemCount: currency.length,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
                   ],
                 ),
               ),
@@ -466,6 +707,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                 height: 15,
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 decoration: BoxDecoration(
@@ -485,175 +727,186 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
+                    user!.wallets!.isEmpty || user!.beneficiaries!.isEmpty?
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        UserAccountTableCell(
-                          title: "BANK NAME",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(bankNames[index]));
-                              },
-                              itemCount: bankNames.length,
-                            ),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("BANK NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("ACC NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("ROUTING NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("SORT CODE NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("FIN.INST. NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("BRANCH TRANSIT NO",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                            Text("CURRENCY",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12
+                            )),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "ACCT NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(accountNum[index]));
-                              },
-                              itemCount: accountNum.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "NAME",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(names[index]));
-                              },
-                              itemCount: names.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "ROUTING NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "SORT CODE NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(sortCode[index]));
-                              },
-                              itemCount: sortCode.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "FIN. INST NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "BRANCH. TRANSIT NO",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(route[index]));
-                              },
-                              itemCount: route.length,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        UserAccountTableCell(
-                          title: "CURRENCY",
-                          name: SizedBox(
-                            height: 350,
-                            width: 100,
-                            child: ListView.builder(
-                              // controller: controller,
-                              physics: const PageScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Text(currency[index]));
-                              },
-                              itemCount: currency.length,
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 100,),
+                        SvgPicture.asset(empty),
+                        Text("This account is yet to make a transfer to a beneficiary, \n"
+                            "it will appear here when the user does",style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'PushPenny',
+                        ),)
                       ],
-                    )
+                    ):
+                    DataTable(
+                        columns:  <DataColumn>[
+                          DataColumn(
+                            label: Text("BANK NAME",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10
+                            )),
+                            // tooltip: "To Display name"
+                          ),
+                          DataColumn(label:  Text("ACC NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:Text("NAME",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label: Text("ROUTING NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("SORT CODE NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label: Text("FIN.INST. NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("BRANCH TRANSIT NO",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          ))),
+                          DataColumn(label:  Text("CURRENCY",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10
+                          )))
+                        ],
+                        rows:user!.wallets!.map(
+                              (service) =>
+                              DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(service.bankName ?? "",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  DataCell(
+                                    Text(service.accountNumber ?? "",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  DataCell(
+                                    Text(service.accountName ?? ""),
+                                  ),
+                                  DataCell(
+                                    Text( "No routing no",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  const DataCell(
+                                      Text( "No sort code")
+                                  ),
+                                  DataCell(
+                                    Text( "No FIN.INST. NO",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14
+                                    )),
+                                  ),
+                                  const DataCell(
+                                      Text( "No BRANCH TRANSIT NO")
+                                  ),
+                                  DataCell(
+                                      Text(service.currency ?? "",style: TextStyle(
+                                          color: primaryColor,
+                                          fontFamily: 'PushPenny',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14
+                                      ))
+                                  ),
+                                ],
+                              ),
+                        ).toList()
+                    ),
+                    const SizedBox(height: 50,)
                   ],
                 ),
               ),

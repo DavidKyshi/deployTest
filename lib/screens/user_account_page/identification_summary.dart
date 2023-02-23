@@ -33,7 +33,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
                   height: 10,
                 ),
                 ProfilePictureCard(
-                   firstName: user!.firstName ?? "",
+                   firstName: user.firstName ?? "",
                           lastName: user.lastName ?? "",
                           profileImage: user.profileImage == "" ||
                                   user.profileImage == null

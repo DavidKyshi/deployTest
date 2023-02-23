@@ -5,6 +5,8 @@ import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/connectServices.dart';
+
 class UserTransactions {
   String wallet;
   String dates;
@@ -82,6 +84,13 @@ class _KyshiCardState extends State<KyshiCard> {
         provider: 'Seerbit'),
   ];
   ScrollController? controller;
+  List<Services>? connectServices;
+  @override
+  void initState() {
+    connectServices = Provider.of<UsersProvider>(context, listen: false).connectService;
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -96,7 +105,22 @@ class _KyshiCardState extends State<KyshiCard> {
               decoration: BoxDecoration(
                   color: const Color(0XFFF4F5F8),
                   borderRadius: BorderRadius.circular(12)),
-              child: Row(
+              child:connectServices!.isEmpty ?
+              Column(
+                children: [
+                  const SizedBox(height: 100,),
+                  SvgPicture.asset(empty),
+                  Text("The user is yet to make transaction"
+                      " \nwith Kyshi connect services,"
+                      "  it will\n appear here when the user does",style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'PushPenny',
+                  ),)
+                ],
+              ):
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
@@ -213,7 +237,69 @@ class _KyshiCardState extends State<KyshiCard> {
                 width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: DataTable(
+                child:connectServices!.isEmpty ?
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Dates",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Wallet",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Provider",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Phone Number",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Amount (₦)",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 100,),
+                    SvgPicture.asset(empty),
+                    Text("The user is yet to make transaction"
+                        " \nwith Kyshi connect services,"
+                        "  it will\n appear here when the user does",style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'PushPenny',
+                    ),)
+                  ],
+                ):
+                DataTable(
                   columns: const <DataColumn>[
                     DataColumn(
                       label: Text("Dates"),
