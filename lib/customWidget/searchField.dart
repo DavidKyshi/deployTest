@@ -234,13 +234,13 @@ class UserAccountTableRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-              title ?? "",
-              style: TextStyle(
-                  color: primaryColor,
-                  fontFamily: 'PushPenny',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12),
-            );
+      title ?? "",
+      style: TextStyle(
+          color: primaryColor,
+          fontFamily: 'PushPenny',
+          fontWeight: FontWeight.w500,
+          fontSize: 12),
+    );
   }
 }
 

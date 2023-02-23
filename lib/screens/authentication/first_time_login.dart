@@ -184,6 +184,8 @@ class _FirstTimerState extends State<FirstTimer> {
                       // getUsers();
                       Provider.of<UsersProvider>(context, listen: false)
                           .getUsers();
+                          Provider.of<OfferManagementProvider>(context, listen: false)
+                          .getAllOfferManagement();
                       Navigator.push(
                           context,
                           MaterialPageRoute(

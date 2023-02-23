@@ -27,13 +27,25 @@ class UserTransactionHistory {
   String beneficiary;
   String ledger;
 
-  UserTransactionHistory({required this.wallet,
-    required this.dates,required this.channel,
-    required this.charges,required this.amount, required this.status,
-    required this.type,required this.beneficiary,required this.offer,
-    required this.sender,required this.purpose,required this.recipient,
-    this.operation,required this.id,required this.ledger,required this.processor});
+  UserTransactionHistory(
+      {required this.wallet,
+      required this.dates,
+      required this.channel,
+      required this.charges,
+      required this.amount,
+      required this.status,
+      required this.type,
+      required this.beneficiary,
+      required this.offer,
+      required this.sender,
+      required this.purpose,
+      required this.recipient,
+      this.operation,
+      required this.id,
+      required this.ledger,
+      required this.processor});
 }
+
 class TransactionHistory extends StatefulWidget {
   const TransactionHistory({Key? key}) : super(key: key);
 
@@ -49,27 +61,77 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   List<String> rate = ["£1/₦900","£1/₦900","£1/₦900"];
   List<String> status = ["Successful","Successful","Failed"];
   List<String> amount = ["3000","3000","3000"];
-  List<TransactionsData>? transactions;
   List<String> phoneNumber = ["+2341988736636","+2341988736636","+2341988736636"];
   List<UserTransactionHistory> userList = [
-    UserTransactionHistory(wallet: "NGN", dates: "Nov 28, 20223:58 PM", channel: "Fund", charges:
-    "NGN:0.00", amount: "NGN100,00.00", status: "Successful", type: "DR", beneficiary: "NIL", offer:
-    "NIL", sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301", purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301", id: "6086346c-c5ac-98-6086346c-c5ac-98", ledger: "NIL", processor: 'VFDBank'),
-    UserTransactionHistory(wallet: "NGN", dates: "Nov 28, 20223:58 PM", channel: "Swap", charges:
-    "NGN:0.00", amount: "NGN100,00.00", status: "Successful", type: "DR", beneficiary: "NIL", offer:
-    "NIL", sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301", purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301", id: "6086346c-c5ac-98-6086346c-c5ac-98", ledger: "NIL", processor: 'VFDBank'),
-    UserTransactionHistory(wallet: "NGN", dates: "Nov 28, 20223:58 PM", channel: "Express", charges:
-    "NGN:0.00", amount: "NGN100,00.00", status: "Successful", type: "DR", beneficiary: "NIL", offer:
-    "NIL", sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301", purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301", id: "6086346c-c5ac-98-6086346c-c5ac-98", ledger: "NIL", processor: 'VFDBank'),
-    UserTransactionHistory(wallet: "NGN", dates: "Nov 28, 20223:58 PM", channel: "Card", charges:
-    "NGN:0.00", amount: "NGN100,00.00", status: "Successful", type: "DR", beneficiary: "NIL", offer:
-    "NIL", sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301", purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301", id: "6086346c-c5ac-98-6086346c-c5ac-98", ledger: "NIL", processor: 'VFDBank')
+    UserTransactionHistory(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        channel: "Fund",
+        charges: "NGN:0.00",
+        amount: "NGN100,00.00",
+        status: "Successful",
+        type: "DR",
+        beneficiary: "NIL",
+        offer: "NIL",
+        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        purpose: "For Upkeep and school",
+        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        id: "6086346c-c5ac-98-6086346c-c5ac-98",
+        ledger: "NIL",
+        processor: 'VFDBank'),
+    UserTransactionHistory(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        channel: "Swap",
+        charges: "NGN:0.00",
+        amount: "NGN100,00.00",
+        status: "Successful",
+        type: "DR",
+        beneficiary: "NIL",
+        offer: "NIL",
+        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        purpose: "For Upkeep and school",
+        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        id: "6086346c-c5ac-98-6086346c-c5ac-98",
+        ledger: "NIL",
+        processor: 'VFDBank'),
+    UserTransactionHistory(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        channel: "Express",
+        charges: "NGN:0.00",
+        amount: "NGN100,00.00",
+        status: "Successful",
+        type: "DR",
+        beneficiary: "NIL",
+        offer: "NIL",
+        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        purpose: "For Upkeep and school",
+        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        id: "6086346c-c5ac-98-6086346c-c5ac-98",
+        ledger: "NIL",
+        processor: 'VFDBank'),
+    UserTransactionHistory(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        channel: "Card",
+        charges: "NGN:0.00",
+        amount: "NGN100,00.00",
+        status: "Successful",
+        type: "DR",
+        beneficiary: "NIL",
+        offer: "NIL",
+        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        purpose: "For Upkeep and school",
+        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
+        id: "6086346c-c5ac-98-6086346c-c5ac-98",
+        ledger: "NIL",
+        processor: 'VFDBank')
   ];
   ScrollController? controller;
+  List<TransactionsData>? transactions;
+
+
    @override
   void initState() {
      transactions =Provider.of<UsersProvider>(context, listen: false).transactions;
@@ -80,20 +142,22 @@ class _TransactionHistoryState extends State<TransactionHistory> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
-          children:  [
+          children: [
             const SearchField(),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             SingleChildScrollView(
               child: Container(
-                height:600,
-                decoration:  BoxDecoration(
-                    color:const Color(0XFFEAEBF1),
-                    borderRadius: BorderRadius.circular(12)
-                ),
+                height: 600,
+                decoration: BoxDecoration(
+                    color: const Color(0XFFEAEBF1),
+                    borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding:const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child:transactions!.isEmpty?
@@ -188,97 +252,58 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   ):
                   DataTable(
                     dataRowHeight: 60,
-                    columns:  <DataColumn>[
-                      DataColumn(label: Text("Dates",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      )),
+                    columns: const <DataColumn>[
+                      DataColumn(label: Text("Dates"),
                         // tooltip: "To Display name"
                       ),
-                      DataColumn(label: Text("Type",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Beneficiary",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Channel",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Amount",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Charges",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Offer",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      ))),
-                      DataColumn(label: Text("Processor",style: TextStyle(
-                          color: primaryColor,
-                          fontFamily: 'PushPenny',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12
-                      )),
+                      DataColumn(label: Text("Type")),
+                      DataColumn(label: Text("Beneficiary")),
+                      DataColumn(label: Text("Channel")),
+                      DataColumn(label: Text("Amount")),
+                      DataColumn(label: Text("Charges")),
+                      DataColumn(label: Text("Offer")),
+                      DataColumn(label: Text("Processor"),
                         // tooltip: "To Display name"
                       ),
                       DataColumn(label: Text("Sender",style: TextStyle(
-                          color: primaryColor,
+                          //color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("Purpose",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("Recipient",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("Operation",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("ID",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("Ledger",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
                       DataColumn(label: Text("Status",style: TextStyle(
-                          color: primaryColor,
+                          color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
@@ -370,7 +395,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         ],
                       ),
                     ).toList(),
-                  ),
+                    ),
                 ),
               ),
               // Container(

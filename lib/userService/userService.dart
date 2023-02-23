@@ -46,6 +46,39 @@ class UserService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getOfferManagement() async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/offers");
+    try {
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+        "/ops/offers",
+        // queryParameters:{
+        //   "open_offer":false,
+        //   "closed_offers":false,
+        //   "accepted_offers":false,
+        //   "withdrawn_offers":false,
+        //   "expired_offers":false,
+        //   "offer_id":false
+        //   }
+      );
+      // http.get(uri);
+      print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print("$response ALL DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> getKyshiConnectServices({required String userId}) async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/kyshi-connect");
@@ -73,6 +106,7 @@ class UserService {
       rethrow;
     }
   }
+
   Future<Map<String, dynamic>> getKyshiConnectTransactions() async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/dashboard/transactions");
@@ -88,6 +122,34 @@ class UserService {
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
       print("$response ALL TRANSACTION DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> getKyshiCard({required String userId}) async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/kyshi-cards");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/kyshi-cards",
+          queryParameters: {
+            "user_id":userId
+          }
+      );
+      // http.get(uri);
+      // print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print("$response ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {

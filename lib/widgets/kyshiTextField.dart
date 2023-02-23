@@ -30,38 +30,40 @@ class KyshiTextfield extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? helperText, errorText;
 
-  final bool readOnly,obscureText;
+  final bool readOnly, obscureText;
   final bool? enabled, isDense;
   final String? hintText, initialValue;
 
-  const KyshiTextfield({
-    Key? key,
-    this.controller,
-    this.focusNode,
-    this.autoFocus = false,
-    this.keyboardType,
-    this.validator,
-    this.enabledBorderColor,
-    this.onSaved,
-    this.errorBorderColor,
-    this.focusBorderColor,
-    this.inputFormatters,
-    this.initialValue,
-    this.onChanged,
-    this.helperText,
-    this.readOnly = false,
-    this.isDense = true,
-    this.borderRadius,
-    this.obscureText = false,
-    this.enabled = true,
-    this.hintText,
-    this.onTap,
-    this.maxLength,
-    this.errorText,
-    this.labelText,
-    this.prefixIcon,
-    this.suffixIcon, this.showText = false,this.connectBorder = false
-  }) : super(key: key);
+  const KyshiTextfield(
+      {Key? key,
+      this.controller,
+      this.focusNode,
+      this.autoFocus = false,
+      this.keyboardType,
+      this.validator,
+      this.enabledBorderColor,
+      this.onSaved,
+      this.errorBorderColor,
+      this.focusBorderColor,
+      this.inputFormatters,
+      this.initialValue,
+      this.onChanged,
+      this.helperText,
+      this.readOnly = false,
+      this.isDense = true,
+      this.borderRadius,
+      this.obscureText = false,
+      this.enabled = true,
+      this.hintText,
+      this.onTap,
+      this.maxLength,
+      this.errorText,
+      this.labelText,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.showText = false,
+      this.connectBorder = false})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,7 +72,7 @@ class KyshiTextfield extends StatelessWidget {
         if (labelText != null) ...[
           Text(
             labelText ?? "",
-            style:labelTextstyle,
+            style: labelTextstyle,
           ),
           const SizedBox(
             height: 6,
@@ -78,7 +80,7 @@ class KyshiTextfield extends StatelessWidget {
         ],
         TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          keyboardType: keyboardType?? TextInputType.text,
+          keyboardType: keyboardType ?? TextInputType.text,
           controller: controller,
           autofocus: autoFocus,
           focusNode: focusNode,
@@ -90,22 +92,23 @@ class KyshiTextfield extends StatelessWidget {
           inputFormatters: inputFormatters,
           maxLength: maxLength,
           obscureText: obscureText,
-          obscuringCharacter:'*',
+          obscuringCharacter: '*',
           style: TextStyle(
               color: iconAndFormTextColor,
-              fontSize:16.0 ,
-              fontWeight:  FontWeight.w300),
+              fontSize: 16.0,
+              fontWeight: FontWeight.w300),
           decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               suffixIcon: suffixIcon,
               isDense: isDense,
               errorText: errorText,
-              contentPadding: const EdgeInsets.symmetric(vertical: 20,horizontal:10),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               // color: Color(0xff6c757d),
               // fontSize: 14.0,
               // fontWeight: FontWeight.w300
               hintStyle: TextStyle(
-                  color:Color(0xff6c757d).withOpacity(0.3),
+                  color: Color(0xff6c757d).withOpacity(0.3),
                   fontFamily: 'Gilroy',
                   fontSize: 16.0,
                   fontWeight: FontWeight.w300),
@@ -113,24 +116,25 @@ class KyshiTextfield extends StatelessWidget {
               labelStyle: labelTextstyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: borderRadius ?? BorderRadius.circular(8),
-                borderSide: BorderSide(color: enabledBorderColor?? const Color(0xffE6E7E9)),
+                borderSide: BorderSide(
+                    color: enabledBorderColor ?? const Color(0xffE6E7E9)),
               ),
-              disabledBorder:  OutlineInputBorder(
+              disabledBorder: OutlineInputBorder(
                 borderRadius: borderRadius ?? BorderRadius.circular(8),
                 borderSide: const BorderSide(color: Color(0xff9AA1B3)),
               ),
               labelText: '',
               focusedErrorBorder: OutlineInputBorder(
-                  borderRadius:  borderRadius ??BorderRadius.circular(8),
+                  borderRadius: borderRadius ?? BorderRadius.circular(8),
                   borderSide: const BorderSide(color: Colors.red)),
               errorBorder: OutlineInputBorder(
                   borderRadius: borderRadius ?? BorderRadius.circular(8),
                   borderSide:
-                  BorderSide(color: errorBorderColor ?? Colors.red)),
+                      BorderSide(color: errorBorderColor ?? Colors.red)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: borderRadius ?? BorderRadius.circular(8),
-                  borderSide:
-                  BorderSide(color: focusBorderColor ?? const Color(0xff9AA1B3))),
+                  borderSide: BorderSide(
+                      color: focusBorderColor ?? const Color(0xff9AA1B3))),
               prefixIcon: prefixIcon,
               hintText: hintText),
           onChanged: onChanged,

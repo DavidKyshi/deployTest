@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
@@ -36,38 +34,66 @@ class _OtpScreenState extends State<OtpScreen> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          SideBar(isWelcomeBack: true,firstTimer: false,),
+          SideBar(
+            isWelcomeBack: true,
+            firstTimer: false,
+          ),
           Container(
             width: 510,
-            padding: const EdgeInsets.only(top: 200,left: 100),
+            padding: const EdgeInsets.only(top: 200, left: 100),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Enter your OTP",style: TextStyle(color: primaryColor,
-                    fontSize: 32,
-                    fontFamily: 'PushPenny',fontWeight: FontWeight.w700),),
-                RichText(text: TextSpan(
-                    text: "Please, check your browser’s address bar to be sure you’re on",
-                    style: TextStyle(color: kyshiGreyishBlue,fontSize: 12,fontFamily: 'PushPenny',fontWeight: FontWeight.w400),
-                    children: [
-                      TextSpan(
-                          text: "  https://kyshiadmin.co",style: TextStyle(color: kyshiGreen)
-                      )
-                    ]
-                ),),
-                const SizedBox(height: 20,),
-                Text("Enter the 6-digit confirmation code from your authenticator",style: TextStyle(color: kyshiGreyishBlue,
-                    fontSize: 12,
-                    fontFamily: 'PushPenny',fontWeight: FontWeight.w400),),
-                const SizedBox(height: 20,),
-                PinField(errorController: errorController, controller: controller,
+                Text(
+                  "Enter your OTP",
+                  style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 32,
+                      fontFamily: 'PushPenny',
+                      fontWeight: FontWeight.w700),
+                ),
+                RichText(
+                  text: TextSpan(
+                      text:
+                          "Please, check your browser’s address bar to be sure you’re on",
+                      style: TextStyle(color: kyshiGreyishBlue, fontSize: 12, fontFamily: 'PushPenny', fontWeight: FontWeight.w400),
+                      children: [
+                        TextSpan(
+                            text: "  https://kyshiadmin.co",
+                            style: TextStyle(color: kyshiGreen))
+                      ]),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Enter the 6-digit confirmation code from your authenticator",
+                  style: TextStyle(
+                      color: kyshiGreyishBlue,
+                      fontSize: 12,
+                      fontFamily: 'PushPenny',
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                PinField(
+                  errorController: errorController,
+                  controller: controller,
                   onChanged: (String value) {
-                  pin = value;
-                },),
-                const SizedBox(height: 60,),
-                const KyshiDynamicButtons(goDashBoard: true,),
-                const SizedBox(height: 30,),
+                    pin = value;
+                  },
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                const KyshiDynamicButtons(
+                  goDashBoard: true,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),

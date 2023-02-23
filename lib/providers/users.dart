@@ -25,11 +25,13 @@ class UsersProvider extends ChangeNotifier {
 
   User? getUserById([String? id]) {
     if (users.isEmpty) return null;
-    if (id==null && currentSelectedUserId==null) return null;
-    notifyListeners();
+    if (id == null && currentSelectedUserId == null) return null;
+     //notifyListeners();
     return users.firstWhere(
         (element) => element.id == (id ?? currentSelectedUserId),
         orElse: null);
+        
+
   }
 
   Future<List<User>> getUsers() async {
@@ -43,6 +45,7 @@ class UsersProvider extends ChangeNotifier {
     return users;
   }
   Future<List<Services>> getConnectSerivices() async {
+    // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "");
     final data = List.from(responseData['data']);
     // print("${data} all cbckbckhb ch");
@@ -61,5 +64,15 @@ class UsersProvider extends ChangeNotifier {
     // _users = user;
     notifyListeners();
     return _transactions;
+  }
+  Future<List<Services>> getCards() async {
+    Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "");
+    final data = List.from(responseData['data']);
+    // print("${data} all cbckbckhb ch");
+    _connectService = List<Services>.from(data.map((x) => Services.fromJson(x)));
+    // print(" GETTING FIRSTNAME reading");
+    // _users = user;
+    notifyListeners();
+    return _connectService;
   }
 }

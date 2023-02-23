@@ -70,29 +70,30 @@ class _State {
         page: CreateAnOfferScreen(),
         showInSideBar: false),
     PAGE(
-        index: PAGES.payOutTransaction,
-        title: "Payout Transactions",
-        page: const PayOutTransactionScreen(),
-        icon: payOutTransactionIcon,
-        width: 24,
-        height: 24,
-         //showInSideBar: false
-        ),
+      index: PAGES.payOutTransaction,
+      title: "Payout Transactions",
+      page: const PayOutTransactionScreen(),
+      icon: payOutTransactionIcon,
+      width: 24,
+      height: 24,
+      //showInSideBar: false
+    ),
     PAGE(
         index: PAGES.welcomeScreen,
         title: "page7",
-        page: const WelcomeBack(goOtpScreen: false,),
-        showInSideBar: false
-    ),
-    PAGE(
-        index: PAGES.walletManagement,
-        title: "Wallet Management",
-        page: const WalletTab(),
-        icon: walletManagementIcon,
-        width: 24,
-        height: 24,
-         //showInSideBar: false
+        page: const WelcomeBack(
+          goOtpScreen: false,
         ),
+        showInSideBar: false),
+    PAGE(
+      index: PAGES.walletManagement,
+      title: "Wallet Management",
+      page: const WalletTab(),
+      icon: walletManagementIcon,
+      width: 24,
+      height: 24,
+      //showInSideBar: false
+    ),
   ];
 }
 

@@ -36,7 +36,7 @@
 //                     ))
 //                     else
 //                     Flexible(child: CustomText(text: itemName, color: Color(0xff233375),)),
-                    
+
 //                   // Text('Offer Management',
 //                   // style: TextStyle(
 //                   //   fontFamily: "PushPenny",

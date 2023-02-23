@@ -21,10 +21,16 @@ class UserTransactions {
   String phoneNumber;
   String status;
 
-  UserTransactions({required this.wallet,
-    required this.dates,required this.rate,required this.phoneNumber,
-  required this.provider,required this.amount, required this.status});
+  UserTransactions(
+      {required this.wallet,
+      required this.dates,
+      required this.rate,
+      required this.phoneNumber,
+      required this.provider,
+      required this.amount,
+      required this.status});
 }
+
 class KyshiConnectServices extends StatefulWidget {
   const KyshiConnectServices({Key? key}) : super(key: key);
 
@@ -43,9 +49,30 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
   List<String> phoneNumber = ["+2341988736636","+2341988736636","+2341988736636"];
   List<Services>? connectServices;
   List<UserTransactions> userList = [
-    UserTransactions(wallet: "NGN", dates: "Nov 28, 20223:58 PM", status: 'Failed', rate: '£1/₦900', provider: 'Seerbit', phoneNumber: '+23049949904004', amount: '3000'),
-    UserTransactions(wallet: "GBP", dates: "Nov 28, 20223:58 PM", amount: '3000', phoneNumber: '+23049949904004', rate: '£1/₦900', status: 'Successful', provider: 'Seerbit'),
-    UserTransactions(wallet: "USD", dates: "Nov 28, 20223:58 PM", amount: '3000', phoneNumber: '+23049949904004', rate: '£1/₦900', status: 'Successful', provider: 'Seerbit'),
+    UserTransactions(
+        wallet: "NGN",
+        dates: "Nov 28, 20223:58 PM",
+        status: 'Failed',
+        rate: '£1/₦900',
+        provider: 'Seerbit',
+        phoneNumber: '+23049949904004',
+        amount: '3000'),
+    UserTransactions(
+        wallet: "GBP",
+        dates: "Nov 28, 20223:58 PM",
+        amount: '3000',
+        phoneNumber: '+23049949904004',
+        rate: '£1/₦900',
+        status: 'Successful',
+        provider: 'Seerbit'),
+    UserTransactions(
+        wallet: "USD",
+        dates: "Nov 28, 20223:58 PM",
+        amount: '3000',
+        phoneNumber: '+23049949904004',
+        rate: '£1/₦900',
+        status: 'Successful',
+        provider: 'Seerbit'),
   ];
   ScrollController? controller;
   @override
@@ -58,18 +85,17 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
           children:  [
             const SearchFieldDropdown(dropDownTitle: "Airtime",),
             const SizedBox(height: 20,),
             SingleChildScrollView(
               child: Container(
-                height:600,
-                decoration:  BoxDecoration(
-                    color:const Color(0XFFEAEBF1),
-                    borderRadius: BorderRadius.circular(12)
-                ),
+                height: 600,
+                decoration: BoxDecoration(
+                    color: const Color(0XFFEAEBF1),
+                    borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
                 padding:const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
                 child:connectServices!.isEmpty ?
@@ -136,9 +162,10 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                 ) :
                 DataTable(
                   columns: const <DataColumn>[
-                    DataColumn(label: Text("Dates"),
-                        // tooltip: "To Display name"
-                        ),
+                    DataColumn(
+                      label: Text("Dates"),
+                      // tooltip: "To Display name"
+                    ),
                     DataColumn(label: Text("Wallet")),
                     DataColumn(label: Text("Provider")),
                     DataColumn(label: Text("Phone Number")),
