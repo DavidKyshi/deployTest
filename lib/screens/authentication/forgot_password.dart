@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/models/users.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/otp_screen.dart';
+import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/userService/userService.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
@@ -151,7 +152,10 @@ class KyshiDynamicButtons extends StatelessWidget {
               color: Colors.transparent),
           child: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WelcomeBack()),
+                      (route) => false);
             },
             child: Row(
               children: [

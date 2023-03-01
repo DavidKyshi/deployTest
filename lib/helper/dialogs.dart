@@ -8,6 +8,8 @@ import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:lottie/lottie.dart';
+
+import '../userService/userService.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 final TextEditingController emailController = TextEditingController(text: "");
@@ -18,6 +20,13 @@ final TextEditingController newPasswordController =
 final TextEditingController confirmPasswordController =
     TextEditingController(text: "");
 FocusNode? focusNode;
+ String? qrCode;
+getQrCode()async{
+  Map<String, dynamic> responseData = await UserService().enable2FA();
+  print("${responseData["otp_url"]} screen111111 qr");
+    qrCode = responseData["otp_url"];
+    print("$qrCode screen222222");
+}
 void showMessageDialog(BuildContext context, lottieType, buttonText,
     {additionalButton,
     required Function()? btnFunction,
@@ -219,11 +228,12 @@ void showMessageDialog(BuildContext context, lottieType, buttonText,
                         color: primaryColor,
                         onPressed: popScreen
                             ? () {
+                               getQrCode();
                                 // addBoolToSF("goOtpScreen", true);
                                 Navigator.pop(context);
                                 successMessageDialog(
                                   context,
-                                  "SIGN IN",
+                                  "SETUP 2FA",
                                   btnFunction: () {},
                                   additionalBtnFunction: () {},
                                   additionalButtonColor: Colors.red,
@@ -326,13 +336,15 @@ void successMessageDialog(
                       KyshiButtonResponsive(
                         color: primaryColor,
                         onPressed: () {
+                          print("$qrCode code from dialogs");
                           Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const WelcomeBack(goOtpScreen: true)),
+                                  builder: (context) => FirstTimer(qrLink: qrCode ?? "",)
+                                      ),
                               (route) => false);
+                          // const WelcomeBack(goOtpScreen: true)
                         },
                         text: buttonText,
                         size: 550,

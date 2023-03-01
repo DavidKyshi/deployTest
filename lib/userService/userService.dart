@@ -8,11 +8,10 @@ import 'package:http/http.dart' as http;
 import '../helper/internalDio.dart';
 
 class UserService {
-  Future<Response> postUser({required Map<String, dynamic> data}) async {
+  Future<Response> login() async {
     try {
-      Response response = await customInternalDio.post("the url to call",
-          data: data,
-          options: Options(headers: {"authorization": "Bearer token"}));
+      Response response = await customInternalDio.post("/ops/login",);
+      print("${response.data} message after login");
       return response;
     } catch (e) {
       if (e is DioError) {
@@ -21,6 +20,33 @@ class UserService {
       rethrow;
     }
   }
+  Future<Map<String, dynamic>> enable2FA() async {
+    try {
+      Response response = await customInternalDio.get("/ops/enable-2FA",);
+      print("${response.data["otp_url"]} 2fa url after login");
+      return response.data;
+    } catch (e) {
+      if (e is DioError) {
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Response> verifyOtp({required Map<String,dynamic>data}) async {
+    try {
+      Response response = await customInternalDio.post("/ops/login",
+        data: data
+      );
+      print("${response.data} message after login");
+      return response;
+    } catch (e) {
+      if (e is DioError) {
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  // /ops/verify-otp
 
   Future<Map<String, dynamic>> getAllUsers() async {
     String baseUrl = dotenv.env['API_URL']!;
@@ -29,11 +55,14 @@ class UserService {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
         "/ops/users",
+        queryParameters: {
+          "entry_size":"30"
+        }
       );
       // http.get(uri);
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      // print("$response ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -63,9 +92,9 @@ class UserService {
         //   }
       );
       // http.get(uri);
-      print("${response.statusCode} ALL THE RESULT");
+      // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      // print("$response ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -93,7 +122,7 @@ class UserService {
       // http.get(uri);
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      // print("$response ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -107,21 +136,18 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getKyshiConnectTransactions() async {
+  Future<Map<String, dynamic>> getKyshiConnectTransactions({required String userId}) async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/dashboard/transactions");
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/dashboard/transactions",
-          // queryParameters: {
-          //   "user_id":userId
-          // }
+          queryParameters: {
+            "user_id":userId
+          }
       );
-      // http.get(uri);
-      // print("${response.statusCode} ALL THE RESULT");
-      // dynamic data = json.decode(response.body);
-      print("$response ALL TRANSACTION DATA");
+      // print("$response ALL TRANSACTION DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -146,10 +172,57 @@ class UserService {
             "user_id":userId
           }
       );
-      // http.get(uri);
-      // print("${response.statusCode} ALL THE RESULT");
-      // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      // print("$response ALL DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getWalletManagement() async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/wallet-management");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/wallet-management",
+          // queryParameters: {
+          //   "user_id":userId
+          // }
+      );
+      print("Wallet data");
+      // print("$response ALL DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getDifferentWallet({required String status}) async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/wallet-management");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+        "/ops/wallet-management",
+        queryParameters: {
+          "status":status
+        }
+      );
+      print("Wallet data");
+      // print("$response ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {

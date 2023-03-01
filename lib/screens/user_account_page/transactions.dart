@@ -156,101 +156,72 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     color: const Color(0XFFEAEBF1),
                     borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                child: transactions!.isEmpty?
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Dates",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Wallet",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Provider",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Phone Number",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Amount (₦)",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                        Text("Exchange rate",style: TextStyle(
+                            color: primaryColor,
+                            fontFamily: 'PushPenny',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12
+                        )),
+                      ],
+                    ),
+                    const SizedBox(height: 100,),
+                    SvgPicture.asset(empty),
+                    Text("The user is yet to make transaction"
+                        " \nwith Kyshi connect services,"
+                        "  it will\n appear here when the user does",style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'PushPenny',
+                    ),)
+                  ],
+                ):
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child:transactions!.isEmpty?
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Date",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Type",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Beneficiary",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Channel",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Charges",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Offer",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Sender",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Purpose",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Recipient",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Operation",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("ID",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                          Text("Ledger",style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12
-                          )),
-                        ],
-                      ),
-                      const SizedBox(height: 100,),
-                      SvgPicture.asset(empty),
-                      Text("The user is yet to make a transaction,\n  it will appear here when the user\n does",style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'PushPenny',
-                      ),)
-                    ],
-                  ):
-                  DataTable(
+                  child: DataTable(
                     dataRowHeight: 60,
                     columns: const <DataColumn>[
                       DataColumn(label: Text("Dates"),

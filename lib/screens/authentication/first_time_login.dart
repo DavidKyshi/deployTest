@@ -7,14 +7,17 @@ import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
 import '../../models/users.dart';
 import '../../userService/userService.dart';
+import 'otp_screen.dart';
 
 class FirstTimer extends StatefulWidget {
-  FirstTimer({Key? key}) : super(key: key);
+  final String qrLink;
+  const FirstTimer({Key? key, required this.qrLink}) : super(key: key);
 
   @override
   State<FirstTimer> createState() => _FirstTimerState();
@@ -29,9 +32,28 @@ class _FirstTimerState extends State<FirstTimer> {
   String pin = "";
   @override
   void initState() {
+    print("${widget.qrLink} my qr link");
     // TODO: implement initState
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
+  }
+
+  verifyOtp()async{
+    print("VERIFY OTP");
+    Response responseData = await UserService().verifyOtp(data: {"code":widget.qrLink});
+    if(responseData.statusCode ==200){
+      print("correct OPTP");
+      if (mounted){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const OtpScreen()));
+      }
+    }else{
+      showDialog(context: context, builder: (context) =>
+          Text("Wrong otp")
+      );
+    }
   }
 
   @override
@@ -91,9 +113,8 @@ class _FirstTimerState extends State<FirstTimer> {
                       fontFamily: 'PushPenny',
                       fontWeight: FontWeight.w400),
                 ),
-                Image.asset(qrCode),
-                const SizedBox(
-                  height: 10,
+                QrImage(data: widget.qrLink,
+                  size: 200,
                 ),
                 Text(
                   "Enter the 6 digit security code",
@@ -179,22 +200,21 @@ class _FirstTimerState extends State<FirstTimer> {
                 ),
                 KyshiButtonResponsive(
                   color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue,
-                  onPressed: () {
-                    if (pin.length >= 6) {
-                      // getUsers();
-                      Provider.of<UsersProvider>(context, listen: false)
-                          .getUsers();
-                          Provider.of<OfferManagementProvider>(context, listen: false)
-                          .getAllOfferManagement();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const WelcomeBack(
-                                    goOtpScreen: false,
-                                  )));
-                    } else {
-                      return;
-                    }
+                  onPressed: () async{
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement();
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getUsers();
+                    verifyOtp();
+                    // if (pin.length >= 6) {
+                    //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();
+                    //   // Navigator.push(
+                    //   //     context,
+                    //   //     MaterialPageRoute(
+                    //   //         builder: (context) => const OtpScreen()));
+                    // } else {
+                    //   return;
+                    // }
                   },
                   text: "Complete Setup",
                   size: 500,

@@ -1,5 +1,7 @@
 
 
+import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
+
 import 'helper/screen_export.dart';
 
 void main() async {
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
               TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
               TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
             })),
-        home: FirstTimer(),
+        home: const WelcomeBack(),
         //FirstTimer(),
         routes: {
           UserAccountScreen.route: (context) => UserAccountScreen(),
