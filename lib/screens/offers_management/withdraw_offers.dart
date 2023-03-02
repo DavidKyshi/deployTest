@@ -14,35 +14,8 @@ class WithDrawnOfferTable extends StatefulWidget {
 
 class _WithDrawnOfferTableState extends State<WithDrawnOfferTable> {
   late ScrollController controller;
-
-  final List<String> date = [
-    "Nov 28, 2022 3:58 PM",
-    "Nov 28, 2022 3:58 PM",
-    "Nov 28, 2022 3:58 PM",
-  ];
-  final List<String> date2 = [
-    "Nov 28, 2022 3:58 PM",
-    "Nov 28, 2022 3:58 PM",
-  ];
-  final List<String> createdBy = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
-  final List<String> currency = ['GBP', 'GBP', 'GBP'];
-  final List<String> amount = ['100.00', '100.00', '100.00'];
-  final List<String> fee = ['1', '1', '1'];
   final List<String> charges = ['1.00', '1.00', '1.00'];
-  final List<String> rate = ['930.00', '930.00', '930.00'];
-  final List<String> id = [
-    '6086346c-c5ac-98..',
-    '6086346c-c5ac-98..',
-    '6086346c-c5ac-98..'
-  ];
-  final List<String> email2 = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

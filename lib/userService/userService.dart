@@ -47,25 +47,29 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getOfferManagement() async {
+  Future<Map<String, dynamic>> getOfferManagement(String type) async {
     String baseUrl = dotenv.env['API_URL']!;
-    final Uri uri = Uri.parse("$baseUrl/ops/offers");
+    String url = "";
+    if(type== "all"){
+       url = "$baseUrl/ops/offers";
+   }else if (type == "open"){
+      url = "$baseUrl/ops/offers?open_offers=true";
+    }else if(type == "closed"){
+     url = "$baseUrl/ops/offers?closed_offers=true";
+    }else if(type == "accepted"){
+     url = "$baseUrl/ops/offers?accepted_offers=true";  
+    }else if(type == "withdrawn"){
+      url = "$baseUrl/ops/offers?withdrawn_offers=true"; 
+    }
+    final Uri uri = Uri.parse(url);
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/offers",
-        // queryParameters:{
-        //   "open_offer":false,
-        //   "closed_offers":false,
-        //   "accepted_offers":false,
-        //   "withdrawn_offers":false,
-        //   "expired_offers":false,
-        //   "offer_id":false
-        //   }
+        url,
       );
       // http.get(uri);
       print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      print("$response ALL DATA");
+      print(type);
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -162,4 +166,5 @@ class UserService {
       rethrow;
     }
   }
+
 }

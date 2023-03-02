@@ -4,13 +4,20 @@ import 'package:provider/provider.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../helper/screen_export.dart';
+import '../../widgets/on_hover.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<PageViewProvider>(context);
+      Color _containerColor = Colors.blue;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(children: [
@@ -64,14 +71,23 @@ class Homepage extends StatelessWidget {
                                   .map(
                                     (e) => e.showInSideBar == false
                                         ? const Offstage()
-                                        : SideMenuItems(
-                                            onNext: () =>
-                                                provider.gotoPage(e.index),
+                                        : OnHover(builder: (isHovered){
+                                          final Color color = isHovered ? Colors.amber : Colors.red;
+                                          return SideMenuItems(
+                                            onNext: () {
+                                                // setState(() {
+                                                  Colors.blue;
+                                                  provider.gotoPage(e.index);
+                                               // });
+                                                
+                                                },
                                             title: e.title,
                                             icon: e.icon,
                                             height: e.height,
                                             width: e.width,
-                                          ),
+                                            onTapColor: color,
+                                          );
+                                        })
                                   )
                                   .toList(),
                             ),
@@ -177,13 +193,14 @@ class SideMenuItems extends StatefulWidget {
     this.icon,
     this.width,
     this.height,
-    required this.onNext,
+    required this.onNext, required this.onTapColor,
   }) : super(key: key);
   final String title;
   final String? icon;
   final double? width;
   final double? height;
   final VoidCallback onNext;
+  final Color onTapColor;
 
   @override
   State<SideMenuItems> createState() => _SideMenuItemsState();
@@ -196,25 +213,33 @@ class _SideMenuItemsState extends State<SideMenuItems> {
       onTap: widget.onNext,
       child: Column(
         children: [
-          Row(
-            children: [
-              Image.asset(
-                widget.icon!,
-                width: widget.width,
-                height: widget.height,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                widget.title,
-                style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
+          // OnHover(
+          //   builder: (isHovered) {
+              // final color = isHovered ? primaryColor : Colors.red;
+             // return
+               Row(
+              children: [
+                Image.asset(
+                  widget.icon!,
+                  width: widget.width,
+                  height: widget.height,
+                //  color: color,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                      color: widget.onTapColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            //;
+          //   }, 
+          // ),
           SizedBox(
             height: 20,
           )

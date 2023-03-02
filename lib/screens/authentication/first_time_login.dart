@@ -186,6 +186,10 @@ class _FirstTimerState extends State<FirstTimer> {
                           .getUsers();
                           Provider.of<OfferManagementProvider>(context, listen: false)
                           .getAllOfferManagement();
+                          Provider.of<OfferManagementProvider>(context, listen: false)
+                          .getOpenOfferManagement();
+                           Provider.of<OfferManagementProvider>(context, listen: false)
+                          .getCloseOfferManagement();
                       Navigator.push(
                           context,
                           MaterialPageRoute(

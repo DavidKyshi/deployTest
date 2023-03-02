@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/closed_offers.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/expired_offers.dart';
+import 'package:kyshi_operations_dashboard/screens/offers_management/test.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/withdraw_offers.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/accept_offer.dart';
 
@@ -115,7 +116,8 @@ class _OfferManagementTabState extends State<OfferManagementTab> {
                     height: MediaQuery.of(context).size.height / 1.1,
                     child: TabBarView(
                       children: [
-                        AllOfferTable(),
+                       TextTab(),
+                      // AllOfferTable(),
                         OpenOfferTable(),
                         ClosedOfferTable(),
                         OfferManageAcceptedOfferTable(),
