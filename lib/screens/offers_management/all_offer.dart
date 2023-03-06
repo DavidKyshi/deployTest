@@ -713,7 +713,7 @@ class OfferButton extends StatelessWidget {
   OfferButton(
       {super.key,
       required this.isBorder,
-      required this.text,
+      required this.text, this.color,
       this.comment = false,
       this.commentBackground = true});
 
@@ -721,6 +721,7 @@ class OfferButton extends StatelessWidget {
   bool comment;
   bool commentBackground;
   String text;
+  Color? color;
   @override
   Widget build(BuildContext context) {
     return isBorder
@@ -742,14 +743,14 @@ class OfferButton extends StatelessWidget {
             ),
           )
         : Container(
-            width: comment ? 100 : 73,
-            height: comment ? 30 : 24,
+            width: 130,
+            height:  40 ,
             decoration: BoxDecoration(
                 color: !comment
                     ? primaryColor
                     : commentBackground
                         ? primaryColor
-                        : Color(0XFF6D48FF),
+                        : color ?? Color(0XFF6D48FF),
                 borderRadius: BorderRadius.circular(4)),
             child: Center(
               child: Text(

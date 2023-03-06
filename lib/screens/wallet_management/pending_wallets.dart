@@ -9,8 +9,11 @@ import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../customWidget/searchField.dart';
+import '../../models/wallet_comment_model.dart';
 import '../../models/wallet_management.dart';
+import '../../userService/userService.dart';
 import '../../widgets/accept_offer_alertbox.dart';
+import '../user_account_page/wallet/wallet_beneficiaries.dart';
 
 class PendingWallets extends StatefulWidget {
   const PendingWallets({Key? key}) : super(key: key);
@@ -32,17 +35,6 @@ class _PendingWallets extends State<PendingWallets> {
     "Nov 28, 2022 3:58 PM",
     "Nov 28, 2022 3:58 PM",
   ];
-  final List<String> createdBy = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
-  final List<String> currency = ['120,000', '300,000,000.00', '500'];
-  final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
-  final List<String> total = ['300,000,000.00', '120,000', '120,000'];
-  final List<String> fee = ['1', '1', '1'];
-  final List<String> charges = ['1.00', '1.00', '1.00'];
-  final List<String> tier = ['1', '3', '2'];
 
   final List<String> email2 = [
     "Bright George brightgerg@yahoo.com",
@@ -52,6 +44,7 @@ class _PendingWallets extends State<PendingWallets> {
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
   bool manageWallet = false;
+  List <CommentDetails> comments = [];
   @override
   void initState() {
     pendingWallets =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
@@ -169,13 +162,13 @@ class _PendingWallets extends State<PendingWallets> {
                             fontWeight: FontWeight.w500,
                             fontSize: 12
                         ))),
-                        DataColumn(label: Text("Actions",style: TextStyle(
+                        DataColumn(label: Text("Comments",style: TextStyle(
                             color: Color(0XFF233375),
                             fontFamily: 'PushPenny',
                             fontWeight: FontWeight.w500,
                             fontSize: 12
                         ))),
-                        DataColumn(label: Text("Comments",style: TextStyle(
+                        DataColumn(label: Text("Actions",style: TextStyle(
                             color: Color(0XFF233375),
                             fontFamily: 'PushPenny',
                             fontWeight: FontWeight.w500,
@@ -241,24 +234,51 @@ class _PendingWallets extends State<PendingWallets> {
                         ),
                         DataCell(
                           Text(e.status ?? "",style: TextStyle(
-                              color: primaryColor,
+                              color:e.status == "PENDING" ? warning :e.status == "ACTIVE"?  kyshiGreen :kyshiRed,
                               fontFamily: 'PushPenny',
                               fontWeight: FontWeight.w400,
                               fontSize: 14
                           )),
                         ),
                         DataCell(
-                            id[0]
-                        ),
-                        DataCell(
-                          InkWell(
-                              onTap: () {
-                                viewCommentAlertBox(context);
+                            InkWell(
+                              onTap: ()async{
+                                Map<String, dynamic> response = await UserService().getWalletComments();
+                                WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
+                                setState(() {
+                                  comments = commentModel.data ?? [];
+                                });
+                                viewCommentAlertBox(context: context,comment: comments);
                               },
                               child: OfferButton(
                                 isBorder: false,
-                                text: 'AA COMMENT',
+                                text: 'VIEW COMMENT',
                                 comment: true,
+                                commentBackground: false,
+                                color: const Color(0XFF6D48FF),
+                              ),
+                            )
+                        ),
+                        DataCell(
+                          // e.status == "PENDING" ? InkWell(
+                          //   onTap: (){
+                          //     manageWalletStatusAlertBox(context);
+                          //   },
+                          // viewCommentAlertBox(context);
+                          //   child: OfferButton(
+                          //     isBorder: false,
+                          //     text: 'MANAGE WALLET',
+                          //     comment: true,
+                          //   ),
+                          // ):
+                          InkWell(
+                              onTap: () {
+                                editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
+                              },
+                              child: OfferButton(
+                                isBorder: false,
+                                text: 'MANAGE WALLET',
+                                comment: false,
                               )),
                         ),
                       ])).toList()
@@ -736,76 +756,6 @@ class _PendingWallets extends State<PendingWallets> {
           ),
         ));
   }
-// manageWalletStatusAlertBox(BuildContext context){
-//   return showDialog(
-//       context: context,
-//       builder: (BuildContext context){
-//         return   AlertDialog(
-//           insetPadding: EdgeInsets.all(20),
-//           shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.all(Radius.circular(48))),
-//           content: Container(
-//               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
-//               height: 250,
-//               width: 529,
-//               child:  Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Text("Manage wallet status",style: TextStyle(
-//                           color: primaryColor,
-//                           fontWeight: FontWeight.w700,
-//                           fontSize: 28,
-//                           fontFamily: 'PushPenny'
-//                       ),),
-//                       InkWell(
-//                           onTap: (){
-//                             Navigator.of(context).pop();
-//                           },
-//                           child: Image.asset('assets/images/cancel.png',width: 40, height: 40,))
-//                     ],
-//                   ),
-//                   SizedBox(height: 30,),
-//                   Text("Overrides the status of the user's KYC for the wallet.\nWill"
-//                       "all be set to PASSED, trigger the creation of the \nledger on"
-//                       "RB/VFD/Evolve and Send out a notification \ninforming the user"
-//                       "that their wallet is now ready for use",
-//                     style: TextStyle(
-//                         color: kyshiGreyishBlue,
-//                         fontWeight: FontWeight.w400,
-//                         fontSize: 18,
-//                         fontFamily: 'PushPenny'
-//                     ),),
-//                   Row(
-//                     children: [
-//                       Text("Manage wallet state",style: TextStyle(
-//                           color: kyshiGreyishBlue,
-//                           fontWeight: FontWeight.w400,
-//                           fontSize: 18,
-//                           fontFamily: 'PushPenny'
-//                       ),),
-//                       Transform.scale(
-//                         scale: 0.8,
-//                         child: CupertinoSwitch(
-//                             activeColor: kyshiGreen,
-//                             trackColor: Colors.grey,
-//                             thumbColor:manageWallet ? primaryColor: Colors.white,
-//                             value: manageWallet, onChanged: (value){
-//                           setState(() {
-//                             manageWallet = value;
-//                           });
-//                         }),
-//                       ),
-//                     ],
-//                   )
-//                   // "Overrides the status of the user's KYC for the wallet.Will" all be set to PASSED, trigger the creation of the ledger on RB/VFD/Evolve and Send out a notification informing the user that their wallet is now ready for use."
-//                 ],
-//               )),
-//
-//         );}
-//   );
-// }
+
 
 }

@@ -3,12 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/models/wallet_comment_model.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/all_offer.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet/wallet_beneficiaries.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../customWidget/searchField.dart';
 import '../../models/wallet_management.dart';
+import '../../userService/userService.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 
 class AllWallets extends StatefulWidget {
@@ -31,17 +34,17 @@ class _AllWalletsState extends State<AllWallets> {
     "Nov 28, 2022 3:58 PM",
     "Nov 28, 2022 3:58 PM",
   ];
-  final List<String> createdBy = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
-  final List<String> currency = ['120,000', '300,000,000.00', '500'];
-  final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
-  final List<String> total = ['300,000,000.00', '120,000', '120,000'];
-  final List<String> fee = ['1', '1', '1'];
-  final List<String> charges = ['1.00', '1.00', '1.00'];
-  final List<String> tier = ['1', '3', '2'];
+  // final List<String> createdBy = [
+  //   "Bright George brightgerg@yahoo.com",
+  //   "Bright George brightgerg@yahoo.com",
+  //   "Bright George brightgerg@yahoo.com",
+  // ];
+  // final List<String> currency = ['120,000', '300,000,000.00', '500'];
+  // final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
+  // final List<String> total = ['300,000,000.00', '120,000', '120,000'];
+  // final List<String> fee = ['1', '1', '1'];
+  // final List<String> charges = ['1.00', '1.00', '1.00'];
+  // final List<String> tier = ['1', '3', '2'];
 
   final List<String> email2 = [
     "Bright George brightgerg@yahoo.com",
@@ -51,9 +54,12 @@ class _AllWalletsState extends State<AllWallets> {
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
   bool manageWallet = false;
+  List <CommentDetails> comments = [];
+  String? selectedId;
   @override
   void initState() {
     allWallets =Provider.of<UsersProvider>(context, listen: false).allWallets;
+    selectedId = Provider.of<UsersProvider>(context, listen: false).currentSelectedUserId;
     // TODO: implement initState
     super.initState();
   }
@@ -168,13 +174,13 @@ class _AllWalletsState extends State<AllWallets> {
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
-                      DataColumn(label: Text("Actions",style: TextStyle(
+                      DataColumn(label: Text("Comments",style: TextStyle(
                           color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
                           fontSize: 12
                       ))),
-                      DataColumn(label: Text("Comments",style: TextStyle(
+                      DataColumn(label: Text("Actions",style: TextStyle(
                           color: Color(0XFF233375),
                           fontFamily: 'PushPenny',
                           fontWeight: FontWeight.w500,
@@ -240,24 +246,51 @@ class _AllWalletsState extends State<AllWallets> {
                       ),
                       DataCell(
                         Text(e.status ?? "",style: TextStyle(
-                            color: primaryColor,
+                            color:e.status == "PENDING" ? warning :e.status == "ACTIVE"?  kyshiGreen :kyshiRed,
                             fontFamily: 'PushPenny',
                             fontWeight: FontWeight.w400,
                             fontSize: 14
                         )),
                       ),
                       DataCell(
-                      e.status == "PENDING"? id[0] : e.status == "IN_PROGRESS" ? id[1] : id[2]
+                      InkWell(
+                        onTap: ()async{
+                          Map<String, dynamic> response = await UserService().getWalletComments();
+                          WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
+                          setState(() {
+                            comments = commentModel.data ?? [];
+                          });
+                          viewCommentAlertBox(context: context,comment: comments);
+                        },
+                        child: OfferButton(
+                          isBorder: false,
+                          text: 'VIEW COMMENT',
+                          comment: true,
+                          commentBackground: false,
+                          color: const Color(0XFF6D48FF),
+                        ),
+                      )
                       ),
                       DataCell(
+                          // e.status == "PENDING" ? InkWell(
+                          //   onTap: (){
+                          //     manageWalletStatusAlertBox(context);
+                          //   },
+                          // viewCommentAlertBox(context);
+                          //   child: OfferButton(
+                          //     isBorder: false,
+                          //     text: 'MANAGE WALLET',
+                          //     comment: true,
+                          //   ),
+                          // ):
                         InkWell(
                             onTap: () {
-                                  viewCommentAlertBox(context);
+                                  editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
                                 },
                             child: OfferButton(
                               isBorder: false,
-                              text: 'VIEW COMMENT',
-                              comment: true,
+                              text: 'MANAGE WALLET',
+                              comment: false,
                             )),
                       ),
                     ])).toList()

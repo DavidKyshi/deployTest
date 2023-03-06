@@ -200,10 +200,10 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                       InkWell(
                           onTap: () {
                             userProvider.selectUser(user.id!);
+                            userProvider.setCurrentUser("${user.firstName} " " ${user.lastName}");
                             pageProvider.gotoPage(PAGES.home);
                             userProvider.getConnectSerivices();
                             userProvider.getTransactions();
-                            userProvider.getAllWallets();
 
                           },
                           child: Container(

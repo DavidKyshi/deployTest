@@ -6,6 +6,8 @@ import '../../../helper/screen_export.dart';
 import '../../../models/users.dart';
 import '../../../providers/users.dart';
 import '../../../styleguide/colors.dart';
+import '../../../userService/userService.dart';
+import '../../../widgets/kyshiTextFieldWithLabel.dart';
 import '../../../widgets/kyshi_responsive_button.dart';
 
 class WalletAndBeneficiaries extends StatefulWidget {
@@ -23,23 +25,36 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
   final List<String> sortCode = ["10019921", "10019921"];
   final List<String> currency = ["NGN", "NGN"];
   User? user;
-  String dropdownvalue = 'Active';
+  String? id;
+
 
   // List of items in our dropdown menu
-  var changeWalletStatus = [
-    'Active',
-    'Pending',
-    'In-progress',
-    'Reject and  close application',
-    'Rejected and re-open application',
-  ];
+
 
   @override
   void initState() {
     user = Provider.of<UsersProvider>(context, listen: false).getUserById();
+    id = Provider.of<UsersProvider>(context, listen: false).currentSelectedUserId;
     // TODO: implement initState
     super.initState();
   }
+  Color walletState({required Wallet? wallet}){
+    if(wallet?.status == "PENDING" ||wallet?.status == "IN_PROGRESS"|| wallet?.status == "INACTIVE"){
+      return Colors.grey;
+    }else if (wallet?.status == "REJECTED"){
+      return kyshiRed;
+    }
+    return const Color(0XFF23CE6B).withOpacity(0.5);
+  }
+  Color walletColor({required Wallet? wallet}){
+    if(wallet?.status == "PENDING" ||wallet?.status == "IN_PROGRESS" || wallet?.status == "INACTIVE"){
+      return Colors.grey;
+    }else if (wallet?.status == "REJECTED"){
+      return kyshiRed;
+    }
+    return const Color(0XFF23CE6B);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -69,8 +84,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                             padding2: 60,
                             padding1: 10, ontap: () {
                           editWalletStatusDialog(walletType: 'NGN',
-                            btnFunction: () { },
-                            context
+                            context, title: "Add comment",
                           );
                         }),
                         const SizedBox(
@@ -281,15 +295,15 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                       children: [
                         walletStatus(
                             title: "${user?.wallets![index].currency} wallet details",
-                            subTitle:user?.wallets![index].status == "PENDING"? "Rejected": "SET",
+                            subTitle:user?.wallets![index].status ?? "",
                             color: primaryColor,
-                            backgroundColor:user?.wallets![index].status == "PENDING" ? kyshiRed: primaryColor,
+                            backgroundColor:walletColor(wallet: user?.wallets![index]),
                             containerColor: const Color(0x0ff9f9f9),
                             padding2: 60,
                             padding1: 10,
                             ontap: () {
                               editWalletStatusDialog(
-                                  walletType: 'NGN', btnFunction: () {}, context);
+                                  walletType: 'NGN', context, title: "Add comment",);
                                 },
                               ),
                               const SizedBox(
@@ -304,12 +318,10 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width / 3,
-                                padding: const EdgeInsets.only(
-                                    top: 15, left: 15, right: 60, bottom: 40),
+                                padding: const EdgeInsets.only(top: 15, left: 15, right: 60, bottom: 40),
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: const Color(0XFF8C8C8C)
-                                            .withOpacity(0.2)),
+                                        color: const Color(0XFF8C8C8C).withOpacity(0.2)),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,11 +344,9 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                           height: 20,
                                           // padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
                                           decoration: BoxDecoration(
-                                              color: const Color(0XFF8C8C8C),
-                                              border:
-                                                  Border.all(color: primaryColor),
-                                              borderRadius:
-                                                  BorderRadius.circular(19)),
+                                              color: walletState(wallet: user?.wallets![index]),
+                                              border: Border.all(color: primaryColor),
+                                              borderRadius: BorderRadius.circular(19)),
                                           child:  Text(
                                             "${user?.wallets![index].status}",
                                             style: const TextStyle(
@@ -1171,128 +1181,154 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
       ),
     );
   }
-  void editWalletStatusDialog(BuildContext context,
-      {additionalButton,
-        required Function()? btnFunction,
-        required String walletType,
-       }) {
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) =>
-            StatefulBuilder(builder: (context, setState) {
-              Size size = MediaQuery.of(context).size;
-              return AlertDialog(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                content: SizedBox(
-                  width: 500,
-                  child: Container(
-                    width: 450,
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                           Text("Status of $walletType",style: TextStyle(color: primaryColor,
-                               fontFamily: 'PushPenny',fontSize: 28,fontWeight: FontWeight.w500),),
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: SvgPicture.asset(close))
-                          ],
-                        ),
-                        Text("You are about to change status of this $walletType. Proceed?",style: TextStyle(color: kyshiGreyishBlue,
-                            fontFamily: 'PushPenny',fontSize: 12,fontWeight: FontWeight.w400),),
-                        SizedBox(
-                          height: size.height * 0.03,
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: size.height * 0.03,
-                        ),
-                       Container(
-                         width: 450,
-                         padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
-                         decoration: const BoxDecoration(
-                           color: Color(0XFFF8F9FE)
-                         ),
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             const Text("Status",style:  TextStyle(color: Color(0XFF9AA1B3),
-                                 fontFamily: 'PushPenny',fontSize: 12,fontWeight: FontWeight.w400),),
-                             Container(
-                               padding: const EdgeInsets.only(right: 5),
-                               child: InputDecorator(
-                                 decoration:  InputDecoration(
-                                   prefixIconConstraints: const BoxConstraints(maxHeight: 30),
-                                   enabledBorder: OutlineInputBorder(
-                                     borderRadius: BorderRadius.circular(8),
-                                     borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                                   ),
-                                   focusedBorder:  OutlineInputBorder(
-                                     borderRadius: BorderRadius.circular(8),
-                                     borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                                   ),isDense: true,
-                                   // contentPadding: EdgeInsets.only(left: 12, right: 12, top: 8),
-                                 ),
-                                 child: DropdownButtonHideUnderline(
-                                   child: DropdownButton(
-                                     value: dropdownvalue,
-                                     icon: const Icon(Icons.keyboard_arrow_down),
-                                     items: changeWalletStatus.map((String items) {
-                                       return DropdownMenuItem(
-                                         value: items,
-                                         child: Text(items),
-                                       );
-                                     }).toList(),
-                                     onChanged: (String? newValue) {
-                                       setState(() {
-                                         dropdownvalue = newValue!;
-                                       });
-                                     },
-                                   ),
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                        const SizedBox(height: 20,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            KyshiButtonResponsive(
-                              color: const Color(0XFFF8F9FE),
-                              elevation: 0,
-                              childTextStyle: TextStyle(color: primaryColor,
-                                  fontWeight: FontWeight.w500,fontSize: 16),
-                              borderColor:  const Color(0XFFE6E7E9),
-                              onPressed: () {
+
+}
+String dropDownValue = 'Active';
+var changeWalletStatus = [
+  // 'Select a status'
+  'Active',
+  'Pending',
+  'In-progress',
+  'Reject and  close application',
+  'Rejected and re-open application',
+];
+void editWalletStatusDialog(BuildContext context,
+    {additionalButton,
+      // required Function()? btnFunction,
+      required String walletType,
+      required String title
+    }) {
+  final TextEditingController controller =
+  TextEditingController();
+  showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) =>
+          StatefulBuilder(builder: (context, setState) {
+            Size size = MediaQuery.of(context).size;
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              content: SizedBox(
+                width: 500,
+                child: Container(
+                  width: 450,
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Status of $walletType",style: TextStyle(color: primaryColor,
+                              fontFamily: 'PushPenny',fontSize: 28,fontWeight: FontWeight.w500),),
+                          InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
                               },
-                              text: "Cancel",
-                              size: 200,
+                              child: SvgPicture.asset(close))
+                        ],
+                      ),
+                      Text("You are about to change status of this $walletType. Proceed?",style: TextStyle(color: kyshiGreyishBlue,
+                          fontFamily: 'PushPenny',fontSize: 12,fontWeight: FontWeight.w400),),
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                      const Divider(),
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                      Container(
+                        width: 450,
+                        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                        decoration: const BoxDecoration(
+                            color: Color(0XFFF8F9FE)
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Status",style:  TextStyle(color: Color(0XFF9AA1B3),
+                                fontFamily: 'PushPenny',fontSize: 12,fontWeight: FontWeight.w400),),
+                            Container(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: InputDecorator(
+                                decoration:  InputDecoration(
+                                  prefixIconConstraints: const BoxConstraints(maxHeight: 30),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
+                                  ),
+                                  focusedBorder:  OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
+                                  ),isDense: true,
+                                  // contentPadding: EdgeInsets.only(left: 12, right: 12, top: 8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    value: dropDownValue,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: changeWalletStatus.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) async{
+                                      setState(() {
+                                        dropDownValue = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
-                            KyshiButtonResponsive(
-                              color: primaryColor,
-                              onPressed: () {
-                              },
-                              text: "Yes, change status",
-                              size: 200,
+                            const SizedBox(height: 20,),
+                            KyshiTextfieldWithLabel(
+                              controller: controller,
+                              labelText2: title,
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      const SizedBox(height: 20,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          KyshiButtonResponsive(
+                            color: const Color(0XFFF8F9FE),
+                            elevation: 0,
+                            childTextStyle: TextStyle(color: primaryColor,
+                                fontWeight: FontWeight.w500,fontSize: 16),
+                            borderColor:  const Color(0XFFE6E7E9),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            text: "Cancel",
+                            size: 200,
+                          ),
+                          KyshiButtonResponsive(
+                            color: primaryColor,
+                            onPressed: ()async{
+                             final id = Provider.of<UsersProvider>(context, listen: false).currentSelectedUserId;
+                              Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
+                                "wallet_id": id,
+                                "details":controller.text,
+                                "status":dropDownValue.toUpperCase()
+                              });
+                            },
+                            text: "Yes, change status",
+                            size: 200,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-              );
-            }));
-  }
+              ),
+            );
+          }));
 }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:kyshi_operations_dashboard/models/wallet_comment_model.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextFieldWithLabel.dart';
@@ -101,7 +102,7 @@ acceptOfferAlertBox(BuildContext context) {
       });
 }
 
-viewCommentAlertBox(BuildContext context) {
+viewCommentAlertBox({required BuildContext context, required List <CommentDetails> comment}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -144,13 +145,16 @@ viewCommentAlertBox(BuildContext context) {
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     width: 450,
-                    height: 90,
+                    height: 150,
                     decoration: BoxDecoration(
                         color: Color(0XFFF9F9F9),
                         borderRadius: BorderRadius.circular(11),
                         border: Border.all(color: Color(0XFFE8E8E8))),
-                    child: Text(
-                        "Could not validate all credentials, possibly fraud"),
+                    child: ListView.builder(itemBuilder: (context,index) {
+                      return Text(comment[index].details ?? "no comments yet");
+                    },
+                      itemCount: comment.length,
+                    ),
                   ),
                 ],
               )),

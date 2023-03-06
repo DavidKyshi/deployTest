@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/first_time_login.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/forgot_password.dart';
@@ -10,6 +11,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
+import '../../userService/userService.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
@@ -27,14 +29,26 @@ class _OtpScreenState extends State<OtpScreen> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
-
+  verifyOtp()async{
+    print("$pin VERIFY OTP");
+    Response responseData = await UserService().verifyOtp(data: pin, context: context);
+    if(responseData.statusCode ==200){
+      print("correct OPTP");
+      if (mounted){
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const Homepage()),
+                (route) => false);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          SideBar(
+          const SideBar(
             isWelcomeBack: true,
             firstTimer: false,
           ),
@@ -88,8 +102,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                const KyshiDynamicButtons(
-                  goDashBoard: true,
+                 KyshiDynamicButtons(
+                  goDashBoard: true, onTap: () {
+                   verifyOtp();
+                 },
                 ),
                 const SizedBox(
                   height: 30,
