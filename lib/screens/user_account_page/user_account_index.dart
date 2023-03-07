@@ -286,9 +286,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SvgPicture.asset(user.emailVerified! ? mail : mailUn),
-                            SvgPicture.asset(user.phoneVerified! ? call : callUn),
-                            SvgPicture.asset(user.bvnVerified! ? shield : shieldUn),
+                            SvgPicture.asset(user.emailVerified! == true ?mailUn :mailV),
+                            SvgPicture.asset(user.phoneVerified! == true?callUn :callV),
+                            SvgPicture.asset(user.bvnVerified! == true ? shieldUn :shieldV),
                             SvgPicture.asset(giftUn)
                           ],
                         ),
@@ -296,6 +296,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                  DataCell(
                       InkWell(
                           onTap: () {
+                            print("${user.emailVerified} email status");
                             userProvider.selectUser(user.id!);
                             userProvider.setCurrentUser("${user.firstName} " " ${user.lastName}");
                             pageProvider.gotoPage(PAGES.home);
