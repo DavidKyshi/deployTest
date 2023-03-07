@@ -1,31 +1,19 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
-import 'package:kyshi_operations_dashboard/models/offer_management_api_response/offer_data.dart';
-import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import '../../helper/screen_export.dart';
+import '../../styleguide/colors.dart';
+import 'all_offer.dart';
 
-import '../../widgets/accept_offer_alertbox.dart';
-
-class AllOfferTable extends StatefulWidget {
-  AllOfferTable({super.key});
+class TextTab extends StatefulWidget {
+  const TextTab({super.key});
 
   @override
-  State<AllOfferTable> createState() => _AllOfferTableState();
+  State<TextTab> createState() => _TextTabState();
 }
 
-class _AllOfferTableState extends State<AllOfferTable> {
-  late ScrollController controller;
-
-  
+class _TextTabState extends State<TextTab> {
   OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
 
   Text titleText(String title) {
     return Text(
@@ -49,14 +37,12 @@ class _AllOfferTableState extends State<AllOfferTable> {
     );
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-    final offerData = offerManagementProvider.offerData;
+   // final offersData = offerManagementProvider.offerData;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -66,34 +52,12 @@ class _AllOfferTableState extends State<AllOfferTable> {
             decoration: BoxDecoration(
                 color: const Color(0XFFEAEBF1),
                 borderRadius: BorderRadius.circular(12)),
-            child: offerData.isEmpty?
-            Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/book-search.png',
-                              width: 66,
-                              height: 67,
-                            ),
-                            Text(
-                              'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18,
-                                  fontFamily: "PushPenny",
-                                  color: primaryColor),
-                            ),
-                          ],
-                        )
-            :
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
               child: Column(
                 children: [
                   Row(
-
+                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
@@ -316,105 +280,4 @@ class _AllOfferTableState extends State<AllOfferTable> {
   }
 }
 
-class OfferButton extends StatelessWidget {
-  OfferButton(
-      {super.key,
-      required this.isBorder,
-      required this.text, this.color,
-      this.comment = false,
-      this.commentBackground = true});
 
-  bool isBorder;
-  bool comment;
-  bool commentBackground;
-  String text;
-  Color? color;
-  @override
-  Widget build(BuildContext context) {
-    return isBorder
-        ? Container(
-            width: 73,
-            height: 24,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Color(0xff23CE6B))),
-            child: Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                    color: Color(0xff23CE6B),
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-          )
-        : Container(
-            width: 130,
-            height:  40 ,
-            decoration: BoxDecoration(
-                color: !comment
-                    ? primaryColor
-                    : commentBackground
-                        ? primaryColor
-                        : color ?? Color(0XFF6D48FF),
-                borderRadius: BorderRadius.circular(4)),
-            child: Center(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-          );
-  }
-}
-
-class OfferMangementButton extends StatelessWidget {
-  OfferMangementButton(
-      {super.key,
-      // required this.isBorder,
-      required this.text});
-
-  // bool isBorder;
-  String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 73,
-      height: 24,
-      decoration: BoxDecoration(
-          color: text == "OPEN"
-              ? Colors.white
-              : text == "WITHDRAWN"
-                  ? Color(0xffEF845C)
-                  : text == "ACCEPTED"
-                      ? primaryColor
-                      : text == "EXPIRED"
-                          ? Color(0xffFBCD58)
-                          : Color(0XffFF5C5C),
-          borderRadius: BorderRadius.circular(4),
-          border: text == "OPEN"
-              ? Border.all(color: Color(0xff23CE6B))
-              : Border.all(color: Colors.transparent)),
-      child: Center(
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: text == "OPEN"
-                  ? Color(0xff23CE6B)
-                  : text == "EXPIRED"
-                      ? Colors.black
-                      : Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w500),
-        ),
-      ),
-    );
-  }
-}

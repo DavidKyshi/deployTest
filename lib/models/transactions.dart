@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-Transactions transactionsFromJson(String str) => Transactions.fromJson(json.decode(str));
+Transactions transactionsFromJson(String str) =>
+    Transactions.fromJson(json.decode(str));
 
 String transactionsToJson(Transactions data) => json.encode(data.toJson());
 
@@ -24,20 +25,25 @@ class Transactions {
   String? status;
 
   factory Transactions.fromJson(Map<String, dynamic> json) => Transactions(
-    page: json["page"],
-    totalPages: json["total_pages"],
-    totalItems: json["total_items"],
-    data: json["data"] == null ? [] : List<TransactionsData>.from(json["data"]!.map((x) => TransactionsData.fromJson(x))),
-    status: json["status"],
-  );
+        page: json["page"],
+        totalPages: json["total_pages"],
+        totalItems: json["total_items"],
+        data: json["data"] == null
+            ? []
+            : List<TransactionsData>.from(
+                json["data"]!.map((x) => TransactionsData.fromJson(x))),
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "page": page,
-    "total_pages": totalPages,
-    "total_items": totalItems,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "status": status,
-  };
+        "page": page,
+        "total_pages": totalPages,
+        "total_items": totalItems,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "status": status,
+      };
 }
 
 class TransactionsData {
@@ -71,35 +77,36 @@ class TransactionsData {
   double? ledgerBalance;
   String? beneficiary;
 
-  factory TransactionsData.fromJson(Map<String, dynamic> json) => TransactionsData(
-    createdAt: json["created_at"],
-    user: json["user"],
-    ledgerOperation: json["ledger_operation"],
-    amount: json["amount"],
-    currency: json["currency"],
-    status: json["status"],
-    processor: json["processor"],
-    channel: json["channel"],
-    type: json["type"],
-    serviceCharge: json["service_charge"],
-    availableBalance: json["available_balance"]?.toDouble(),
-    ledgerBalance: json["ledger_balance"]?.toDouble(),
-    beneficiary: json["beneficiary"],
-  );
+  factory TransactionsData.fromJson(Map<String, dynamic> json) =>
+      TransactionsData(
+        createdAt: json["created_at"],
+        user: json["user"],
+        ledgerOperation: json["ledger_operation"],
+        amount: json["amount"],
+        currency: json["currency"],
+        status: json["status"],
+        processor: json["processor"],
+        channel: json["channel"],
+        type: json["type"],
+        serviceCharge: json["service_charge"],
+        availableBalance: json["available_balance"]?.toDouble(),
+        ledgerBalance: json["ledger_balance"]?.toDouble(),
+        beneficiary: json["beneficiary"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "created_at": createdAt,
-    "user": user,
-    "ledger_operation": ledgerOperation,
-    "amount": amount,
-    "currency": currency,
-    "status": status,
-    "processor": processor,
-    "channel": channel,
-    "type": type,
-    "service_charge": serviceCharge,
-    "available_balance": availableBalance,
-    "ledger_balance": ledgerBalance,
-    "beneficiary": beneficiary,
-  };
+        "created_at": createdAt,
+        "user": user,
+        "ledger_operation": ledgerOperation,
+        "amount": amount,
+        "currency": currency,
+        "status": status,
+        "processor": processor,
+        "channel": channel,
+        "type": type,
+        "service_charge": serviceCharge,
+        "available_balance": availableBalance,
+        "ledger_balance": ledgerBalance,
+        "beneficiary": beneficiary,
+      };
 }

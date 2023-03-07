@@ -64,24 +64,26 @@ class _CreateOfferTableState extends State<CreateOfferTable> {
                           color: const Color(0XFFEAEBF1),
                           borderRadius: BorderRadius.circular(12)),
                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/images/book-search.png',
-                          width: 66,height: 67,
+                          Image.asset(
+                            'assets/images/book-search.png',
+                            width: 66,
+                            height: 67,
                           ),
-                          Text('No offer has been created by this \n user at the Kyshi marketplace,\n  it will appear here when the user does',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                            fontFamily: "PushPenny",
-                            color: primaryColor
-                          ),
+                          Text(
+                            'No offer has been created by this \n user at the Kyshi marketplace,\n  it will appear here when the user does',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18,
+                                fontFamily: "PushPenny",
+                                color: primaryColor),
                           ),
                         ],
                       )
-                      //     ListView(scrollDirection: Axis.horizontal, 
+                      //     ListView(scrollDirection: Axis.horizontal,
                       //     children: [
                       //   Container(
                       //     height: MediaQuery.of(context).size.height,

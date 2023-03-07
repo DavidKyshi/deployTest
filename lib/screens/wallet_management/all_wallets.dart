@@ -25,31 +25,7 @@ class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
   List<WalletResponse>? allWallets;
 
-  final List<String> date = [
-    "Active",
-    "Rejected",
-    "Pending",
-  ];
-  final List<String> date2 = [
-    "Nov 28, 2022 3:58 PM",
-    "Nov 28, 2022 3:58 PM",
-  ];
-  // final List<String> createdBy = [
-  //   "Bright George brightgerg@yahoo.com",
-  //   "Bright George brightgerg@yahoo.com",
-  //   "Bright George brightgerg@yahoo.com",
-  // ];
-  // final List<String> currency = ['120,000', '300,000,000.00', '500'];
-  // final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
-  // final List<String> total = ['300,000,000.00', '120,000', '120,000'];
-  // final List<String> fee = ['1', '1', '1'];
-  // final List<String> charges = ['1.00', '1.00', '1.00'];
-  // final List<String> tier = ['1', '3', '2'];
-
-  final List<String> email2 = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
+  
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
@@ -119,7 +95,8 @@ class _AllWalletsState extends State<AllWallets> {
                     color: const Color(0XFFEAEBF1),
                     borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(

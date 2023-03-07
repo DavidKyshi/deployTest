@@ -8,6 +8,7 @@ import '../../customWidget/searchField.dart';
 import '../../widgets/date_filters.dart';
 import 'payout_all_transaction.dart';
 import 'payout_completed_transaction.dart';
+import 'payout_reversed_transaction.dart';
 
 class PayOutTransactionTab extends StatelessWidget {
   const PayOutTransactionTab({super.key});
@@ -80,7 +81,8 @@ class PayOutTransactionTab extends StatelessWidget {
                       PayOutAllTransactionTable(),
                       PayOutPendingTransactionTable(),
                       PayOutFailedTransactionTable(),
-                      PayOutCompletedTransactionTable()
+                      PayOutCompletedTransactionTable(),
+                      PayOutReversedTransactionTable()
                     ],
                   ),
                 ),

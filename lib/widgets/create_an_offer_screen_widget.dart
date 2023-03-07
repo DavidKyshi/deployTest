@@ -453,152 +453,163 @@ class BankDetails extends StatelessWidget {
                         Column(
                           children: [
                             Row(
-                          children: [
-                            Text('Nigerian Naira'),
-                            SizedBox(width: 30,),
-                            Container(
-                              width: 38,
-                              height: 14,
-                              decoration: BoxDecoration(
-                                  color: Color(0xff7880AA),
-                                  borderRadius: BorderRadius.circular(2)),
-                              child: Center(
-                                child: Text(
-                                  'N NGN',
-                                  style: TextStyle(
-                                      fontSize: 9,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400),
+                              children: [
+                                Text('Nigerian Naira'),
+                                SizedBox(
+                                  width: 30,
                                 ),
-                              ),
-                            )
+                                Container(
+                                  width: 38,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xff7880AA),
+                                      borderRadius: BorderRadius.circular(2)),
+                                  child: Center(
+                                    child: Text(
+                                      'N NGN',
+                                      style: TextStyle(
+                                          fontSize: 9,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Divider()
                           ],
                         ),
-                        Divider()
-                          ],
+                        SizedBox(
+                          height: 40,
                         ),
-                        SizedBox(height: 40,),
                         Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Bank Name'),
-                            // SizedBox(width: 50,),
-                            Icon(Icons.arrow_drop_down,
-                            size: 20,
-                            color: Color(0xff23CE6B),
-                            )
+                              children: [
+                                Text('Bank Name'),
+                                // SizedBox(width: 50,),
+                                Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 20,
+                                  color: Color(0xff23CE6B),
+                                )
+                              ],
+                            ),
+                            Divider()
                           ],
                         ),
-                        Divider()
-                          ],
+                        SizedBox(
+                          height: 40,
                         ),
-                         SizedBox(height: 40,),
                         Column(
                           children: [
                             Row(
-                          children: [
-                            Text('Account number'),
-                            // Container(
-                            //   width: 38,
-                            //   height: 14,
-                            //   decoration: BoxDecoration(
-                            //       color: Color(0xff7880AA),
-                            //       borderRadius: BorderRadius.circular(2)),
-                            //   child: Center(
-                            //     child: Text(
-                            //       'N NGN',
-                            //       style: TextStyle(
-                            //           fontSize: 9,
-                            //           color: Colors.white,
-                            //           fontWeight: FontWeight.w400),
-                            //     ),
-                            //   ),
-                            // )
+                              children: [
+                                Text('Account number'),
+                                // Container(
+                                //   width: 38,
+                                //   height: 14,
+                                //   decoration: BoxDecoration(
+                                //       color: Color(0xff7880AA),
+                                //       borderRadius: BorderRadius.circular(2)),
+                                //   child: Center(
+                                //     child: Text(
+                                //       'N NGN',
+                                //       style: TextStyle(
+                                //           fontSize: 9,
+                                //           color: Colors.white,
+                                //           fontWeight: FontWeight.w400),
+                                //     ),
+                                //   ),
+                                // )
+                              ],
+                            ),
+                            Divider()
                           ],
                         ),
-                        Divider()
-                          ],
+                        SizedBox(
+                          height: 40,
                         ),
-                         SizedBox(height: 40,),
                         Column(
                           children: [
                             Row(
-                          children: [
-                            Text('Beneficiary (Autofill)'),
-                            // Container(
-                            //   width: 38,
-                            //   height: 14,
-                            //   decoration: BoxDecoration(
-                            //       color: Color(0xff7880AA),
-                            //       borderRadius: BorderRadius.circular(2)),
-                            //   child: Center(
-                            //     child: Text(
-                            //       'N NGN',
-                            //       style: TextStyle(
-                            //           fontSize: 9,
-                            //           color: Colors.white,
-                            //           fontWeight: FontWeight.w400),
-                            //     ),
-                            //   ),
-                            // )
+                              children: [
+                                Text('Beneficiary (Autofill)'),
+                                // Container(
+                                //   width: 38,
+                                //   height: 14,
+                                //   decoration: BoxDecoration(
+                                //       color: Color(0xff7880AA),
+                                //       borderRadius: BorderRadius.circular(2)),
+                                //   child: Center(
+                                //     child: Text(
+                                //       'N NGN',
+                                //       style: TextStyle(
+                                //           fontSize: 9,
+                                //           color: Colors.white,
+                                //           fontWeight: FontWeight.w400),
+                                //     ),
+                                //   ),
+                                // )
+                              ],
+                            ),
+                            Divider()
                           ],
                         ),
-                        Divider()
-                          ],
+                        SizedBox(
+                          height: 40,
                         ),
-                         SizedBox(height: 40,),
                         Column(
                           children: [
                             Row(
-                          children: [
-                            Text('Purpose'),
-                            // Container(
-                            //   width: 38,
-                            //   height: 14,
-                            //   decoration: BoxDecoration(
-                            //       color: Color(0xff7880AA),
-                            //       borderRadius: BorderRadius.circular(2)),
-                            //   child: Center(
-                            //     child: Text(
-                            //       'N NGN',
-                            //       style: TextStyle(
-                            //           fontSize: 9,
-                            //           color: Colors.white,
-                            //           fontWeight: FontWeight.w400),
-                            //     ),
-                            //   ),
-                            // )
-                          ],
-                        ),
-                        Divider()
+                              children: [
+                                Text('Purpose'),
+                                // Container(
+                                //   width: 38,
+                                //   height: 14,
+                                //   decoration: BoxDecoration(
+                                //       color: Color(0xff7880AA),
+                                //       borderRadius: BorderRadius.circular(2)),
+                                //   child: Center(
+                                //     child: Text(
+                                //       'N NGN',
+                                //       style: TextStyle(
+                                //           fontSize: 9,
+                                //           color: Colors.white,
+                                //           fontWeight: FontWeight.w400),
+                                //     ),
+                                //   ),
+                                // )
+                              ],
+                            ),
+                            Divider()
                           ],
                         ),
                       ],
                     ),
-                  )
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: 444,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontFamily: "PushPenny"),
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    width: 444,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          fontFamily: "PushPenny"
-                        ),
-                      ),
-                    ),
-                  )
+                ),
+              )
             ],
           ),
         ));

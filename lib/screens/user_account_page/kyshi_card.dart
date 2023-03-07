@@ -87,10 +87,12 @@ class _KyshiCardState extends State<KyshiCard> {
   List<Services>? connectServices;
   @override
   void initState() {
-    connectServices = Provider.of<UsersProvider>(context, listen: false).connectService;
+    connectServices =
+        Provider.of<UsersProvider>(context, listen: false).connectService;
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -105,119 +107,127 @@ class _KyshiCardState extends State<KyshiCard> {
               decoration: BoxDecoration(
                   color: const Color(0XFFF4F5F8),
                   borderRadius: BorderRadius.circular(12)),
-              child:connectServices!.isEmpty ?
-              Column(
-                children: [
-                  const SizedBox(height: 100,),
-                  SvgPicture.asset(empty),
-                  Text("The user is yet to make transaction"
-                      " \nwith Kyshi connect services,"
-                      "  it will\n appear here when the user does",style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'PushPenny',
-                  ),)
-                ],
-              ):
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 400,
-                    height: 200,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.98),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: connectServices!.isEmpty
+                  ? Column(
                       children: [
-                        buildRow(
-                            title: "Activation date\nNov 28, 2022•3:58 PM",
-                            image: SvgPicture.asset(logo)),
                         const SizedBox(
-                          height: 20,
+                          height: 100,
                         ),
-                        SvgPicture.asset(sound),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        buildRow(
-                            title: "Bright George Card balance",
-                            image: const SizedBox()),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        buildRow(
-                            title: "\$10,000",
-                            image: SvgPicture.asset(visa),
-                            isBold: true)
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 400,
-                    height: 200,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.98),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildRow(
-                            title: "Virtual Dollar Card",
-                            image: SvgPicture.asset(logo)),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SvgPicture.asset(sound),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        buildRow(
-                            title: "**** **** **** 90182",
-                            image: const Icon(Icons.copy),
-                            isBold: true),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildRow(
-                                title: "Valid thru",
-                                image: const Text(
-                                  "CVV",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            const SizedBox()
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildRow(
-                                title: "07/24    ",
-                                image: const Text(
-                                  "    ***",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            const SizedBox()
-                          ],
+                        SvgPicture.asset(empty),
+                        Text(
+                          "The user is yet to make transaction"
+                          " \nwith Kyshi connect services,"
+                          "  it will\n appear here when the user does",
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny',
+                          ),
                         )
                       ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: 400,
+                          height: 200,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.98),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildRow(
+                                  title:
+                                      "Activation date\nNov 28, 2022•3:58 PM",
+                                  image: SvgPicture.asset(logo)),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              SvgPicture.asset(sound),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buildRow(
+                                  title: "Bright George Card balance",
+                                  image: const SizedBox()),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buildRow(
+                                  title: "\$10,000",
+                                  image: SvgPicture.asset(visa),
+                                  isBold: true)
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 400,
+                          height: 200,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.98),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildRow(
+                                  title: "Virtual Dollar Card",
+                                  image: SvgPicture.asset(logo)),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              SvgPicture.asset(sound),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buildRow(
+                                  title: "**** **** **** 90182",
+                                  image: const Icon(Icons.copy),
+                                  isBold: true),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  buildRow(
+                                      title: "Valid thru",
+                                      image: const Text(
+                                        "CVV",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                  const SizedBox()
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  buildRow(
+                                      title: "07/24    ",
+                                      image: const Text(
+                                        "    ***",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                  const SizedBox()
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
             ),
             const SizedBox(
               height: 20,
@@ -237,107 +247,112 @@ class _KyshiCardState extends State<KyshiCard> {
                 width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child:connectServices!.isEmpty ?
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Dates",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Wallet",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Provider",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Phone Number",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Amount (₦)",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Exchange rate",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                        Text("Exchange rate",style: TextStyle(
-                            color: primaryColor,
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        )),
-                      ],
-                    ),
-                    const SizedBox(height: 100,),
-                    SvgPicture.asset(empty),
-                    Text("The user is yet to make transaction"
-                        " \nwith Kyshi connect services,"
-                        "  it will\n appear here when the user does",style: TextStyle(
-                      color: primaryColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'PushPenny',
-                    ),)
-                  ],
-                ):
-                DataTable(
-                  columns: const <DataColumn>[
-                    DataColumn(
-                      label: Text("Dates"),
-                      // tooltip: "To Display name"
-                    ),
-                    DataColumn(label: Text("Wallet")),
-                    DataColumn(label: Text("Provider")),
-                    DataColumn(label: Text("Phone Number")),
-                    DataColumn(label: Text("Amount (₦)")),
-                    DataColumn(label: Text("Exchange rate")),
-                    DataColumn(label: Text("Status")),
-                  ],
-                  rows: userList
-                      .map(
-                        (user) => DataRow(
-                          cells: [
-                            DataCell(
-                              Text(user.dates),
+                child: connectServices!.isEmpty
+                    ? Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Dates",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Wallet",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Provider",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Phone Number",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Amount (₦)",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Exchange rate",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Exchange rate",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 100,
+                          ),
+                          SvgPicture.asset(empty),
+                          Text(
+                            "The user is yet to make transaction"
+                            " \nwith Kyshi connect services,"
+                            "  it will\n appear here when the user does",
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'PushPenny',
                             ),
-                            DataCell(
-                              Text(user.wallet),
-                            ),
-                            DataCell(
-                              Text(user.provider),
-                            ),
-                            DataCell(
-                              Text(user.phoneNumber),
-                            ),
-                            DataCell(
-                              Text(user.amount),
-                            ),
-                            DataCell(Text(user.rate)),
-                            DataCell(Text(user.status)),
-                          ],
-                        ),
+                          )
+                        ],
                       )
-                      .toList(),
-                ),
+                    : DataTable(
+                        columns: const <DataColumn>[
+                          DataColumn(
+                            label: Text("Dates"),
+                            // tooltip: "To Display name"
+                          ),
+                          DataColumn(label: Text("Wallet")),
+                          DataColumn(label: Text("Provider")),
+                          DataColumn(label: Text("Phone Number")),
+                          DataColumn(label: Text("Amount (₦)")),
+                          DataColumn(label: Text("Exchange rate")),
+                          DataColumn(label: Text("Status")),
+                        ],
+                        rows: userList
+                            .map(
+                              (user) => DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(user.dates),
+                                  ),
+                                  DataCell(
+                                    Text(user.wallet),
+                                  ),
+                                  DataCell(
+                                    Text(user.provider),
+                                  ),
+                                  DataCell(
+                                    Text(user.phoneNumber),
+                                  ),
+                                  DataCell(
+                                    Text(user.amount),
+                                  ),
+                                  DataCell(Text(user.rate)),
+                                  DataCell(Text(user.status)),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ),
               ),
               // Container(
               //   padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),

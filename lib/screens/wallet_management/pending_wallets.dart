@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,8 @@ class _PendingWallets extends State<PendingWallets> {
   List <CommentDetails> comments = [];
   @override
   void initState() {
-    pendingWallets =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
+    pendingWallets =
+        Provider.of<UsersProvider>(context, listen: false).pendingWallets;
     // TODO: implement initState
     super.initState();
   }
@@ -107,7 +107,8 @@ class _PendingWallets extends State<PendingWallets> {
                     color: const Color(0XFFEAEBF1),
                     borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(

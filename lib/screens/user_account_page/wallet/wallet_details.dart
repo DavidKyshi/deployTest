@@ -1,4 +1,3 @@
-
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
@@ -8,11 +7,9 @@ import 'package:provider/provider.dart';
 import '../../../models/users.dart';
 import '../../../providers/users.dart';
 
-
-
 class WalletDetails extends StatefulWidget {
   Wallet? wallet;
-   WalletDetails({Key? key, this.wallet}) : super(key: key);
+  WalletDetails({Key? key, this.wallet}) : super(key: key);
 
   @override
   State<WalletDetails> createState() => _WalletDetailsState();
@@ -26,6 +23,7 @@ class _WalletDetailsState extends State<WalletDetails> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,74 +32,102 @@ class _WalletDetailsState extends State<WalletDetails> {
         child: SizedBox(
           width: MediaQuery.of(context).size.width / 1.2,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20,top: 10),
+            padding: const EdgeInsets.only(left: 20, top: 10),
             child: Column(
               children: [
-                SizedBox(height: 40,),
-
+                SizedBox(
+                  height: 40,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text("User Accounts",style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'PushPenny',
-                      color: primaryColor
-                    ),),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(Icons.arrow_forward_ios,color: primaryColor,size: 14,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text("Account Profile",style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
+                    Text(
+                      "User Accounts",
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w700,
                           fontFamily: 'PushPenny',
-                          color: kyshiGreyishBlue
-                      ),),
+                          color: primaryColor),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(Icons.arrow_forward_ios,color: primaryColor,size: 14,),
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: primaryColor,
+                        size: 14,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text("${widget.wallet?.currency} Wallet details",style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'PushPenny',
-                          color: kyshiGreyishBlue
-                      ),),
+                      child: Text(
+                        "Account Profile",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny',
+                            color: kyshiGreyishBlue),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: primaryColor,
+                        size: 14,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        "${widget.wallet?.currency} Wallet details",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny',
+                            color: kyshiGreyishBlue),
+                      ),
                     ),
                   ],
                 ),
                 Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    walletDetailsHeader(title: "${widget.wallet?.currency} Wallet details", subTitle: "Export PDF", image: pdfIcon),
-                    SizedBox(width: 120,),
-                    walletDetailsHeader(title: "${widget.wallet?.currency} Wallet Reports", subTitle: "This Week",image: downArrow),
+                    walletDetailsHeader(
+                        title: "${widget.wallet?.currency} Wallet details",
+                        subTitle: "Export PDF",
+                        image: pdfIcon),
+                    SizedBox(
+                      width: 120,
+                    ),
+                    walletDetailsHeader(
+                        title: "${widget.wallet?.currency} Wallet Reports",
+                        subTitle: "This Week",
+                        image: downArrow),
                   ],
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    WalletDataParameters(wallet: widget.wallet,),
-                    SizedBox(width: 20,),
+                    WalletDataParameters(
+                      wallet: widget.wallet,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
                     SizedBox(
                       width: 500,
-                      height: MediaQuery.of(context).size.height/2.4,
+                      height: MediaQuery.of(context).size.height / 2.4,
                       child: Stack(
                         clipBehavior: Clip.none,
                         fit: StackFit.loose,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width / 3,
-                            padding: const EdgeInsets.only(
-                                top: 15, bottom: 40),
+                            padding: const EdgeInsets.only(top: 15, bottom: 40),
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     color: const Color(0XFF8C8C8C)
@@ -122,18 +148,16 @@ class _WalletDetailsState extends State<WalletDetails> {
                                               color: primaryColor,
                                               fontSize: 40,
                                               fontWeight: FontWeight.w500),
-                                        children: [
-                                          TextSpan(
-                                            text: "Total Debits",
-                                            style: TextStyle(
-                                                color: primaryColor,
-                                                fontFamily: 'PushPenny',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          )
-                                        ]
-                                      )
-                                  ),
+                                          children: [
+                                        TextSpan(
+                                          text: "Total Debits",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ])),
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -148,17 +172,15 @@ class _WalletDetailsState extends State<WalletDetails> {
                                               fontSize: 40,
                                               fontWeight: FontWeight.w500),
                                           children: [
-                                            TextSpan(
-                                              text: "Total Credits",
-                                              style: TextStyle(
-                                                  color: primaryColor,
-                                                  fontFamily: 'PushPenny',
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400),
-                                            )
-                                          ]
-                                      )
-                                  ),
+                                        TextSpan(
+                                          text: "Total Credits",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ])),
                                 ),
                               ],
                             ),
@@ -174,8 +196,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                     color: const Color(0XFFF8F9FE),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "WALLET LIMITS",
@@ -217,7 +238,6 @@ class _WalletDetailsState extends State<WalletDetails> {
                                     bankAccountDetails(
                                         detail: "Allowable Balance",
                                         value: '800,000 of 1,200,000.00'),
-
                                   ],
                                 ),
                               ))
@@ -233,6 +253,7 @@ class _WalletDetailsState extends State<WalletDetails> {
       ),
     );
   }
+
   Row bankAccountDetails({required String detail, required String value}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +261,8 @@ class _WalletDetailsState extends State<WalletDetails> {
     );
   }
 
-  Container walletDetailsHeader({required title,required subTitle, required String image}) {
+  Container walletDetailsHeader(
+      {required title, required subTitle, required String image}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       decoration: BoxDecoration(
@@ -288,10 +310,11 @@ class _WalletDetailsState extends State<WalletDetails> {
     );
   }
 }
+
 class WalletDataParameters extends StatelessWidget {
-    WalletDataParameters({super.key, this.wallet});
- final Wallet? wallet;
- final time = DateTime.now();
+  WalletDataParameters({super.key, this.wallet});
+  final Wallet? wallet;
+  final time = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -390,7 +413,9 @@ class WalletDataParameters extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 50,),
+              SizedBox(
+                width: 50,
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: Column(
@@ -403,7 +428,7 @@ class WalletDataParameters extends StatelessWidget {
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text:"${wallet?.createdAt?? ""}",
+                      text: "${wallet?.createdAt ?? ""}",
                     ),
                     SizedBox(
                       height: 20,
