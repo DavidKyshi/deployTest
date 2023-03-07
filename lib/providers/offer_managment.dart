@@ -8,24 +8,14 @@ class OfferManagementProvider extends ChangeNotifier {
   List<OfferData> closedOfferData = [];
   List<OfferData> withdrawOfferData = [];
   List<OfferData> acceptedOfferData = [];
-  String? currentSelectedofferManagementId;
+  List<User> users = [];
+  String? currentSelectedUserId;
 
-  void selectOffer(String id) {
-    currentSelectedofferManagementId = id;
-     notifyListeners();
-  }
-
-  OfferData? getAllOfferManagementById([String? id]) {
-    if (offerData.isEmpty) return null;
-    if (id == null && currentSelectedofferManagementId == null) return null;
-     notifyListeners();
-    return offerData.firstWhere(
-        (element) => element.id == (id ?? currentSelectedofferManagementId),
-        orElse: null);
-  }
+  
 
   Future<List<OfferData>> getAllOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement("all");
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("all");
     final data = List.from(responseData['data']);
     offerData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
@@ -33,7 +23,8 @@ class OfferManagementProvider extends ChangeNotifier {
   }
 
   Future<List<OfferData>> getOpenOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement("open");
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("open");
     final data = List.from(responseData['data']);
     openOfferData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
@@ -41,25 +32,47 @@ class OfferManagementProvider extends ChangeNotifier {
   }
 
   Future<List<OfferData>> getCloseOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement("closed");
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("closed");
     final data = List.from(responseData['data']);
-    closedOfferData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    closedOfferData =
+        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return closedOfferData;
   }
 
   Future<List<OfferData>> getWithdrawnOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement("withdrawn");
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("withdrawn");
     final data = List.from(responseData['data']);
-    withdrawOfferData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    withdrawOfferData =
+        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return withdrawOfferData;
   }
 
   Future<List<OfferData>> getAcceptedOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement("accepted");
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("accepted");
     final data = List.from(responseData['data']);
-    acceptedOfferData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    acceptedOfferData =
+        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    notifyListeners();
+    return acceptedOfferData;
+  }
+   
+  Future<List<OfferData>?> getCreatedUserAccount() async {
+    //  if (users.isEmpty) return null;
+    // if (id == null && currentSelectedUserId == null) return null;
+    // //notifyListeners();
+    // // return users.firstWhere(
+    // //     (element) => element.id == (id ?? currentSelectedUserId),
+    // //     orElse: null);
+    Map<String, dynamic> responseData =
+        await UserService().getOfferManagement("created_offer");
+    final data = List.from(responseData['data']);
+    acceptedOfferData =
+        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return acceptedOfferData;
   }

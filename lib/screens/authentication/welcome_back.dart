@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/helper/sharedPreferences.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
@@ -6,6 +7,7 @@ import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart'
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
+import '../../userService/userService.dart';
 import 'otp_screen.dart';
 
 class WelcomeBack extends StatefulWidget {
@@ -25,28 +27,23 @@ class _WelcomeBackState extends State<WelcomeBack> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   bool showPassword = false;
+  bool validUser = false;
+  String qrCode = "";
   // late Future<bool goOtpScreen;
   @override
   void initState() {
     // print("${widget.goOtpScreen} OTPN VALUE GOTTEN from initstate");
     // TODO: implement initState
-    // focusedBorderColor = kyshiGreyishBlue;
-    // fillColor = const Color.fromRGBO(243, 246, 249, 0);
-    // borderColor = kyshiGreyishBlue;
-    // defaultPinTheme = PinTheme(
-    //   width: 70,
-    //   height: 52,
-    //   textStyle: const TextStyle(
-    //     fontSize: 22,
-    //     color: Color.fromRGBO(30, 60, 87, 1),
-    //   ),
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(8),
-    //     border: Border.all(color: borderColor),
-    //   ),
-    // );
-    // goOtpScreen =  getBoolValuesSF("goOtpScreen");
     super.initState();
+  }
+
+  login() async {
+    Response responseData = await UserService().login();
+    if (responseData.statusCode == 200) {
+      setState(() {
+        validUser = true;
+      });
+    }
   }
 
   @override
@@ -160,16 +157,33 @@ class _WelcomeBackState extends State<WelcomeBack> {
                 KyshiButtonResponsive(
                   color: primaryColor,
                   onPressed: () {
+                    login();
                     // print("${widget.goOtpScreen} OTPN VALUE GOTTEN");
-                    widget.goOtpScreen
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OtpScreen()))
-                        : showMessageDialog(
+                    validUser
+                        ?
+                        // widget.goOtpScreen
+                        //     ? Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => const OtpScreen()))
+                        showMessageDialog(
                             context,
                             success,
                             "Create new password",
+                            btnFunction: () {},
+                            additionalBtnFunction: () {},
+                            additionalButtonColor: Colors.red,
+                            headline: 'Create new password,',
+                            message:
+                                "It’s compulsory to change your password boss.",
+                            subMessage: "Passwords must be be 8-32 Numbers"
+                                "Capital Letter and should be alphanumeric e.g, Alsdty123",
+                            name: ' Olamide',
+                          )
+                        : showMessageDialog(
+                            context,
+                            error,
+                            "Error",
                             btnFunction: () {},
                             additionalBtnFunction: () {},
                             additionalButtonColor: Colors.red,

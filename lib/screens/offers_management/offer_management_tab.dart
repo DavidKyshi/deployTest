@@ -21,13 +21,13 @@ class OfferManagementTab extends StatefulWidget {
 }
 
 class _OfferManagementTabState extends State<OfferManagementTab> {
-   OfferManagementProvider get offerManagementProvider=>
+  OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
   @override
   void initState() {
     super.initState();
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -116,8 +116,8 @@ class _OfferManagementTabState extends State<OfferManagementTab> {
                     height: MediaQuery.of(context).size.height / 1.1,
                     child: TabBarView(
                       children: [
-                       TextTab(),
-                      // AllOfferTable(),
+                        TextTab(),
+                        // AllOfferTable(),
                         OpenOfferTable(),
                         ClosedOfferTable(),
                         OfferManageAcceptedOfferTable(),

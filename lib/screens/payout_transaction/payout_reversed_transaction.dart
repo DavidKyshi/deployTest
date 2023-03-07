@@ -1,40 +1,34 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable
 
-import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
-import '../offers_management/all_offer.dart';
+import 'payout_all_transaction.dart';
 import 'payout_failed_transaction.dart';
 
-class PayOutAllTransactionTable extends StatefulWidget {
-  PayOutAllTransactionTable({super.key});
+class PayOutReversedTransactionTable extends StatefulWidget {
+  PayOutReversedTransactionTable({super.key});
 
   @override
-  State<PayOutAllTransactionTable> createState() =>
-      _PayOutAllTransactionTableState();
+  State<PayOutReversedTransactionTable> createState() =>
+      _PayOutReversedTransactionTableState();
 }
 
-class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
+class _PayOutReversedTransactionTableState
+    extends State<PayOutReversedTransactionTable> {
   late ScrollController controller;
-
-  PayOutTransactionProvider get payOutTransactionProvider =>
+PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-
-      
-
   
   @override
   Widget build(BuildContext context) {
-    final allPayOutTransactionData =
-        payOutTransactionProvider.allPayOutTransactionData;
-        final oCcy = new NumberFormat("#,##0.00", "en_US");
+     final reversedPayOutTransactionData =
+        payOutTransactionProvider.reversedPayOutTransactionData;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           child: Container(
@@ -45,7 +39,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                   borderRadius: BorderRadius.circular(12)),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: allPayOutTransactionData.isEmpty
+                child: reversedPayOutTransactionData.isEmpty
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -190,8 +184,8 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                               ),
                             ),
                             ...payOutTransactionProvider
-                                .allPayOutTransactionData
-                                .map((allPayOutTransactionData) => Column(
+                                .reversedPayOutTransactionData
+                                .map((reversedPayOutTransactionData) => Column(
                                       children: [
                                         Row(
                                           crossAxisAlignment:
@@ -200,7 +194,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 83,
                                                 child: Text(convertDateTime(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                         .createdAt
                                                         .toString()))),
                                             SizedBox(
@@ -209,7 +203,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 157,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .user ??
                                                         "")),
                                             SizedBox(
@@ -218,7 +212,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 97,
                                                 child: subText(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .ledgerOperation ??
                                                         "")),
                                             SizedBox(
@@ -227,7 +221,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 85,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .amount ??
                                                         "")),
                                             // SizedBox(
@@ -236,7 +230,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 45,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .processor ??
                                                         "")),
 
@@ -247,7 +241,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 74,
                                                 child: subText(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .channel ??
                                                         "")),
                                             SizedBox(
@@ -256,7 +250,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 20,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .type ??
                                                         "")),
                                             SizedBox(
@@ -265,7 +259,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 39,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .serviceCharge ??
                                                         "")),
 
@@ -276,7 +270,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 83,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                         .ledgerBalance
                                                         .toString())),
 
@@ -287,7 +281,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 83,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                         .availableBalance
                                                         .toString())),
                                             SizedBox(
@@ -297,7 +291,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 150,
                                                 child: Text(
-                                                    allPayOutTransactionData
+                                                    reversedPayOutTransactionData
                                                             .beneficiary ??
                                                         "")),
                                             SizedBox(
@@ -320,7 +314,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 80,
                                                 child: StatusText(
-                                                  text:  allPayOutTransactionData
+                                                  text:  reversedPayOutTransactionData
                                                             .status ??
                                                         "")),
                                             SizedBox(
@@ -329,7 +323,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                               width: 80,
                                               child: PayOutTransactionButton(
-                                                containerColor: allPayOutTransactionData.status == "SUCCESS" || allPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
+                                                containerColor: reversedPayOutTransactionData.status == "SUCCESS" || reversedPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
                                                 text: "RETRY",
                                               ),
                                             )
@@ -345,63 +339,6 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                         ),
                       ),
               )),
-        ),
-      ),
-    );
-  }
-}
-
-class StatusText extends StatelessWidget {
-  StatusText(
-      {super.key,
-      required this.text});
-  String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w500,
-          fontFamily: "PushPenny",
-          color: text =="SUCCESS"
-              ? Color(0xff23CE6B)
-              : text =="PENDING"
-                  ? Color(0xffFBCD58)
-              : text =="REVERSED"
-                  ?  Color(0xff6D48FF) 
-                  : Color(0xffFF5C5C)),
-    );
-  }
-}
-
-class PayOutTransactionButton extends StatelessWidget {
-  PayOutTransactionButton(
-      {super.key,
-      // required this.isBorder,
-      required this.text, required this.containerColor});
-
-  // bool isBorder;
-  String text;
- final  Color containerColor;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 73,
-      height: 24,
-      decoration: BoxDecoration(
-          color:  containerColor,
-          borderRadius: BorderRadius.circular(4),
-              ),
-      child: Center(
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color:  Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w500),
         ),
       ),
     );

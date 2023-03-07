@@ -88,7 +88,9 @@ class _AccountKYCState extends State<AccountKYC> {
                             SizedBox(
                               width: 20,
                             ),
-                            NatureAndPurposeOfAccount(currency: "GBP",),
+                            NatureAndPurposeOfAccount(
+                              currency: "GBP",
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -112,7 +114,10 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        RiskStatusCard(riskRatingg: user.riskRating??"", riskScore: user.riskScore??"",),
+                        RiskStatusCard(
+                          riskRatingg: user.riskRating ?? "",
+                          riskScore: user.riskScore ?? "",
+                        ),
                         //  UserProfileButtonContainer(text: 'Risk Status',),
                       ],
                     ),
@@ -127,7 +132,11 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        IdentificationStatusBoard(bvn: user.bvn, bvnVerified: user.bvnVerified?? false, canTransact: user.canTransact??false,)
+                        IdentificationStatusBoard(
+                          bvn: user.bvn,
+                          bvnVerified: user.bvnVerified ?? false,
+                          canTransact: user.canTransact ?? false,
+                        )
                       ],
                     ),
                     SizedBox(
@@ -141,7 +150,9 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        ReferralProgramBoard(code: user.referralCode??"",)
+                        ReferralProgramBoard(
+                          code: user.referralCode ?? "",
+                        )
                       ],
                     ),
                   ],
@@ -159,7 +170,9 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        KycRecordsBoard(createdAt: createdAt,)
+                        KycRecordsBoard(
+                          createdAt: createdAt,
+                        )
                       ],
                     ),
                     SizedBox(
@@ -173,7 +186,9 @@ class _AccountKYCState extends State<AccountKYC> {
                         SizedBox(
                           height: 10,
                         ),
-                        DocumentBoard(createdAt: createdAt,)
+                        DocumentBoard(
+                          createdAt: createdAt,
+                        )
                       ],
                     ),
                   ],

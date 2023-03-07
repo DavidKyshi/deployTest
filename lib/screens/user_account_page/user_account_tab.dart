@@ -30,19 +30,27 @@ class UserAccountTab extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text("User Accounts",style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'PushPenny',
-                      color: primaryColor
-                  ),),
-                  Icon(Icons.arrow_forward_ios,color: primaryColor,size: 14,),
-                  Text("Account Profile",style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'PushPenny',
-                      color: kyshiGreyishBlue
-                  ),),
+                  Text(
+                    "User Accounts",
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'PushPenny',
+                        color: primaryColor),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: primaryColor,
+                    size: 14,
+                  ),
+                  Text(
+                    "Account Profile",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'PushPenny',
+                        color: kyshiGreyishBlue),
+                  ),
                 ],
               ),
               Container(

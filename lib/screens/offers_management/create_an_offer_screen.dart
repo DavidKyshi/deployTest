@@ -70,7 +70,9 @@ class CreateAnOfferScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(width: 40,),
+                  SizedBox(
+                    width: 40,
+                  ),
                   BankDetails()
                 ],
               ),

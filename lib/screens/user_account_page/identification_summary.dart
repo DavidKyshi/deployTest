@@ -10,12 +10,12 @@ class IdentificationSummary extends StatefulWidget {
 }
 
 class _IdentificationSummaryState extends State<IdentificationSummary> {
-    UsersProvider get userProvider =>
+  UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     final user = userProvider.getUserById();
-     String formattedDateTime = convertDateTime(user!.dateJoined ?? "");
+    String formattedDateTime = convertDateTime(user!.dateJoined ?? "");
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
@@ -33,12 +33,12 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
                   height: 10,
                 ),
                 ProfilePictureCard(
-                   firstName: user.firstName ?? "",
-                          lastName: user.lastName ?? "",
-                          profileImage: user.profileImage == "" ||
-                                  user.profileImage == null
-                              ? profilePicture
-                              : user.profileImage,
+                  firstName: user.firstName ?? "",
+                  lastName: user.lastName ?? "",
+                  profileImage:
+                      user.profileImage == "" || user.profileImage == null
+                          ? profilePicture
+                          : user.profileImage,
                 )
               ],
             ),
@@ -55,18 +55,18 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
                 ),
                 BioDataParameters(
                   dateOfBirth: user.dob ?? "",
-                              dateOfRegistration: formattedDateTime,
-                              email: user.email ?? "",
-                              emailStatus: user.emailVerified ?? false,
-                              firstName: user.firstName ?? "",
-                              gender: user.gender ?? "",
-                              lastName: user.lastName ?? "",
-                              middleName: user.middleName ?? "",
-                              nationality: user.nationality1 ?? "",
-                              occupation: user.occupation ?? "",
-                              phoneNumberStatus: user.phoneVerified ?? false,
-                              phoneNumber: user.phoneNumber ?? "",
-                              residence: user.countryOfResidence ?? "",
+                  dateOfRegistration: formattedDateTime,
+                  email: user.email ?? "",
+                  emailStatus: user.emailVerified ?? false,
+                  firstName: user.firstName ?? "",
+                  gender: user.gender ?? "",
+                  lastName: user.lastName ?? "",
+                  middleName: user.middleName ?? "",
+                  nationality: user.nationality1 ?? "",
+                  occupation: user.occupation ?? "",
+                  phoneNumberStatus: user.phoneVerified ?? false,
+                  phoneNumber: user.phoneNumber ?? "",
+                  residence: user.countryOfResidence ?? "",
                 ),
               ],
             ),

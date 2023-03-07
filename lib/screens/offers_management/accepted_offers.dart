@@ -18,568 +18,288 @@ class _OfferManageAcceptedOfferTableState
     extends State<OfferManageAcceptedOfferTable> {
   late ScrollController controller;
 
-  final List<String> charges = ['1.00', '1.00', '1.00'];
-    OfferManagementProvider get offerManagementProvider =>
+  Text titleText(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        color: primaryColor,
+        fontFamily: 'PushPenny',
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
+      ),
+    );
+  }
+
+  Text subText(String sub) {
+    return Text(
+      sub,
+      style: TextStyle(
+          fontSize: 14,
+         fontWeight: FontWeight.w500,
+         color: Color(0xff233375)),
+    );
+  }
+  OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
-   final acceptedOffer = offerManagementProvider.acceptedOfferData;
+    final acceptedOffer = offerManagementProvider.acceptedOfferData;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body:SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-          child: Stack(
-            children: [
-              Container(
-                  // padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 25),
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: const Color(0XFFEAEBF1),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: 
-                  acceptedOffer.isEmpty?
-                  Column(
-                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/book-search.png',
-                          width: 66,height: 67,
-                          ),
-                          Text('We currently don’t have an accepted \n  offer  at the Kyshi marketplace,  it will \n appear here when we do',
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: const Color(0XFFEAEBF1),
+                borderRadius: BorderRadius.circular(12)),
+              child: acceptedOffer.isEmpty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/book-search.png',
+                          width: 66,
+                          height: 67,
+                        ),
+                        Text(
+                          'We currently don’t have an accepted \n  offer  at the Kyshi marketplace,  it will \n appear here when we do',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                            fontFamily: "PushPenny",
-                            color: primaryColor
-                          ),
-                          ),
-                        ],
-                      ) 
-                      :
-                  ListView(scrollDirection: Axis.horizontal,
-                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 340,
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        border: Border(
-                          right: BorderSide(
-                            color: primaryColor,
-                            width: 2,
-                          ),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              fontFamily: "PushPenny",
+                              color: primaryColor),
                         ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Created',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 83,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: PageScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      // padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        convertDateTime(acceptedOffer[index].createdAt.toString()),
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'User',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 155,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].owner??"",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                      ],
+                    )
+                  : 
+                  Padding(
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+              child: Column(
+                children: [
+                  Row(
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        color: Colors.white,
-                        border: Border(
-                          right: BorderSide(
-                            color: Color(0xffF4F5F8),
-                            width: 2,
-                          ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 190,
+                        child: Row(
+                          children: [
+                            titleText('Created'),
+                            SizedBox(
+                              width: 60,
+                            ),
+                            titleText('User'),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Currency',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].baseCurrency??"",
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
+                      SizedBox(width: 120,),
+                      SizedBox(
+                        width: 220,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            titleText('Currency'),
+                            SizedBox(
+                              width: 30,
                             ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Amount',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 60,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].baseAmount??"",
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
+                            titleText('Amount'),
+                            SizedBox(
+                              width: 30,
                             ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Fee (%)',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].baseFee.toString(),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Charges',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        charges[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: charges.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //  hkhkkhkhkkhkhkhkhkhkhkhkhkhkhkhhkhkhkhkh
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      decoration: BoxDecoration(
-                        //color: Colors.amber,
-                        color: Colors.white,
-                        border: Border(
-                          right: BorderSide(
-                            color: Color(0xffF4F5F8),
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Currency',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].quoteCurrency??"",
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Amount',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 60,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].quoteAmount??"",
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Fee (%)',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].quoteFee.toString(),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Charges',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 35,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //   padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        charges[index],
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                            titleText('Fee (%)'),
 
-                    //tttttttttt
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      // width: 640,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      child: Row(
-                        children: [
-                          AllOfferTitleTable(
-                            title: 'Rate',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 52,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: PageScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      // padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].exchangeRate??"",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'Expire',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 83,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    children: [
-                                      Text(
-                                        convertDateTime(acceptedOffer[index].createdAt.toString()),
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          AllOfferTitleTable(
-                            title: 'ID',
-                            name: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: 65,
-                              child: ListView.builder(
-                                // controller: controller,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      //  padding: const EdgeInsets.symmetric(vertical: 15),
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        acceptedOffer[index].id??"",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff233375)),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      )
-                                    ],
-                                  ));
-                                },
-                                itemCount: acceptedOffer.length,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                           AllOfferTitleTable(
-                              title: 'Status',
-                              name: SizedBox(
-                                  height: MediaQuery.of(context).size.height,
-                                  width: 100,
-                                  child: ListView.builder(
-                                      itemCount: acceptedOffer.length,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              OfferMangementButton(
-                                                text:
-                                                    acceptedOffer[index].status ??
-                                                        "",
-                                              ),
-                                              SizedBox(
-                                                height: 35,
-                                              ),
-                                              // InkWell(
-                                              //     onTap: () {
-                                              //       acceptOfferAlertBox(context);
-                                              //       print('working');
-                                              //     },
-                                              //     child: OfferButton(
-                                              //       isBorder: true,
-                                              //       text: 'OPEN',
-                                              //     )),
-                                              // SizedBox(
-                                              //   height: 35,
-                                              // ),
-                                              // OfferButton(
-                                              //   isBorder: false,
-                                              //   text: 'ACCEPTED',
-                                              // ),
-                                            ],
-                                          ),
-                                        );
-                                      })),
-                            ),
-                        ],
+                            
+                          ],
+                        ),
                       ),
-                    ),
-                  ]
-                  )
+                       SizedBox(width: 30,),
+                      SizedBox(
+                        width: 250,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            titleText('Currency'),
+                             SizedBox(
+                              width: 30,
+                            ),
+                      titleText('Amount'),
+                       SizedBox(
+                              width: 30,
+                            ),
+                      titleText('Fee (%)'),
+                          ],
+                        ),
+                      ),
+
+                                      
+ 
+                      SizedBox(
+                        width: 380,
+                        child: Row(
+                          children: [
+                            titleText('Rate'),
+                            SizedBox(
+                              width: 38,
+                            ),
+                      titleText('Expire'),
+                      SizedBox(
+                              width: 70,
+                            ),
+                      titleText('ID'),
+                      SizedBox(
+                              width: 145,
+                            ),
+                      titleText('Status'),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-              //  Positioned(
-              //  left: 490,
-              //   top: 125,
-              //   bottom: 0,
-              //   child: Text('BASE',
-              //   style: TextStyle(
-              //     color: primaryColor.withOpacity(0.5),
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.w500
-              //   ),
-              //   )
-              //   ),
-            ],
-          ),
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 250, 20),
+                    child: SizedBox(
+                  
+                      width: 300,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                          Text('BASE',
+                          style: TextStyle(
+                  color: primaryColor.withOpacity(0.5),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500
+                ),
+                          ),
+                          Text('QUOTE',
+                          style: TextStyle(
+                  color: primaryColor.withOpacity(0.5),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500
+                ),
+                          ),
+                      ],
+                    ),
+                    ),
+                  ),
+                  ...offerManagementProvider.acceptedOfferData
+                      .map((acceptedOfferData) => Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                      width: 83,
+                                      child: Text(convertDateTime(
+                                          acceptedOfferData.createdAt
+                                              .toString()))),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                      width: 157,
+                                      child:
+                                          Text(acceptedOfferData.owner ?? "")),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  SizedBox(
+                                      width: 35,
+                                      child: subText(
+                                          acceptedOfferData.baseCurrency ?? "")),
+                                  SizedBox(
+                                    width: 38,
+                                  ),
+                                  SizedBox(
+                                      width: 70,
+                                      child: subText(
+                                          acceptedOfferData.baseAmount ?? "")),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  SizedBox(
+                                      width: 35,
+                                      child: subText(
+                                          acceptedOfferData.baseFee.toString())),
+
+                                          SizedBox(
+                                    width: 50,
+                                  ),
+
+                                          SizedBox(
+                                      width: 35,
+                                      child: subText(
+                                          acceptedOfferData.quoteCurrency ?? "")),
+                                  SizedBox(
+                                    width: 38,
+                                  ),
+                                  SizedBox(
+                                      width: 70,
+                                      child: subText(
+                                          acceptedOfferData.quoteAmount ?? "")),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  SizedBox(
+                                      width: 35,
+                                      child: subText(
+                                          acceptedOfferData.quoteFee.toString())),
+
+                                          SizedBox(
+                                    width: 30,
+                                  ),
+ 
+                                          SizedBox(
+                                      width: 70,
+                                      child: Text(
+                                          acceptedOfferData.exchangeRate ?? "")),
+
+                                      SizedBox(
+                                      width: 83,
+                                      child: Text(convertDateTime(
+                                          acceptedOfferData.expiresAt
+                                              .toString()))), 
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+
+                                         SizedBox(
+                                      width: 140,
+                                      child: Text(
+                                          acceptedOfferData.id ?? "")),           
+                                        SizedBox(
+                                                width: 20,
+                                              ),
+                                      SizedBox(
+                                        width: 100,
+                                        child:  OfferMangementButton(
+                                                      text: acceptedOfferData
+                                                              .status ??
+                                                          "",
+                                                    ),
+                                      )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          ))
+                      .toList()
+                ],
+              ),
+            ),
+                    ),
         ),
       ),
     );

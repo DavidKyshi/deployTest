@@ -626,7 +626,7 @@ class BioDataStatusTextStyle extends StatelessWidget {
 
 class NatureAndPurposeOfAccount extends StatelessWidget {
   const NatureAndPurposeOfAccount({super.key, required this.currency});
-   final String currency;
+  final String currency;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -717,31 +717,31 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                //     NatureAndPurposeIsActiveTextStyle(
-                //       text: 'GBP',
-                //       isActiveText: 'Inactive',
-                //       status: true,
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   width: 40,
-                // ),
-                // Column(
-                //   children: [
-                //     NatureAndPurposeIsActiveTextStyle(
-                //       text: 'USD',
-                //       isActiveText: 'Inactive',
-                //       status: true,
-                //     ),
-                //     SizedBox(
-                //       height: 20,
-                //     ),
-                //     NatureAndPurposeIsActiveTextStyle(
-                //       text: 'CAD',
-                //       isActiveText: 'Inactive',
-                //       status: true,
-                //     ),
+                    //     NatureAndPurposeIsActiveTextStyle(
+                    //       text: 'GBP',
+                    //       isActiveText: 'Inactive',
+                    //       status: true,
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   width: 40,
+                    // ),
+                    // Column(
+                    //   children: [
+                    //     NatureAndPurposeIsActiveTextStyle(
+                    //       text: 'USD',
+                    //       isActiveText: 'Inactive',
+                    //       status: true,
+                    //     ),
+                    //     SizedBox(
+                    //       height: 20,
+                    //     ),
+                    //     NatureAndPurposeIsActiveTextStyle(
+                    //       text: 'CAD',
+                    //       isActiveText: 'Inactive',
+                    //       status: true,
+                    //     ),
                   ],
                 )
               ],
@@ -947,9 +947,10 @@ class NatureAndPurposeIsActiveTextStyle extends StatelessWidget {
 }
 
 class RiskStatusCard extends StatelessWidget {
-  const RiskStatusCard({super.key, required this.riskScore, required this.riskRatingg});
+  const RiskStatusCard(
+      {super.key, required this.riskScore, required this.riskRatingg});
   final String riskScore;
- final String riskRatingg;
+  final String riskRatingg;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1041,7 +1042,11 @@ class RiskStatusCard extends StatelessWidget {
                             fontFamily: "PushPenny",
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
-                            color: riskRatingg == "medium"?Color(0xffFBCD58): riskRatingg == "low"? Color(0xff6E80A3) : Colors.green),
+                            color: riskRatingg == "medium"
+                                ? Color(0xffFBCD58)
+                                : riskRatingg == "low"
+                                    ? Color(0xff6E80A3)
+                                    : Colors.green),
                       ),
                       Text(
                         'Risk Rating',
@@ -1067,10 +1072,14 @@ class RiskStatusCard extends StatelessWidget {
 }
 
 class IdentificationStatusBoard extends StatelessWidget {
-  const IdentificationStatusBoard({super.key, required this.canTransact, required this.bvnVerified, required this.bvn});
-   final bool canTransact;
-   final String bvn;
-   final bool bvnVerified;
+  const IdentificationStatusBoard(
+      {super.key,
+      required this.canTransact,
+      required this.bvnVerified,
+      required this.bvn});
+  final bool canTransact;
+  final String bvn;
+  final bool bvnVerified;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1140,7 +1149,7 @@ class IdentificationStatusBoard extends StatelessWidget {
               children: [
                 BioDataStatusTextStyle(
                   isActive: canTransact,
-                  text: canTransact==true? 'Active' : 'InActive',
+                  text: canTransact == true ? 'Active' : 'InActive',
                 ),
                 SizedBox(
                   height: 20,
@@ -1153,7 +1162,7 @@ class IdentificationStatusBoard extends StatelessWidget {
                 ),
                 BioDataStatusTextStyle(
                   isActive: bvnVerified,
-                  text: bvnVerified == true? 'Verified': "Unverified",
+                  text: bvnVerified == true ? 'Verified' : "Unverified",
                 ),
                 SizedBox(
                   height: 20,
@@ -1199,7 +1208,7 @@ class IdentificationStatusBoard extends StatelessWidget {
 
 class ReferralProgramBoard extends StatelessWidget {
   const ReferralProgramBoard({super.key, required this.code});
- final String code;
+  final String code;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1434,8 +1443,7 @@ class KycRecordsBoard extends StatelessWidget {
                       text: 'CREATED AT',
                     ),
                     SizedBox(height: 30),
-                    KycRecordsAndDocumentBoardSubText(
-                        text: createdAt),
+                    KycRecordsAndDocumentBoardSubText(text: createdAt),
                     SizedBox(height: 30),
                     // KycRecordsAndDocumentBoardSubText(
                     //     text: 'Nov 28, 2022 • 3:58 PM'),
@@ -1528,8 +1536,7 @@ class DocumentBoard extends StatelessWidget {
                       text: 'CREATED AT',
                     ),
                     SizedBox(height: 30),
-                    KycRecordsAndDocumentBoardSubText(
-                        text: createdAt),
+                    KycRecordsAndDocumentBoardSubText(text: createdAt),
                     SizedBox(height: 30),
                     // KycRecordsAndDocumentBoardSubText(
                     //     text: 'Nov 28, 2022 • 3:58 PM'),

@@ -33,10 +33,10 @@ dependencies:
   provider: ^6.0.5
   intl: ^0.18.0
   dio: ^5.0.0
+  qr_flutter: ^4.0.0
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
-#  shared_preferences: ^2.0.10
-#  pinput: any
+  syncfusion_flutter_charts: ^20.4.52
   pin_code_fields: ^7.4.0
   lottie: ^1.0.1
 

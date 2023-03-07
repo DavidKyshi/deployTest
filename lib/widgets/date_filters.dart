@@ -387,7 +387,6 @@ class _CalenderPickDateStatementState extends State<CalenderPickDateStatement> {
   }
 }
 
-
 class CalenderPickDateStatement2 extends StatefulWidget {
   const CalenderPickDateStatement2({super.key});
 
@@ -396,7 +395,8 @@ class CalenderPickDateStatement2 extends StatefulWidget {
       _CalenderPickDateStatement2State();
 }
 
-class _CalenderPickDateStatement2State extends State<CalenderPickDateStatement2> {
+class _CalenderPickDateStatement2State
+    extends State<CalenderPickDateStatement2> {
   DateTime date = DateTime.now();
   late var formattedDate;
 
@@ -457,4 +457,3 @@ class _CalenderPickDateStatement2State extends State<CalenderPickDateStatement2>
     );
   }
 }
-
