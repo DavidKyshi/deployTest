@@ -215,10 +215,9 @@ class _FirstTimerState extends State<FirstTimer> {
                   color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue,
                   onPressed: () async{
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAllOfferManagement();
-                    Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context);
-                    Provider.of<UsersProvider>(context, listen: false).getAllWallets();
+                        .getAllOfferManagement(context);
+                    Provider.of<UsersProvider>(context, listen: false).getUsers(context: context);
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

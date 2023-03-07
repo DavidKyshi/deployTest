@@ -17,30 +17,8 @@ class UserAccountIndex extends StatefulWidget {
 }
 
 class _UserAccountIndexState extends State<UserAccountIndex> {
-  User? user;
-  final List<String> names = [
-    "Mohammed",
-    "Rab",
-    "Gbemi",
-    "david",
-    "Tobiloba",
-    "George",
-    "Bright",
-    "Mohammed",
-    "Rab",
-    "Gbemi",
-    "david",
-    "Tobiloba",
-    "George",
-    "Bright",
-    "Mohammed",
-    "Rab",
-    "Gbemi",
-    "david",
-    "Tobiloba",
-    "George",
-    "Bright"
-  ];
+  List<User>? user;
+
   final List<Widget> action = [
     Column(
       children: [
@@ -77,7 +55,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   @override
   void initState() {
     // TODO: implement initState
-    // user = Provider.of<UsersProvider>(context, listen: false).users;
+    user = Provider.of<UsersProvider>(context, listen: false).users;
     super.initState();
   }
 
@@ -134,8 +112,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             // DataColumn(label: Text("Ledger")),
                             // DataColumn(label: Text("Status")),
                           ],
-                          rows:  userProvider.users
-                            .map((user) => DataRow(
+                          rows:  user!.map((user) => DataRow(
                       cells: [
                       DataCell(
                       Text(user.firstName ?? ""),
@@ -202,8 +179,8 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             userProvider.selectUser(user.id!);
                             userProvider.setCurrentUser("${user.firstName} " " ${user.lastName}");
                             pageProvider.gotoPage(PAGES.home);
-                            userProvider.getConnectSerivices();
-                            userProvider.getTransactions();
+                            userProvider.getConnectSerivices(context);
+                            userProvider.getTransactions(context);
 
                           },
                           child: Container(

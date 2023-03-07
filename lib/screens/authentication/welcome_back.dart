@@ -47,6 +47,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
     // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
    if(mounted) Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
     if(responseData?.statusCode == 200){
+     if (mounted) Provider.of<UsersProvider>(context, listen: false).getUsers(context: context);
       if(mounted) {
         if(responseData?.data["is_admin_changed_password"] == false){
           showMessageDialog(

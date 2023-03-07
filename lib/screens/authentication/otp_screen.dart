@@ -104,6 +104,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                  KyshiDynamicButtons(
                   goDashBoard: true, onTap: () {
+                   Provider.of<OfferManagementProvider>(context, listen: false)
+                       .getAllOfferManagement(context);
+                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                    verifyOtp();
                  },
                 ),

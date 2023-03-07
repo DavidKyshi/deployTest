@@ -1318,7 +1318,7 @@ void editWalletStatusDialog(BuildContext context,
                                 "wallet_id": id,
                                 "details":controller.text,
                                 "status":dropDownValue.toUpperCase()
-                              });
+                              }, context: context);
                             },
                             text: "Yes, change status",
                             size: 200,

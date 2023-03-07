@@ -256,7 +256,7 @@ class _RejectedWallets extends State<RejectedWallets> {
                         DataCell(
                             InkWell(
                               onTap: ()async{
-                                Map<String, dynamic> response = await UserService().getWalletComments();
+                                Map<String, dynamic> response = await UserService().getWalletComments(context: context);
                                 WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
                                 setState(() {
                                   comments = commentModel.data ?? [];

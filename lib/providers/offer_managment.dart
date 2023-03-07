@@ -20,8 +20,8 @@ class OfferManagementProvider extends ChangeNotifier {
         orElse: null);
   }
 
-  Future<List<OfferData>> getAllOfferManagement() async {
-    Map<String, dynamic> responseData = await UserService().getOfferManagement();
+  Future<List<OfferData>> getAllOfferManagement(BuildContext context) async {
+    Map<String, dynamic> responseData = await UserService().getOfferManagement(context);
     final data = List.from(responseData['data']);
     offerData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
