@@ -215,21 +215,20 @@ class _FirstTimerState extends State<FirstTimer> {
                 KyshiButtonResponsive(
                   color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue,
                   onPressed: () async {
-                       verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAllOfferManagement();
+                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAcceptedOfferManagement();
+                        .getAcceptedOfferManagement(context);
                         Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(); 
+                        .getCreatedUserAccount(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getOpenOfferManagement();
+                        .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCloseOfferManagement();
+                        .getCloseOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getOpenOfferManagement();
+                        .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getWithdrawnOfferManagement();
+                        .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context);
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
@@ -246,7 +245,7 @@ class _FirstTimerState extends State<FirstTimer> {
             // MaterialPageRoute(builder: (context) => const OtpScreen()));
                  
                         
-                    Provider.of<UsersProvider>(context, listen: false).getAllWallets();
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

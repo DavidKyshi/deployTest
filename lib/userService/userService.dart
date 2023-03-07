@@ -97,32 +97,36 @@ class UserService {
       rethrow;
     }
   }
-
-  Future<Map<String, dynamic>> getOfferManagement(BuildContext context) async {
+  Future<Map<String, dynamic>> getOfferManagement(String type, {String? userId, required BuildContext context}) async {
     final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
-    final Uri uri = Uri.parse("$baseUrl/ops/offers");
+    String url = "";
+    if (type == "all") {
+      url = "$baseUrl/ops/offers";
+    } else if (type == "open") {
+      url = "$baseUrl/ops/offers?open_offers=true";
+    } else if (type == "closed") {
+      url = "$baseUrl/ops/offers?closed_offers=true";
+    } else if (type == "accepted") {
+      url = "$baseUrl/ops/offers?accepted_offers=true";
+    } else if (type == "withdrawn") {
+      url = "$baseUrl/ops/offers?withdrawn_offers=true";
+    }else if(type == "created_offer"){
+      url = "https://app.dev.kyshi.co/ops/offers?user_id=$userId";
+    }
+    final Uri uri = Uri.parse(url);
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/offers",
+        url,
           options: Options(
-              headers: {
-                "authorization":"Bearer $token"
-              }
-          )
-        // queryParameters:{
-        //   "open_offer":false,
-        //   "closed_offers":false,
-        //   "accepted_offers":false,
-        //   "withdrawn_offers":false,
-        //   "expired_offers":false,
-        //   "offer_id":false
-        //   }
+                        headers: {
+                          "authorization":"Bearer $token"
+                        })
       );
       // http.get(uri);
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
-      // print("$response ALL DATA");
+      print(type);
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -337,6 +341,41 @@ class UserService {
         // throw e.response?.data;
       }
       // rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getPayoutTransactions(String type) async {
+    String baseUrl = dotenv.env['API_URL']!;
+    String url = "";
+    if (type == "all") {
+      url = "$baseUrl/ops/dashboard/transactions";
+    } else if (type == "pending") {
+      url = "$baseUrl/ops/dashboard/transactions?pending=true";
+    } else if (type == "failed") {
+      url = "$baseUrl/ops/dashboard/transactions?failed=true";
+    } else if (type == "completed") {
+      url = "$baseUrl/ops/dashboard/transactions?completed=true";
+    } else if (type == "reversed") {
+      url = "$baseUrl/ops/offers?reversed=true";
+    }
+    final Uri uri = Uri.parse(url);
+    try {
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+        url,
+      );
+      // http.get(uri);
+      // print("${response.statusCode} ALL THE RESULT");
+      // dynamic data = json.decode(response.body);
+      print(type);
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
     }
   }
 }
