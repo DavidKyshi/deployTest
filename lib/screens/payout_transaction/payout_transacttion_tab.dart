@@ -60,6 +60,9 @@ class PayOutTransactionTab extends StatelessWidget {
                       Tab(
                         text: 'Completed Transaction',
                       ),
+                      Tab(
+                        text: 'Reversed Transaction',
+                      ),
                     ],
                   ),
                 ),

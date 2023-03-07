@@ -46,26 +46,28 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: allPayOutTransactionData.isEmpty
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/images/book-search.png',
-                            width: 66,
-                            height: 67,
-                          ),
-                          Text(
-                            'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                fontFamily: "PushPenny",
-                                color: primaryColor),
-                          ),
-                        ],
-                      )
+                    ? Center(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/book-search.png',
+                              width: 66,
+                              height: 67,
+                            ),
+                            Text(
+                              'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 18,
+                                  fontFamily: "PushPenny",
+                                  color: primaryColor),
+                            ),
+                          ],
+                        ),
+                    )
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                         child: Column(

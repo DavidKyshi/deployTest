@@ -217,36 +217,36 @@ class _FirstTimerState extends State<FirstTimer> {
                   onPressed: () async {
                        verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAllOfferManagement();
+                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAcceptedOfferManagement();
+                        .getAcceptedOfferManagement(context);
                         Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(); 
+                        .getCreatedUserAccount(context); 
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getOpenOfferManagement();
+                        .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCloseOfferManagement();
+                        .getCloseOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getOpenOfferManagement();
+                        .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getWithdrawnOfferManagement();
+                        .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context);
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getAllPayOutTransactions();
+                         .getAllPayOutTransactions(context);
                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getCompletedPayOutTransactions();
+                         .getCompletedPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getFailedPayOutTransactions();
+                         .getFailedPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getPendingPayOutTransactions();
+                         .getPendingPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getReversedPayOutTransactions();
+                         .getReversedPayOutTransactions(context);
             //          Navigator.push(context,
             // MaterialPageRoute(builder: (context) => const OtpScreen()));
                  
                         
-                    Provider.of<UsersProvider>(context, listen: false).getAllWallets();
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

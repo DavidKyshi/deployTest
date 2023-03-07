@@ -6,7 +6,7 @@ const UserAccountTabPageRoute = 'UserAccountTab';
 const welcomeBack = "welcomeBack";
 // const AuthenticationPageRoute = 'Authentication';
 
-List sideMenuItems = [
+List syideMenuItems = [
   UserAccountPageRoute,
   OfferManagementPageRoute,
 // AuthenticationPageRoute

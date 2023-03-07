@@ -11,6 +11,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
+import '../../providers/payout_transactions.dart';
 import '../../userService/userService.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -105,6 +106,32 @@ class _OtpScreenState extends State<OtpScreen> {
                  KyshiDynamicButtons(
                   goDashBoard: true, onTap: () {
                    verifyOtp();
+                                      Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAcceptedOfferManagement(context);
+                        Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getCreatedUserAccount(context); 
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getOpenOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getCloseOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getOpenOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getWithdrawnOfferManagement(context);
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getUsers(context: context);
+                        Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getAllPayOutTransactions(context);
+                         Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getCompletedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getFailedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getPendingPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getReversedPayOutTransactions(context);
                  },
                 ),
                 const SizedBox(

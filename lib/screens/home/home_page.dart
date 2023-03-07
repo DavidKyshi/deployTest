@@ -2,6 +2,7 @@ import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.d
 import 'package:provider/provider.dart';
 
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../helper/screen_export.dart';
 import '../../widgets/on_hover.dart';
@@ -17,7 +18,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<PageViewProvider>(context);
-    Color _containerColor = Colors.blue;
+    bool isColor = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(children: [
@@ -70,24 +71,30 @@ class _HomepageState extends State<Homepage> {
                               children: provider.pages
                                   .map((e) => e.showInSideBar == false
                                       ? const Offstage()
-                                      : OnHover(builder: (isHovered) {
-                                          final Color color = isHovered
-                                              ? Colors.amber
-                                              : Colors.red;
-                                          return SideMenuItems(
+                                      : 
+                                      // OnHover(builder: (isHovered) {
+                                      //     final Color color = isHovered
+                                      //         ? Colors.amber
+                                      //         : Colors.red;
+                                      //     return                                         }
+                                      //   )
+                                        SideMenuItems(
                                             onNext: () {
-                                              // setState(() {
-                                              Colors.blue;
+                                             //  setState(() {
+                                              isColor = true; 
                                               provider.gotoPage(e.index);
                                               // });
+                                               print(isColor);
                                             },
                                             title: e.title,
                                             icon: e.icon,
                                             height: e.height,
                                             width: e.width,
-                                            onTapColor: color,
-                                          );
-                                        }))
+                                            onTapColor: isColor ==false? Colors.black : Colors.blue,
+                                        
+                                          )
+
+                                        )
                                   .toList(),
                             ),
                           ],
