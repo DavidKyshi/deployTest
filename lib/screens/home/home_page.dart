@@ -2,7 +2,6 @@ import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.d
 import 'package:provider/provider.dart';
 
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../helper/screen_export.dart';
 import '../../widgets/on_hover.dart';
@@ -18,7 +17,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<PageViewProvider>(context);
-    bool isColor = false;
+    Color _containerColor = Colors.blue;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(children: [
@@ -80,17 +79,16 @@ class _HomepageState extends State<Homepage> {
                                       //   )
                                         SideMenuItems(
                                             onNext: () {
-                                             //  setState(() {
-                                              isColor = true; 
+                                              // setState(() {
+                                              
                                               provider.gotoPage(e.index);
                                               // });
-                                               print(isColor);
                                             },
                                             title: e.title,
                                             icon: e.icon,
                                             height: e.height,
                                             width: e.width,
-                                            onTapColor: isColor ==false? Colors.black : Colors.blue,
+                                            onTapColor:  Colors.black,
                                         
                                           )
 

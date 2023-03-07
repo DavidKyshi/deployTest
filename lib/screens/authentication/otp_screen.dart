@@ -105,6 +105,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                  KyshiDynamicButtons(
                   goDashBoard: true, onTap: () {
+                   Provider.of<OfferManagementProvider>(context, listen: false)
+                       .getAllOfferManagement(context);
+                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                    verifyOtp();
                                       Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
@@ -121,7 +124,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context);
+                        .getUsers(context: context, entrySize: '100');
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
                          .getAllPayOutTransactions(context);
                          Provider.of<PayOutTransactionProvider>(context, listen: false)

@@ -3,7 +3,6 @@ import 'dart:js';
 import '../helper/screen_export.dart';
 import '../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../userService/userService.dart';
-
 class PayOutTransactionProvider extends ChangeNotifier {
   List<PayOutTransactionUserData> allPayOutTransactionData= [];
   List<PayOutTransactionUserData> pendingPayOutTransactionData= [];

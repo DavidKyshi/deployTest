@@ -215,7 +215,6 @@ class _FirstTimerState extends State<FirstTimer> {
                 KyshiButtonResponsive(
                   color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue,
                   onPressed: () async {
-                       verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -231,7 +230,7 @@ class _FirstTimerState extends State<FirstTimer> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context);
+                        .getUsers(context: context, entrySize: '100');
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
                          .getAllPayOutTransactions(context);
                          Provider.of<PayOutTransactionProvider>(context, listen: false)

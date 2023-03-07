@@ -3,7 +3,6 @@ import 'dart:js';
 import '../helper/screen_export.dart';
 import '../models/offer_management_api_response/offer_data.dart';
 import '../userService/userService.dart';
-
 class OfferManagementProvider extends ChangeNotifier {
   List<OfferData> offerData = [];
   List<OfferData> openOfferData = [];
@@ -38,7 +37,7 @@ class OfferManagementProvider extends ChangeNotifier {
         await UserService().getOfferManagement("closed", context);
     final data = List.from(responseData['data']);
     closedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return closedOfferData;
   }
@@ -48,7 +47,7 @@ class OfferManagementProvider extends ChangeNotifier {
         await UserService().getOfferManagement("withdrawn", context);
     final data = List.from(responseData['data']);
     withdrawOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return withdrawOfferData;
   }
@@ -58,7 +57,7 @@ class OfferManagementProvider extends ChangeNotifier {
         await UserService().getOfferManagement("accepted", context);
     final data = List.from(responseData['data']);
     acceptedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return acceptedOfferData;
   }
@@ -74,9 +73,8 @@ class OfferManagementProvider extends ChangeNotifier {
         await UserService().getOfferManagement("created_offer", context);
     final data = List.from(responseData['data']);
     acceptedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return acceptedOfferData;
   }
-
 }
