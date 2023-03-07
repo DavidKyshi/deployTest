@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
@@ -13,21 +15,14 @@ import '../userService/userService.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 final TextEditingController emailController = TextEditingController(text: "");
-final TextEditingController oldPasswordController =
-    TextEditingController(text: "");
-final TextEditingController newPasswordController =
-    TextEditingController(text: "");
-final TextEditingController confirmPasswordController =
-    TextEditingController(text: "");
+final TextEditingController oldPasswordControllers =
+    TextEditingController();
+final TextEditingController newPasswordControllers =
+    TextEditingController();
+final TextEditingController confirmPasswordControllers =
+    TextEditingController();
 FocusNode? focusNode;
-String? qrCode;
-getQrCode() async {
-  Map<String, dynamic> responseData = await UserService().enable2FA();
-  print("${responseData["otp_url"]} screen111111 qr");
-  qrCode = responseData["otp_url"];
-  print("$qrCode screen222222");
-}
-
+ String? qrCodes;
 void showMessageDialog(BuildContext context, lottieType, buttonText,
     {additionalButton,
     required Function()? btnFunction,
@@ -127,7 +122,7 @@ void showMessageDialog(BuildContext context, lottieType, buttonText,
                         height: size.height * 0.05,
                       ),
                       KyshiTextfield(
-                        controller: oldPasswordController,
+                        controller: oldPasswordControllers,
                         isDense: true,
                         onChanged: (val) {},
                         validator: (value) {
@@ -160,7 +155,7 @@ void showMessageDialog(BuildContext context, lottieType, buttonText,
                         height: 20,
                       ),
                       KyshiTextfield(
-                        controller: newPasswordController,
+                        controller: newPasswordControllers,
                         isDense: true,
                         onChanged: (val) {},
                         validator: (value) {
@@ -193,7 +188,7 @@ void showMessageDialog(BuildContext context, lottieType, buttonText,
                         height: 20,
                       ),
                       KyshiTextfield(
-                        controller: confirmPasswordController,
+                        controller: confirmPasswordControllers,
                         isDense: true,
                         onChanged: (val) {},
                         validator: (value) {
@@ -227,24 +222,7 @@ void showMessageDialog(BuildContext context, lottieType, buttonText,
                       ),
                       KyshiButtonResponsive(
                         color: primaryColor,
-                        onPressed: popScreen
-                            ? () {
-                                getQrCode();
-                                // addBoolToSF("goOtpScreen", true);
-                                Navigator.pop(context);
-                                successMessageDialog(
-                                  context,
-                                  "SETUP 2FA",
-                                  btnFunction: () {},
-                                  additionalBtnFunction: () {},
-                                  additionalButtonColor: Colors.red,
-                                  headline: "Awesome!",
-                                  message: "Olamide, You are good to go",
-                                  subMessage:
-                                      "You can log in to your account now",
-                                );
-                              }
-                            : btnFunction,
+                        onPressed: btnFunction,
                         text: "CREATE NEW PASSWORD",
                         size: 550,
                       ),
@@ -336,17 +314,14 @@ void successMessageDialog(
                       ),
                       KyshiButtonResponsive(
                         color: primaryColor,
-                        onPressed: () {
-                          print("$qrCode code from dialogs");
+                        onPressed: (){
                           Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FirstTimer(
-                                        qrLink: qrCode ?? "",
-                                      )),
-                              (route) => false);
-                          // const WelcomeBack(goOtpScreen: true)
+                                  builder: (context) => const FirstTimer()
+                              ),
+                                  (route) => false);
                         },
                         text: buttonText,
                         size: 550,
@@ -360,4 +335,89 @@ void successMessageDialog(
               ),
             );
           }));
+}
+displayAlert(
+    {String? title,
+      String? image,
+      String? content,
+      bool? success,
+      BuildContext? context}) {
+  // set up the AlertDialog
+//  AlertDialog alert = ;
+
+  void _modalBottomSheetMenu(
+      {String title = '',
+        String? content,
+        bool? success,
+        BuildContext? context}) {
+    showModalBottomSheet(
+        context: context!,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        isScrollControlled: true,
+        builder: (builder) {
+          return Container(
+              color: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0))),
+                child: SingleChildScrollView(
+                    child: Column(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3.5,
+                              height: 5,
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          const Text('Swipe down to close',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(38, 50, 56, 0.5),
+                                  fontSize: 16)),
+                          const SizedBox(height: 20),
+                          image != null
+                              ? SvgPicture.asset(
+                            error,
+                            width: 65,
+                            height: 65,
+                          )
+                              : SvgPicture.asset(
+                            success != null && success
+                                ? successImg
+                                : error,
+                            width: 65,
+                            height: 65,
+                          ),
+                          const SizedBox(height: 15),
+                          Text(title,),
+                          const SizedBox(height: 15),
+                          Text(content ?? '',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: success != null && success == false
+                                      ? Colors.red
+                                      : const Color.fromRGBO(38, 50, 56, 0.5),
+                                  fontSize: 16)),
+                        ])),
+              ));
+        });
+  }
+
+  return _modalBottomSheetMenu(
+      context: context, title: title!, content: content, success: success);
 }

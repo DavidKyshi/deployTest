@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:pinput/pinput.dart';
 
+import '../../helper/dialogs.dart';
 import '../../helper/screen_export.dart';
 import '../../models/users.dart';
 import '../../providers/payout_transactions.dart';
@@ -17,8 +18,8 @@ import '../../userService/userService.dart';
 import 'otp_screen.dart';
 
 class FirstTimer extends StatefulWidget {
-  final String qrLink;
-  const FirstTimer({Key? key, required this.qrLink}) : super(key: key);
+
+  const FirstTimer({Key? key,}) : super(key: key);
 
   @override
   State<FirstTimer> createState() => _FirstTimerState();
@@ -31,32 +32,47 @@ class _FirstTimerState extends State<FirstTimer> {
   String currentText = "";
   bool hasError = false;
   String pin = "";
+  String qrLink = "";
   @override
   void initState() {
-    print("${widget.qrLink} my qr link");
+    getQrCode();
     // TODO: implement initState
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
+   getQrCode()async{
+    Map<String, dynamic> responseData = await UserService().enable2FA(context);
+    print("${responseData["otp_url"]} screen111111 qr");
+    setState(() {
+      qrLink = responseData["otp_url"];
+    });
+    print("$qrCode screen222222");
 
-  verifyOtp() async {
-    print("VERIFY OTP");
-    Response responseData =
-        await UserService().verifyOtp(data: {"code": widget.qrLink});
-    if (responseData.statusCode == 200) {
+  }
+  @override
+  void dispose() {
+    errorController?.close();
+    super.dispose();
+  }
+
+  verifyOtp()async{
+    print("$pin VERIFY OTP");
+    Response responseData = await UserService().verifyOtp(data: pin, context: context);
+    if(responseData.statusCode ==200){
       print("correct OPTP");
-      if (mounted) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const OtpScreen()));
+      if (mounted){
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const Homepage()),
+                (route) => false);
       }
-    } else {
-      showDialog(context: context, builder: (context) => Text("Wrong otp"));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
+    print("$qrLink linksssssss");
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(
@@ -111,8 +127,7 @@ class _FirstTimerState extends State<FirstTimer> {
                       fontFamily: 'PushPenny',
                       fontWeight: FontWeight.w400),
                 ),
-                QrImage(
-                  data: widget.qrLink,
+                QrImage(data: qrLink,
                   size: 200,
                 ),
                 Text(
@@ -216,7 +231,7 @@ class _FirstTimerState extends State<FirstTimer> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement();
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers();
+                        .getUsers(context: context);
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
                          .getAllPayOutTransactions();
                          Provider.of<PayOutTransactionProvider>(context, listen: false)
@@ -230,6 +245,9 @@ class _FirstTimerState extends State<FirstTimer> {
             //          Navigator.push(context,
             // MaterialPageRoute(builder: (context) => const OtpScreen()));
                  
+                        
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets();
+                    verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();
                     //   // Navigator.push(
@@ -294,6 +312,7 @@ class PinField extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             fieldHeight: 50,
             fieldWidth: 60,
+            errorBorderColor: kyshiRed,
             activeFillColor: Colors.white,
             activeColor: primaryColor,
             selectedColor: const Color(0XFF92A0BA),

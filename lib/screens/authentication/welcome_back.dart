@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/helper/sharedPreferences.dart';
+import 'package:kyshi_operations_dashboard/models/login.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
@@ -28,7 +29,8 @@ class _WelcomeBackState extends State<WelcomeBack> {
       TextEditingController();
   bool showPassword = false;
   bool validUser = false;
-  String qrCode = "";
+
+
   // late Future<bool goOtpScreen;
   @override
   void initState() {
@@ -36,15 +38,111 @@ class _WelcomeBackState extends State<WelcomeBack> {
     // TODO: implement initState
     super.initState();
   }
+  login ()async{
+    final data = {
+      "email": emailController.text,
+      "password": passwordController.text
+    };
+    Response? responseData = await UserService().login(context,data);
+    // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
+   if(mounted) Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
+    if(responseData?.statusCode == 200){
+      if(mounted) {
+        if(responseData?.data["is_admin_changed_password"] == false){
+          showMessageDialog(
+            context,
+            success,
+            "Create new password",
+            btnFunction: () async{
+              Map<String, dynamic> response = await UserService().changePassword(data: {
+                "old_password":	oldPasswordControllers.text,
+                "new_password": newPasswordControllers.text
+              }, context: context);
+              if(response["message"] == "Password changed successfully"){
+                if(mounted){
+                  if(responseData?.data["is_2fa_enabled"] == false){
+                    Navigator.pop(context);
+                    successMessageDialog(
+                      context,
+                      "SETUP 2FA",
+                      btnFunction: () {
+                      },
+                      additionalBtnFunction: () {},
+                      additionalButtonColor: Colors.red,
+                      headline: "Awesome!",
+                      message: "${responseData?.data["first_name"]}, You are good to go",
+                      subMessage:
+                      "You can log in to your account now",
+                    );
+                  }else{
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const OtpScreen()));
+                  }
+                }
+              }else{
+                print("WRONG PASSWORD");
+              }
+              // getQrCode();
+              // addBoolToSF("goOtpScreen", true);
+            },
+            additionalBtnFunction: () {},
+            additionalButtonColor: Colors.red,
+            headline: 'Create new password,',
+            message:
+            "It’s compulsory to change your password boss.",
+            subMessage: "Passwords must be be 8-32 Numbers"
+                "Capital Letter and should be alphanumeric e.g, Alsdty123",
+            name: ' ${responseData?.data["first_name"]}',
+          );
+        } else if( responseData?.data["is_2fa_enabled"] == false){
+          if(mounted){
+            Navigator.pop(context);
+            successMessageDialog(
+              context,
+              "SETUP 2FA",
+              btnFunction: () {
+              },
+              additionalBtnFunction: () {},
+              additionalButtonColor: Colors.red,
+              headline: "Awesome!",
+              message: "${responseData?.data["first_name"]}, You are good to go",
+              subMessage:
+              "You can log in to your account now",
+            );
+          }
+        }
 
-  login() async {
-    Response responseData = await UserService().login();
-    if (responseData.statusCode == 200) {
-      setState(() {
-        validUser = true;
-      });
+          else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const OtpScreen()));
+        }
+      }
+    }else{
+      if (mounted){
+        showMessageDialog(
+          context,
+          error,
+          "Error",
+          btnFunction: () {
+            Navigator.pop(context);
+          },
+          additionalBtnFunction: () {},
+          additionalButtonColor: Colors.red,
+          headline: 'Incorrect Code',
+          message:
+          "Please check your auth app",
+          subMessage: "Passwords must be be 8-32 Numbers"
+              "Capital Letter and should be alphanumeric e.g, Alsdty123",
+          name: ' Olamide',
+        );
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,13 +239,18 @@ class _WelcomeBackState extends State<WelcomeBack> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(),
-                    Text(
-                      "Forgot password?",
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'PushPenny',
-                          fontSize: 12),
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: TextStyle(
+                            color: primaryColor,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny',
+                            fontSize: 12),
+                      ),
                     )
                   ],
                 ),
@@ -159,41 +262,12 @@ class _WelcomeBackState extends State<WelcomeBack> {
                   onPressed: () {
                     login();
                     // print("${widget.goOtpScreen} OTPN VALUE GOTTEN");
-                    validUser
-                        ?
-                        // widget.goOtpScreen
-                        //     ? Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => const OtpScreen()))
-                        showMessageDialog(
-                            context,
-                            success,
-                            "Create new password",
-                            btnFunction: () {},
-                            additionalBtnFunction: () {},
-                            additionalButtonColor: Colors.red,
-                            headline: 'Create new password,',
-                            message:
-                                "It’s compulsory to change your password boss.",
-                            subMessage: "Passwords must be be 8-32 Numbers"
-                                "Capital Letter and should be alphanumeric e.g, Alsdty123",
-                            name: ' Olamide',
-                          )
-                        : showMessageDialog(
-                            context,
-                            error,
-                            "Error",
-                            btnFunction: () {},
-                            additionalBtnFunction: () {},
-                            additionalButtonColor: Colors.red,
-                            headline: 'Create new password,',
-                            message:
-                                "It’s compulsory to change your password boss.",
-                            subMessage: "Passwords must be be 8-32 Numbers"
-                                "Capital Letter and should be alphanumeric e.g, Alsdty123",
-                            name: ' Olamide',
-                          );
+                    // validUser ?
+                    // widget.goOtpScreen
+                    //     ? Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => const OtpScreen()))
                   },
                   text: "SIGN IN",
                   size: 500,

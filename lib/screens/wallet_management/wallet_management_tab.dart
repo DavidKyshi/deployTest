@@ -3,7 +3,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:kyshi_operations_dashboard/screens/payout_transaction/payout_failed_transaction.dart';
 import 'package:kyshi_operations_dashboard/screens/payout_transaction/payout_pending_transaction.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/active_wallets.dart';
 import 'package:kyshi_operations_dashboard/screens/wallet_management/all_wallets.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/inActive_wallet.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/pending_wallets.dart';
+import 'package:kyshi_operations_dashboard/screens/wallet_management/rejected_wallets.dart';
 
 import '../../customWidget/searchField.dart';
 import '../../styleguide/colors.dart';
@@ -103,13 +107,14 @@ class WalletTab extends StatelessWidget {
                 const SearchField(),
                 Container(
                   height: MediaQuery.of(context).size.height / 1.1,
-                  child: TabBarView(
+                  child: const TabBarView(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       AllWallets(),
-                      AllWallets(),
-                      AllWallets(),
-                      AllWallets(),
+                      PendingWallets(),
+                      RejectedWallets(),
+                      ActiveWallets(),
+                      // InActiveWallets()
                     ],
                   ),
                 ),
