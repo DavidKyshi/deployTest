@@ -102,6 +102,7 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  widget.createOffer ?
                   InkWell(
                     onTap: () =>
                         pageProvider.gotoPage(PAGES.createAnOfferScreen),
@@ -120,7 +121,7 @@ class _SearchFieldState extends State<SearchField> {
                             fontFamily: 'PushPenny'),
                       ),
                     ),
-                  ),
+                  )  :const SizedBox(),
                   const SizedBox(
                     width: 15,
                   ),

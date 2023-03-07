@@ -55,6 +55,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
     return const Color(0XFF23CE6B);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -1192,6 +1193,7 @@ var changeWalletStatus = [
   'Reject and  close application',
   'Rejected and re-open application',
 ];
+
 void editWalletStatusDialog(BuildContext context,
     {additionalButton,
       // required Function()? btnFunction,
@@ -1319,6 +1321,7 @@ void editWalletStatusDialog(BuildContext context,
                                 "details":controller.text,
                                 "status":dropDownValue.toUpperCase()
                               }, context: context);
+                             Navigator.pop(context);
                             },
                             text: "Yes, change status",
                             size: 200,

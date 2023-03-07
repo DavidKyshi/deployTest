@@ -68,7 +68,7 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getAllUsers({required BuildContext context}) async {
+  Future<Map<String, dynamic>> getAllUsers({required BuildContext context, required String entrySize}) async {
     final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/users");
@@ -77,7 +77,7 @@ class UserService {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
         "/ops/users",
         queryParameters: {
-          "entry_size":"30"
+          "entry_size":entrySize
         },
           options: Options(
               headers: {

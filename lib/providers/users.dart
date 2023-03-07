@@ -57,9 +57,9 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<User>> getUsers({ required BuildContext context}) async {
+  Future<List<User>> getUsers({ required BuildContext context, required String entrySize}) async {
     print("GET USERS CALLED");
-    Map<String, dynamic> responseData = await UserService().getAllUsers(context: context);
+    Map<String, dynamic> responseData = await UserService().getAllUsers(context: context, entrySize: entrySize);
     // print("$responseData RAW DATA");
     final data = List.from(responseData['data']);
     _users = List<User>.from(data.map((x) => User.fromJson(x)));
