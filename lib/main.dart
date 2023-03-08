@@ -1,6 +1,7 @@
 import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 
 import 'helper/screen_export.dart';
+import 'providers/over_view_provider.dart';
 import 'providers/payout_transactions.dart';
 
 void main() async {
@@ -11,8 +12,8 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UsersProvider()),
     ChangeNotifierProvider(create: (_) => OfferManagementProvider()),
-    ChangeNotifierProvider(create: (_)=>PayOutTransactionProvider())
-    // ChangeNotifierProvider(create: (_) => SendMoneyProvider())
+    ChangeNotifierProvider(create: (_) => PayOutTransactionProvider()),
+    ChangeNotifierProvider(create: (_) => OverViewProvider())
   ], child: MyApp()));
 }
 

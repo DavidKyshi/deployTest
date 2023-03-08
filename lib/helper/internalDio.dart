@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 String username = 'azeez@azeez.com';
 String password = '23456';
+
 class InternalDioClient {
   String basicAuth =
       'Basic ${base64.encode(utf8.encode('$username:$password'))}';

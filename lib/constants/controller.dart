@@ -11,6 +11,7 @@ import 'package:kyshi_operations_dashboard/screens/wallet_management/wallet_mana
 
 import '../screens/authentication/welcome_back.dart';
 import '../screens/offers_management/create_an_offer_screen.dart';
+import '../screens/over_view_page/over_view.dart';
 import '../screens/payout_transaction/payout_transaction.dart';
 
 class PAGES {
@@ -21,6 +22,7 @@ class PAGES {
   static const int payOutTransaction = 4;
   static const int welcomeScreen = 5;
   static const int walletManagement = 6;
+  static const int overView = 7;
 }
 
 class PAGE {
@@ -93,6 +95,14 @@ class _State {
       width: 24,
       height: 24,
       //showInSideBar: false
+    ),
+    PAGE(
+      index: PAGES.overView,
+      title: "Overview",
+      page: const OverViewScreen(),
+      icon: overViewIcon,
+      width: 24,
+      height: 24,
     ),
   ];
 }

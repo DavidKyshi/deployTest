@@ -90,29 +90,35 @@ class UsersProvider extends ChangeNotifier {
     final data = List.from(responseData['data']);
     allUsersTransactionSummary = List<User>.from(data.map((x) => User.fromJson(x)));
     notifyListeners();
-    return users;
+    return allUsersTransactionSummary;
   }
 
-  Future<List<User>> getAllEditProfile(String dob, String email,
-      String firstName, String gender, String lastName, String middleName,
-      String nationality, String occupation, String phoneNumber, String residence,
-       BuildContext context
-      ) async {
+  Future<List<User>> getAllEditProfile(
+      String dob,
+      String email,
+      String firstName,
+      String gender,
+      String lastName,
+      String middleName,
+      String nationality,
+      String occupation,
+      String phoneNumber,
+      String residence,
+      BuildContext context) async {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService().getEditProfile(
-      userId: currentSelectedUserId ?? "",
-      firstName: firstName,
-      dob: dob,
-      email: email,
-      gender: gender,
-      lastName: lastName,
-      middleName: middleName,
-      nationality: nationality,
-      occupation: occupation,
-      phoneNumber: phoneNumber,
-      residence: residence,
-       context
-    );
+        user_Id: currentSelectedUserId ?? "",
+        firstName: firstName,
+        lastName: lastName,
+         middleName: middleName,
+        gender: gender,
+        email: email,
+       phoneNumber: phoneNumber,
+       occupation: occupation,
+        nationality: nationality,
+        residence: residence,
+        dob: dob,
+        context);
     final data = List.from(responseData['data']);
     editUsers = List<User>.from(data.map((x) => User.fromJson(x)));
     notifyListeners();
@@ -120,9 +126,11 @@ class UsersProvider extends ChangeNotifier {
   }
   //getEditProfile
 
+  // Future<List<TransactionsData>> getTransactions() async {
+  //   Map<String, dynamic> responseData = await UserService()
+  //       .getKyshiConnectTransactions(userId: currentSelectedUserId ?? "");
   Future<List<TransactionsData>> getTransactions(BuildContext context) async {
-    Map<String, dynamic> responseData = await UserService()
-        .getKyshiConnectTransactions(userId: currentSelectedUserId ?? "", context: context);
+    Map<String, dynamic> responseData = await UserService().getKyshiConnectTransactions(userId: currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
     _transactions = List<TransactionsData>.from(data.map((x) => TransactionsData.fromJson(x)));
     notifyListeners();

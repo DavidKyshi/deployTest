@@ -23,18 +23,14 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
   PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
 
-      
-
-  
   @override
   Widget build(BuildContext context) {
     final allPayOutTransactionData =
         payOutTransactionProvider.allPayOutTransactionData;
-        final oCcy = new NumberFormat("#,##0.00", "en_US");
+    final oCcy = new NumberFormat("#,##0.00", "en_US");
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           child: Container(
@@ -47,7 +43,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                 scrollDirection: Axis.horizontal,
                 child: allPayOutTransactionData.isEmpty
                     ? Center(
-                      child: Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -67,7 +63,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                             ),
                           ],
                         ),
-                    )
+                      )
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                         child: Column(
@@ -162,16 +158,16 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                       ),
                                       titleText('Offer'),
                                       SizedBox(
-                                              width: 20,
-                                            ),
+                                        width: 20,
+                                      ),
                                       titleText('ID'),
                                       SizedBox(
-                                              width: 30,
-                                            ),
+                                        width: 30,
+                                      ),
                                       titleText('Status'),
-                                       SizedBox(
-                                              width: 38,
-                                            ),
+                                      SizedBox(
+                                        width: 38,
+                                      ),
                                       titleText('Action'),
                                     ],
                                   ),
@@ -282,7 +278,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                                         .ledgerBalance
                                                         .toString())),
 
-                                                        SizedBox(
+                                            SizedBox(
                                               width: 20,
                                             ),
 
@@ -312,9 +308,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65,
-                                                child: Text(
-                                                    "")),
+                                                width: 65, child: Text("")),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -322,16 +316,25 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             SizedBox(
                                                 width: 80,
                                                 child: StatusText(
-                                                  text:  allPayOutTransactionData
-                                                            .status ??
-                                                        "")),
+                                                    text:
+                                                        allPayOutTransactionData
+                                                                .status ??
+                                                            "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
                                               width: 80,
                                               child: PayOutTransactionButton(
-                                                containerColor: allPayOutTransactionData.status == "SUCCESS" || allPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
+                                                containerColor:
+                                                    allPayOutTransactionData
+                                                                    .status ==
+                                                                "SUCCESS" ||
+                                                            allPayOutTransactionData
+                                                                    .status ==
+                                                                "REVERSED"
+                                                        ? Color(0xff6E80A3)
+                                                        : primaryColor,
                                                 text: "RETRY",
                                               ),
                                             )
@@ -354,9 +357,7 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
 }
 
 class StatusText extends StatelessWidget {
-  StatusText(
-      {super.key,
-      required this.text});
+  StatusText({super.key, required this.text});
   String text;
 
   @override
@@ -367,13 +368,13 @@ class StatusText extends StatelessWidget {
           fontSize: 10,
           fontWeight: FontWeight.w500,
           fontFamily: "PushPenny",
-          color: text =="SUCCESS"
+          color: text == "SUCCESS"
               ? Color(0xff23CE6B)
-              : text =="PENDING"
+              : text == "PENDING"
                   ? Color(0xffFBCD58)
-              : text =="REVERSED"
-                  ?  Color(0xff6D48FF) 
-                  : Color(0xffFF5C5C)),
+                  : text == "REVERSED"
+                      ? Color(0xff6D48FF)
+                      : Color(0xffFF5C5C)),
     );
   }
 }
@@ -382,31 +383,29 @@ class PayOutTransactionButton extends StatelessWidget {
   PayOutTransactionButton(
       {super.key,
       // required this.isBorder,
-      required this.text, required this.containerColor});
+      required this.text,
+      required this.containerColor});
 
   // bool isBorder;
   String text;
- final  Color containerColor;
+  final Color containerColor;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 73,
       height: 24,
       decoration: BoxDecoration(
-          color:  containerColor,
-          borderRadius: BorderRadius.circular(4),
-              ),
+        color: containerColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
       child: Center(
         child: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              color:  Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w500),
+              color: Colors.white, fontSize: 10, fontWeight: FontWeight.w500),
         ),
       ),
     );
   }
 }
-

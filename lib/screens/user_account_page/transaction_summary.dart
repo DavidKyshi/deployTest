@@ -8,7 +8,8 @@ class TransactionSummaryBoard extends StatefulWidget {
   const TransactionSummaryBoard({super.key});
 
   @override
-  State<TransactionSummaryBoard> createState() => _TransactionSummaryBoardState();
+  State<TransactionSummaryBoard> createState() =>
+      _TransactionSummaryBoardState();
 }
 
 class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {

@@ -114,22 +114,24 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             const SizedBox(
               height: 20,
             ),
-             KyshiDynamicButtons(onTap: () {
-               Navigator.pushAndRemoveUntil(
-                   context,
-                   MaterialPageRoute(builder: (context) => const Homepage()),
-                       (route) => false);
-              // if (goDashBoard) {
-              //   // getUsers();
-              //   Navigator.pushAndRemoveUntil(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => const Homepage()),
-              //           (route) => false);
-              // } else {
-              //   Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => OtpScreen()));
-              // }
-            },),
+            KyshiDynamicButtons(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Homepage()),
+                    (route) => false);
+                // if (goDashBoard) {
+                //   // getUsers();
+                //   Navigator.pushAndRemoveUntil(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => const Homepage()),
+                //           (route) => false);
+                // } else {
+                //   Navigator.push(context,
+                //       MaterialPageRoute(builder: (context) => OtpScreen()));
+                // }
+              },
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -150,12 +152,8 @@ getUsers() async {
 class KyshiDynamicButtons extends StatelessWidget {
   final bool goDashBoard;
   Function()? onTap;
-   KyshiDynamicButtons({
-    Key? key,
-    this.goDashBoard = false,
-    required this.onTap
-  }) : super(key: key);
-
+  KyshiDynamicButtons({Key? key, this.goDashBoard = false, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

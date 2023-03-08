@@ -30,7 +30,6 @@ class _WelcomeBackState extends State<WelcomeBack> {
   bool showPassword = false;
   bool validUser = false;
 
-
   // late Future<bool goOtpScreen;
   @override
   void initState() {
@@ -38,12 +37,13 @@ class _WelcomeBackState extends State<WelcomeBack> {
     // TODO: implement initState
     super.initState();
   }
-  login ()async{
+
+  login() async {
     final data = {
       "email": emailController.text,
       "password": passwordController.text
     };
-    Response? responseData = await UserService().login(context,data);
+    Response? responseData = await UserService().login(context, data);
     // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
    if(mounted) Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
     if(responseData?.statusCode == 200){
@@ -54,35 +54,35 @@ class _WelcomeBackState extends State<WelcomeBack> {
             context,
             success,
             "Create new password",
-            btnFunction: () async{
-              Map<String, dynamic> response = await UserService().changePassword(data: {
-                "old_password":	oldPasswordControllers.text,
+            btnFunction: () async {
+              Map<String, dynamic> response =
+                  await UserService().changePassword(data: {
+                "old_password": oldPasswordControllers.text,
                 "new_password": newPasswordControllers.text
               }, context: context);
-              if(response["message"] == "Password changed successfully"){
-                if(mounted){
-                  if(responseData?.data["is_2fa_enabled"] == false){
+              if (response["message"] == "Password changed successfully") {
+                if (mounted) {
+                  if (responseData?.data["is_2fa_enabled"] == false) {
                     Navigator.pop(context);
                     successMessageDialog(
                       context,
                       "SETUP 2FA",
-                      btnFunction: () {
-                      },
+                      btnFunction: () {},
                       additionalBtnFunction: () {},
                       additionalButtonColor: Colors.red,
                       headline: "Awesome!",
-                      message: "${responseData?.data["first_name"]}, You are good to go",
-                      subMessage:
-                      "You can log in to your account now",
+                      message:
+                          "${responseData?.data["first_name"]}, You are good to go",
+                      subMessage: "You can log in to your account now",
                     );
-                  }else{
+                  } else {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const OtpScreen()));
                   }
                 }
-              }else{
+              } else {
                 print("WRONG PASSWORD");
               }
               // getQrCode();
@@ -91,39 +91,33 @@ class _WelcomeBackState extends State<WelcomeBack> {
             additionalBtnFunction: () {},
             additionalButtonColor: Colors.red,
             headline: 'Create new password,',
-            message:
-            "It’s compulsory to change your password boss.",
+            message: "It’s compulsory to change your password boss.",
             subMessage: "Passwords must be be 8-32 Numbers"
                 "Capital Letter and should be alphanumeric e.g, Alsdty123",
             name: ' ${responseData?.data["first_name"]}',
           );
-        } else if( responseData?.data["is_2fa_enabled"] == false){
-          if(mounted){
+        } else if (responseData?.data["is_2fa_enabled"] == false) {
+          if (mounted) {
             Navigator.pop(context);
             successMessageDialog(
               context,
               "SETUP 2FA",
-              btnFunction: () {
-              },
+              btnFunction: () {},
               additionalBtnFunction: () {},
               additionalButtonColor: Colors.red,
               headline: "Awesome!",
-              message: "${responseData?.data["first_name"]}, You are good to go",
-              subMessage:
-              "You can log in to your account now",
+              message:
+                  "${responseData?.data["first_name"]}, You are good to go",
+              subMessage: "You can log in to your account now",
             );
           }
-        }
-
-          else {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const OtpScreen()));
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const OtpScreen()));
         }
       }
-    }else{
-      if (mounted){
+    } else {
+      if (mounted) {
         showMessageDialog(
           context,
           error,
@@ -134,8 +128,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
           additionalBtnFunction: () {},
           additionalButtonColor: Colors.red,
           headline: 'Incorrect Code',
-          message:
-          "Please check your auth app",
+          message: "Please check your auth app",
           subMessage: "Passwords must be be 8-32 Numbers"
               "Capital Letter and should be alphanumeric e.g, Alsdty123",
           name: ' Olamide',
@@ -143,7 +136,6 @@ class _WelcomeBackState extends State<WelcomeBack> {
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -241,9 +233,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
                   children: [
                     const SizedBox(),
                     InkWell(
-                      onTap: (){
-
-                      },
+                      onTap: () {},
                       child: Text(
                         "Forgot password?",
                         style: TextStyle(
@@ -262,7 +252,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
                   color: primaryColor,
                   onPressed: () {
                     login();
-                    
+
                     // print("${widget.goOtpScreen} OTPN VALUE GOTTEN");
                     // validUser ?
                     // widget.goOtpScreen

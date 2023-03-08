@@ -20,33 +20,31 @@ class UserAccountTab extends StatefulWidget {
   State<UserAccountTab> createState() => _UserAccountTabState();
 }
 
-
 class _UserAccountTabState extends State<UserAccountTab> {
-int? selectedIndex = 0;
+  int? selectedIndex = 0;
 
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
 
-  String headerTitle(){
-    if (selectedIndex == 0){
+  String headerTitle() {
+    if (selectedIndex == 0) {
       return "Account & KYC";
-    }else if (selectedIndex ==1){
+    } else if (selectedIndex == 1) {
       return "Wallet & Beneficiaries";
-    }else if (selectedIndex ==2){
+    } else if (selectedIndex == 2) {
       return "Created offers";
-    }else if (selectedIndex ==3){
+    } else if (selectedIndex == 3) {
       return "Accepted offers";
-    }else if (selectedIndex ==4){
+    } else if (selectedIndex == 4) {
       return "Kyshi Connect Services";
-    }else if (selectedIndex ==5){
+    } else if (selectedIndex == 5) {
       return "Kyshi Card";
-    }else if (selectedIndex ==6){
+    } else if (selectedIndex == 6) {
       return "Transactions";
-    }else if (selectedIndex ==7){
+    } else if (selectedIndex == 7) {
       return "Transaction Summary";
     }
-      return "Identification Summary";
-
+    return "Identification Summary";
   }
 
   @override
@@ -63,26 +61,34 @@ int? selectedIndex = 0;
             children: [
               Row(
                 children: [
-                  Text("${userProvider.currentUserName}",style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'PushPenny',
-                      color: primaryColor
-                  ),),
-                  Icon(Icons.arrow_forward_ios,color: primaryColor,size: 14,),
-                  Text(headerTitle(),style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'PushPenny',
-                      color: kyshiGreyishBlue
-                  ),),
+                  Text(
+                    "${userProvider.currentUserName}",
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'PushPenny',
+                        color: primaryColor),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: primaryColor,
+                    size: 14,
+                  ),
+                  Text(
+                    headerTitle(),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'PushPenny',
+                        color: kyshiGreyishBlue),
+                  ),
                 ],
               ),
               Container(
-                child:  TabBar(
+                child: TabBar(
                   isScrollable: true,
                   labelColor: Color(0xff233375),
-                  onTap:(index){
+                  onTap: (index) {
                     setState(() {
                       selectedIndex = index;
                     });

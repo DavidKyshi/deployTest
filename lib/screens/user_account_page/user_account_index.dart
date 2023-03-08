@@ -72,7 +72,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
-    // user = userProvider.getUserById();
+    final getuser = userProvider.getUserById();
     // print("${userProvider.users} ALL USERS");
     return Scaffold(
         backgroundColor: Colors.white,
@@ -175,16 +175,18 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 const SizedBox(
                   height: 10,
                 ),
-               // if (user == null) Text("User not found"),
-               // if (user != null)
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 25),
-                      height: 600,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: const Color(0XFFEAEBF1),
-                          borderRadius: BorderRadius.circular(12)),
+                if (getuser == null) Text("User not found"),
+                if (getuser != null)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                  height: 600,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFEAEBF1),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
@@ -306,8 +308,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
               ],
             ),).toList()
                       ),
+                    ),
                   ),
-                    ),)
+                )
                 // ListView(
                 //   // scrollDirection: Axis.horizontal,
                 //   children: [
@@ -464,7 +467,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 //             ))
                 //         .toList()
                 //   ],
-                // ),
+                 ),
               ],
             ),
           ),
