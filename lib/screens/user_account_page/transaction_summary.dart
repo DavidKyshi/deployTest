@@ -4,11 +4,21 @@ import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 
 import '../../widgets/transaction_widgets.dart';
 
-class TransactionSummaryBoard extends StatelessWidget {
+class TransactionSummaryBoard extends StatefulWidget {
   const TransactionSummaryBoard({super.key});
 
   @override
+  State<TransactionSummaryBoard> createState() =>
+      _TransactionSummaryBoardState();
+}
+
+class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
+
+  @override
   Widget build(BuildContext context) {
+    final user = userProvider.getUserById();
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -41,7 +51,7 @@ class TransactionSummaryBoard extends StatelessWidget {
                             fontFamily: "PushPenny"),
                         children: [
                       TextSpan(
-                        text: 'Bright!',
+                        text: '${user!.firstName}!',
                         style: TextStyle(
                             color: Color(0xff6E80A3),
                             fontSize: 24,
@@ -73,8 +83,8 @@ class TransactionSummaryBoard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/images/graph2.png',
+                SizedBox(
+                  //'assets/images/graph2.png',
                   width: 633,
                   height: 300,
                   //color: Colors.amber,

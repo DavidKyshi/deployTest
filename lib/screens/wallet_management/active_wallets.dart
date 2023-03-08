@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,10 +54,11 @@ class _ActiveWallets extends State<ActiveWallets> {
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
   bool manageWallet = false;
-  List <CommentDetails> comments = [];
+  List<CommentDetails> comments = [];
   @override
   void initState() {
-    activeWallets =Provider.of<UsersProvider>(context, listen: false).activeWallets;
+    activeWallets =
+        Provider.of<UsersProvider>(context, listen: false).activeWallets;
     // TODO: implement initState
     super.initState();
   }
@@ -119,73 +118,84 @@ class _ActiveWallets extends State<ActiveWallets> {
                     color: const Color(0XFFEAEBF1),
                     borderRadius: BorderRadius.circular(12)),
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                       dataRowHeight: 60,
                       columns: const <DataColumn>[
-                        DataColumn(label: Text("Created",style: TextStyle(
-                          //color: primaryColor,
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("User",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Currency",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Provider",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Available",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Total",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Tier",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Status",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Comments",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
-                        DataColumn(label: Text("Actions",style: TextStyle(
-                            color: Color(0XFF233375),
-                            fontFamily: 'PushPenny',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ))),
+                        DataColumn(
+                            label: Text("Created",
+                                style: TextStyle(
+                                    //color: primaryColor,
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("User",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Currency",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Provider",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Available",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Total",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Tier",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Status",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Comments",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
+                        DataColumn(
+                            label: Text("Actions",
+                                style: TextStyle(
+                                    color: Color(0XFF233375),
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12))),
                       ],
                       rows:activeWallets!.map((e) => DataRow(cells: [
                         DataCell(
@@ -768,6 +778,4 @@ class _ActiveWallets extends State<ActiveWallets> {
           ),
         ));
   }
-
-
 }

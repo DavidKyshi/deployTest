@@ -18,8 +18,9 @@ import '../../userService/userService.dart';
 import 'otp_screen.dart';
 
 class FirstTimer extends StatefulWidget {
-
-  const FirstTimer({Key? key,}) : super(key: key);
+  const FirstTimer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<FirstTimer> createState() => _FirstTimerState();
@@ -40,31 +41,33 @@ class _FirstTimerState extends State<FirstTimer> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
-   getQrCode()async{
+
+  getQrCode() async {
     Map<String, dynamic> responseData = await UserService().enable2FA(context);
     print("${responseData["otp_url"]} screen111111 qr");
     setState(() {
       qrLink = responseData["otp_url"];
     });
     print("$qrCode screen222222");
-
   }
+
   @override
   void dispose() {
     errorController?.close();
     super.dispose();
   }
 
-  verifyOtp()async{
+  verifyOtp() async {
     print("$pin VERIFY OTP");
-    Response responseData = await UserService().verifyOtp(data: pin, context: context);
-    if(responseData.statusCode ==200){
+    Response responseData =
+        await UserService().verifyOtp(data: pin, context: context);
+    if (responseData.statusCode == 200) {
       print("correct OPTP");
-      if (mounted){
+      if (mounted) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const Homepage()),
-                (route) => false);
+            (route) => false);
       }
     }
   }
@@ -127,7 +130,8 @@ class _FirstTimerState extends State<FirstTimer> {
                       fontFamily: 'PushPenny',
                       fontWeight: FontWeight.w400),
                 ),
-                QrImage(data: qrLink,
+                QrImage(
+                  data: qrLink,
                   size: 200,
                 ),
                 Text(
@@ -220,7 +224,7 @@ class _FirstTimerState extends State<FirstTimer> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
                         Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(context);
+                        .getCreatedUserAccount(context); 
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -232,15 +236,15 @@ class _FirstTimerState extends State<FirstTimer> {
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context, entrySize: '100');
                         Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getAllPayOutTransactions();
+                         .getAllPayOutTransactions(context);
                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getCompletedPayOutTransactions();
+                         .getCompletedPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getFailedPayOutTransactions();
+                         .getFailedPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getPendingPayOutTransactions();
+                         .getPendingPayOutTransactions(context);
                           Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getReversedPayOutTransactions();
+                         .getReversedPayOutTransactions(context);
             //          Navigator.push(context,
             // MaterialPageRoute(builder: (context) => const OtpScreen()));
                  

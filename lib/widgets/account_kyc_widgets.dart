@@ -3,6 +3,7 @@
 import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/page_not_found/page_not_found.dart';
+import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 class UserProfileButtonContainer extends StatelessWidget {
   UserProfileButtonContainer({
@@ -224,7 +225,7 @@ String convertDateTime(String dateTimeStr) {
   return formattedDateTime;
 }
 
-class BioDataParameters extends StatelessWidget {
+class BioDataParameters extends StatefulWidget {
   const BioDataParameters(
       {super.key,
       required this.firstName,
@@ -254,7 +255,27 @@ class BioDataParameters extends StatelessWidget {
   final bool emailStatus, phoneNumberStatus;
 
   @override
+  State<BioDataParameters> createState() => _BioDataParametersState();
+}
+
+class _BioDataParametersState extends State<BioDataParameters> {
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
+  @override
   Widget build(BuildContext context) {
+    final user = userProvider.getUserById();
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
+    TextEditingController middleNameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController phoneNumberController = TextEditingController();
+    TextEditingController occupationController = TextEditingController();
+    TextEditingController nationalityController = TextEditingController();
+    TextEditingController residencyController = TextEditingController();
+    TextEditingController dobController = TextEditingController();
+    TextEditingController genderController = TextEditingController();
+
+    String email;
     return Container(
       width: 350,
       height: 533.82,
@@ -262,181 +283,440 @@ class BioDataParameters extends StatelessWidget {
           color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
       child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-          child: Row(
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BioDataTitleTextStyle(
-                      text: 'First Name',
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BioDataTitleTextStyle(
+                          text: 'First Name',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Middle Name',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Last Name',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Gender',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Date of Birth',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Email',
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: 'Status',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Phone',
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: 'Status',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Occupation',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Nationality',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Residence',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataTitleTextStyle(
+                          text: 'Date Registered',
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BioDataSubTitleTextStyle(
+                          text: widget.firstName,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.middleName,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.lastName,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.gender,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.dateOfBirth,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.email,
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        BioDataStatusTextStyle(
+                          isActive: widget.emailStatus,
+                          text: widget.emailStatus == true
+                              ? "Verified"
+                              : "Unverified",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.phoneNumber,
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        BioDataStatusTextStyle(
+                          isActive: widget.phoneNumberStatus,
+                          text: widget.phoneNumberStatus == true
+                              ? "Verified"
+                              : "Unverified",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.occupation,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.nationality,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.residence,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BioDataSubTitleTextStyle(
+                          text: widget.dateOfRegistration,
+                        )
+                      ],
                     ),
-                    BioDataTitleTextStyle(
-                      text: 'Middle Name',
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          insetPadding: EdgeInsets.all(20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0))),
+                          content: SizedBox(
+                              height: 1095,
+                              width: 600,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Edit Bright George profile details',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 28,
+                                                    color: primaryColor,
+                                                    fontFamily: "PushPenny"),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                'You are about to make changes to this profile and KYC. Proceed?',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    color: Color(0xff6E80A3),
+                                                    fontFamily: "PushPenny"),
+                                              ),
+                                            ],
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/cancel.png',
+                                                width: 40,
+                                                height: 40,
+                                              ))
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Divider(),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width: 526,
+                                        height: 768,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xffF8F9FE),
+                                            borderRadius:
+                                                BorderRadius.circular(7)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 10, 20, 0),
+                                          child: Column(
+                                            children: [
+                                              smallList("First Name",
+                                                  firstNameController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Middle Name",
+                                                  middleNameController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Last Name",
+                                                  lastNameController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList(
+                                                  "Gender", genderController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Date of Birth",
+                                                  dobController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Email Address",
+                                                  emailController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Phone number",
+                                                  phoneNumberController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Occupations",
+                                                  occupationController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Nationality",
+                                                  nationalityController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Residence",
+                                                  residencyController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Container(
+                                              width: 222,
+                                              height: 56,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffF8F9FE),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              userProvider.getAllEditProfile(
+                                                  firstNameController.text,
+                                                  lastNameController.text,
+                                                  middleNameController.text,
+                                                  emailController.text,
+                                                  phoneNumberController.text,
+                                                  occupationController.text,
+                                                  nationalityController.text,
+                                                  residencyController.text,
+                                                  dobController.text,
+                                                  genderController.text,
+                                                  context);
+                                              Navigator.of(context).pop;
+                                            },
+                                            child: Container(
+                                              width: 222,
+                                              height: 56,
+                                              decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Yes, update profile',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        );
+                      });
+                },
+                child: Container(
+                  width: 300,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Edit profile',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Last Name',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Gender',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Date of Birth',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Email',
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: 'Status',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Phone',
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: 'Status',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Occupation',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Nationality',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Residence',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataTitleTextStyle(
-                      text: 'Date Registered',
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BioDataSubTitleTextStyle(
-                      text: firstName,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: middleName,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: lastName,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: gender,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: dateOfBirth,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: email,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    BioDataStatusTextStyle(
-                      isActive: emailStatus,
-                      text: emailStatus == true ? "Verified" : "Unverified",
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: phoneNumber,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    BioDataStatusTextStyle(
-                      isActive: phoneNumberStatus,
-                      text:
-                          phoneNumberStatus == true ? "Verified" : "Unverified",
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: occupation,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: nationality,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: residence,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BioDataSubTitleTextStyle(
-                      text: dateOfRegistration,
-                    )
-                  ],
-                ),
-              )
             ],
           )),
     );
   }
+}
+
+Widget smallList(String smallText, TextEditingController controller) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        smallText,
+        style: TextStyle(
+          color: Color(0xff6E80A3),
+          fontWeight: FontWeight.w400,
+          fontSize: 10,
+        ),
+      ),
+      //SizedBox(height: 10,),
+      TextField(
+        autofocus: true,
+        controller: controller,
+      )
+    ],
+  );
 }
 
 class IdentificationData extends StatelessWidget {
@@ -647,51 +927,51 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
             ),
             Row(
               children: [
-                Column(
-                  children: [
-                    NatureAndPurposeTextStyle(
-                      text: 'School fee',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NatureAndPurposeTextStyle(
-                      text: 'Upkeep',
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  children: [
-                    NatureAndPurposeTextStyle(
-                      text: 'Payment electronics',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NatureAndPurposeTextStyle(
-                      text: 'Shipping payment',
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  children: [
-                    NatureAndPurposeTextStyle(
-                      text: 'For  Yetunde',
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NatureAndPurposeTextStyle(
-                      text: 'Return Money',
-                    ),
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     NatureAndPurposeTextStyle(
+                //       text: 'School fee',
+                //     ),
+                //     SizedBox(
+                //       height: 20,
+                //     ),
+                //     NatureAndPurposeTextStyle(
+                //       text: 'Upkeep',
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   width: 20,
+                // ),
+                // Column(
+                //   children: [
+                //     NatureAndPurposeTextStyle(
+                //       text: 'Payment electronics',
+                //     ),
+                //     SizedBox(
+                //       height: 20,
+                //     ),
+                //     NatureAndPurposeTextStyle(
+                //       text: 'Shipping payment',
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   width: 20,
+                // ),
+                // Column(
+                //   children: [
+                //     NatureAndPurposeTextStyle(
+                //       text: 'For  Yetunde',
+                //     ),
+                //     SizedBox(
+                //       height: 20,
+                //     ),
+                //     NatureAndPurposeTextStyle(
+                //       text: 'Return Money',
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             SizedBox(
@@ -756,19 +1036,19 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Column(
-              children: [
-                NatureAndPurposeTextStyle(
-                  text: 'UK',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                NatureAndPurposeTextStyle(
-                  text: 'USA',
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     NatureAndPurposeTextStyle(
+            //       text: 'UK',
+            //     ),
+            //     SizedBox(
+            //       height: 20,
+            //     ),
+            //     NatureAndPurposeTextStyle(
+            //       text: 'USA',
+            //     ),
+            //   ],
+            // ),
             SizedBox(
               height: 15,
             ),
@@ -781,15 +1061,15 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
             ),
             Row(
               children: [
-                NatureAndPurposeAmountTextStyle(
-                  text: 'Tier 2',
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                NatureAndPurposeAmountTextStyle(
-                  text: '₦1,000,000 - ₦5,000,000',
-                ),
+                // NatureAndPurposeAmountTextStyle(
+                //   text: 'Tier 2',
+                // ),
+                // SizedBox(
+                //   width: 10,
+                // ),
+                // NatureAndPurposeAmountTextStyle(
+                //   text: '₦1,000,000 - ₦5,000,000',
+                // ),
               ],
             ),
             SizedBox(
@@ -802,19 +1082,19 @@ class NatureAndPurposeOfAccount extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Column(
-              children: [
-                NatureAndPurposeTextStyle(
-                  text: 'UK',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                NatureAndPurposeTextStyle(
-                  text: 'USA',
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     NatureAndPurposeTextStyle(
+            //       text: 'UK',
+            //     ),
+            //     SizedBox(
+            //       height: 20,
+            //     ),
+            //     NatureAndPurposeTextStyle(
+            //       text: 'USA',
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

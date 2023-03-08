@@ -102,7 +102,8 @@ acceptOfferAlertBox(BuildContext context) {
       });
 }
 
-viewCommentAlertBox({required BuildContext context, required List <CommentDetails> comment}) {
+viewCommentAlertBox(
+    {required BuildContext context, required List<CommentDetails> comment}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -150,9 +151,11 @@ viewCommentAlertBox({required BuildContext context, required List <CommentDetail
                         color: Color(0XFFF9F9F9),
                         borderRadius: BorderRadius.circular(11),
                         border: Border.all(color: Color(0XFFE8E8E8))),
-                    child: ListView.builder(itemBuilder: (context,index) {
-                      return Text(comment[index].details ?? "no comments yet");
-                    },
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Text(
+                            comment[index].details ?? "no comments yet");
+                      },
                       itemCount: comment.length,
                     ),
                   ),

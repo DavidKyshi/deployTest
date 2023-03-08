@@ -70,14 +70,17 @@ class _HomepageState extends State<Homepage> {
                               children: provider.pages
                                   .map((e) => e.showInSideBar == false
                                       ? const Offstage()
-                                      : OnHover(builder: (isHovered) {
-                                          final Color color = isHovered
-                                              ? Colors.amber
-                                              : Colors.red;
-                                          return SideMenuItems(
+                                      : 
+                                      // OnHover(builder: (isHovered) {
+                                      //     final Color color = isHovered
+                                      //         ? Colors.amber
+                                      //         : Colors.red;
+                                      //     return                                         }
+                                      //   )
+                                        SideMenuItems(
                                             onNext: () {
                                               // setState(() {
-                                              Colors.blue;
+                                              
                                               provider.gotoPage(e.index);
                                               // });
                                             },
@@ -85,9 +88,11 @@ class _HomepageState extends State<Homepage> {
                                             icon: e.icon,
                                             height: e.height,
                                             width: e.width,
-                                            onTapColor: color,
-                                          );
-                                        }))
+                                            onTapColor:  Colors.black,
+                                        
+                                          )
+
+                                        )
                                   .toList(),
                             ),
                           ],

@@ -25,17 +25,17 @@ class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
   List<WalletResponse>? allWallets;
 
-  
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
   bool manageWallet = false;
-  List <CommentDetails> comments = [];
+  List<CommentDetails> comments = [];
   String? selectedId;
   @override
   void initState() {
-    allWallets =Provider.of<UsersProvider>(context, listen: false).allWallets;
-    selectedId = Provider.of<UsersProvider>(context, listen: false).currentSelectedUserId;
+    allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
+    selectedId = Provider.of<UsersProvider>(context, listen: false)
+        .currentSelectedUserId;
     // TODO: implement initState
     super.initState();
   }

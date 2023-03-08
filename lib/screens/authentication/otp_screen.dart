@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
+import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/first_time_login.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/forgot_password.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
@@ -11,6 +12,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:pinput/pinput.dart';
 
 import '../../helper/screen_export.dart';
+import '../../providers/over_view_provider.dart';
+import '../../providers/payout_transactions.dart';
 import '../../userService/userService.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -29,19 +32,22 @@ class _OtpScreenState extends State<OtpScreen> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
-  verifyOtp()async{
+
+  verifyOtp() async {
     print("$pin VERIFY OTP");
-    Response responseData = await UserService().verifyOtp(data: pin, context: context);
-    if(responseData.statusCode ==200){
+    Response responseData =
+        await UserService().verifyOtp(data: pin, context: context);
+    if (responseData.statusCode == 200) {
       print("correct OPTP");
-      if (mounted){
+      if (mounted) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const Homepage()),
-                (route) => false);
+            (route) => false);
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,6 +114,32 @@ class _OtpScreenState extends State<OtpScreen> {
                        .getAllOfferManagement(context);
                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                    verifyOtp();
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAcceptedOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getCreatedUserAccount(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getOpenOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getCloseOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getOpenOfferManagement(context);
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getWithdrawnOfferManagement(context);
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getUsers(context: context, entrySize: '100');
+                        Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getAllPayOutTransactions(context);
+                         Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getCompletedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getFailedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getPendingPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getReversedPayOutTransactions(context);
                  },
                 ),
                 const SizedBox(

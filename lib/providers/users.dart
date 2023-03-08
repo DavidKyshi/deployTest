@@ -11,17 +11,21 @@ import '../models/transactions.dart';
 import '../userService/userService.dart';
 
 class UsersProvider extends ChangeNotifier {
+  List<User> allUsersTransactionSummary = [];
+  List<User> editUsers = [];
   List<User> _users = [];
   String? currentSelectedUserId;
+
+  //String? currency = users.first.wallets!.first.currency;
   String? _currentUserName = "";
   String? _accessToken;
+
   List<Services> _connectService = [];
   List<WalletResponse> _allWallets = [];
   List<WalletResponse> _pendingWallets = [];
   List<WalletResponse> _activeWallets = [];
   List<WalletResponse> _rejectedWallets = [];
   List<TransactionsData> _transactions = [];
-
 
   // get wallet => _wallet;
   get accessToken => _accessToken;
@@ -48,10 +52,12 @@ class UsersProvider extends ChangeNotifier {
         (element) => element.id == (id ?? currentSelectedUserId),
         orElse: null);
   }
+
   void setCurrentUser(String name) {
     _currentUserName = name;
     notifyListeners();
   }
+
   void setAccessToken(String token) {
     _accessToken = token;
     notifyListeners();
@@ -74,6 +80,55 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
     return _connectService;
   }
+
+  Future<List<User>> getAllTransactionSummary() async {
+    // 182e04da-a23b-4a73-8bd8-9bbabc19525d
+    Map<String, dynamic> responseData = await UserService()
+        .getTransactionSummary(
+            userId: currentSelectedUserId ?? "",
+            currency: users.first.wallets!.first.currency ?? "");
+    final data = List.from(responseData['data']);
+    allUsersTransactionSummary = List<User>.from(data.map((x) => User.fromJson(x)));
+    notifyListeners();
+    return allUsersTransactionSummary;
+  }
+
+  Future<List<User>> getAllEditProfile(
+      String dob,
+      String email,
+      String firstName,
+      String gender,
+      String lastName,
+      String middleName,
+      String nationality,
+      String occupation,
+      String phoneNumber,
+      String residence,
+      BuildContext context) async {
+    // 182e04da-a23b-4a73-8bd8-9bbabc19525d
+    Map<String, dynamic> responseData = await UserService().getEditProfile(
+        user_Id: currentSelectedUserId ?? "",
+        firstName: firstName,
+        lastName: lastName,
+         middleName: middleName,
+        gender: gender,
+        email: email,
+       phoneNumber: phoneNumber,
+       occupation: occupation,
+        nationality: nationality,
+        residence: residence,
+        dob: dob,
+        context);
+    final data = List.from(responseData['data']);
+    editUsers = List<User>.from(data.map((x) => User.fromJson(x)));
+    notifyListeners();
+    return editUsers;
+  }
+  //getEditProfile
+
+  // Future<List<TransactionsData>> getTransactions() async {
+  //   Map<String, dynamic> responseData = await UserService()
+  //       .getKyshiConnectTransactions(userId: currentSelectedUserId ?? "");
   Future<List<TransactionsData>> getTransactions(BuildContext context) async {
     Map<String, dynamic> responseData = await UserService().getKyshiConnectTransactions(userId: currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
@@ -91,11 +146,17 @@ class UsersProvider extends ChangeNotifier {
   Future<List<WalletResponse>> getAllWallets(BuildContext context) async {
     Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context);
     final data = List.from(responseData['data']);
-    _allWallets = List<WalletResponse>.from(data.map((x) => WalletResponse.fromJson(x)));
-    _pendingWallets = _allWallets.where((element) => element.status == "PENDING" || element.status == "IN_PROGRESS").toList();
-    _activeWallets = _allWallets.where((element) => element.status == "ACTIVE").toList();
+    _allWallets =
+        List<WalletResponse>.from(data.map((x) => WalletResponse.fromJson(x)));
+    _pendingWallets = _allWallets
+        .where((element) =>
+            element.status == "PENDING" || element.status == "IN_PROGRESS")
+        .toList();
+    _activeWallets =
+        _allWallets.where((element) => element.status == "ACTIVE").toList();
     // _inActiveWallets = _allWallets.where((element) => element.status == "IN_PROGRESS").toList();
-    _rejectedWallets = _allWallets.where((element) => element.status == "REJECTED").toList();
+    _rejectedWallets =
+        _allWallets.where((element) => element.status == "REJECTED").toList();
     notifyListeners();
     return _allWallets;
   }

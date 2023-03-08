@@ -15,14 +15,12 @@ import '../userService/userService.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 final TextEditingController emailController = TextEditingController(text: "");
-final TextEditingController oldPasswordControllers =
-    TextEditingController();
-final TextEditingController newPasswordControllers =
-    TextEditingController();
+final TextEditingController oldPasswordControllers = TextEditingController();
+final TextEditingController newPasswordControllers = TextEditingController();
 final TextEditingController confirmPasswordControllers =
     TextEditingController();
 FocusNode? focusNode;
- String? qrCodes;
+String? qrCodes;
 void showMessageDialog(BuildContext context, lottieType, buttonText,
     {additionalButton,
     required Function()? btnFunction,
@@ -314,14 +312,13 @@ void successMessageDialog(
                       ),
                       KyshiButtonResponsive(
                         color: primaryColor,
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FirstTimer()
-                              ),
-                                  (route) => false);
+                                  builder: (context) => const FirstTimer()),
+                              (route) => false);
                         },
                         text: buttonText,
                         size: 550,
@@ -336,20 +333,21 @@ void successMessageDialog(
             );
           }));
 }
+
 displayAlert(
     {String? title,
-      String? image,
-      String? content,
-      bool? success,
-      BuildContext? context}) {
+    String? image,
+    String? content,
+    bool? success,
+    BuildContext? context}) {
   // set up the AlertDialog
 //  AlertDialog alert = ;
 
   void _modalBottomSheetMenu(
       {String title = '',
-        String? content,
-        bool? success,
-        BuildContext? context}) {
+      String? content,
+      bool? success,
+      BuildContext? context}) {
     showModalBottomSheet(
         context: context!,
         shape: RoundedRectangleBorder(
@@ -360,7 +358,8 @@ displayAlert(
           return Container(
               color: Colors.transparent,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -368,52 +367,52 @@ displayAlert(
                         topRight: Radius.circular(10.0))),
                 child: SingleChildScrollView(
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              height: 5,
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(10)),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 3.5,
+                          height: 5,
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 14,
+                      ),
+                      const Text('Swipe down to close',
+                          style: TextStyle(
+                              color: Color.fromRGBO(38, 50, 56, 0.5),
+                              fontSize: 16)),
+                      const SizedBox(height: 20),
+                      image != null
+                          ? SvgPicture.asset(
+                              error,
+                              width: 65,
+                              height: 65,
+                            )
+                          : SvgPicture.asset(
+                              success != null && success ? successImg : error,
+                              width: 65,
+                              height: 65,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 14,
-                          ),
-                          const Text('Swipe down to close',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 50, 56, 0.5),
-                                  fontSize: 16)),
-                          const SizedBox(height: 20),
-                          image != null
-                              ? SvgPicture.asset(
-                            error,
-                            width: 65,
-                            height: 65,
-                          )
-                              : SvgPicture.asset(
-                            success != null && success
-                                ? successImg
-                                : error,
-                            width: 65,
-                            height: 65,
-                          ),
-                          const SizedBox(height: 15),
-                          Text(title,),
-                          const SizedBox(height: 15),
-                          Text(content ?? '',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: success != null && success == false
-                                      ? Colors.red
-                                      : const Color.fromRGBO(38, 50, 56, 0.5),
-                                  fontSize: 16)),
-                        ])),
+                      const SizedBox(height: 15),
+                      Text(
+                        title,
+                      ),
+                      const SizedBox(height: 15),
+                      Text(content ?? '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: success != null && success == false
+                                  ? Colors.red
+                                  : const Color.fromRGBO(38, 50, 56, 0.5),
+                              fontSize: 16)),
+                    ])),
               ));
         });
   }

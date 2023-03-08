@@ -31,15 +31,13 @@ class _TextTabState extends State<TextTab> {
     return Text(
       sub,
       style: TextStyle(
-          fontSize: 14,
-         fontWeight: FontWeight.w500,
-         color: Color(0xff233375)),
+          fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff233375)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-   // final offersData = offerManagementProvider.offerData;
+    // final offersData = offerManagementProvider.offerData;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -57,7 +55,7 @@ class _TextTabState extends State<TextTab> {
               child: Column(
                 children: [
                   Row(
-                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
@@ -72,7 +70,9 @@ class _TextTabState extends State<TextTab> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 120,),
+                      SizedBox(
+                        width: 120,
+                      ),
                       SizedBox(
                         width: 220,
                         child: Row(
@@ -88,12 +88,12 @@ class _TextTabState extends State<TextTab> {
                               width: 30,
                             ),
                             titleText('Fee (%)'),
-
-                            
                           ],
                         ),
                       ),
-                       SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       SizedBox(
                         width: 250,
                         child: Row(
@@ -101,20 +101,17 @@ class _TextTabState extends State<TextTab> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             titleText('Currency'),
-                             SizedBox(
+                            SizedBox(
                               width: 30,
                             ),
-                      titleText('Amount'),
-                       SizedBox(
+                            titleText('Amount'),
+                            SizedBox(
                               width: 30,
                             ),
-                      titleText('Fee (%)'),
+                            titleText('Fee (%)'),
                           ],
                         ),
                       ),
-
-                                      
- 
                       SizedBox(
                         width: 380,
                         child: Row(
@@ -123,67 +120,65 @@ class _TextTabState extends State<TextTab> {
                             SizedBox(
                               width: 38,
                             ),
-                      titleText('Expire'),
-                      SizedBox(
+                            titleText('Expire'),
+                            SizedBox(
                               width: 70,
                             ),
-                      titleText('ID'),
-                      SizedBox(
+                            titleText('ID'),
+                            SizedBox(
                               width: 145,
                             ),
-                      titleText('Status'),
+                            titleText('Status'),
                           ],
                         ),
                       )
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 250, 20),
                     child: SizedBox(
-                  
                       width: 300,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                          Text('BASE',
-                          style: TextStyle(
-                  color: primaryColor.withOpacity(0.5),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500
-                ),
+                        children: [
+                          Text(
+                            'BASE',
+                            style: TextStyle(
+                                color: primaryColor.withOpacity(0.5),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
                           ),
-                          Text('QUOTE',
-                          style: TextStyle(
-                  color: primaryColor.withOpacity(0.5),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500
-                ),
+                          Text(
+                            'QUOTE',
+                            style: TextStyle(
+                                color: primaryColor.withOpacity(0.5),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
                           ),
-                      ],
-                    ),
+                        ],
+                      ),
                     ),
                   ),
                   ...offerManagementProvider.offerData
                       .map((offersData) => Column(
                             children: [
                               Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                       width: 83,
                                       child: Text(convertDateTime(
-                                          offersData.createdAt
-                                              .toString()))),
+                                          offersData.createdAt.toString()))),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   SizedBox(
                                       width: 157,
-                                      child:
-                                          Text(offersData.owner ?? "")),
+                                      child: Text(offersData.owner ?? "")),
                                   SizedBox(
                                     width: 50,
                                   ),
@@ -196,8 +191,8 @@ class _TextTabState extends State<TextTab> {
                                   ),
                                   SizedBox(
                                       width: 70,
-                                      child: subText(
-                                          offersData.baseAmount ?? "")),
+                                      child:
+                                          subText(offersData.baseAmount ?? "")),
                                   SizedBox(
                                     width: 30,
                                   ),
@@ -205,12 +200,10 @@ class _TextTabState extends State<TextTab> {
                                       width: 35,
                                       child: subText(
                                           offersData.baseFee.toString())),
-
-                                          SizedBox(
+                                  SizedBox(
                                     width: 50,
                                   ),
-
-                                          SizedBox(
+                                  SizedBox(
                                       width: 35,
                                       child: subText(
                                           offersData.quoteCurrency ?? "")),
@@ -228,40 +221,32 @@ class _TextTabState extends State<TextTab> {
                                       width: 35,
                                       child: subText(
                                           offersData.quoteFee.toString())),
-
-                                          SizedBox(
+                                  SizedBox(
                                     width: 30,
                                   ),
- 
-                                          SizedBox(
+                                  SizedBox(
                                       width: 70,
-                                      child: Text(
-                                          offersData.exchangeRate ?? "")),
-
-                                      SizedBox(
+                                      child:
+                                          Text(offersData.exchangeRate ?? "")),
+                                  SizedBox(
                                       width: 83,
                                       child: Text(convertDateTime(
-                                          offersData.expiresAt
-                                              .toString()))), 
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-
-                                         SizedBox(
+                                          offersData.expiresAt.toString()))),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
                                       width: 140,
-                                      child: Text(
-                                          offersData.id ?? "")),           
-                                        SizedBox(
-                                                width: 20,
-                                              ),
-                                      SizedBox(
-                                        width: 100,
-                                        child:  OfferMangementButton(
-                                                      text: offersData
-                                                              .status ??
-                                                          "",
-                                                    ),
-                                      )
+                                      child: Text(offersData.id ?? "")),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                    child: OfferMangementButton(
+                                      text: offersData.status ?? "",
+                                    ),
+                                  )
                                 ],
                               ),
                               SizedBox(
@@ -279,5 +264,3 @@ class _TextTabState extends State<TextTab> {
     );
   }
 }
-
-
