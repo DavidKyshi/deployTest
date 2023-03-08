@@ -18,7 +18,7 @@ class PayOutTransactionTab extends StatelessWidget {
     return SingleChildScrollView(
         child: Container(
       child: DefaultTabController(
-        length: 4,
+        length: 5,
         initialIndex: 0,
         child: Column(children: [
           const SizedBox(
@@ -59,6 +59,9 @@ class PayOutTransactionTab extends StatelessWidget {
                       ),
                       Tab(
                         text: 'Completed Transaction',
+                      ),
+                      Tab(
+                        text: 'Reversed Transaction',
                       ),
                     ],
                   ),
