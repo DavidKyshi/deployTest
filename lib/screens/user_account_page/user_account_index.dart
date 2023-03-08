@@ -72,7 +72,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
-    final getuser = userProvider.getUserById();
+    // final getuser = userProvider.getUserById();
     // print("${userProvider.users} ALL USERS");
     return Scaffold(
         backgroundColor: Colors.white,
@@ -175,8 +175,8 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 const SizedBox(
                   height: 10,
                 ),
-                if (getuser == null) Text("User not found"),
-                if (getuser != null)
+                // if (getuser == null) Text("User not found"),
+                // if (getuser != null)
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
