@@ -41,7 +41,8 @@ class PayOutTransactionUserData {
     return 'Datum(createdAt: $createdAt, user: $user, ledgerOperation: $ledgerOperation, amount: $amount, currency: $currency, status: $status, processor: $processor, channel: $channel, type: $type, serviceCharge: $serviceCharge, availableBalance: $availableBalance, ledgerBalance: $ledgerBalance, beneficiary: $beneficiary)';
   }
 
-  factory PayOutTransactionUserData.fromMap(Map<String, dynamic> data) => PayOutTransactionUserData(
+  factory PayOutTransactionUserData.fromMap(Map<String, dynamic> data) =>
+      PayOutTransactionUserData(
         createdAt: data['created_at'] as String?,
         user: data['user'] as String?,
         ledgerOperation: data['ledger_operation'] as String?,
@@ -77,7 +78,8 @@ class PayOutTransactionUserData {
   ///
   /// Parses the string and returns the resulting Json object as [Datum].
   factory PayOutTransactionUserData.fromJson(String data) {
-    return PayOutTransactionUserData.fromMap(json.decode(data) as Map<String, dynamic>);
+    return PayOutTransactionUserData.fromMap(
+        json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`

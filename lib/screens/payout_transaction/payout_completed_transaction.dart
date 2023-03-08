@@ -19,9 +19,8 @@ class PayOutCompletedTransactionTable extends StatefulWidget {
 class _PayOutCompletedTransactionTableState
     extends State<PayOutCompletedTransactionTable> {
   late ScrollController controller;
-     PayOutTransactionProvider get payOutTransactionProvider =>
+  PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-    
 
   @override
   Widget build(BuildContext context) {
@@ -155,16 +154,16 @@ class _PayOutCompletedTransactionTableState
                                       ),
                                       titleText('Offer'),
                                       SizedBox(
-                                              width: 20,
-                                            ),
+                                        width: 20,
+                                      ),
                                       titleText('ID'),
                                       SizedBox(
-                                              width: 30,
-                                            ),
+                                        width: 30,
+                                      ),
                                       titleText('Status'),
-                                       SizedBox(
-                                              width: 38,
-                                            ),
+                                      SizedBox(
+                                        width: 38,
+                                      ),
                                       titleText('Action'),
                                     ],
                                   ),
@@ -275,7 +274,7 @@ class _PayOutCompletedTransactionTableState
                                                         .ledgerBalance
                                                         .toString())),
 
-                                                        SizedBox(
+                                            SizedBox(
                                               width: 20,
                                             ),
 
@@ -305,9 +304,7 @@ class _PayOutCompletedTransactionTableState
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65,
-                                                child: Text(
-                                                    "")),
+                                                width: 65, child: Text("")),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -315,16 +312,25 @@ class _PayOutCompletedTransactionTableState
                                             SizedBox(
                                                 width: 80,
                                                 child: StatusText(
-                                                  text:  completedPayOutTransactionData
-                                                            .status ??
-                                                        "")),
+                                                    text:
+                                                        completedPayOutTransactionData
+                                                                .status ??
+                                                            "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
                                               width: 80,
                                               child: PayOutTransactionButton(
-                                                containerColor: completedPayOutTransactionData.status == "SUCCESS" || completedPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
+                                                containerColor:
+                                                    completedPayOutTransactionData
+                                                                    .status ==
+                                                                "SUCCESS" ||
+                                                            completedPayOutTransactionData
+                                                                    .status ==
+                                                                "REVERSED"
+                                                        ? Color(0xff6E80A3)
+                                                        : primaryColor,
                                                 text: "RETRY",
                                               ),
                                             )
@@ -345,4 +351,3 @@ class _PayOutCompletedTransactionTableState
     );
   }
 }
-

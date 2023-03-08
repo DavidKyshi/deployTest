@@ -94,26 +94,32 @@ class UsersProvider extends ChangeNotifier {
     return users;
   }
 
-  Future<List<User>> getAllEditProfile(String dob, String email,
-      String firstName, String gender, String lastName, String middleName,
-      String nationality, String occupation, String phoneNumber, String residence,
-       BuildContext context
-      ) async {
+  Future<List<User>> getAllEditProfile(
+      String dob,
+      String email,
+      String firstName,
+      String gender,
+      String lastName,
+      String middleName,
+      String nationality,
+      String occupation,
+      String phoneNumber,
+      String residence,
+      BuildContext context) async {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService().getEditProfile(
-      userId: currentSelectedUserId ?? "",
-      firstName: firstName,
-      dob: dob,
-      email: email,
-      gender: gender,
-      lastName: lastName,
-      middleName: middleName,
-      nationality: nationality,
-      occupation: occupation,
-      phoneNumber: phoneNumber,
-      residence: residence,
-       context
-    );
+        userId: currentSelectedUserId ?? "",
+        firstName: firstName,
+        dob: dob,
+        email: email,
+        gender: gender,
+        lastName: lastName,
+        middleName: middleName,
+        nationality: nationality,
+        occupation: occupation,
+        phoneNumber: phoneNumber,
+        residence: residence,
+        context);
     final data = List.from(responseData['data']);
     editUsers = List<User>.from(data.map((x) => User.fromJson(x)));
     notifyListeners();

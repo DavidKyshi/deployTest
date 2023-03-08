@@ -122,8 +122,8 @@ class SideBar extends StatelessWidget {
           ),
           firstTimer || isWelcomeBack
               ? Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Text(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Text(
                     "© 2022 Kyshi Limited. All rights reserved.",
                     style: TextStyle(
                         color: Color(0XFF233375),
@@ -131,7 +131,7 @@ class SideBar extends StatelessWidget {
                         fontSize: 14,
                         fontFamily: 'PushPenny'),
                   ),
-              )
+                )
               : Container(
                   width: 160,
                   height: 60,

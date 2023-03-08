@@ -13,8 +13,6 @@ class OfferManagementProvider extends ChangeNotifier {
   List<User> users = [];
   String? currentSelectedUserId;
 
-  
-
   Future<List<OfferData>> getAllOfferManagement(BuildContext context) async {
     Map<String, dynamic> responseData =
         await UserService().getOfferManagement("all", context);
@@ -43,7 +41,8 @@ class OfferManagementProvider extends ChangeNotifier {
     return closedOfferData;
   }
 
-  Future<List<OfferData>> getWithdrawnOfferManagement(BuildContext context) async {
+  Future<List<OfferData>> getWithdrawnOfferManagement(
+      BuildContext context) async {
     Map<String, dynamic> responseData =
         await UserService().getOfferManagement("withdrawn", context);
     final data = List.from(responseData['data']);
@@ -53,7 +52,8 @@ class OfferManagementProvider extends ChangeNotifier {
     return withdrawOfferData;
   }
 
-  Future<List<OfferData>> getAcceptedOfferManagement(BuildContext context) async {
+  Future<List<OfferData>> getAcceptedOfferManagement(
+      BuildContext context) async {
     Map<String, dynamic> responseData =
         await UserService().getOfferManagement("accepted", context);
     final data = List.from(responseData['data']);
@@ -62,7 +62,7 @@ class OfferManagementProvider extends ChangeNotifier {
     notifyListeners();
     return acceptedOfferData;
   }
-   
+
   Future<List<OfferData>?> getCreatedUserAccount(BuildContext context) async {
     //  if (users.isEmpty) return null;
     // if (id == null && currentSelectedUserId == null) return null;
@@ -78,5 +78,4 @@ class OfferManagementProvider extends ChangeNotifier {
     notifyListeners();
     return acceptedOfferData;
   }
-
 }

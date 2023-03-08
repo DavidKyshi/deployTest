@@ -9,9 +9,7 @@ class ChartTransaction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 584,
-      child: SfCartesianChart(
-        
-      ),
+      child: SfCartesianChart(),
     );
   }
 }

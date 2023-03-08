@@ -27,3 +27,4 @@ const String riskRating = 'assets/images/riskRating.png';
 const String riskScore = 'assets/images/riskScore.png';
 const String payOutTransactionIcon = "assets/images/payout-transaction.png";
 const String walletManagementIcon = "assets/images/wallet-management.png";
+const String overViewIcon = "assets/images/overview.png";

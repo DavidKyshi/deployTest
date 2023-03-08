@@ -71,30 +71,27 @@ class _HomepageState extends State<Homepage> {
                               children: provider.pages
                                   .map((e) => e.showInSideBar == false
                                       ? const Offstage()
-                                      : 
-                                      // OnHover(builder: (isHovered) {
-                                      //     final Color color = isHovered
-                                      //         ? Colors.amber
-                                      //         : Colors.red;
-                                      //     return                                         }
-                                      //   )
-                                        SideMenuItems(
+                                      : OnHover(builder: (isHovered) {
+                                          final Color color = isHovered
+                                              ? Colors.amber
+                                              : Colors.red;
+                                          return SideMenuItems(
                                             onNext: () {
-                                             //  setState(() {
-                                              isColor = true; 
+                                              //  setState(() {
+                                              isColor = true;
                                               provider.gotoPage(e.index);
                                               // });
-                                               print(isColor);
+                                              print(isColor);
                                             },
                                             title: e.title,
                                             icon: e.icon,
                                             height: e.height,
                                             width: e.width,
-                                            onTapColor: isColor ==false? Colors.black : Colors.blue,
-                                        
-                                          )
-
-                                        )
+                                            onTapColor: isColor == false
+                                                ? Colors.black
+                                                : Colors.blue,
+                                          );
+                                        }))
                                   .toList(),
                             ),
                           ],

@@ -10,13 +10,12 @@ import '../helper/internalDio.dart';
 import '../helper/screen_export.dart';
 
 class UserService {
-
-  Future<Response?> login(BuildContext context, Map<String,dynamic> data) async {
+  Future<Response?> login(
+      BuildContext context, Map<String, dynamic> data) async {
     print("$data LOGIN CREDENTILAS");
     try {
-      Response response = await customInternalDio.post("/ops/login/",
-        data: data
-      );
+      Response response =
+          await customInternalDio.post("/ops/login/", data: data);
       print("${response.data} message after login");
       return response;
     } catch (e) {
@@ -41,17 +40,15 @@ class UserService {
       }
       return null;
     }
-
   }
-  Future<Map<String, dynamic>> enable2FA( BuildContext context) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+
+  Future<Map<String, dynamic>> enable2FA(BuildContext context) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     print("$token admin token");
     try {
       Response response = await customInternalDio.get("/ops/enable-2FA",
-        options: Options(headers: {
-          "authorization": "Bearer $token"
-        })
-      );
+          options: Options(headers: {"authorization": "Bearer $token"}));
       print("${response.data["otp_url"]} 2fa url after login");
       return response.data;
     } catch (e) {
@@ -61,45 +58,41 @@ class UserService {
       rethrow;
     }
   }
-  Future<Response> verifyOtp({required String data,required BuildContext context}) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+
+  Future<Response> verifyOtp(
+      {required String data, required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     try {
       Response response = await customInternalDio.get("/ops/verify-otp",
-        queryParameters: {"otp":data},
-        options: Options(
-          headers: {
-            "authorization":"Bearer $token"
-          }
-        )
-      );
+          queryParameters: {"otp": data},
+          options: Options(headers: {"authorization": "Bearer $token"}));
       print("${response.data} RESPONSE FROM OTP ENDPOINT");
       return response;
     } catch (e) {
       if (e is DioError) {
-       displayAlert(context: context,title: "Error",success: false,content: e.response?.data["error"]);
-       print("${ e.response?.data} eroor");
+        displayAlert(
+            context: context,
+            title: "Error",
+            success: false,
+            content: e.response?.data["error"]);
+        print("${e.response?.data} eroor");
       }
       rethrow;
     }
   }
 
-  Future<Map<String, dynamic>> getAllUsers({required BuildContext context}) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+  Future<Map<String, dynamic>> getAllUsers(
+      {required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/users");
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/users",
-        queryParameters: {
-          "entry_size":"30"
-        },
-          options: Options(
-              headers: {
-                "authorization":"Bearer $token"
-              }
-          )
-      );
+          "/ops/users",
+          options: Options(headers: {"authorization": "Bearer $token"}));
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -113,8 +106,35 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getOfferManagement(String type,  BuildContext context, {String? userId}) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+  Future<Map<String, dynamic>> getExpressChart(
+      {required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/dashboard/express");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/dashboard/express",
+          options: Options(headers: {"authorization": "Bearer $token"}));
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> getOfferManagement(
+      String type, BuildContext context,
+      {String? userId}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     String url = "";
     if (type == "all") {
@@ -127,20 +147,13 @@ class UserService {
       url = "$baseUrl/ops/offers?accepted_offers=true";
     } else if (type == "withdrawn") {
       url = "$baseUrl/ops/offers?withdrawn_offers=true";
-    }else if(type == "created_offer"){
+    } else if (type == "created_offer") {
       url = "https://app.dev.kyshi.co/ops/offers?user_id=$userId";
     }
     final Uri uri = Uri.parse(url);
     try {
-      Response response = await customInternalDio.get<Map<String, dynamic>>(
-        url,
-        options: Options(
-              headers: {
-                "authorization":"Bearer $token"
-              })
-
-
-      );
+      Response response = await customInternalDio.get<Map<String, dynamic>>(url,
+          options: Options(headers: {"authorization": "Bearer $token"}));
       // http.get(uri);
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
@@ -158,20 +171,15 @@ class UserService {
     }
   }
 
-
- Future<Map<String, dynamic>> getTransactionSummary(
-       {required String userId, required String currency}) async {
+  Future<Map<String, dynamic>> getTransactionSummary(
+      {required String userId, required String currency}) async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/user-transaction-summary");
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/user-transaction-summary",
-        queryParameters: {
-          "user_id":userId,
-          "currency":currency
-        }
-      );
+          "/ops/user-transaction-summary",
+          queryParameters: {"user_id": userId, "currency": currency});
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -186,38 +194,41 @@ class UserService {
   }
 
   Future<Map<String, dynamic>> getEditProfile(
-    BuildContext context,
-       {required String userId, required String firstName,required String lastName,
-       required String middleName, required String email, required String phoneNumber,
-       required String occupation,required String nationality, required String residence, 
-       required String dob, required String gender,
-        
-       }) async {
+    BuildContext context, {
+    required String userId,
+    required String firstName,
+    required String lastName,
+    required String middleName,
+    required String email,
+    required String phoneNumber,
+    required String occupation,
+    required String nationality,
+    required String residence,
+    required String dob,
+    required String gender,
+  }) async {
     String baseUrl = dotenv.env['API_URL']!;
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     final Uri uri = Uri.parse("$baseUrl/ops/update-user-details");
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.post<Map<String, dynamic>>(
         "/ops/update-user-details",
-        options: Options(
-              headers: {
-                "authorization":"Bearer $token"
-              }),
+        options: Options(headers: {"authorization": "Bearer $token"}),
         queryParameters: {
-          "user_id":userId,
-          "first_name":firstName,
-          "last_name":lastName,
-          "middle_name":middleName,
-          "email":email,
-          "phone_number":phoneNumber,
-          "occupation":occupation,
-          "nationality":nationality,
-          "residence":residence,
-          "dob":dob,
-          "gender":gender
+          "user_id": userId,
+          "first_name": firstName,
+          "last_name": lastName,
+          "middle_name": middleName,
+          "email": email,
+          "phone_number": phoneNumber,
+          "occupation": occupation,
+          "nationality": nationality,
+          "residence": residence,
+          "dob": dob,
+          "gender": gender
         },
-        
       );
       return response.data;
     } catch (e) {
@@ -231,7 +242,6 @@ class UserService {
       rethrow;
     }
   }
-  
 
   Future<Map<String, dynamic>> getKyshiConnectServices(
       {required String userId}) async {
@@ -240,11 +250,8 @@ class UserService {
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/kyshi-connect",
-        queryParameters: {
-          "user_id":userId
-        }
-      );
+          "/ops/kyshi-connect",
+          queryParameters: {"user_id": userId});
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -303,16 +310,17 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getWalletManagement(BuildContext context)async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+  Future<Map<String, dynamic>> getWalletManagement(BuildContext context) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-management");
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-          "/ops/wallet-management",
-          // queryParameters: {
-          //   "status":""
-          // }
+        "/ops/wallet-management",
+        // queryParameters: {
+        //   "status":""
+        // }
       );
       // print("$response ALL DATA");
       return response.data;
@@ -327,6 +335,7 @@ class UserService {
       rethrow;
     }
   }
+
   Future updateWalletStatus({required Map<String, dynamic> data}) async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-comments");
@@ -335,10 +344,9 @@ class UserService {
     try {
       // customInternalDio.get("/ops/users",)
       print("$data ALL THE DATA");
-    final response = await http.post(uri,body: json.encode(data),headers: {
-      "authorization":basicAuth
-    });
-    dynamic res = json.decode(response.body);
+      final response = await http.post(uri,
+          body: json.encode(data), headers: {"authorization": basicAuth});
+      dynamic res = json.decode(response.body);
       print("$res ALL DATA from updating wallet status");
       return res;
     } catch (e) {
@@ -352,6 +360,7 @@ class UserService {
       rethrow;
     }
   }
+
   Future<Map<String, dynamic>> getWalletComments() async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-comments");
@@ -376,9 +385,10 @@ class UserService {
     }
   }
 
-
-  Future<Map<String, dynamic>> getPayoutTransactions(String type, BuildContext context) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+  Future<Map<String, dynamic>> getPayoutTransactions(
+      String type, BuildContext context) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     String url = "";
     if (type == "all") {
@@ -388,19 +398,14 @@ class UserService {
     } else if (type == "failed") {
       url = "$baseUrl/ops/dashboard/transactions?failed=true";
     } else if (type == "completed") {
-       url = "$baseUrl/ops/dashboard/transactions?completed=true";
+      url = "$baseUrl/ops/dashboard/transactions?completed=true";
     } else if (type == "reversed") {
       url = "$baseUrl/ops/offers?reversed=true";
     }
     final Uri uri = Uri.parse(url);
     try {
-      Response response = await customInternalDio.get<Map<String, dynamic>>(
-        url,
-        options: Options(
-              headers: {
-                "authorization":"Bearer $token"
-              })
-      );
+      Response response = await customInternalDio.get<Map<String, dynamic>>(url,
+          options: Options(headers: {"authorization": "Bearer $token"}));
       // http.get(uri);
       // print("${response.statusCode} ALL THE RESULT");
       // dynamic data = json.decode(response.body);
@@ -418,8 +423,11 @@ class UserService {
     }
   }
 
-  Future changePassword({required Map<String, dynamic> data, required BuildContext context}) async {
-    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+  Future changePassword(
+      {required Map<String, dynamic> data,
+      required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/change-password");
     // String basicAuth =
@@ -427,9 +435,9 @@ class UserService {
     try {
       // customInternalDio.get("/ops/users",)
       print("$data ALL THE DATA TO CHANGE PASSWORD");
-      final response = await http.post(uri,body: json.encode(data),headers: {
+      final response = await http.post(uri, body: json.encode(data), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
-        "authorization":"Bearer $token"
+        "authorization": "Bearer $token"
       });
       dynamic res = json.decode(response.body);
       // Response response = await customInternalDio.post<Map<String, dynamic>>(
@@ -439,6 +447,7 @@ class UserService {
       print("$res ALL DATA changing password");
       return res;
     } catch (e) {
-      print("EROORRRRRRRRR");}}
-
+      print("EROORRRRRRRRR");
+    }
+  }
 }

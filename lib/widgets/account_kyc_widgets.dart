@@ -259,25 +259,23 @@ class BioDataParameters extends StatefulWidget {
 }
 
 class _BioDataParametersState extends State<BioDataParameters> {
-  
-
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
-   final user = userProvider.getUserById();
-   TextEditingController firstNameController = TextEditingController();
-   TextEditingController lastNameController = TextEditingController();
-   TextEditingController middleNameController = TextEditingController();
-   TextEditingController emailController = TextEditingController();
-   TextEditingController phoneNumberController = TextEditingController();
-   TextEditingController occupationController = TextEditingController();
-   TextEditingController nationalityController = TextEditingController();
-   TextEditingController residencyController = TextEditingController();
-   TextEditingController dobController = TextEditingController();
-   TextEditingController genderController = TextEditingController();
-  
-   String email;
+    final user = userProvider.getUserById();
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
+    TextEditingController middleNameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController phoneNumberController = TextEditingController();
+    TextEditingController occupationController = TextEditingController();
+    TextEditingController nationalityController = TextEditingController();
+    TextEditingController residencyController = TextEditingController();
+    TextEditingController dobController = TextEditingController();
+    TextEditingController genderController = TextEditingController();
+
+    String email;
     return Container(
       width: 350,
       height: 533.82,
@@ -415,7 +413,9 @@ class _BioDataParametersState extends State<BioDataParameters> {
                         ),
                         BioDataStatusTextStyle(
                           isActive: widget.emailStatus,
-                          text: widget.emailStatus == true ? "Verified" : "Unverified",
+                          text: widget.emailStatus == true
+                              ? "Verified"
+                              : "Unverified",
                         ),
                         SizedBox(
                           height: 20,
@@ -461,10 +461,11 @@ class _BioDataParametersState extends State<BioDataParameters> {
                   )
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               InkWell(
                 onTap: () {
-                 
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -473,16 +474,14 @@ class _BioDataParametersState extends State<BioDataParameters> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
-                          content:
-                           SizedBox(
+                          content: SizedBox(
                               height: 1095,
                               width: 600,
                               child: SingleChildScrollView(
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                  child:
-                                   Column(
+                                  child: Column(
                                     children: [
                                       Row(
                                         crossAxisAlignment:
@@ -545,110 +544,135 @@ class _BioDataParametersState extends State<BioDataParameters> {
                                               20, 10, 20, 0),
                                           child: Column(
                                             children: [
-                                              smallList("First Name", firstNameController),
+                                              smallList("First Name",
+                                                  firstNameController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Middle Name", middleNameController),
+                                                height: 10,
+                                              ),
+                                              smallList("Middle Name",
+                                                  middleNameController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Last Name", lastNameController),
+                                                height: 10,
+                                              ),
+                                              smallList("Last Name",
+                                                  lastNameController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                           smallList("Gender", genderController),
+                                                height: 10,
+                                              ),
+                                              smallList(
+                                                  "Gender", genderController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Date of Birth", dobController),
+                                                height: 10,
+                                              ),
+                                              smallList("Date of Birth",
+                                                  dobController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Email Address", emailController),
+                                                height: 10,
+                                              ),
+                                              smallList("Email Address",
+                                                  emailController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Phone number", phoneNumberController),
+                                                height: 10,
+                                              ),
+                                              smallList("Phone number",
+                                                  phoneNumberController),
                                               SizedBox(
-                                        height: 10,
-                                      ),
-                                              smallList("Occupations", occupationController),
-                                                 SizedBox(
-                                        height: 10,
-                                      ),
-                                                 smallList("Nationality", nationalityController),
-                                                 SizedBox(
-                                        height: 10,
-                                      ),
-                                                 smallList("Residence", residencyController),
-                                                 SizedBox(
-                                        height: 10,
-                                      ),
+                                                height: 10,
+                                              ),
+                                              smallList("Occupations",
+                                                  occupationController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Nationality",
+                                                  nationalityController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              smallList("Residence",
+                                                  residencyController),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
                                             ],
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                 InkWell(
-                  onTap: (){
-                     Navigator.of(context).pop();
-                  },
-                   child: Container(
-                    width: 222,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: Color(0xffF8F9FE),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16),
-                      ),
-                    ),
-                                 ),
-                 ),
-
-                InkWell(
-                  onTap: (){
-                     userProvider.getAllEditProfile(firstNameController.text, lastNameController.text, middleNameController.text, dobController.text, emailController.text,  genderController.text,   nationalityController.text, occupationController.text, phoneNumberController.text, residencyController.text, context);
-                     Navigator.of(context).pop;
-                  },
-                  child: Container(
-                    width: 222,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Yes, update profile',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-                ],
-              )
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Container(
+                                              width: 222,
+                                              height: 56,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffF8F9FE),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              userProvider.getAllEditProfile(
+                                                  firstNameController.text,
+                                                  lastNameController.text,
+                                                  middleNameController.text,
+                                                  dobController.text,
+                                                  emailController.text,
+                                                  genderController.text,
+                                                  nationalityController.text,
+                                                  occupationController.text,
+                                                  phoneNumberController.text,
+                                                  residencyController.text,
+                                                  context);
+                                              Navigator.of(context).pop;
+                                            },
+                                            child: Container(
+                                              width: 222,
+                                              height: 56,
+                                              decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Yes, update profile',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
-                              )
-                              ),
+                              )),
                         );
                       });
-                  
                 },
                 child: Container(
                   width: 300,
@@ -668,10 +692,8 @@ class _BioDataParametersState extends State<BioDataParameters> {
                   ),
                 ),
               ),
-              
             ],
-          )
-          ),
+          )),
     );
   }
 }
@@ -691,13 +713,11 @@ Widget smallList(String smallText, TextEditingController controller) {
       //SizedBox(height: 10,),
       TextField(
         autofocus: true,
-       controller: controller,
+        controller: controller,
       )
     ],
   );
 }
-
-
 
 class IdentificationData extends StatelessWidget {
   const IdentificationData({super.key});

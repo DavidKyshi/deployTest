@@ -19,12 +19,12 @@ class PayOutPendingTransactionTable extends StatefulWidget {
 class _PayOutPendingTransactionTableState
     extends State<PayOutPendingTransactionTable> {
   late ScrollController controller;
-PayOutTransactionProvider get payOutTransactionProvider =>
+  PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-  
+
   @override
   Widget build(BuildContext context) {
-     final pendingPayOutTransactionData =
+    final pendingPayOutTransactionData =
         payOutTransactionProvider.pendingPayOutTransactionData;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -154,16 +154,16 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                       ),
                                       titleText('Offer'),
                                       SizedBox(
-                                              width: 20,
-                                            ),
+                                        width: 20,
+                                      ),
                                       titleText('ID'),
                                       SizedBox(
-                                              width: 30,
-                                            ),
+                                        width: 30,
+                                      ),
                                       titleText('Status'),
-                                       SizedBox(
-                                              width: 38,
-                                            ),
+                                      SizedBox(
+                                        width: 38,
+                                      ),
                                       titleText('Action'),
                                     ],
                                   ),
@@ -274,7 +274,7 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                                         .ledgerBalance
                                                         .toString())),
 
-                                                        SizedBox(
+                                            SizedBox(
                                               width: 20,
                                             ),
 
@@ -304,9 +304,7 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65,
-                                                child: Text(
-                                                    "")),
+                                                width: 65, child: Text("")),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -314,16 +312,25 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                             SizedBox(
                                                 width: 80,
                                                 child: StatusText(
-                                                  text:  pendingPayOutTransactionData
-                                                            .status ??
-                                                        "")),
+                                                    text:
+                                                        pendingPayOutTransactionData
+                                                                .status ??
+                                                            "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
                                               width: 80,
                                               child: PayOutTransactionButton(
-                                                containerColor: pendingPayOutTransactionData.status == "SUCCESS" || pendingPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
+                                                containerColor:
+                                                    pendingPayOutTransactionData
+                                                                    .status ==
+                                                                "SUCCESS" ||
+                                                            pendingPayOutTransactionData
+                                                                    .status ==
+                                                                "REVERSED"
+                                                        ? Color(0xff6E80A3)
+                                                        : primaryColor,
                                                 text: "RETRY",
                                               ),
                                             )
@@ -344,4 +351,3 @@ PayOutTransactionProvider get payOutTransactionProvider =>
     );
   }
 }
-

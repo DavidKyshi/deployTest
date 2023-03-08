@@ -18,9 +18,9 @@ class PayOutFailedTransactionTable extends StatefulWidget {
 class _PayOutFailedTransactionTableState
     extends State<PayOutFailedTransactionTable> {
   late ScrollController controller;
-PayOutTransactionProvider get payOutTransactionProvider =>
+  PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-    
+
   @override
   Widget build(BuildContext context) {
     final failedPayOutTransactionData =
@@ -153,16 +153,16 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                       ),
                                       titleText('Offer'),
                                       SizedBox(
-                                              width: 20,
-                                            ),
+                                        width: 20,
+                                      ),
                                       titleText('ID'),
                                       SizedBox(
-                                              width: 30,
-                                            ),
+                                        width: 30,
+                                      ),
                                       titleText('Status'),
-                                       SizedBox(
-                                              width: 38,
-                                            ),
+                                      SizedBox(
+                                        width: 38,
+                                      ),
                                       titleText('Action'),
                                     ],
                                   ),
@@ -273,7 +273,7 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                                         .ledgerBalance
                                                         .toString())),
 
-                                                        SizedBox(
+                                            SizedBox(
                                               width: 20,
                                             ),
 
@@ -303,9 +303,7 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65,
-                                                child: Text(
-                                                    "")),
+                                                width: 65, child: Text("")),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -313,16 +311,25 @@ PayOutTransactionProvider get payOutTransactionProvider =>
                                             SizedBox(
                                                 width: 80,
                                                 child: StatusText(
-                                                  text:  failedPayOutTransactionData
-                                                            .status ??
-                                                        "")),
+                                                    text:
+                                                        failedPayOutTransactionData
+                                                                .status ??
+                                                            "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
                                               width: 80,
                                               child: PayOutTransactionButton(
-                                                containerColor: failedPayOutTransactionData.status == "SUCCESS" || failedPayOutTransactionData.status == "REVERSED" ? Color(0xff6E80A3):primaryColor,
+                                                containerColor:
+                                                    failedPayOutTransactionData
+                                                                    .status ==
+                                                                "SUCCESS" ||
+                                                            failedPayOutTransactionData
+                                                                    .status ==
+                                                                "REVERSED"
+                                                        ? Color(0xff6E80A3)
+                                                        : primaryColor,
                                                 text: "RETRY",
                                               ),
                                             )
@@ -344,24 +351,22 @@ PayOutTransactionProvider get payOutTransactionProvider =>
   }
 }
 
- Text titleText(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        color: primaryColor,
-        fontFamily: 'PushPenny',
-        fontWeight: FontWeight.w500,
-        fontSize: 12,
-      ),
-    );
-  }
+Text titleText(String title) {
+  return Text(
+    title,
+    style: TextStyle(
+      color: primaryColor,
+      fontFamily: 'PushPenny',
+      fontWeight: FontWeight.w500,
+      fontSize: 12,
+    ),
+  );
+}
 
-  Text subText(String sub) {
-    return Text(
-      sub,
-      style: TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff233375)),
-    );
-  }
-
-
+Text subText(String sub) {
+  return Text(
+    sub,
+    style: TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xff233375)),
+  );
+}

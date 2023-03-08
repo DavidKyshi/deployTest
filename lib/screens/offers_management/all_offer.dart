@@ -16,7 +16,6 @@ class AllOfferTable extends StatefulWidget {
 class _AllOfferTableState extends State<AllOfferTable> {
   late ScrollController controller;
 
-  
   OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
 
@@ -25,7 +24,6 @@ class _AllOfferTableState extends State<AllOfferTable> {
     // TODO: implement initState
     super.initState();
   }
-
 
   Text titleText(String title) {
     return Text(
@@ -43,20 +41,16 @@ class _AllOfferTableState extends State<AllOfferTable> {
     return Text(
       sub,
       style: TextStyle(
-          fontSize: 14,
-         fontWeight: FontWeight.w500,
-         color: Color(0xff233375)),
+          fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff233375)),
     );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
     final offerData = offerManagementProvider.offerData;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -66,249 +60,239 @@ class _AllOfferTableState extends State<AllOfferTable> {
             decoration: BoxDecoration(
                 color: const Color(0XFFEAEBF1),
                 borderRadius: BorderRadius.circular(12)),
-            child: offerData.isEmpty?
-            Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/book-search.png',
-                              width: 66,
-                              height: 67,
-                            ),
-                            Text(
-                              'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18,
-                                  fontFamily: "PushPenny",
-                                  color: primaryColor),
-                            ),
-                          ],
-                        )
-            :
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-              child: Column(
-                children: [
-                  Row(
-
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            child: offerData.isEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 190,
-                        child: Row(
-                          children: [
-                            titleText('Created'),
-                            SizedBox(
-                              width: 60,
-                            ),
-                            titleText('User'),
-                          ],
-                        ),
+                      Image.asset(
+                        'assets/images/book-search.png',
+                        width: 66,
+                        height: 67,
                       ),
-                      SizedBox(width: 120,),
-                      SizedBox(
-                        width: 220,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            titleText('Currency'),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            titleText('Amount'),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            titleText('Fee (%)'),
-
-                            
-                          ],
-                        ),
+                      Text(
+                        'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            fontFamily: "PushPenny",
+                            color: primaryColor),
                       ),
-                       SizedBox(width: 30,),
-                      SizedBox(
-                        width: 250,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            titleText('Currency'),
-                             SizedBox(
-                              width: 30,
-                            ),
-                      titleText('Amount'),
-                       SizedBox(
-                              width: 30,
-                            ),
-                      titleText('Fee (%)'),
-                          ],
-                        ),
-                      ),
-
-                                      
- 
-                      SizedBox(
-                        width: 380,
-                        child: Row(
-                          children: [
-                            titleText('Rate'),
-                            SizedBox(
-                              width: 38,
-                            ),
-                      titleText('Expire'),
-                      SizedBox(
-                              width: 70,
-                            ),
-                      titleText('ID'),
-                      SizedBox(
-                              width: 145,
-                            ),
-                      titleText('Status'),
-                          ],
-                        ),
-                      )
                     ],
-                  ),
-                  SizedBox(height: 20,),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 250, 20),
-                    child: SizedBox(
-                  
-                      width: 300,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                    child: Column(
                       children: [
-                          Text('BASE',
-                          style: TextStyle(
-                  color: primaryColor.withOpacity(0.5),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500
-                ),
-                          ),
-                          Text('QUOTE',
-                          style: TextStyle(
-                  color: primaryColor.withOpacity(0.5),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500
-                ),
-                          ),
-                      ],
-                    ),
-                    ),
-                  ),
-                  ...offerManagementProvider.offerData
-                      .map((offersData) => Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 190,
+                              child: Row(
                                 children: [
+                                  titleText('Created'),
                                   SizedBox(
-                                      width: 83,
-                                      child: Text(convertDateTime(
-                                          offersData.createdAt
-                                              .toString()))),
-                                  SizedBox(
-                                    width: 20,
+                                    width: 60,
                                   ),
-                                  SizedBox(
-                                      width: 157,
-                                      child:
-                                          Text(offersData.owner ?? "")),
-                                  SizedBox(
-                                    width: 50,
-                                  ),
-                                  SizedBox(
-                                      width: 35,
-                                      child: subText(
-                                          offersData.baseCurrency ?? "")),
-                                  SizedBox(
-                                    width: 38,
-                                  ),
-                                  SizedBox(
-                                      width: 70,
-                                      child: subText(
-                                          offersData.baseAmount ?? "")),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  SizedBox(
-                                      width: 35,
-                                      child: subText(
-                                          offersData.baseFee.toString())),
-
-                                          SizedBox(
-                                    width: 50,
-                                  ),
-
-                                          SizedBox(
-                                      width: 35,
-                                      child: subText(
-                                          offersData.quoteCurrency ?? "")),
-                                  SizedBox(
-                                    width: 38,
-                                  ),
-                                  SizedBox(
-                                      width: 70,
-                                      child: subText(
-                                          offersData.quoteAmount ?? "")),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  SizedBox(
-                                      width: 35,
-                                      child: subText(
-                                          offersData.quoteFee.toString())),
-
-                                          SizedBox(
-                                    width: 30,
-                                  ),
- 
-                                          SizedBox(
-                                      width: 70,
-                                      child: Text(
-                                          offersData.exchangeRate ?? "")),
-
-                                      SizedBox(
-                                      width: 83,
-                                      child: Text(convertDateTime(
-                                          offersData.expiresAt
-                                              .toString()))), 
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-
-                                         SizedBox(
-                                      width: 140,
-                                      child: Text(
-                                          offersData.id ?? "")),           
-                                        SizedBox(
-                                                width: 20,
-                                              ),
-                                      SizedBox(
-                                        width: 100,
-                                        child:  OfferMangementButton(
-                                                      text: offersData
-                                                              .status ??
-                                                          "",
-                                                    ),
-                                      )
+                                  titleText('User'),
                                 ],
                               ),
-                              SizedBox(
-                                height: 20,
-                              )
-                            ],
-                          ))
-                      .toList()
-                ],
-              ),
-            ),
+                            ),
+                            SizedBox(
+                              width: 120,
+                            ),
+                            SizedBox(
+                              width: 220,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  titleText('Currency'),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  titleText('Amount'),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  titleText('Fee (%)'),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            SizedBox(
+                              width: 250,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  titleText('Currency'),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  titleText('Amount'),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  titleText('Fee (%)'),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 380,
+                              child: Row(
+                                children: [
+                                  titleText('Rate'),
+                                  SizedBox(
+                                    width: 38,
+                                  ),
+                                  titleText('Expire'),
+                                  SizedBox(
+                                    width: 70,
+                                  ),
+                                  titleText('ID'),
+                                  SizedBox(
+                                    width: 145,
+                                  ),
+                                  titleText('Status'),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 250, 20),
+                          child: SizedBox(
+                            width: 300,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'BASE',
+                                  style: TextStyle(
+                                      color: primaryColor.withOpacity(0.5),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  'QUOTE',
+                                  style: TextStyle(
+                                      color: primaryColor.withOpacity(0.5),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ...offerManagementProvider.offerData
+                            .map((offersData) => Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            width: 83,
+                                            child: Text(convertDateTime(
+                                                offersData.createdAt
+                                                    .toString()))),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        SizedBox(
+                                            width: 157,
+                                            child:
+                                                Text(offersData.owner ?? "")),
+                                        SizedBox(
+                                          width: 50,
+                                        ),
+                                        SizedBox(
+                                            width: 35,
+                                            child: subText(
+                                                offersData.baseCurrency ?? "")),
+                                        SizedBox(
+                                          width: 38,
+                                        ),
+                                        SizedBox(
+                                            width: 70,
+                                            child: subText(
+                                                offersData.baseAmount ?? "")),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        SizedBox(
+                                            width: 35,
+                                            child: subText(
+                                                offersData.baseFee.toString())),
+                                        SizedBox(
+                                          width: 50,
+                                        ),
+                                        SizedBox(
+                                            width: 35,
+                                            child: subText(
+                                                offersData.quoteCurrency ??
+                                                    "")),
+                                        SizedBox(
+                                          width: 38,
+                                        ),
+                                        SizedBox(
+                                            width: 70,
+                                            child: subText(
+                                                offersData.quoteAmount ?? "")),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        SizedBox(
+                                            width: 35,
+                                            child: subText(offersData.quoteFee
+                                                .toString())),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        SizedBox(
+                                            width: 70,
+                                            child: Text(
+                                                offersData.exchangeRate ?? "")),
+                                        SizedBox(
+                                            width: 83,
+                                            child: Text(convertDateTime(
+                                                offersData.expiresAt
+                                                    .toString()))),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        SizedBox(
+                                            width: 140,
+                                            child: Text(offersData.id ?? "")),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 100,
+                                          child: OfferMangementButton(
+                                            text: offersData.status ?? "",
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    )
+                                  ],
+                                ))
+                            .toList()
+                      ],
+                    ),
+                  ),
           ),
         ),
       ),
@@ -320,7 +304,8 @@ class OfferButton extends StatelessWidget {
   OfferButton(
       {super.key,
       required this.isBorder,
-      required this.text, this.color,
+      required this.text,
+      this.color,
       this.comment = false,
       this.commentBackground = true});
 
@@ -351,7 +336,7 @@ class OfferButton extends StatelessWidget {
           )
         : Container(
             width: 130,
-            height:  40 ,
+            height: 40,
             decoration: BoxDecoration(
                 color: !comment
                     ? primaryColor

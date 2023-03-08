@@ -32,7 +32,8 @@ class PayOutTransaction {
       totalPages: data['total_pages'] as int?,
       totalItems: data['total_items'] as int?,
       data: (data['data'] as List<dynamic>?)
-          ?.map((e) => PayOutTransactionUserData.fromMap(e as Map<String, dynamic>))
+          ?.map((e) =>
+              PayOutTransactionUserData.fromMap(e as Map<String, dynamic>))
           .toList(),
       status: data['status'] as String?,
     );
