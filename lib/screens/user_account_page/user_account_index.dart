@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:kyshi_operations_dashboard/widgets/create_an_offer_screen_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../customWidget/searchField.dart';
@@ -104,68 +105,47 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                 color: primaryColor),
                           ),
                           const SizedBox(width: 10,),
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              value: initialDownValue,
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: entries.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items,style: const TextStyle(fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w400,fontSize: 22),),
-                                );
-                              }).toList(),
-                              onChanged: (String? value) {
-                                setState(() {
-                                  initialDownValue = value ?? "";
-                                });
-                                if(initialDownValue != ""){
-                                  Provider.of<UsersProvider>(context, listen: false)
-                                      .getUsers(context: context, entrySize: initialDownValue);
-                                }
-                              },
-                            ),
-                          )
                           // Container(
-                          //   height: 10,
-                          //   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                          //   child:
-                          //   // InputDecorator(
-                          //   //   decoration:  InputDecoration(
-                          //   //     // prefixIconConstraints: const BoxConstraints(maxHeight: 10),
-                          //   //     enabledBorder: OutlineInputBorder(
-                          //   //       borderRadius: BorderRadius.circular(8),
-                          //   //       borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                          //   //     ),
-                          //   //     focusedBorder:  OutlineInputBorder(
-                          //   //       borderRadius: BorderRadius.circular(8),
-                          //   //       borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                          //   //     ),isDense: true,
-                          //   //     // contentPadding: EdgeInsets.only(left: 12, right: 12, top: 8),
-                          //   //   ),
-                          //   //   child: DropdownButtonHideUnderline(
-                          //   //     child: DropdownButton(
-                          //   //       value: initialDownValue,
-                          //   //       icon: const Icon(Icons.keyboard_arrow_down),
-                          //   //       items: entries.map((String items) {
-                          //   //         return DropdownMenuItem(
-                          //   //           value: items,
-                          //   //           child: Text(items),
-                          //   //         );
-                          //   //       }).toList(),
-                          //   //       onChanged: (String? value) {
-                          //   //         setState(() {
-                          //   //           initialDownValue = value ?? "";
-                          //   //         });
-                          //   //         if(initialDownValue != ""){
-                          //   //           Provider.of<UsersProvider>(context, listen: false)
-                          //   //               .getUsers(context: context, entrySize: initialDownValue);
-                          //   //         }
-                          //   //       },
-                          //   //     ),
-                          //   //   ),
-                          //   // ),
+                          //     height: 10,
+                          //     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                          //     child:
+                          //   InputDecorator(
+                          //     decoration:  InputDecoration(
+                          //       // prefixIconConstraints: const BoxConstraints(maxHeight: 10),
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(8),
+                          //         borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
+                          //       ),
+                          //       focusedBorder:  OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(8),
+                          //         borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
+                          //       ),isDense: true,
+                          //       // contentPadding: EdgeInsets.only(left: 12, right: 12, top: 8),
+                          //     ),
+                          //     child: DropdownButtonHideUnderline(
+                          //       child: DropdownButton(
+                          //         value: initialDownValue,
+                          //         icon: const Icon(Icons.keyboard_arrow_down),
+                          //         items: entries.map((String items) {
+                          //           return DropdownMenuItem(
+                          //             value: items,
+                          //             child: Text(items),
+                          //           );
+                          //         }).toList(),
+                          //         onChanged: (String? value) {
+                          //           setState(() {
+                          //             initialDownValue = value ?? "";
+                          //           });
+                          //           if(initialDownValue != ""){
+                          //             Provider.of<UsersProvider>(context, listen: false)
+                          //                 .getUsers(context: context, entrySize: initialDownValue);
+                          //           }
+                          //         },
+                          //       ),
+                          //     ),
+                          //   ),
                           // ),
+                          CurrencyDropDown()
 
                         ],
                       ),
@@ -296,7 +276,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                  DataCell(
                       InkWell(
                           onTap: () {
-                            print("${user.emailVerified} email status");
                             userProvider.selectUser(user.id!);
                             userProvider.setCurrentUser("${user.firstName} " " ${user.lastName}");
                             pageProvider.gotoPage(PAGES.home);
@@ -324,18 +303,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             ),
                           ))
                 ),
-                // DataCell(
-                //     Text(user.operation ?? " ")
-                // ),
-                // DataCell(
-                //     Text(user.id)
-                // ),
-                // DataCell(
-                //     Text(user.ledger)
-                // ),
-                // DataCell(
-                //     Text(user.status)
-                // ),
               ],
             ),).toList()
                       ),
