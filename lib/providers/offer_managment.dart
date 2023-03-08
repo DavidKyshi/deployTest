@@ -3,7 +3,6 @@ import 'dart:js';
 import '../helper/screen_export.dart';
 import '../models/offer_management_api_response/offer_data.dart';
 import '../userService/userService.dart';
-
 class OfferManagementProvider extends ChangeNotifier {
   List<OfferData> offerData = [];
   List<OfferData> openOfferData = [];
@@ -15,7 +14,7 @@ class OfferManagementProvider extends ChangeNotifier {
 
   Future<List<OfferData>> getAllOfferManagement(BuildContext context) async {
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("all", context);
+        await UserService().getOfferManagement("all", context:context);
     final data = List.from(responseData['data']);
     offerData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
@@ -24,7 +23,7 @@ class OfferManagementProvider extends ChangeNotifier {
 
   Future<List<OfferData>> getOpenOfferManagement(BuildContext context) async {
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("open", context);
+        await UserService().getOfferManagement("open", context:context);
     final data = List.from(responseData['data']);
     openOfferData = List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
@@ -33,10 +32,10 @@ class OfferManagementProvider extends ChangeNotifier {
 
   Future<List<OfferData>> getCloseOfferManagement(BuildContext context) async {
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("closed", context);
+        await UserService().getOfferManagement("closed", context:context);
     final data = List.from(responseData['data']);
     closedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return closedOfferData;
   }
@@ -44,10 +43,10 @@ class OfferManagementProvider extends ChangeNotifier {
   Future<List<OfferData>> getWithdrawnOfferManagement(
       BuildContext context) async {
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("withdrawn", context);
+        await UserService().getOfferManagement("withdrawn", context:context);
     final data = List.from(responseData['data']);
     withdrawOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return withdrawOfferData;
   }
@@ -55,14 +54,13 @@ class OfferManagementProvider extends ChangeNotifier {
   Future<List<OfferData>> getAcceptedOfferManagement(
       BuildContext context) async {
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("accepted", context);
+        await UserService().getOfferManagement("accepted", context:context);
     final data = List.from(responseData['data']);
     acceptedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return acceptedOfferData;
   }
-
   Future<List<OfferData>?> getCreatedUserAccount(BuildContext context) async {
     //  if (users.isEmpty) return null;
     // if (id == null && currentSelectedUserId == null) return null;
@@ -71,10 +69,10 @@ class OfferManagementProvider extends ChangeNotifier {
     // //     (element) => element.id == (id ?? currentSelectedUserId),
     // //     orElse: null);
     Map<String, dynamic> responseData =
-        await UserService().getOfferManagement("created_offer", context);
+        await UserService().getOfferManagement("created_offer", context:context);
     final data = List.from(responseData['data']);
     acceptedOfferData =
-        List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
+    List<OfferData>.from(data.map((x) => OfferData.fromMap(x)));
     notifyListeners();
     return acceptedOfferData;
   }

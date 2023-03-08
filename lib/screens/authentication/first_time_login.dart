@@ -219,12 +219,11 @@ class _FirstTimerState extends State<FirstTimer> {
                 KyshiButtonResponsive(
                   color: pin.length >= 6 ? primaryColor : kyshiGreyishBlue,
                   onPressed: () async {
-                    verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
-                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        Provider.of<OfferManagementProvider>(context, listen: false)
                         .getCreatedUserAccount(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
@@ -235,27 +234,22 @@ class _FirstTimerState extends State<FirstTimer> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context);
-                    Provider.of<PayOutTransactionProvider>(context,
-                            listen: false)
-                        .getAllPayOutTransactions(context);
-                    Provider.of<PayOutTransactionProvider>(context,
-                            listen: false)
-                        .getCompletedPayOutTransactions(context);
-                    Provider.of<PayOutTransactionProvider>(context,
-                            listen: false)
-                        .getFailedPayOutTransactions(context);
-                    Provider.of<PayOutTransactionProvider>(context,
-                            listen: false)
-                        .getPendingPayOutTransactions(context);
-                    Provider.of<PayOutTransactionProvider>(context,
-                            listen: false)
-                        .getReversedPayOutTransactions(context);
-                    //          Navigator.push(context,
-                    // MaterialPageRoute(builder: (context) => const OtpScreen()));
-
-                    Provider.of<UsersProvider>(context, listen: false)
-                        .getAllWallets(context);
+                        .getUsers(context: context, entrySize: '100');
+                        Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getAllPayOutTransactions(context);
+                         Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getCompletedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getFailedPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getPendingPayOutTransactions(context);
+                          Provider.of<PayOutTransactionProvider>(context, listen: false)
+                         .getReversedPayOutTransactions(context);
+            //          Navigator.push(context,
+            // MaterialPageRoute(builder: (context) => const OtpScreen()));
+                 
+                        
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

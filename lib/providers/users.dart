@@ -11,8 +11,9 @@ import '../models/transactions.dart';
 import '../userService/userService.dart';
 
 class UsersProvider extends ChangeNotifier {
-  List<User> users = [];
+  List<User> allTransactionSummaryusers = [];
   List<User> editUsers = [];
+  List<User> _users = [];
   String? currentSelectedUserId;
 
   //String? currency = users.first.wallets!.first.currency;
@@ -28,6 +29,7 @@ class UsersProvider extends ChangeNotifier {
 
   // get wallet => _wallet;
   get accessToken => _accessToken;
+  get users => _users;
   get connectService => _connectService;
   get transactions => _transactions;
   get currentUserName => _currentUserName;
@@ -45,7 +47,7 @@ class UsersProvider extends ChangeNotifier {
   User? getUserById([String? id]) {
     if (users.isEmpty) return null;
     if (id == null && currentSelectedUserId == null) return null;
-    //notifyListeners();
+     //notifyListeners();
     return users.firstWhere(
         (element) => element.id == (id ?? currentSelectedUserId),
         orElse: null);
@@ -61,23 +63,20 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<User>> getUsers({required BuildContext context}) async {
-    Map<String, dynamic> responseData =
-        await UserService().getAllUsers(context: context);
+  Future<List<User>> getUsers({ required BuildContext context, required String entrySize}) async {
+    print("GET USERS CALLED");
+    Map<String, dynamic> responseData = await UserService().getAllUsers(context: context, entrySize: entrySize);
     // print("$responseData RAW DATA");
     final data = List.from(responseData['data']);
-    users = List<User>.from(data.map((x) => User.fromJson(x)));
+    _users = List<User>.from(data.map((x) => User.fromJson(x)));
     notifyListeners();
     return users;
   }
-
-  Future<List<Services>> getConnectSerivices() async {
+  Future<List<Services>> getConnectSerivices(BuildContext context) async {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
-    Map<String, dynamic> responseData = await UserService()
-        .getKyshiConnectServices(userId: currentSelectedUserId ?? "");
+    Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
-    _connectService =
-        List<Services>.from(data.map((x) => Services.fromJson(x)));
+    _connectService = List<Services>.from(data.map((x) => Services.fromJson(x)));
     notifyListeners();
     return _connectService;
   }
@@ -89,9 +88,9 @@ class UsersProvider extends ChangeNotifier {
             userId: currentSelectedUserId ?? "",
             currency: users.first.wallets!.first.currency ?? "");
     final data = List.from(responseData['data']);
-    users = List<User>.from(data.map((x) => User.fromJson(x)));
+    allTransactionSummaryusers = List<User>.from(data.map((x) => User.fromJson(x)));
     notifyListeners();
-    return users;
+    return allTransactionSummaryusers;
   }
 
   Future<List<User>> getAllEditProfile(
@@ -108,17 +107,17 @@ class UsersProvider extends ChangeNotifier {
       BuildContext context) async {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService().getEditProfile(
-        userId: currentSelectedUserId ?? "",
+        user_Id: currentSelectedUserId ?? "",
         firstName: firstName,
-        dob: dob,
-        email: email,
-        gender: gender,
         lastName: lastName,
-        middleName: middleName,
+         middleName: middleName,
+        gender: gender,
+        email: email,
+       phoneNumber: phoneNumber,
+       occupation: occupation,
         nationality: nationality,
-        occupation: occupation,
-        phoneNumber: phoneNumber,
         residence: residence,
+        dob: dob,
         context);
     final data = List.from(responseData['data']);
     editUsers = List<User>.from(data.map((x) => User.fromJson(x)));
@@ -127,29 +126,25 @@ class UsersProvider extends ChangeNotifier {
   }
   //getEditProfile
 
-  Future<List<TransactionsData>> getTransactions() async {
-    Map<String, dynamic> responseData = await UserService()
-        .getKyshiConnectTransactions(userId: currentSelectedUserId ?? "");
+  // Future<List<TransactionsData>> getTransactions() async {
+  //   Map<String, dynamic> responseData = await UserService()
+  //       .getKyshiConnectTransactions(userId: currentSelectedUserId ?? "");
+  Future<List<TransactionsData>> getTransactions(BuildContext context) async {
+    Map<String, dynamic> responseData = await UserService().getKyshiConnectTransactions(userId: currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
-    _transactions = List<TransactionsData>.from(
-        data.map((x) => TransactionsData.fromJson(x)));
+    _transactions = List<TransactionsData>.from(data.map((x) => TransactionsData.fromJson(x)));
     notifyListeners();
     return _transactions;
   }
-
-  Future<List<Services>> getCards() async {
-    Map<String, dynamic> responseData = await UserService()
-        .getKyshiConnectServices(userId: currentSelectedUserId ?? "");
+  Future<List<Services>> getCards(BuildContext context) async {
+    Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
-    _connectService =
-        List<Services>.from(data.map((x) => Services.fromJson(x)));
+    _connectService = List<Services>.from(data.map((x) => Services.fromJson(x)));
     notifyListeners();
     return _connectService;
   }
-
   Future<List<WalletResponse>> getAllWallets(BuildContext context) async {
-    Map<String, dynamic> responseData =
-        await UserService().getWalletManagement(context);
+    Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context);
     final data = List.from(responseData['data']);
     _allWallets =
         List<WalletResponse>.from(data.map((x) => WalletResponse.fromJson(x)));
@@ -165,10 +160,11 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
     return _allWallets;
   }
-
-  Future updateWalletStatus() async {
-    Map<String, dynamic> response = await UserService().updateWalletStatus(
-        data: {"wallet_id": currentSelectedUserId, "status": ""});
+  Future updateWalletStatus(BuildContext context)async {
+    Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
+      "wallet_id": currentSelectedUserId,
+      "status":""
+    }, context: context);
   }
   // Future<List<WalletResponse>> getDifferentWallet() async {
   //   Map<String, dynamic> responseData = await UserService().getDifferentWallet(status: "PENDING");

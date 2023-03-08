@@ -635,13 +635,13 @@ class _BioDataParametersState extends State<BioDataParameters> {
                                                   firstNameController.text,
                                                   lastNameController.text,
                                                   middleNameController.text,
-                                                  dobController.text,
                                                   emailController.text,
-                                                  genderController.text,
-                                                  nationalityController.text,
-                                                  occupationController.text,
                                                   phoneNumberController.text,
+                                                  occupationController.text,
+                                                  nationalityController.text,
                                                   residencyController.text,
+                                                  dobController.text,
+                                                  genderController.text,
                                                   context);
                                               Navigator.of(context).pop;
                                             },

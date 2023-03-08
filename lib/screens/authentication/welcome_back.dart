@@ -45,12 +45,11 @@ class _WelcomeBackState extends State<WelcomeBack> {
     };
     Response? responseData = await UserService().login(context, data);
     // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
-    if (mounted)
-      Provider.of<UsersProvider>(context, listen: false)
-          .setAccessToken(responseData?.data["access"] ?? "");
-    if (responseData?.statusCode == 200) {
-      if (mounted) {
-        if (responseData?.data["is_admin_changed_password"] == false) {
+   if(mounted) Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
+    if(responseData?.statusCode == 200){
+     if (mounted) Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: '100');
+      if(mounted) {
+        if(responseData?.data["is_admin_changed_password"] == false){
           showMessageDialog(
             context,
             success,

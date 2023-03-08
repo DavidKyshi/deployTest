@@ -108,10 +108,12 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                KyshiDynamicButtons(
-                  goDashBoard: true,
-                  onTap: () {
-                    verifyOtp();
+                 KyshiDynamicButtons(
+                  goDashBoard: true, onTap: () {
+                   Provider.of<OfferManagementProvider>(context, listen: false)
+                       .getAllOfferManagement(context);
+                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
+                   verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -127,7 +129,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context);
+                        .getUsers(context: context, entrySize: "100");
                      Provider.of<OverViewProvider>(context, listen: false)
                         .getAllExpressChart(context: context);    
                     Provider.of<PayOutTransactionProvider>(context,
@@ -145,7 +147,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Provider.of<PayOutTransactionProvider>(context,
                             listen: false)
                         .getReversedPayOutTransactions(context);
-                  },
+                 },
                 ),
                 const SizedBox(
                   height: 30,
