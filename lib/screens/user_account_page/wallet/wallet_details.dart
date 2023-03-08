@@ -143,7 +143,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: RichText(
                                       text: TextSpan(
-                                          text: "0.00",
+                                          text: "${widget.wallet?.totalDebitForTheYear}",
                                           style: TextStyle(
                                               color: primaryColor,
                                               fontSize: 40,
@@ -166,7 +166,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: RichText(
                                       text: TextSpan(
-                                          text: "0.00",
+                                          text: "${widget.wallet?.totalCreditForTheYear}",
                                           style: TextStyle(
                                               color: primaryColor,
                                               fontSize: 40,
@@ -219,25 +219,25 @@ class _WalletDetailsState extends State<WalletDetails> {
                                     ),
                                     bankAccountDetails(
                                         detail: "Daily Limit",
-                                        value: '50,0000 of 100,000,000'),
+                                        value: '${widget.wallet?.tier?.maxDailySpendAmount}'),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     bankAccountDetails(
                                         detail: "Monthly Limit",
-                                        value: ' 1,200,700 of 5,000,000.00'),
+                                        value: ' ${widget.wallet?.tier?.maxMonthlySpendAmount}'),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     bankAccountDetails(
                                         detail: "Annual Limit",
-                                        value: '5,000,000 of 15,000,000.00'),
+                                        value: '${widget.wallet?.tier?.maxAnnualSpendAmount}'),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     bankAccountDetails(
                                         detail: "Allowable Balance",
-                                        value: '800,000 of 1,200,000.00'),
+                                        value: '${widget.wallet?.tier?.maxBalanceAllowed}'),
                                   ],
                                 ),
                               ))
@@ -440,7 +440,7 @@ class WalletDataParameters extends StatelessWidget {
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: wallet?.availableBalance ?? "",
+                      text: "${wallet?.availableBalance}" ,
                     ),
                     SizedBox(
                       height: 20,
@@ -452,7 +452,7 @@ class WalletDataParameters extends StatelessWidget {
                       height: 20,
                     ),
                     BioDataSubTitleTextStyle(
-                      text: wallet?.tier ?? "",
+                      text: "${wallet?.tier?.name}",
                     ),
                     SizedBox(
                       height: 6,

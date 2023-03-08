@@ -300,9 +300,20 @@ class Wallet {
     this.currency,
     this.approvedFundingSources,
     this.createdAt,
+    this.availableBalance,
+    this.ledgerBalance,
+    this.user,
+    this.tier,
+    this.totalDebitForTheYear,
+    this.totalCreditForTheYear,
+    this.totalDebitForTheMonth,
+    this.totalCreditForTheMonth,
+    this.totalDebitForTheWeek,
+    this.totalCreditForTheWeek,
+    this.totalDebitForTheDay,
+    this.totalCreditForTheDay,
     this.modifiedAt,
     this.status,
-    this.availableBalance,
     this.totalBalance,
     this.provider,
     this.clientId,
@@ -313,8 +324,6 @@ class Wallet {
     this.bankName,
     this.activationDate,
     this.idvUrl,
-    this.user,
-    this.tier,
     this.address,
     this.usernationalidentity,
   });
@@ -323,80 +332,149 @@ class Wallet {
   String? currency;
   List<dynamic>? approvedFundingSources;
   DateTime? createdAt;
+  int? availableBalance;
+  int? ledgerBalance;
+  String? user;
+  Tier? tier;
+  int? totalDebitForTheYear;
+  int? totalCreditForTheYear;
+  int? totalDebitForTheMonth;
+  int? totalCreditForTheMonth;
+  int? totalDebitForTheWeek;
+  int? totalCreditForTheWeek;
+  int? totalDebitForTheDay;
+  int? totalCreditForTheDay;
   DateTime? modifiedAt;
   String? status;
-  String? availableBalance;
   String? totalBalance;
   String? provider;
-  dynamic clientId;
-  dynamic accountId;
-  dynamic accountNumber;
-  dynamic accountName;
-  dynamic bankCode;
-  dynamic bankName;
-  dynamic activationDate;
+  String? clientId;
+  String? accountId;
+  String? accountNumber;
+  String? accountName;
+  String? bankCode;
+  String? bankName;
+  DateTime? activationDate;
   String? idvUrl;
-  String? user;
-  String? tier;
   String? address;
   String? usernationalidentity;
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-        id: json["id"],
-        currency: json["currency"],
-        approvedFundingSources: json["approved_funding_sources"] == null
-            ? []
-            : List<dynamic>.from(
-                json["approved_funding_sources"]!.map((x) => x)),
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        modifiedAt: json["modified_at"] == null
-            ? null
-            : DateTime.parse(json["modified_at"]),
-        status: json["status"],
-        availableBalance: json["available_balance"],
-        totalBalance: json["total_balance"],
-        provider: json["provider"],
-        clientId: json["client_id"],
-        accountId: json["account_id"],
-        accountNumber: json["account_number"],
-        accountName: json["account_name"],
-        bankCode: json["bank_code"],
-        bankName: json["bank_name"],
-        activationDate: json["activation_date"],
-        idvUrl: json["idv_url"],
-        user: json["user"],
-        tier: json["tier"],
-        address: json["address"],
-        usernationalidentity: json["usernationalidentity"],
-      );
+    id: json["id"],
+    currency: json["currency"] ?? "",
+    approvedFundingSources: json["approved_funding_sources"] == null ? [] : List<dynamic>.from(json["approved_funding_sources"]!.map((x) => x)),
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    availableBalance: json["available_balance"],
+    ledgerBalance: json["ledger_balance"],
+    user: json["user"],
+    tier: json["tier"] == null ? null : Tier.fromJson(json["tier"]),
+    totalDebitForTheYear: json["total_debit_for_the_year"],
+    totalCreditForTheYear: json["total_credit_for_the_year"],
+    totalDebitForTheMonth: json["total_debit_for_the_month"],
+    totalCreditForTheMonth: json["total_credit_for_the_month"],
+    totalDebitForTheWeek: json["total_debit_for_the_week"],
+    totalCreditForTheWeek: json["total_credit_for_the_week"],
+    totalDebitForTheDay: json["total_debit_for_the_day"],
+    totalCreditForTheDay: json["total_credit_for_the_day"],
+    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
+    status: json["status"] ??"",
+    totalBalance: json["total_balance"],
+    provider: json["provider"] ?? "",
+    clientId: json["client_id"],
+    accountId: json["account_id"],
+    accountNumber: json["account_number"],
+    accountName: json["account_name"],
+    bankCode: json["bank_code"] ?? "",
+    bankName: json["bank_name"] ?? "",
+    activationDate: json["activation_date"] == null ? null : DateTime.parse(json["activation_date"]),
+    idvUrl: json["idv_url"],
+    address: json["address"],
+    usernationalidentity: json["usernationalidentity"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "currency": currency,
-        "approved_funding_sources": approvedFundingSources == null
-            ? []
-            : List<dynamic>.from(approvedFundingSources!.map((x) => x)),
-        "created_at": createdAt?.toIso8601String(),
-        "modified_at": modifiedAt?.toIso8601String(),
-        "status": status,
-        "available_balance": availableBalance,
-        "total_balance": totalBalance,
-        "provider": provider,
-        "client_id": clientId,
-        "account_id": accountId,
-        "account_number": accountNumber,
-        "account_name": accountName,
-        "bank_code": bankCode,
-        "bank_name": bankName,
-        "activation_date": activationDate,
-        "idv_url": idvUrl,
-        "user": user,
-        "tier": tier,
-        "address": address,
-        "usernationalidentity": usernationalidentity,
-      };
+    "id": id,
+    "currency": currency,
+    "approved_funding_sources": approvedFundingSources == null ? [] : List<dynamic>.from(approvedFundingSources!.map((x) => x)),
+    "created_at": createdAt?.toIso8601String(),
+    "available_balance": availableBalance,
+    "ledger_balance": ledgerBalance,
+    "user": user,
+    "tier": tier?.toJson(),
+    "total_debit_for_the_year": totalDebitForTheYear,
+    "total_credit_for_the_year": totalCreditForTheYear,
+    "total_debit_for_the_month": totalDebitForTheMonth,
+    "total_credit_for_the_month": totalCreditForTheMonth,
+    "total_debit_for_the_week": totalDebitForTheWeek,
+    "total_credit_for_the_week": totalCreditForTheWeek,
+    "total_debit_for_the_day": totalDebitForTheDay,
+    "total_credit_for_the_day": totalCreditForTheDay,
+    "modified_at": modifiedAt?.toIso8601String(),
+    "status": status,
+    "total_balance": totalBalance,
+    "provider": provider,
+    "client_id": clientId,
+    "account_id": accountId,
+    "account_number": accountNumber,
+    "account_name": accountName,
+    "bank_code": bankCode,
+    "bank_name": bankName,
+    "activation_date": activationDate?.toIso8601String(),
+    "idv_url": idvUrl,
+    "address": address,
+    "usernationalidentity": usernationalidentity,
+  };
+}
+class Tier {
+  Tier({
+    this.id,
+    this.createdAt,
+    this.modifiedAt,
+    this.name,
+    this.maxDailySpendAmount,
+    this.maxWeeklySpendAmount,
+    this.maxMonthlySpendAmount,
+    this.maxAnnualSpendAmount,
+    this.maxBalanceAllowed,
+    this.currency,
+  });
+
+  String? id;
+  DateTime? createdAt;
+  DateTime? modifiedAt;
+  int? name;
+  String? maxDailySpendAmount;
+  String? maxWeeklySpendAmount;
+  String? maxMonthlySpendAmount;
+  String? maxAnnualSpendAmount;
+  String? maxBalanceAllowed;
+  String? currency;
+
+  factory Tier.fromJson(Map<String, dynamic> json) => Tier(
+    id: json["id"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
+    name: json["name"],
+    maxDailySpendAmount: json["max_daily_spend_amount"],
+    maxWeeklySpendAmount: json["max_weekly_spend_amount"],
+    maxMonthlySpendAmount: json["max_monthly_spend_amount"],
+    maxAnnualSpendAmount: json["max_annual_spend_amount"],
+    maxBalanceAllowed: json["max_balance_allowed"],
+    currency: json["currency"] ??"",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "created_at": createdAt?.toIso8601String(),
+    "modified_at": modifiedAt?.toIso8601String(),
+    "name": name,
+    "max_daily_spend_amount": maxDailySpendAmount,
+    "max_weekly_spend_amount": maxWeeklySpendAmount,
+    "max_monthly_spend_amount": maxMonthlySpendAmount,
+    "max_annual_spend_amount": maxAnnualSpendAmount,
+    "max_balance_allowed": maxBalanceAllowed,
+    "currency": currency ?? "",
+  };
 }
 
 class EnumValues<T> {
