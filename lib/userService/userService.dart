@@ -343,7 +343,7 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
     }
   }
 
-  Future<Map<String, dynamic>> getKyshiCard({required String userId}) async {
+  Future<Map<String, dynamic>> getKyshiCard({required String userId,required BuildContext context}) async {
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/kyshi-cards");
     try {

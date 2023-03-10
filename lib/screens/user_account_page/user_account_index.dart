@@ -445,6 +445,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             userProvider.setCurrentUser("${user.firstName} " " ${user.lastName}");
                             pageProvider.gotoPage(PAGES.home);
                             userProvider.getConnectSerivices(context);
+                            userProvider.getCards(context);
                             userProvider.getTransactions(context);
 
                           },

@@ -25,6 +25,7 @@ class UsersProvider extends ChangeNotifier {
   String? _accessToken;
 
   List<Services> _connectService = [];
+  List<Services> _kyshiCard = [];
   List<Wallet> _allWallets = [];
   List<Wallet> _pendingWallets = [];
   List<Wallet> _activeWallets = [];
@@ -38,6 +39,7 @@ class UsersProvider extends ChangeNotifier {
   get currentSelectedWalletId => _currentSelectedWalletId;
   get loggedInAdmin => _loggedInAdmin;
   get connectService => _connectService;
+  get kyshiCard => _kyshiCard;
   get transactions => _transactions;
   get currentUserName => _currentUserName;
   get allWallets => _allWallets;
@@ -157,11 +159,12 @@ class UsersProvider extends ChangeNotifier {
     return _transactions;
   }
   Future<List<Services>> getCards(BuildContext context) async {
-    Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
+    // Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
+    Map<String, dynamic> responseData = await UserService().getKyshiCard(userId:currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
-    _connectService = List<Services>.from(data.map((x) => Services.fromJson(x)));
+    _kyshiCard = List<Services>.from(data.map((x) => Services.fromJson(x)));
     notifyListeners();
-    return _connectService;
+    return _kyshiCard;
   }
   Future<List<Wallet>> getAllWallets(BuildContext context, String entrySize) async {
     Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context, entrySize: entrySize);

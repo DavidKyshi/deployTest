@@ -84,11 +84,11 @@ class _KyshiCardState extends State<KyshiCard> {
         provider: 'Seerbit'),
   ];
   ScrollController? controller;
-  List<Services>? connectServices;
+  List<Services>? kyshiCards;
   @override
   void initState() {
-    connectServices =
-        Provider.of<UsersProvider>(context, listen: false).connectService;
+    kyshiCards =
+        Provider.of<UsersProvider>(context, listen: false).kyshiCard;
     // TODO: implement initState
     super.initState();
   }
@@ -107,7 +107,7 @@ class _KyshiCardState extends State<KyshiCard> {
               decoration: BoxDecoration(
                   color: const Color(0XFFF4F5F8),
                   borderRadius: BorderRadius.circular(12)),
-              child: connectServices!.isEmpty
+              child: kyshiCards!.isEmpty
                   ? Column(
                       children: [
                         const SizedBox(
@@ -247,7 +247,7 @@ class _KyshiCardState extends State<KyshiCard> {
                 width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: connectServices!.isEmpty
+                child: kyshiCards!.isEmpty
                     ? Column(
                         children: [
                           Row(
