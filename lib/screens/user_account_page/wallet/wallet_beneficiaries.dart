@@ -1,3 +1,5 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet/wallet_details.dart';
 import 'package:provider/provider.dart';
@@ -86,17 +88,17 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                   title:
                                       "${emptyWalletType[index]} wallet details",
                                   subTitle: "SET",
-                                  color: primaryColor,
-                                  backgroundColor: primaryColor,
+                                  color: Colors.grey,
+                                  backgroundColor: primaryColor.withOpacity(0.3),
                                   containerColor: const Color(0x0ff9f9f9),
                                   padding2: 60,
                                   padding1: 10,
                                   ontap: () {
-                                    editWalletStatusDialog(
-                                      walletType: 'NGN',
-                                      context,
-                                      title: "Add comment",
-                                    );
+                                    // editWalletStatusDialog(
+                                    //   walletType: 'NGN',
+                                    //   context,
+                                    //   title: "Add comment",
+                                    // );
                                   }),
                               const SizedBox(
                                 height: 20,
@@ -282,7 +284,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                         vertical: 8,
                                                         horizontal: 10),
                                                 decoration: BoxDecoration(
-                                                    color: primaryColor,
+                                                    color: primaryColor.withOpacity(0.3),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             24)),
@@ -527,21 +529,21 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 bankAccountDetails(
                                                     detail: "Account Number",
                                                     value:
-                                                        '${user?.wallets![index].accountNumber ?? ""}'),
+                                                        user?.wallets![index].accountNumber ?? ""),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
                                                 bankAccountDetails(
                                                     detail: "Account Name",
                                                     value:
-                                                        '${user?.wallets![index].accountName ?? "no name"}'),
+                                                        user?.wallets![index].accountName ?? "no name"),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
                                                 bankAccountDetails(
                                                     detail: "Bank Name",
                                                     value:
-                                                        '${user?.wallets![index].bankName ?? "no bank"}'),
+                                                        user?.wallets![index].bankName ?? "no bank"),
                                                 const SizedBox(
                                                   height: 40,
                                                 ),
@@ -1287,6 +1289,47 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
     );
   }
 }
+ snackBar(BuildContext context, ContentType contentType,
+     {required String title, required String message}){
+   final snackBar = SnackBar(
+     /// need to set following properties for best effect of awesome_snackbar_content
+     elevation: 0,
+     behavior: SnackBarBehavior.floating,
+     padding: const EdgeInsets.symmetric(vertical: 10),
+     backgroundColor: Colors.transparent,
+     content: AwesomeSnackbarContent(
+       title: title,
+       message:message,
+
+       /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+       contentType: contentType,
+     ),
+   );
+
+   ScaffoldMessenger.of(context)
+     ..hideCurrentSnackBar()
+     ..showSnackBar(snackBar);
+ }
+
+updateStatus (
+    {required BuildContext context,  String? id, required String dropDown, required String text})async{
+  ContentType contentTypeSuccess = ContentType.success;
+  ContentType contentTypeFail = ContentType.failure;
+  Map<String, dynamic> response =
+      await UserService().updateWalletStatus(data: {
+  "wallet_id": id,
+  "details":text,
+  // controller.text,
+  "status":dropDown.toUpperCase()
+  }, context: context);
+  if(response["status"] == "True"){
+    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context,"50");
+    snackBar(context, contentTypeSuccess,title: "Awesome!!", message: ' Request sent Successfully ');
+  }else{
+    snackBar(context, contentTypeFail, title: 'OoPs!!', message: 'Error updating wallet status',);
+  }
+  Navigator.pop(context);
+}
 
 String dropDownValue = 'Active';
 var changeWalletStatus = [
@@ -1448,14 +1491,36 @@ void editWalletStatusDialog(BuildContext context,
                             onPressed: () async {
                               final id = Provider.of<UsersProvider>(context,
                                       listen: false)
-                                  .currentSelectedUserId;
-                              Map<String, dynamic> response =
-                                  await UserService().updateWalletStatus(data: {
-                                "wallet_id": id,
-                                "details":controller.text,
-                                "status":dropDownValue.toUpperCase()
-                              }, context: context);
-                             Navigator.pop(context);
+                                  .currentSelectedWalletId;
+                              print("${id} changing");
+                              updateStatus(context: context, id: id, text: controller.text, dropDown: dropDownValue);
+                             //  Response response =
+                             //      await UserService().updateWalletStatus(data: {
+                             //    "wallet_id": id,
+                             //    "details":controller.text,
+                             //    "status":dropDownValue.toUpperCase()
+                             //  }, context: context);
+                             //  if(response.statusCode == 200){
+                             //    final snackBar = SnackBar(
+                             //      /// need to set following properties for best effect of awesome_snackbar_content
+                             //      elevation: 0,
+                             //      behavior: SnackBarBehavior.floating,
+                             //      backgroundColor: Colors.transparent,
+                             //      content: AwesomeSnackbarContent(
+                             //        title: 'On Snap!',
+                             //        message:
+                             //        'This is an example error message that will be shown in the body of snackbar!',
+                             //
+                             //        /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                             //        contentType: ContentType.success,
+                             //      ),
+                             //    );
+                             //
+                             //    ScaffoldMessenger.of(context)
+                             //      ..hideCurrentSnackBar()
+                             //      ..showSnackBar(snackBar);
+                             //  }
+                             // Navigator.pop(context);
                             },
                             text: "Yes, change status",
                             size: 200,

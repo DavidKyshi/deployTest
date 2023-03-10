@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/models/connectServices.dart';
+import 'package:kyshi_operations_dashboard/models/login.dart';
 import 'package:kyshi_operations_dashboard/models/users.dart';
 import 'package:kyshi_operations_dashboard/models/wallet_management.dart';
 
@@ -14,22 +15,28 @@ class UsersProvider extends ChangeNotifier {
   List<User> allUsersTransactionSummary = [];
   List<User> editUsers = [];
   List<User> _users = [];
+  String _loginError = "";
   String? currentSelectedUserId;
+  String? _currentSelectedWalletId = "";
+  late LoginModel _loggedInAdmin ;
 
   //String? currency = users.first.wallets!.first.currency;
   String? _currentUserName = "";
   String? _accessToken;
 
   List<Services> _connectService = [];
-  List<WalletResponse> _allWallets = [];
-  List<WalletResponse> _pendingWallets = [];
-  List<WalletResponse> _activeWallets = [];
-  List<WalletResponse> _rejectedWallets = [];
+  List<Wallet> _allWallets = [];
+  List<Wallet> _pendingWallets = [];
+  List<Wallet> _activeWallets = [];
+  List<Wallet> _rejectedWallets = [];
   List<TransactionsData> _transactions = [];
 
   // get wallet => _wallet;
   get accessToken => _accessToken;
   get users => _users;
+  get loginError => _loginError;
+  get currentSelectedWalletId => _currentSelectedWalletId;
+  get loggedInAdmin => _loggedInAdmin;
   get connectService => _connectService;
   get transactions => _transactions;
   get currentUserName => _currentUserName;
@@ -57,9 +64,21 @@ class UsersProvider extends ChangeNotifier {
     _currentUserName = name;
     notifyListeners();
   }
+  void selectWalletId(String id) {
+    _currentSelectedWalletId = id;
+    notifyListeners();
+  }
 
   void setAccessToken(String token) {
     _accessToken = token;
+    notifyListeners();
+  }
+  void setLoginError(String error) {
+    _loginError = error;
+    notifyListeners();
+  }
+  void setAdmin(LoginModel admin) {
+    _loggedInAdmin = admin;
     notifyListeners();
   }
 
@@ -69,6 +88,7 @@ class UsersProvider extends ChangeNotifier {
     // print("$responseData RAW DATA");
     final data = List.from(responseData['data']);
     _users = List<User>.from(data.map((x) => User.fromJson(x)));
+    print("${_users.length} ALL USERS RAW DATA");
     notifyListeners();
     return users;
   }
@@ -143,20 +163,17 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
     return _connectService;
   }
-  Future<List<WalletResponse>> getAllWallets(BuildContext context) async {
-    Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context);
+  Future<List<Wallet>> getAllWallets(BuildContext context, String entrySize) async {
+    Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context, entrySize: entrySize);
     final data = List.from(responseData['data']);
-    _allWallets =
-        List<WalletResponse>.from(data.map((x) => WalletResponse.fromJson(x)));
-    _pendingWallets = _allWallets
-        .where((element) =>
-            element.status == "PENDING" || element.status == "IN_PROGRESS")
-        .toList();
-    _activeWallets =
-        _allWallets.where((element) => element.status == "ACTIVE").toList();
+    _allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+    // print("${allWallets} XXXXXXXXXXX");
+    // print( _allWallets.map((e) => "${e.toJson()}  ALL WALLETS OBJECT"));
+
+    _pendingWallets = _allWallets.where((element) => element.status == "PENDING" || element.status == "IN_PROGRESS").toList();
+    _activeWallets = _allWallets.where((element) => element.status == "ACTIVE").toList();
     // _inActiveWallets = _allWallets.where((element) => element.status == "IN_PROGRESS").toList();
-    _rejectedWallets =
-        _allWallets.where((element) => element.status == "REJECTED").toList();
+    _rejectedWallets = _allWallets.where((element) => element.status == "REJECTED").toList();
     notifyListeners();
     return _allWallets;
   }

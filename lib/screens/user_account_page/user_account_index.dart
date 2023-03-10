@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:kyshi_operations_dashboard/userService/userService.dart';
 import 'package:kyshi_operations_dashboard/widgets/create_an_offer_screen_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -49,9 +53,11 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     Icons.wallet_giftcard_rounded,
     Icons.check_circle_rounded
   ];
+  TextEditingController _textEditingController = TextEditingController();
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
   ScrollController? controller;
+  final _debouncer = Debouncer();
 
   @override
   void initState() {
@@ -59,15 +65,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     user = Provider.of<UsersProvider>(context, listen: false).users;
     super.initState();
   }
-  String initialDownValue = '100';
-  var entries = [
-    // 'Select a status'
-    '100',
-    '150',
-    '200',
-    '250',
-    '300',
-  ];
+  String dropdownvalue = '100';
+  var currency =['100', '300', '500', '700', "1000"];
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -105,47 +105,101 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                 color: primaryColor),
                           ),
                           const SizedBox(width: 10,),
-                          // Container(
-                          //     height: 10,
-                          //     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                          //     child:
-                          //   InputDecorator(
-                          //     decoration:  InputDecoration(
-                          //       // prefixIconConstraints: const BoxConstraints(maxHeight: 10),
-                          //       enabledBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(8),
-                          //         borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                          //       ),
-                          //       focusedBorder:  OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(8),
-                          //         borderSide: const BorderSide(color: Color(0XFFE6E7E9), width: 1.0),
-                          //       ),isDense: true,
-                          //       // contentPadding: EdgeInsets.only(left: 12, right: 12, top: 8),
-                          //     ),
-                          //     child: DropdownButtonHideUnderline(
-                          //       child: DropdownButton(
-                          //         value: initialDownValue,
-                          //         icon: const Icon(Icons.keyboard_arrow_down),
-                          //         items: entries.map((String items) {
-                          //           return DropdownMenuItem(
-                          //             value: items,
-                          //             child: Text(items),
-                          //           );
-                          //         }).toList(),
-                          //         onChanged: (String? value) {
-                          //           setState(() {
-                          //             initialDownValue = value ?? "";
-                          //           });
-                          //           if(initialDownValue != ""){
-                          //             Provider.of<UsersProvider>(context, listen: false)
-                          //                 .getUsers(context: context, entrySize: initialDownValue);
-                          //           }
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          CurrencyDropDown()
+                          Container(
+                            width: 70,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:  BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        isExpanded: true,
+                                        borderRadius: BorderRadius.circular(10),
+                                        dropdownColor: Colors.white,
+                                        elevation: 1,
+                                        // Initial Value
+                                        value: dropdownvalue,
+                                        selectedItemBuilder: (BuildContext context) {
+                                          return currency.map((String items) {
+                                            return Center(
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: dropdownvalue,
+                                                    style:  TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 15,
+                                                        color: primaryColor),
+                                                  ),
+                                                )
+                                              //             Text(
+                                              //   dropdownvalue,
+                                              //   style: const TextStyle( fontWeight: FontWeight.w500,
+                                              //                 fontSize: 16,
+                                              //                 color: Color(0xff0D2C65) ),
+                                              // ),
+                                            );
+                                          }).toList();
+                                        },
+                                        // Down Arrow Icon
+                                        icon:  Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: primaryColor,
+                                        ),
+
+                                        // Array list of items
+                                        items: currency.map((String items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Container(
+                                              // width:double.infinity,
+                                              alignment: Alignment.centerLeft,
+                                              padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                                              decoration: const BoxDecoration(
+                                                  border: Border(
+                                                      bottom: BorderSide(
+                                                          color: Color(0xffDDDDDD), width: 0.3))),
+                                              child: Text(
+                                                items,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        // After selecting the desired option,it will
+                                        // change button value to selected value
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            dropdownvalue = newValue!;
+                                            isLoading = true;
+                                            Provider.of<UsersProvider>(context, listen: false)
+                                                .getUsers(context: context, entrySize: dropdownvalue);
+                                          });
+                                          Future.delayed( Duration(seconds:double.tryParse(dropdownvalue)! > 500 ? 15 : 10)).then((value) {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                          }
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
 
                         ],
                       ),
@@ -171,12 +225,55 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                   ],
                 ),
                 const SizedBox(height: 20,),
-                const SearchField(),
-                const SizedBox(
-                  height: 10,
+                 SearchField(
+                   exportCvsTap: (){
+                     final service = UserService().exportCsv(context: context);
+                   },
+                  controller: _textEditingController,
+                   hintText: "Search users....",
+                   onChanged: (value){
+                    isLoading = true;
+                    _debouncer.run(() { 
+                      setState(() {
+                        Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                        List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
+                       final res = result.firstWhere((element) => element.email == value);
+                        isLoading = false;
+                        print(res);
+                      });
+                    });
+                    // if(value.length > 4){
+                    //   setState(() {
+                    //     isLoading = true;
+                    //   });
+                    //   print(value);
+                    //   Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                    //   Future.delayed(const Duration(seconds: 5)).then((value) {
+                    //     setState(() {
+                    //       isLoading = false;
+                    //       user =Provider.of<UsersProvider>(context, listen: false).users;
+                    //     });
+                    //   });
+                    // }
+                    print(value);
+                   },
+                 ),
+                 SizedBox(
+                  height:isLoading ? 30 : 10,
                 ),
                 // if (getuser == null) Text("User not found"),
                 // if (getuser != null)
+                isLoading ?  Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:  [
+                    CupertinoActivityIndicator(
+                      color: primaryColor,
+                      animating: true,
+                      radius: 20,
+                    )
+                  ],
+                ):
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
@@ -191,7 +288,77 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: DataTable(
+                        child:user!.isEmpty ? Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("First Name",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Last Name",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Middle Name",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Email  Address",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Phone Number",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Date of Birth",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("BVN",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                                Text("Residence",
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12)),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 100,
+                            ),
+                            SvgPicture.asset(empty),
+                            Text(
+                              "We currently don’t have users on the \nKyshi database,  it will appear here \nwhen we do",
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'PushPenny',
+                              ),
+                            )
+                          ],
+                        )  :
+                        DataTable(
                           dataRowHeight: 60,
                           columns: const <DataColumn>[
                             DataColumn(label: Text("First Name"),
@@ -209,10 +376,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             DataColumn(label: Text("Nationality")),
                             DataColumn(label: Text("Status")),
                             DataColumn(label: Text("Action")),
-                            // DataColumn(label: Text("Nationality")),
-                            // DataColumn(label: Text("ID")),
-                            // DataColumn(label: Text("Ledger")),
-                            // DataColumn(label: Text("Status")),
                           ],
                           rows:  user!.map((user) => DataRow(
                       cells: [
@@ -480,6 +643,22 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
           fontSize: 14,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
         const SizedBox(width: 10,),
         SvgPicture.asset(image)],
+    );
+  }
+}
+
+class Debouncer {
+  int? milliseconds;
+  VoidCallback? action;
+  Timer? timer;
+
+  run(VoidCallback action) {
+    if (null != timer) {
+      timer!.cancel();
+    }
+    timer = Timer(
+      const Duration(milliseconds: Duration.millisecondsPerSecond),
+      action,
     );
   }
 }

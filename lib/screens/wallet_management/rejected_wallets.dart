@@ -23,7 +23,7 @@ class RejectedWallets extends StatefulWidget {
 
 class _RejectedWallets extends State<RejectedWallets> {
   ScrollController? controller;
-  List<WalletResponse>? rejectedWallets;
+  List<Wallet>? rejectedWallets;
 
   final List<String> date = [
     "Active",
@@ -39,17 +39,7 @@ class _RejectedWallets extends State<RejectedWallets> {
     "Bright George brightgerg@yahoo.com",
     "Bright George brightgerg@yahoo.com",
   ];
-  final List<String> currency = ['120,000', '300,000,000.00', '500'];
-  final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
-  final List<String> total = ['300,000,000.00', '120,000', '120,000'];
-  final List<String> fee = ['1', '1', '1'];
-  final List<String> charges = ['1.00', '1.00', '1.00'];
-  final List<String> tier = ['1', '3', '2'];
 
-  final List<String> email2 = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
@@ -62,6 +52,8 @@ class _RejectedWallets extends State<RejectedWallets> {
     // TODO: implement initState
     super.initState();
   }
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
@@ -282,19 +274,9 @@ class _RejectedWallets extends State<RejectedWallets> {
                             )
                         ),
                         DataCell(
-                          // e.status == "PENDING" ? InkWell(
-                          //   onTap: (){
-                          //     manageWalletStatusAlertBox(context);
-                          //   },
-                          // viewCommentAlertBox(context);
-                          //   child: OfferButton(
-                          //     isBorder: false,
-                          //     text: 'MANAGE WALLET',
-                          //     comment: true,
-                          //   ),
-                          // ):
                           InkWell(
                               onTap: () {
+                                userProvider.selectWalletId(e.id ?? "");
                                 editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
                               },
                               child: OfferButton(

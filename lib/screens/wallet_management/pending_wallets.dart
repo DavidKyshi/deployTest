@@ -23,7 +23,7 @@ class PendingWallets extends StatefulWidget {
 
 class _PendingWallets extends State<PendingWallets> {
   ScrollController? controller;
-  List<WalletResponse>? pendingWallets;
+  List<Wallet>? pendingWallets;
 
   final List<String> date = [
     "Active",
@@ -51,6 +51,8 @@ class _PendingWallets extends State<PendingWallets> {
     // TODO: implement initState
     super.initState();
   }
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
@@ -78,19 +80,6 @@ class _PendingWallets extends State<PendingWallets> {
             onChanged: (value) {
               setState(() {
                 pendingWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey.withOpacity(0.4),
-            thumbColor: rejectedWalletSwitchValue ? primaryColor : Colors.grey,
-            value: rejectedWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                rejectedWalletSwitchValue = value;
               });
             }),
       ),
@@ -245,7 +234,7 @@ class _PendingWallets extends State<PendingWallets> {
                         ),
                         DataCell(
                           Text(e.status ?? "",style: TextStyle(
-                              color:e.status == "PENDING" ? warning :e.status == "ACTIVE"?  kyshiGreen :kyshiRed,
+                              color:warning,
                               fontFamily: 'PushPenny',
                               fontWeight: FontWeight.w400,
                               fontSize: 14
@@ -271,19 +260,9 @@ class _PendingWallets extends State<PendingWallets> {
                             )
                         ),
                         DataCell(
-                          // e.status == "PENDING" ? InkWell(
-                          //   onTap: (){
-                          //     manageWalletStatusAlertBox(context);
-                          //   },
-                          // viewCommentAlertBox(context);
-                          //   child: OfferButton(
-                          //     isBorder: false,
-                          //     text: 'MANAGE WALLET',
-                          //     comment: true,
-                          //   ),
-                          // ):
                           InkWell(
                               onTap: () {
+                                userProvider.selectWalletId(e.id ?? "");
                                 editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
                               },
                               child: OfferButton(

@@ -331,20 +331,20 @@ class Wallet {
   String? id;
   String? currency;
   List<dynamic>? approvedFundingSources;
-  DateTime? createdAt;
-  int? availableBalance;
-  int? ledgerBalance;
+  String? createdAt;
+  double? availableBalance;
+  double? ledgerBalance;
   String? user;
   Tier? tier;
-  int? totalDebitForTheYear;
-  int? totalCreditForTheYear;
-  int? totalDebitForTheMonth;
-  int? totalCreditForTheMonth;
-  int? totalDebitForTheWeek;
-  int? totalCreditForTheWeek;
-  int? totalDebitForTheDay;
-  int? totalCreditForTheDay;
-  DateTime? modifiedAt;
+  double? totalDebitForTheYear;
+  double? totalCreditForTheYear;
+  double? totalDebitForTheMonth;
+  double? totalCreditForTheMonth;
+  double? totalDebitForTheWeek;
+  double? totalCreditForTheWeek;
+  double? totalDebitForTheDay;
+  double? totalCreditForTheDay;
+  String? modifiedAt;
   String? status;
   String? totalBalance;
   String? provider;
@@ -360,10 +360,10 @@ class Wallet {
   String? usernationalidentity;
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-    id: json["id"],
+    id: json["id"] ?? "no idea",
     currency: json["currency"] ?? "",
     approvedFundingSources: json["approved_funding_sources"] == null ? [] : List<dynamic>.from(json["approved_funding_sources"]!.map((x) => x)),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    createdAt: json["created_at"] ?? "",
     availableBalance: json["available_balance"],
     ledgerBalance: json["ledger_balance"],
     user: json["user"],
@@ -376,7 +376,7 @@ class Wallet {
     totalCreditForTheWeek: json["total_credit_for_the_week"],
     totalDebitForTheDay: json["total_debit_for_the_day"],
     totalCreditForTheDay: json["total_credit_for_the_day"],
-    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
+    modifiedAt: json["modified_at"] ?? "",
     status: json["status"] ??"",
     totalBalance: json["total_balance"],
     provider: json["provider"] ?? "",
@@ -396,7 +396,7 @@ class Wallet {
     "id": id,
     "currency": currency,
     "approved_funding_sources": approvedFundingSources == null ? [] : List<dynamic>.from(approvedFundingSources!.map((x) => x)),
-    "created_at": createdAt?.toIso8601String(),
+    "created_at": createdAt,
     "available_balance": availableBalance,
     "ledger_balance": ledgerBalance,
     "user": user,
@@ -409,7 +409,7 @@ class Wallet {
     "total_credit_for_the_week": totalCreditForTheWeek,
     "total_debit_for_the_day": totalDebitForTheDay,
     "total_credit_for_the_day": totalCreditForTheDay,
-    "modified_at": modifiedAt?.toIso8601String(),
+    "modified_at": modifiedAt,
     "status": status,
     "total_balance": totalBalance,
     "provider": provider,

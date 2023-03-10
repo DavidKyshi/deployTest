@@ -23,33 +23,14 @@ class ActiveWallets extends StatefulWidget {
 
 class _ActiveWallets extends State<ActiveWallets> {
   ScrollController? controller;
-  List<WalletResponse>? activeWallets;
+  List<Wallet>? activeWallets;
 
   final List<String> date = [
     "Active",
     "Rejected",
     "Pending",
   ];
-  final List<String> date2 = [
-    "Nov 28, 2022 3:58 PM",
-    "Nov 28, 2022 3:58 PM",
-  ];
-  final List<String> createdBy = [
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-    "Bright George brightgerg@yahoo.com",
-  ];
-  // final List<String> currency = ['120,000', '300,000,000.00', '500'];
-  // final List<String> provider = ['VFD', 'Rails Bank', 'Evolve'];
-  // final List<String> total = ['300,000,000.00', '120,000', '120,000'];
-  // final List<String> fee = ['1', '1', '1'];
-  // final List<String> charges = ['1.00', '1.00', '1.00'];
-  // final List<String> tier = ['1', '3', '2'];
-  //
-  // final List<String> email2 = [
-  //   "Bright George brightgerg@yahoo.com",
-  //   "Bright George brightgerg@yahoo.com",
-  // ];
+
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
@@ -62,50 +43,11 @@ class _ActiveWallets extends State<ActiveWallets> {
     // TODO: implement initState
     super.initState();
   }
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> id = [
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey,
-            thumbColor: activeWalletSwitchValue ? primaryColor : Colors.white,
-            value: activeWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                activeWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: Colors.grey,
-            trackColor: kyshiRed.withOpacity(0.4),
-            thumbColor: pendingWalletSwitchValue ? Colors.white : kyshiRed,
-            value: pendingWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                pendingWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey.withOpacity(0.4),
-            thumbColor: rejectedWalletSwitchValue ? primaryColor : Colors.grey,
-            value: rejectedWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                rejectedWalletSwitchValue = value;
-              });
-            }),
-      ),
-    ];
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -295,6 +237,7 @@ class _ActiveWallets extends State<ActiveWallets> {
                           // ):
                           InkWell(
                               onTap: () {
+                                userProvider.selectWalletId(e.id ?? "");
                                 editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
                               },
                               child: OfferButton(

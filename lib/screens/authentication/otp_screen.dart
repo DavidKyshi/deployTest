@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/first_time_login.dart';
@@ -38,6 +39,17 @@ class _OtpScreenState extends State<OtpScreen> {
     Response responseData =
         await UserService().verifyOtp(data: pin, context: context);
     if (responseData.statusCode == 200) {
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:  [
+          CupertinoActivityIndicator(
+            color: primaryColor,
+            animating: true,
+            radius: 20,
+          )
+        ],
+      );
       print("correct OPTP");
       if (mounted) {
         Navigator.pushAndRemoveUntil(
@@ -110,16 +122,14 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                  KyshiDynamicButtons(
                   goDashBoard: true, onTap: () {
+                   verifyOtp();
                    Provider.of<OfferManagementProvider>(context, listen: false)
                        .getAllOfferManagement(context);
-                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
-                   verifyOtp();
-                    Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getCreatedUserAccount(context);
+                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)

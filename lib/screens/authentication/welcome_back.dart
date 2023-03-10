@@ -1,7 +1,9 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/helper/sharedPreferences.dart';
 import 'package:kyshi_operations_dashboard/models/login.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/wallet/wallet_beneficiaries.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshiTextField.dart';
 import 'package:kyshi_operations_dashboard/widgets/kyshi_responsive_button.dart';
@@ -45,10 +47,12 @@ class _WelcomeBackState extends State<WelcomeBack> {
     };
     Response? responseData = await UserService().login(context, data);
     // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
+
    if(mounted) Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
     if(responseData?.statusCode == 200){
      if (mounted) Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: '100');
       if(mounted) {
+        snackBar(context, ContentType.success, title: "Awesome", message: "Login successful");
         if(responseData?.data["is_admin_changed_password"] == false){
           showMessageDialog(
             context,
@@ -118,21 +122,8 @@ class _WelcomeBackState extends State<WelcomeBack> {
       }
     } else {
       if (mounted) {
-        showMessageDialog(
-          context,
-          error,
-          "Error",
-          btnFunction: () {
-            Navigator.pop(context);
-          },
-          additionalBtnFunction: () {},
-          additionalButtonColor: Colors.red,
-          headline: 'Incorrect Code',
-          message: "Please check your auth app",
-          subMessage: "Passwords must be be 8-32 Numbers"
-              "Capital Letter and should be alphanumeric e.g, Alsdty123",
-          name: ' Olamide',
-        );
+        snackBar(context, ContentType.failure, title: "Oops!!", message: "${Provider.of<UsersProvider>(context,
+            listen: false).loginError}");
       }
     }
   }

@@ -244,6 +244,118 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
   }
 }
 
+class PaginatedDataDropDown extends StatefulWidget {
+  const PaginatedDataDropDown({super.key});
+
+  @override
+  State<PaginatedDataDropDown> createState() => _PaginatedDataDropDownState();
+}
+
+class _PaginatedDataDropDownState extends State<PaginatedDataDropDown> {
+  String dropdownvalue = '100';
+
+  // List of items in our dropdown menu
+  // var currency = ['🇬🇧 GBP', '🇳🇬 NGN', '🇱🇷 USD'];
+  var currency =['100', '150', '300', '400', "500"];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 70,
+      height: 50,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius:  BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  isExpanded: true,
+                  borderRadius: BorderRadius.circular(10),
+                  dropdownColor: Colors.white,
+                  elevation: 1,
+                  // Initial Value
+                  value: dropdownvalue,
+                  selectedItemBuilder: (BuildContext context) {
+                    return currency.map((String items) {
+                      return Center(
+                          child: RichText(
+                            text: TextSpan(
+                              text: dropdownvalue,
+                              style:  TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                  color: primaryColor),
+                            ),
+                          )
+                        //             Text(
+                        //   dropdownvalue,
+                        //   style: const TextStyle( fontWeight: FontWeight.w500,
+                        //                 fontSize: 16,
+                        //                 color: Color(0xff0D2C65) ),
+                        // ),
+                      );
+                    }).toList();
+                  },
+                  // Down Arrow Icon
+                  icon:  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: primaryColor,
+                  ),
+
+                  // Array list of items
+                  items: currency.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Container(
+                        // width:double.infinity,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Color(0xffDDDDDD), width: 0.3))),
+                        child: Text(
+                          items,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.black),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                      Provider.of<UsersProvider>(context, listen: false)
+                          .getUsers(context: context, entrySize: dropdownvalue);
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SummaryBox extends StatelessWidget {
   const SummaryBox({super.key});
 

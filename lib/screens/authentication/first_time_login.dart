@@ -249,7 +249,7 @@ class _FirstTimerState extends State<FirstTimer> {
             // MaterialPageRoute(builder: (context) => const OtpScreen()));
                  
                         
-                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
+                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context,"50");
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

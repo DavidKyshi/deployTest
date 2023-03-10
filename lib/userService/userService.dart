@@ -21,6 +21,8 @@ class UserService {
       return response;
     } catch (e) {
       if (e is DioError) {
+        Provider.of<UsersProvider>(context,
+            listen: false).setLoginError(e.response?.data["detail"]);
         print("${e.response?.data} login errorssssss");
       }
       return null;
@@ -84,13 +86,14 @@ class UserService {
               }
           )
       );
+      // print("${response.data} ALL THE USERS");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
         print("$e An error occurred");
       }
       if (e is DioError) {
-        print("${e.response?.data}hkhgjghbjhgb");
+        print("${e.response?.data}hkhgjghbjhgbALLUSERS");
         throw e.response?.data;
       }
       rethrow;
@@ -364,13 +367,16 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
       rethrow;
     }
   }
-  Future<Map<String, dynamic>> getWalletManagement({required BuildContext context}) async {
+  Future<Map<String, dynamic>> getWalletManagement({required BuildContext context, required String entrySize}) async {
     final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-management");
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/wallet-management",
+          queryParameters: {
+            "entry_size":entrySize
+          },
           options: Options(
               headers: {
                 "authorization":"Bearer $token"
@@ -380,7 +386,7 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
           //   "status":""
           // }
       );
-      // print("$response ALL DATA");
+      // print("${response.data} whhhhhhhhhh ALL DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -407,8 +413,8 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
       "authorization":"Bearer $token",
       HttpHeaders.contentTypeHeader: 'application/json',
     });
+      print("${response.body} ALL DATA from updating wallet status");
     dynamic res = json.decode(response.body);
-      print("$res ALL DATA from updating wallet status");
       return res;
     } catch (e) {
       if (kDebugMode) {
@@ -427,7 +433,7 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-comments");
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-        "/ops/wallet-management",
+        "/ops/wallet-comments",
           options: Options(
               headers: {
                 "authorization":"Bearer $token"
@@ -437,7 +443,7 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
         //   "status":""
         // }
       );
-      // print("$response ALL DATA");
+      // print("${response.data} ALL DATA FROM VIEWING COMMENTS55555");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -492,31 +498,34 @@ Future changePassword({required Map<String, dynamic> data, required BuildContext
     }
   }
 
-  // Future changePassword(
-  //     {required Map<String, dynamic> data,
-  //     required BuildContext context}) async {
-  //   final token =
-  //       Provider.of<UsersProvider>(context, listen: false).accessToken;
-  //   String baseUrl = dotenv.env['API_URL']!;
-  //   final Uri uri = Uri.parse("$baseUrl/ops/change-password");
-  //   // String basicAuth =
-  //   //     'Basic ${base64.encode(utf8.encode('$username:$password'))}';
-  //   try {
-  //     // customInternalDio.get("/ops/users",)
-  //     print("$data ALL THE DATA TO CHANGE PASSWORD");
-  //     final response = await http.post(uri, body: json.encode(data), headers: {
-  //       HttpHeaders.contentTypeHeader: 'application/json',
-  //       "authorization": "Bearer $token"
-  //     });
-  //     dynamic res = json.decode(response.body);
-  //     // Response response = await customInternalDio.post<Map<String, dynamic>>(
-  //     //   "/ops/update-wallet",
-  //     //   data:data
-  //     // );
-  //     print("$res ALL DATA changing password");
-  //     return res;
-  //   } catch (e) {
-  //     print("EROORRRRRRRRR");
-  //   }
-  // }
+  Future<Map<String, dynamic>> exportCsv({required BuildContext context}) async {
+    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    // final Uri uri = Uri.parse("$baseUrl/ops/wallet-comments");
+    try {
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/user/csv",
+          options: Options(
+              headers: {
+                "authorization":"Bearer $token"
+              }
+          )
+        // queryParameters: {
+        //   "status":""
+        // }
+      );
+      print("${response.data} ALL DATA exporting");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}ERROR MESSAGE");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
 }
