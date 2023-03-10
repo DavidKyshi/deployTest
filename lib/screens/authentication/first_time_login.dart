@@ -223,8 +223,10 @@ class _FirstTimerState extends State<FirstTimer> {
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
-                        Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(context); 
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getAcceptedUserOffer(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getCreatedOffer(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -235,21 +237,26 @@ class _FirstTimerState extends State<FirstTimer> {
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context, entrySize: '100');
-                        Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getAllPayOutTransactions(context);
-                         Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getCompletedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getFailedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getPendingPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getReversedPayOutTransactions(context);
-            //          Navigator.push(context,
-            // MaterialPageRoute(builder: (context) => const OtpScreen()));
-                 
-                        
-                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getAllPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getCompletedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getFailedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getPendingPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getReversedPayOutTransactions(context);
+                    //          Navigator.push(context,
+                    // MaterialPageRoute(builder: (context) => const OtpScreen()));
+
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getAllWallets(context);
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

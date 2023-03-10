@@ -299,12 +299,20 @@ class _PayOutCompletedTransactionTableState
                                             ),
 
                                             SizedBox(
-                                                width: 40, child: Text("")),
+                                                width: 40,
+                                                child: Text(
+                                                    completedPayOutTransactionData
+                                                            .offerId ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65, child: Text("")),
+                                                width: 65,
+                                                child: Text(
+                                                    completedPayOutTransactionData
+                                                            .id ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),

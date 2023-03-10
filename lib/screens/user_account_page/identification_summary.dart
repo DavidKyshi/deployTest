@@ -67,6 +67,7 @@ class _IdentificationSummaryState extends State<IdentificationSummary> {
                   phoneNumberStatus: user.phoneVerified ?? false,
                   phoneNumber: user.phoneNumber ?? "",
                   residence: user.countryOfResidence ?? "",
+                  isAccountKYC: false,
                 ),
               ],
             ),

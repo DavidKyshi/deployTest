@@ -60,7 +60,6 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
     return const Color(0XFF23CE6B);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -1452,10 +1451,10 @@ void editWalletStatusDialog(BuildContext context,
                               Map<String, dynamic> response =
                                   await UserService().updateWalletStatus(data: {
                                 "wallet_id": id,
-                                "details":controller.text,
-                                "status":dropDownValue.toUpperCase()
+                                "details": controller.text,
+                                "status": dropDownValue.toUpperCase()
                               }, context: context);
-                             Navigator.pop(context);
+                              Navigator.pop(context);
                             },
                             text: "Yes, change status",
                             size: 200,

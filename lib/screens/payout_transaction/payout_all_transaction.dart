@@ -303,12 +303,20 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             ),
 
                                             SizedBox(
-                                                width: 40, child: Text("")),
+                                                width: 40,
+                                                child: Text(
+                                                    allPayOutTransactionData
+                                                            .offerId ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65, child: Text("")),
+                                                width: 65,
+                                                child: Text(
+                                                    allPayOutTransactionData
+                                                            .id ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),

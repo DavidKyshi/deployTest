@@ -39,3 +39,9 @@ const String riskScore = 'assets/images/riskScore.png';
 const String payOutTransactionIcon = "assets/images/payout-transaction.png";
 const String walletManagementIcon = "assets/images/wallet-management.png";
 const String overViewIcon = "assets/images/overview.png";
+const String inactiveUserAccount = "assets/images/inactiveUser.png";
+const String inactiveOfferManagement = "assets/images/inactiveOffer.png";
+const String inactiveOverview = "assets/images/inactiveOverview.png";
+const String inactivePayoutTransaction =
+    "assets/images/inactivePayouttransactions.png";
+const String inactiveWalletTransaction = "assets/images/inactiveWallet.png";

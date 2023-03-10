@@ -26,10 +26,11 @@ class PAGES {
 }
 
 class PAGE {
-  final int index;
+  int index = 0;
   final String title;
   final Widget page;
   final String? icon;
+  final String? inactiveIcon;
   final double? width;
   final double? height;
   final showInSideBar;
@@ -40,6 +41,7 @@ class PAGE {
       this.width,
       this.height,
       this.icon,
+      this.inactiveIcon,
       this.showInSideBar = true});
 }
 
@@ -52,12 +54,14 @@ class _State {
         title: "User accounts",
         page: const UserAccountScreen(),
         icon: userAccountIcon,
+        inactiveIcon: inactiveUserAccount,
         width: 28,
         height: 28),
     PAGE(
         index: PAGES.profile,
         title: "Offer Management",
         page: OffersManagementScreen(),
+        inactiveIcon: inactiveOfferManagement,
         icon: offerManagementIcon,
         width: 24,
         height: 24),
@@ -76,6 +80,7 @@ class _State {
       title: "Payout Transactions",
       page: const PayOutTransactionScreen(),
       icon: payOutTransactionIcon,
+      inactiveIcon: inactivePayoutTransaction,
       width: 24,
       height: 24,
       //showInSideBar: false
@@ -92,6 +97,7 @@ class _State {
       title: "Wallet Management",
       page: const WalletTab(),
       icon: walletManagementIcon,
+      inactiveIcon: inactiveWalletTransaction,
       width: 24,
       height: 24,
       //showInSideBar: false
@@ -101,8 +107,9 @@ class _State {
       title: "Overview",
       page: const OverViewScreen(),
       icon: overViewIcon,
-      width: 24,
-      height: 24,
+      inactiveIcon: inactiveOverview,
+      width: 28,
+      height: 28,
     ),
   ];
 }

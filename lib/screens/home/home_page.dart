@@ -14,10 +14,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<PageViewProvider>(context);
-    Color _containerColor = Colors.blue;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Row(children: [
@@ -70,29 +71,48 @@ class _HomepageState extends State<Homepage> {
                               children: provider.pages
                                   .map((e) => e.showInSideBar == false
                                       ? const Offstage()
-                                      : 
-                                      // OnHover(builder: (isHovered) {
-                                      //     final Color color = isHovered
-                                      //         ? Colors.amber
-                                      //         : Colors.red;
-                                      //     return                                         }
-                                      //   )
-                                        SideMenuItems(
-                                            onNext: () {
-                                              // setState(() {
-                                              
-                                              provider.gotoPage(e.index);
-                                              // });
-                                            },
-                                            title: e.title,
-                                            icon: e.icon,
-                                            height: e.height,
-                                            width: e.width,
-                                            onTapColor:  Colors.black,
-                                        
-                                          )
-
-                                        )
+                                      : OnHover(builder: (isHovered) {
+                                          final Color color = isHovered
+                                              ? primaryColor
+                                              : Color(0xff8C8C8C);
+                                          return isHovered
+                                              ? SideMenuItems(
+                                                  onNext: () {
+                                                    setState(() {
+                                                      currentIndex = e.index;
+                                                      provider
+                                                          .gotoPage(e.index);
+                                                    });
+                                                  },
+                                                  title: e.title,
+                                                  icon: e.icon,
+                                                  height: e.height,
+                                                  width: e.width,
+                                                  onTapColor:
+                                                      currentIndex == e.index
+                                                          ? primaryColor
+                                                          : color,
+                                                )
+                                              : SideMenuItems(
+                                                  onNext: () {
+                                                    setState(() {
+                                                      currentIndex = e.index;
+                                                      provider
+                                                          .gotoPage(e.index);
+                                                    });
+                                                  },
+                                                  title: e.title,
+                                                  icon: currentIndex == e.index
+                                                      ? e.icon
+                                                      : e.inactiveIcon,
+                                                  height: e.height,
+                                                  width: e.width,
+                                                  onTapColor:
+                                                      currentIndex == e.index
+                                                          ? primaryColor
+                                                          : color,
+                                                );
+                                        }))
                                   .toList(),
                             ),
                           ],
@@ -228,7 +248,7 @@ class _SideMenuItemsState extends State<SideMenuItems> {
                 widget.icon!,
                 width: widget.width,
                 height: widget.height,
-                //  color: color,
+                //color: Colors.grey,
               ),
               SizedBox(
                 width: 10,

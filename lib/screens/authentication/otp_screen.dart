@@ -108,18 +108,22 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                 KyshiDynamicButtons(
-                  goDashBoard: true, onTap: () {
-                   Provider.of<OfferManagementProvider>(context, listen: false)
-                       .getAllOfferManagement(context);
-                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context);
-                   verifyOtp();
+                KyshiDynamicButtons(
+                  goDashBoard: true,
+                  onTap: () {
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement(context);
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getAllWallets(context);
+                    verifyOtp();
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
-                    Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getAcceptedUserOffer(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    //     .getCreatedOffer(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -130,17 +134,22 @@ class _OtpScreenState extends State<OtpScreen> {
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context, entrySize: '100');
-                        Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getAllPayOutTransactions(context);
-                         Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getCompletedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getFailedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getPendingPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getReversedPayOutTransactions(context);
-                 },
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getAllPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getCompletedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getFailedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getPendingPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getReversedPayOutTransactions(context);
+                  },
                 ),
                 const SizedBox(
                   height: 30,

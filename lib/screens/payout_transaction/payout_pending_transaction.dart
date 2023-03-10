@@ -299,12 +299,20 @@ class _PayOutPendingTransactionTableState
                                             ),
 
                                             SizedBox(
-                                                width: 40, child: Text("")),
+                                                width: 40,
+                                                child: Text(
+                                                    pendingPayOutTransactionData
+                                                            .offerId ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65, child: Text("")),
+                                                width: 65,
+                                                child: Text(
+                                                    pendingPayOutTransactionData
+                                                            .id ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),

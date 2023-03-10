@@ -6,6 +6,7 @@ import '../../helper/screen_export.dart';
 
 @immutable
 class PayOutTransactionUserData {
+  final String? id;
   final String? createdAt;
   final String? user;
   final String? ledgerOperation;
@@ -19,8 +20,10 @@ class PayOutTransactionUserData {
   final dynamic availableBalance;
   final dynamic ledgerBalance;
   final dynamic beneficiary;
+  final dynamic offerId;
 
   const PayOutTransactionUserData({
+    this.id,
     this.createdAt,
     this.user,
     this.ledgerOperation,
@@ -34,15 +37,17 @@ class PayOutTransactionUserData {
     this.availableBalance,
     this.ledgerBalance,
     this.beneficiary,
+    this.offerId,
   });
 
   @override
   String toString() {
-    return 'Datum(createdAt: $createdAt, user: $user, ledgerOperation: $ledgerOperation, amount: $amount, currency: $currency, status: $status, processor: $processor, channel: $channel, type: $type, serviceCharge: $serviceCharge, availableBalance: $availableBalance, ledgerBalance: $ledgerBalance, beneficiary: $beneficiary)';
+    return 'PayOutTransactionUserData(id: $id, createdAt: $createdAt, user: $user, ledgerOperation: $ledgerOperation, amount: $amount, currency: $currency, status: $status, processor: $processor, channel: $channel, type: $type, serviceCharge: $serviceCharge, availableBalance: $availableBalance, ledgerBalance: $ledgerBalance, beneficiary: $beneficiary, offerId: $offerId)';
   }
 
   factory PayOutTransactionUserData.fromMap(Map<String, dynamic> data) =>
       PayOutTransactionUserData(
+        id: data['id'] as String?,
         createdAt: data['created_at'] as String?,
         user: data['user'] as String?,
         ledgerOperation: data['ledger_operation'] as String?,
@@ -56,9 +61,11 @@ class PayOutTransactionUserData {
         availableBalance: data['available_balance'] as dynamic,
         ledgerBalance: data['ledger_balance'] as dynamic,
         beneficiary: data['beneficiary'] as dynamic,
+        offerId: data['offer_id'] as dynamic,
       );
 
   Map<String, dynamic> toMap() => {
+        'id': id,
         'created_at': createdAt,
         'user': user,
         'ledger_operation': ledgerOperation,
@@ -72,6 +79,7 @@ class PayOutTransactionUserData {
         'available_balance': availableBalance,
         'ledger_balance': ledgerBalance,
         'beneficiary': beneficiary,
+        'offer_id': offerId,
       };
 
   /// `dart:convert`
@@ -88,6 +96,7 @@ class PayOutTransactionUserData {
   String toJson() => json.encode(toMap());
 
   PayOutTransactionUserData copyWith({
+    String? id,
     String? createdAt,
     String? user,
     String? ledgerOperation,
@@ -101,8 +110,10 @@ class PayOutTransactionUserData {
     dynamic availableBalance,
     dynamic ledgerBalance,
     dynamic beneficiary,
+    dynamic offerId,
   }) {
     return PayOutTransactionUserData(
+      id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       user: user ?? this.user,
       ledgerOperation: ledgerOperation ?? this.ledgerOperation,
@@ -116,6 +127,7 @@ class PayOutTransactionUserData {
       availableBalance: availableBalance ?? this.availableBalance,
       ledgerBalance: ledgerBalance ?? this.ledgerBalance,
       beneficiary: beneficiary ?? this.beneficiary,
+      offerId: offerId ?? this.offerId,
     );
   }
 
@@ -129,6 +141,7 @@ class PayOutTransactionUserData {
 
   @override
   int get hashCode =>
+      id.hashCode ^
       createdAt.hashCode ^
       user.hashCode ^
       ledgerOperation.hashCode ^
@@ -141,5 +154,6 @@ class PayOutTransactionUserData {
       serviceCharge.hashCode ^
       availableBalance.hashCode ^
       ledgerBalance.hashCode ^
-      beneficiary.hashCode;
+      beneficiary.hashCode ^
+      offerId.hashCode;
 }

@@ -298,12 +298,20 @@ class _PayOutFailedTransactionTableState
                                             ),
 
                                             SizedBox(
-                                                width: 40, child: Text("")),
+                                                width: 40,
+                                                child: Text(
+                                                    failedPayOutTransactionData
+                                                            .offerId ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65, child: Text("")),
+                                                width: 65,
+                                                child: Text(
+                                                    failedPayOutTransactionData
+                                                            .id ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),

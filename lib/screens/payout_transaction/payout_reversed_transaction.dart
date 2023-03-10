@@ -299,12 +299,20 @@ class _PayOutReversedTransactionTableState
                                             ),
 
                                             SizedBox(
-                                                width: 40, child: Text("")),
+                                                width: 40,
+                                                child: Text(
+                                                    reversedPayOutTransactionData
+                                                            .offerId ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),
                                             SizedBox(
-                                                width: 65, child: Text("")),
+                                                width: 65,
+                                                child: Text(
+                                                    reversedPayOutTransactionData
+                                                            .id ??
+                                                        "")),
                                             SizedBox(
                                               width: 20,
                                             ),

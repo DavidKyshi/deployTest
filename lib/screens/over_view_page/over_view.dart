@@ -27,11 +27,11 @@ class _OverViewScreenState extends State<OverViewScreen> {
     super.initState();
     // _chartData = getChartData();
   }
+
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -41,30 +41,40 @@ class _OverViewScreenState extends State<OverViewScreen> {
               padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Row(
                 children: [
-                   OverViewOffers(),
-                   SizedBox(width: 40,),
-               OverViewMarketPlace(),
+                  OverViewOffers(),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  OverViewMarketPlace(),
                 ],
               ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Padding(
-             padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Row(
                 children: [
                   OverViewConnect(),
-                  SizedBox(width: 40,),
+                  SizedBox(
+                    width: 40,
+                  ),
                   OverViewAirtime()
                 ],
               ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Padding(
-             padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Row(
                 children: [
                   MarketPlaceRevenue(),
-                    SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   OverViewExpressChart()
                 ],
               ),
@@ -95,7 +105,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
             //                dataLabelSettings: DataLabelSettings(isVisible: true) ,
             //               //  explode: true,
             //               //           explodeIndex: 1
-      
+
             //                )
             //           ],)
             //         ],
@@ -108,7 +118,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
       ),
     );
   }
-  
+
   // List<StatusData> getChartData(){
   //    final expressChart = overViewProvider.expressChart;
   //   final List<StatusData> chartData = [
@@ -121,7 +131,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
 }
 // class StatusData{
 //   StatusData( this.status, this.amount,);
- 
+
 //   final String status;
 //    final int? amount;
 //   //  final Color color;
