@@ -232,14 +232,16 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                   controller: _textEditingController,
                    hintText: "Search users....",
                    onChanged: (value){
-                    isLoading = true;
+                   setState(() {
+                     isLoading = true;
+                   });
                     _debouncer.run(() { 
                       setState(() {
                         Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
                         List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
-                       final res = result.firstWhere((element) => element.email == value);
+                       user = result.where((element) => element.email!.toLowerCase().contains(value.toLowerCase())).toList();
                         isLoading = false;
-                        print(res);
+                        // print("$user SEARCHED USERS");
                       });
                     });
                     // if(value.length > 4){
