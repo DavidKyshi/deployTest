@@ -23,7 +23,7 @@ class PendingWallets extends StatefulWidget {
 
 class _PendingWallets extends State<PendingWallets> {
   ScrollController? controller;
-  List<WalletResponse>? pendingWallets;
+  List<Wallet>? pendingWallets;
 
   final List<String> date = [
     "Active",
@@ -51,6 +51,8 @@ class _PendingWallets extends State<PendingWallets> {
     // TODO: implement initState
     super.initState();
   }
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
@@ -78,19 +80,6 @@ class _PendingWallets extends State<PendingWallets> {
             onChanged: (value) {
               setState(() {
                 pendingWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey.withOpacity(0.4),
-            thumbColor: rejectedWalletSwitchValue ? primaryColor : Colors.grey,
-            value: rejectedWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                rejectedWalletSwitchValue = value;
               });
             }),
       ),
@@ -186,125 +175,105 @@ class _PendingWallets extends State<PendingWallets> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 12))),
                       ],
-                      rows: pendingWallets!
-                          .map((e) => DataRow(cells: [
-                                DataCell(
-                                  Text(e.createdAt ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.user ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.currency ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.provider ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.availableBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.ledgerBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.tier?.name ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.status ?? "",
-                                      style: TextStyle(
-                                          color: e.status == "PENDING"
-                                              ? warning
-                                              : e.status == "ACTIVE"
-                                                  ? kyshiGreen
-                                                  : kyshiRed,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(InkWell(
-                                  onTap: () async {
-                                    Map<String, dynamic> response =
-                                        await UserService().getWalletComments(
-                                            context: context);
-                                    WalletCommentModel commentModel =
-                                        WalletCommentModel.fromJson(response);
-                                    setState(() {
-                                      comments = commentModel.data ?? [];
-                                    });
-                                    viewCommentAlertBox(
-                                        context: context, comment: comments);
-                                  },
-                                  child: OfferButton(
-                                    isBorder: false,
-                                    text: 'VIEW COMMENT',
-                                    comment: true,
-                                    commentBackground: false,
-                                    color: const Color(0XFF6D48FF),
-                                  ),
-                                )),
-                                DataCell(
-                                  // e.status == "PENDING" ? InkWell(
-                                  //   onTap: (){
-                                  //     manageWalletStatusAlertBox(context);
-                                  //   },
-                                  // viewCommentAlertBox(context);
-                                  //   child: OfferButton(
-                                  //     isBorder: false,
-                                  //     text: 'MANAGE WALLET',
-                                  //     comment: true,
-                                  //   ),
-                                  // ):
-                                  InkWell(
-                                      onTap: () {
-                                        editWalletStatusDialog(
-                                          context,
-                                          walletType: "NGN",
-                                          title: 'Add comment',
-                                        );
-                                      },
-                                      child: OfferButton(
-                                        isBorder: false,
-                                        text: 'MANAGE WALLET',
-                                        comment: false,
-                                      )),
-                                ),
-                              ]))
-                          .toList()),
+                      rows:pendingWallets!.map((e) => DataRow(cells: [
+                        DataCell(
+                          Text(e.createdAt ?? "",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text(e.user ?? "",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text(e.currency ?? "",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text(e.provider ?? "",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text("${e.availableBalance ?? ""}",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text("${e.ledgerBalance ?? ""}",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text("${e.tier?.name ?? ""}",style: TextStyle(
+                              color: primaryColor,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                          Text(e.status ?? "",style: TextStyle(
+                              color:warning,
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          )),
+                        ),
+                        DataCell(
+                            InkWell(
+                              onTap: ()async{
+                                Map<String, dynamic> response = await UserService().getWalletComments(context: context);
+                                WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
+                                setState(() {
+                                  comments = commentModel.data ?? [];
+                                });
+                                viewCommentAlertBox(context: context,comment: comments);
+                              },
+                              child: OfferButton(
+                                isBorder: false,
+                                text: 'VIEW COMMENT',
+                                comment: true,
+                                commentBackground: false,
+                                color: const Color(0XFF6D48FF),
+                              ),
+                            )
+                        ),
+                        DataCell(
+                          InkWell(
+                              onTap: () {
+                                userProvider.selectWalletId(e.id ?? "");
+                                editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
+                              },
+                              child: OfferButton(
+                                isBorder: false,
+                                text: 'MANAGE WALLET',
+                                comment: false,
+                              )),
+                        ),
+                      ])).toList()
+
+                  ),
                 ),
               ),
             ),

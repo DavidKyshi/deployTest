@@ -14,24 +14,24 @@ class UserAccountScreen extends StatelessWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-              width: 1190.83,
-              height: 97.55,
-              color: Color(0xffF9F9F9),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                child: Row(
-                  // crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    LastDaysFilter(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    CalenderPickDate()
-                  ],
-                ),
-              )),
+          // Container(
+          //     width: 1190.83,
+          //     height: 97.55,
+          //     color: Color(0xffF9F9F9),
+          //     child: Padding(
+          //       padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+          //       child: Row(
+          //         // crossAxisAlignment: CrossAxisAlignment.end,
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: [
+          //           LastDaysFilter(),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           CalenderPickDate()
+          //         ],
+          //       ),
+          //     )),
           Container(
               //  width: 500,
               height: 800,

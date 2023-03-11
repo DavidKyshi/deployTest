@@ -76,8 +76,8 @@ TransactionSummaryProvider get transactionSummaryProvider =>
                 SizedBox(
                   height: 20,
                 ),
-                // ...transactionSummaryProvider.allUsersTransactionSummary
-                // .map((allUsersTransactionSummary)=>
+                ...transactionSummaryProvider.allUsersTransactionSummary
+                .map((allUsersTransactionSummary)=>
                    TransactionBoardChat(
                   failedCardTransaction: '',
                   failedConnectTransaction: '',
@@ -92,7 +92,7 @@ TransactionSummaryProvider get transactionSummaryProvider =>
                   successfulTopUpTransaction: '',
                   successfulWithdrawlTransaction: '',
                 )
-                // ).toList()
+                 ).toList()
                 
                 
               ],
@@ -114,8 +114,9 @@ TransactionSummaryProvider get transactionSummaryProvider =>
                   height: 40,
                 ),
                 Container(
-                  width: 400,
+                  width: 555,
                   height: 167,
+                  //color: Colors.black,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

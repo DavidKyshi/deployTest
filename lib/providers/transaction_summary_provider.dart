@@ -11,9 +11,10 @@ class TransactionSummaryProvider extends ChangeNotifier {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService()
         .getTransactionSummary(userId: userId, context: context);
-    final data = List.from(responseData['data']);
+    final  data = List.from(responseData['data']);
+    print(data);
     allUsersTransactionSummary =
-        List<TransactionSummaryUserData>.from(data.map((x) => TransactionSummaryUserData.fromMap(x)));
+        List<TransactionSummaryUserData>.from(data.map((x) => TransactionSummaryUserData.fromMap(x))).toList();
     notifyListeners();
     return allUsersTransactionSummary;
   }

@@ -10,6 +10,7 @@ class SearchField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
+  final Function ()? exportCvsTap;
   final String? Function(String?)? validator;
   final Function()? onTap;
   final bool createOffer;
@@ -53,7 +54,7 @@ class SearchField extends StatefulWidget {
       this.isDense,
       this.hintText,
       this.initialValue,
-      this.createOffer = false})
+      this.createOffer = false, this.exportCvsTap})
       : super(key: key);
 
   @override
@@ -89,7 +90,7 @@ class _SearchFieldState extends State<SearchField> {
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 40, horizontal: 60),
+              const EdgeInsets.symmetric(vertical: 35, horizontal: 60),
           suffixIcon: InkWell(
             onTap: () {
               print("fjknjkfnjfn");
@@ -102,8 +103,8 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.createOffer
-                      ? InkWell(
+                 // widget.createOffer?
+                      InkWell(
                           onTap: () =>
                               pageProvider.gotoPage(PAGES.createAnOfferScreen),
                           child: Container(
@@ -121,30 +122,33 @@ class _SearchFieldState extends State<SearchField> {
                                   fontFamily: 'PushPenny'),
                             ),
                           ),
-                        )
-                      : const SizedBox(),
+                        ),
+                      //: const SizedBox(),
                   const SizedBox(
                     width: 15,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 30),
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFFFFFFF),
-                        borderRadius: BorderRadius.circular(48)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Export CSV",
-                          style: TextStyle(color: primaryLimeGreen),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SvgPicture.asset(documentSvg),
-                      ],
+                  InkWell(
+                    onTap: widget.exportCvsTap,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
+                      decoration: BoxDecoration(
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(48)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Export CSV",
+                            style: TextStyle(color: primaryLimeGreen),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          SvgPicture.asset(documentSvg),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -179,48 +183,48 @@ class _SearchFieldState extends State<SearchField> {
               borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
               borderSide: BorderSide(
                   color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
-          prefixIcon: InkWell(
-            onTap: () {},
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            right:
-                                BorderSide(width: 2, color: Colors.black54))),
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          width: 20,
-                          height: 20,
-                          child: SvgPicture.asset(filterSvg),
-                        ),
-                        const SizedBox(width: 4),
-                        const Text("Filters"),
-                        SizedBox(width: 4),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Icon(Icons.search_outlined, color: kyshiGreyishBlue),
-                ],
-              ),
-            ),
-          ),
+          // prefixIcon: InkWell(
+          //   onTap: () {},
+          //   child: Container(
+          //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          //     child: Row(
+          //       mainAxisSize: MainAxisSize.min,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Container(
+          //           decoration: const BoxDecoration(
+          //               border: Border(
+          //                   right:
+          //                       BorderSide(width: 2, color: Colors.black54))),
+          //           padding: const EdgeInsets.symmetric(horizontal: 13),
+          //           margin:
+          //               const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+          //           child: Row(
+          //             mainAxisSize: MainAxisSize.min,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               Container(
+          //                 decoration: const BoxDecoration(
+          //                   shape: BoxShape.circle,
+          //                 ),
+          //                 width: 20,
+          //                 height: 20,
+          //                 child: SvgPicture.asset(filterSvg),
+          //               ),
+          //               const SizedBox(width: 4),
+          //               const Text("Filters"),
+          //               SizedBox(width: 4),
+          //             ],
+          //           ),
+          //         ),
+          //         const SizedBox(
+          //           width: 10,
+          //         ),
+          //         Icon(Icons.search_outlined, color: kyshiGreyishBlue),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           hintText: widget.hintText,
         ),
         onChanged: widget.onChanged,

@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+// import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartTransaction extends StatelessWidget {
   const ChartTransaction({super.key});
@@ -9,7 +10,7 @@ class ChartTransaction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 584,
-      child: SfCartesianChart(),
+      child:Text("fdf"),
     );
   }
 }

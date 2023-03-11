@@ -23,7 +23,7 @@ class AllWallets extends StatefulWidget {
 
 class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
-  List<WalletResponse>? allWallets;
+  List<Wallet>? allWallets;
 
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
@@ -31,6 +31,9 @@ class _AllWalletsState extends State<AllWallets> {
   bool manageWallet = false;
   List<CommentDetails> comments = [];
   String? selectedId;
+  String dropdownvalue = '100';
+  var currency =['100', '300', '500', '700', "1000"];
+  bool isLoading = false;
   @override
   void initState() {
     allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
@@ -38,262 +41,344 @@ class _AllWalletsState extends State<AllWallets> {
         .currentSelectedUserId;
     // TODO: implement initState
     super.initState();
+    // getAllWallet();
   }
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
+  // getAllWallet()async{
+  //   Map<String, dynamic> response = await UserService().getWalletComments(context: context);
+  //   WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
+  //   setState(() {
+  //     comments = commentModel.data ?? [];
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> id = [
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey,
-            thumbColor: activeWalletSwitchValue ? primaryColor : Colors.white,
-            value: activeWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                activeWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: Colors.grey,
-            trackColor: kyshiRed.withOpacity(0.4),
-            thumbColor: pendingWalletSwitchValue ? Colors.white : kyshiRed,
-            value: pendingWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                pendingWalletSwitchValue = value;
-              });
-            }),
-      ),
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey.withOpacity(0.4),
-            thumbColor: rejectedWalletSwitchValue ? primaryColor : Colors.grey,
-            value: rejectedWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                rejectedWalletSwitchValue = value;
-              });
-            }),
-      ),
-    ];
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 12),
             child: SingleChildScrollView(
-              child: Container(
-                height: 800,
-                decoration: BoxDecoration(
-                    color: const Color(0XFFEAEBF1),
-                    borderRadius: BorderRadius.circular(12)),
-                width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                      dataRowHeight: 60,
-                      columns: const <DataColumn>[
-                        DataColumn(
-                            label: Text("Created",
-                                style: TextStyle(
-                                    //color: primaryColor,
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("User",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Currency",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Provider",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Available",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Total",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Tier",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Status",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Comments",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Actions",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                      ],
-                      rows: allWallets!
-                          .map((e) => DataRow(cells: [
-                                DataCell(
-                                  Text(e.createdAt ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.user ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.currency ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.provider ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.availableBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.ledgerBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.tier?.name ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.status ?? "",
-                                      style: TextStyle(
-                                          color: e.status == "PENDING"
-                                              ? warning
-                                              : e.status == "ACTIVE"
-                                                  ? kyshiGreen
-                                                  : kyshiRed,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(InkWell(
-                                  onTap: () async {
-                                    Map<String, dynamic> response =
-                                        await UserService().getWalletComments(
-                                            context: context);
-                                    WalletCommentModel commentModel =
-                                        WalletCommentModel.fromJson(response);
-                                    setState(() {
-                                      comments = commentModel.data ?? [];
-                                    });
-                                    viewCommentAlertBox(
-                                        context: context, comment: comments);
-                                  },
-                                  child: OfferButton(
-                                    isBorder: false,
-                                    text: 'VIEW COMMENT',
-                                    comment: true,
-                                    commentBackground: false,
-                                    color: const Color(0XFF6D48FF),
-                                  ),
+              child: Column(
+                children: [
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 28),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Text(
+                  //         'Wallet Management',
+                  //         style: TextStyle(
+                  //             fontSize: 32,
+                  //             fontWeight: FontWeight.w700,
+                  //             fontFamily: "PushPenny",
+                  //             color: primaryColor),
+                  //       ),
+                  //       const SizedBox(),
+                  //       // Row(
+                  //       //   children: [
+                  //       //     Text(
+                  //       //       "Show entries",
+                  //       //       style: TextStyle(
+                  //       //           fontSize: 14,
+                  //       //           fontWeight: FontWeight.w500,
+                  //       //           fontFamily: "PushPenny",
+                  //       //           color: primaryColor),
+                  //       //     ),
+                  //       //     const SizedBox(width: 10,),
+                  //       //     // Container(
+                  //       //     //   width: 70,
+                  //       //     //   height: 50,
+                  //       //     //   decoration: BoxDecoration(
+                  //       //     //       color: Colors.white,
+                  //       //     //       borderRadius:  BorderRadius.circular(8),
+                  //       //     //       border: Border.all(color: Colors.grey)
+                  //       //     //   ),
+                  //       //     //   child: Padding(
+                  //       //     //     padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  //       //     //     child: Center(
+                  //       //     //       child: Column(
+                  //       //     //         crossAxisAlignment: CrossAxisAlignment.center,
+                  //       //     //         mainAxisAlignment: MainAxisAlignment.center,
+                  //       //     //         children: [
+                  //       //     //           DropdownButtonHideUnderline(
+                  //       //     //             child: DropdownButton(
+                  //       //     //               isExpanded: true,
+                  //       //     //               borderRadius: BorderRadius.circular(10),
+                  //       //     //               dropdownColor: Colors.white,
+                  //       //     //               elevation: 1,
+                  //       //     //               // Initial Value
+                  //       //     //               value: dropdownvalue,
+                  //       //     //               selectedItemBuilder: (BuildContext context) {
+                  //       //     //                 return currency.map((String items) {
+                  //       //     //                   return Center(
+                  //       //     //                       child: RichText(
+                  //       //     //                         text: TextSpan(
+                  //       //     //                           text: dropdownvalue,
+                  //       //     //                           style:  TextStyle(
+                  //       //     //                               fontWeight: FontWeight.w400,
+                  //       //     //                               fontSize: 15,
+                  //       //     //                               color: primaryColor),
+                  //       //     //                         ),
+                  //       //     //                       )
+                  //       //     //                     //             Text(
+                  //       //     //                     //   dropdownvalue,
+                  //       //     //                     //   style: const TextStyle( fontWeight: FontWeight.w500,
+                  //       //     //                     //                 fontSize: 16,
+                  //       //     //                     //                 color: Color(0xff0D2C65) ),
+                  //       //     //                     // ),
+                  //       //     //                   );
+                  //       //     //                 }).toList();
+                  //       //     //               },
+                  //       //     //               // Down Arrow Icon
+                  //       //     //               icon:  Icon(
+                  //       //     //                 Icons.keyboard_arrow_down,
+                  //       //     //                 color: primaryColor,
+                  //       //     //               ),
+                  //       //     //
+                  //       //     //               // Array list of items
+                  //       //     //               items: currency.map((String items) {
+                  //       //     //                 return DropdownMenuItem(
+                  //       //     //                   value: items,
+                  //       //     //                   child: Container(
+                  //       //     //                     // width:double.infinity,
+                  //       //     //                     alignment: Alignment.centerLeft,
+                  //       //     //                     padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                  //       //     //                     decoration: const BoxDecoration(
+                  //       //     //                         border: Border(
+                  //       //     //                             bottom: BorderSide(
+                  //       //     //                                 color: Color(0xffDDDDDD), width: 0.3))),
+                  //       //     //                     child: Text(
+                  //       //     //                       items,
+                  //       //     //                       style: const TextStyle(
+                  //       //     //                           fontWeight: FontWeight.w400,
+                  //       //     //                           fontSize: 14,
+                  //       //     //                           color: Colors.black),
+                  //       //     //                     ),
+                  //       //     //                   ),
+                  //       //     //                 );
+                  //       //     //               }).toList(),
+                  //       //     //               // After selecting the desired option,it will
+                  //       //     //               // change button value to selected value
+                  //       //     //               onChanged: (String? newValue) {
+                  //       //     //                 setState(() {
+                  //       //     //                   dropdownvalue = newValue!;
+                  //       //     //                   isLoading = true;
+                  //       //     //                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context,dropdownvalue);
+                  //       //     //                 });
+                  //       //     //                 Future.delayed( Duration(seconds:double.tryParse(dropdownvalue)! > 500 ? 10 : 5)).then((value) {
+                  //       //     //                   setState(() {
+                  //       //     //                     isLoading = false;
+                  //       //     //                   });
+                  //       //     //                 }
+                  //       //     //                 );
+                  //       //     //               },
+                  //       //     //             ),
+                  //       //     //           ),
+                  //       //     //         ],
+                  //       //     //       ),
+                  //       //     //     ),
+                  //       //     //   ),
+                  //       //     // )
+                  //       //
+                  //       //   ],
+                  //       // ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // isLoading ?  Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children:  [
+                  //     CupertinoActivityIndicator(
+                  //       color: primaryColor,
+                  //       animating: true,
+                  //       radius: 20,
+                  //     )
+                  //   ],
+                  // ):
+                  Container(
+                    height: 800,
+                    decoration: BoxDecoration(
+                        color: const Color(0XFFEAEBF1),
+                        borderRadius: BorderRadius.circular(12)),
+                    width: MediaQuery.of(context).size.width,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        dataRowHeight: 60,
+                        columns: const <DataColumn>[
+                          DataColumn(label: Text("Created",style: TextStyle(
+                            //color: primaryColor,
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("User",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Currency",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Provider",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Available",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Total",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Tier",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Status",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Comments",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                          DataColumn(label: Text("Actions",style: TextStyle(
+                              color: Color(0XFF233375),
+                              fontFamily: 'PushPenny',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12
+                          ))),
+                        ],
+                        rows:allWallets!.map((e) => DataRow(cells: [
+                          DataCell(
+                            Text(e.createdAt ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text(e.user ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text(e.currency ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text(e.provider ?? "",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text("${e.availableBalance ?? ""}",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text("${e.ledgerBalance ?? ""}",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text("${e.tier?.name ?? ""}",style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                            Text(e.status ?? "",style: TextStyle(
+                                color:e.status == "PENDING" ? warning :e.status == "ACTIVE"?  kyshiGreen :kyshiRed,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14
+                            )),
+                          ),
+                          DataCell(
+                          InkWell(
+                            onTap: ()async{
+                              Map<String, dynamic> response = await UserService().getWalletComments(context: context);
+                              WalletCommentModel commentModel = WalletCommentModel.fromJson(response);
+                              // print("${commentModel.data![0].details} wallet");
+                              // print("${commentModel.data!.map((e) => e.toJson())} all comments");
+                              setState(() {
+                                comments = commentModel.data ?? [];
+                              });
+                              viewCommentAlertBox(context: context,comment: comments);
+                            },
+                            child: OfferButton(
+                              isBorder: false,
+                              text: 'VIEW COMMENT',
+                              comment: true,
+                              commentBackground: false,
+                              color:const Color(0XFF6D48FF),
+                            ),
+                          )
+                          ),
+                          DataCell(
+                            InkWell(
+                                onTap: () {
+                                  // print("${e.id} WALLET ID");
+                                  userProvider.selectWalletId(e.id ?? "");
+                                      editWalletStatusDialog(context, walletType: "NGN", title: 'Add comment',);
+                                    },
+                                child: OfferButton(
+                                  isBorder: false,
+                                  text: 'MANAGE WALLET',
+                                  comment: false,
                                 )),
-                                DataCell(
-                                  // e.status == "PENDING" ? InkWell(
-                                  //   onTap: (){
-                                  //     manageWalletStatusAlertBox(context);
-                                  //   },
-                                  // viewCommentAlertBox(context);
-                                  //   child: OfferButton(
-                                  //     isBorder: false,
-                                  //     text: 'MANAGE WALLET',
-                                  //     comment: true,
-                                  //   ),
-                                  // ):
-                                  InkWell(
-                                      onTap: () {
-                                        editWalletStatusDialog(
-                                          context,
-                                          walletType: "NGN",
-                                          title: 'Add comment',
-                                        );
-                                      },
-                                      child: OfferButton(
-                                        isBorder: false,
-                                        text: 'MANAGE WALLET',
-                                        comment: false,
-                                      )),
-                                ),
-                              ]))
-                          .toList()),
-                ),
+                          ),
+                        ])).toList()
+
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             // Column(

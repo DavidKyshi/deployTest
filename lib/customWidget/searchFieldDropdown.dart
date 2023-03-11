@@ -161,71 +161,71 @@ class _SearchFieldDropdownState extends State<SearchFieldDropdown> {
               borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
               borderSide: BorderSide(
                   color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
-          prefixIcon: InkWell(
-            onTap: () {},
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          widget.dropDownTitle ?? "",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SvgPicture.asset("assets/images/down-arrow.svg")
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            right:
-                                BorderSide(width: 2, color: Colors.black54))),
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          width: 20,
-                          height: 20,
-                          child: SvgPicture.asset(filterSvg),
-                        ),
-                        const SizedBox(width: 4),
-                        const Text("Filters"),
-                        SizedBox(width: 4),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Icon(Icons.search_outlined, color: kyshiGreyishBlue),
-                ],
-              ),
-            ),
-          ),
+          // prefixIcon: InkWell(
+          //   onTap: () {},
+          //   child: Container(
+          //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          //     child: Row(
+          //       mainAxisSize: MainAxisSize.min,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Container(
+          //           padding:
+          //               const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
+          //           decoration: BoxDecoration(
+          //               border: Border.all(color: primaryColor),
+          //               borderRadius: BorderRadius.circular(20)),
+          //           child: Row(
+          //             mainAxisSize: MainAxisSize.min,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //             children: [
+          //               Text(
+          //                 widget.dropDownTitle ?? "",
+          //                 style: TextStyle(
+          //                     color: primaryColor,
+          //                     fontFamily: 'PushPenny',
+          //                     fontSize: 14,
+          //                     fontWeight: FontWeight.w500),
+          //               ),
+          //               SvgPicture.asset("assets/images/down-arrow.svg")
+          //             ],
+          //           ),
+          //         ),
+          //         Container(
+          //           decoration: const BoxDecoration(
+          //               border: Border(
+          //                   right:
+          //                       BorderSide(width: 2, color: Colors.black54))),
+          //           padding: const EdgeInsets.symmetric(horizontal: 13),
+          //           margin:
+          //               const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+          //           child: Row(
+          //             mainAxisSize: MainAxisSize.min,
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               Container(
+          //                 decoration: const BoxDecoration(
+          //                   shape: BoxShape.circle,
+          //                 ),
+          //                 width: 20,
+          //                 height: 20,
+          //                 child: SvgPicture.asset(filterSvg),
+          //               ),
+          //               const SizedBox(width: 4),
+          //               const Text("Filters"),
+          //               SizedBox(width: 4),
+          //             ],
+          //           ),
+          //         ),
+          //         const SizedBox(
+          //           width: 10,
+          //         ),
+          //         Icon(Icons.search_outlined, color: kyshiGreyishBlue),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           hintText: widget.hintText,
         ),
         onChanged: widget.onChanged,
