@@ -2,7 +2,7 @@
 
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
-// import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../helper/screen_export.dart';
 import '../../providers/over_view_provider.dart';

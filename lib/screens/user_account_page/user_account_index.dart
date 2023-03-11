@@ -22,7 +22,7 @@ class UserAccountIndex extends StatefulWidget {
 }
 
 class _UserAccountIndexState extends State<UserAccountIndex> {
-  List<User>? user;
+  List<User>? user = [];
 
   final List<Widget> action = [
     Column(
@@ -53,7 +53,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     Icons.wallet_giftcard_rounded,
     Icons.check_circle_rounded
   ];
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
   ScrollController? controller;
@@ -275,6 +275,78 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                       radius: 20,
                     )
                   ],
+                ):user!.isEmpty ?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("First Name",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Last Name",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Middle Name",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Email  Address",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Phone Number",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Date of Birth",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("BVN",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                        Text("Residence",
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontFamily: 'PushPenny',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12)),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    SvgPicture.asset(empty),
+                    Text(
+                      "We currently don’t have users on the \nKyshi database,  it will appear here \nwhen we do",
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'PushPenny',
+                      ),
+                    )
+                  ],
                 ):
                 Container(
                   padding:
@@ -290,76 +362,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child:user!.isEmpty ? Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("First Name",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Last Name",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Middle Name",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Email  Address",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Phone Number",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Date of Birth",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("BVN",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                                Text("Residence",
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12)),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 100,
-                            ),
-                            SvgPicture.asset(empty),
-                            Text(
-                              "We currently don’t have users on the \nKyshi database,  it will appear here \nwhen we do",
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'PushPenny',
-                              ),
-                            )
-                          ],
-                        )  :
+                        child:
                         DataTable(
                           dataRowHeight: 60,
                           columns: const <DataColumn>[
