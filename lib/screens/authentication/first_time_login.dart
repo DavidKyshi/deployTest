@@ -223,8 +223,10 @@ class _FirstTimerState extends State<FirstTimer> {
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
-                        Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(context); 
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getAcceptedUserOffer(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getCreatedOffer(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)

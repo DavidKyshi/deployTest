@@ -62,7 +62,6 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
     return const Color(0XFF23CE6B);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

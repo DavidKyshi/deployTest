@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/providers/transaction_summary_provider.dart';
 
 import '../../widgets/transaction_widgets.dart';
 
@@ -15,10 +16,12 @@ class TransactionSummaryBoard extends StatefulWidget {
 class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
-
+TransactionSummaryProvider get transactionSummaryProvider =>
+      Provider.of<TransactionSummaryProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     final user = userProvider.getUserById();
+    final transaction = transactionSummaryProvider.allUsersTransactionSummary;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -73,7 +76,25 @@ class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
                 SizedBox(
                   height: 20,
                 ),
-                TransactionBoardChat()
+                ...transactionSummaryProvider.allUsersTransactionSummary
+                .map((allUsersTransactionSummary)=>
+                   TransactionBoardChat(
+                  failedCardTransaction: '',
+                  failedConnectTransaction: '',
+                  failedExpressTransaction: '',
+                  failedSwapTransaction: '',
+                  failedTopUpTransaction: '',
+                  failedWithdrawlTransaction: '',
+                  successfulCardTransaction: '',
+                  successfulConnectTransaction:'',
+                  successfulExpressTransaction: '',
+                  successfulSwapTransaction:'',
+                  successfulTopUpTransaction: '',
+                  successfulWithdrawlTransaction: '',
+                )
+                 ).toList()
+                
+                
               ],
             ),
             SizedBox(
@@ -93,8 +114,9 @@ class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
                   height: 40,
                 ),
                 Container(
-                  width: 335,
+                  width: 555,
                   height: 167,
+                  //color: Colors.black,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

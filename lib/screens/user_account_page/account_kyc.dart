@@ -84,6 +84,7 @@ class _AccountKYCState extends State<AccountKYC> {
                               phoneNumberStatus: user.phoneVerified ?? false,
                               phoneNumber: user.phoneNumber ?? "",
                               residence: user.countryOfResidence ?? "",
+                              isAccountKYC: true,
                             ),
                             SizedBox(
                               width: 20,

@@ -425,6 +425,7 @@ class Wallet {
     "usernationalidentity": usernationalidentity,
   };
 }
+
 class Tier {
   Tier({
     this.id,
@@ -451,30 +452,34 @@ class Tier {
   String? currency;
 
   factory Tier.fromJson(Map<String, dynamic> json) => Tier(
-    id: json["id"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    modifiedAt: json["modified_at"] == null ? null : DateTime.parse(json["modified_at"]),
-    name: json["name"],
-    maxDailySpendAmount: json["max_daily_spend_amount"],
-    maxWeeklySpendAmount: json["max_weekly_spend_amount"],
-    maxMonthlySpendAmount: json["max_monthly_spend_amount"],
-    maxAnnualSpendAmount: json["max_annual_spend_amount"],
-    maxBalanceAllowed: json["max_balance_allowed"],
-    currency: json["currency"] ??"",
-  );
+        id: json["id"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        modifiedAt: json["modified_at"] == null
+            ? null
+            : DateTime.parse(json["modified_at"]),
+        name: json["name"],
+        maxDailySpendAmount: json["max_daily_spend_amount"],
+        maxWeeklySpendAmount: json["max_weekly_spend_amount"],
+        maxMonthlySpendAmount: json["max_monthly_spend_amount"],
+        maxAnnualSpendAmount: json["max_annual_spend_amount"],
+        maxBalanceAllowed: json["max_balance_allowed"],
+        currency: json["currency"] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "created_at": createdAt?.toIso8601String(),
-    "modified_at": modifiedAt?.toIso8601String(),
-    "name": name,
-    "max_daily_spend_amount": maxDailySpendAmount,
-    "max_weekly_spend_amount": maxWeeklySpendAmount,
-    "max_monthly_spend_amount": maxMonthlySpendAmount,
-    "max_annual_spend_amount": maxAnnualSpendAmount,
-    "max_balance_allowed": maxBalanceAllowed,
-    "currency": currency ?? "",
-  };
+        "id": id,
+        "created_at": createdAt?.toIso8601String(),
+        "modified_at": modifiedAt?.toIso8601String(),
+        "name": name,
+        "max_daily_spend_amount": maxDailySpendAmount,
+        "max_weekly_spend_amount": maxWeeklySpendAmount,
+        "max_monthly_spend_amount": maxMonthlySpendAmount,
+        "max_annual_spend_amount": maxAnnualSpendAmount,
+        "max_balance_allowed": maxBalanceAllowed,
+        "currency": currency ?? "",
+      };
 }
 
 class EnumValues<T> {

@@ -22,9 +22,7 @@ class _TypeOfOfferDropDownState extends State<TypeOfOfferDropDown> {
       width: 130,
       height: 48,
       decoration: BoxDecoration(
-          color: Color(0xffF8F9FE),
-          borderRadius:  BorderRadius.circular(4)
-          ),
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Center(
@@ -46,7 +44,7 @@ class _TypeOfOfferDropDownState extends State<TypeOfOfferDropDown> {
                           child: RichText(
                         text: TextSpan(
                           text: dropdownvalue,
-                          style:  TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
                               color: primaryColor),
@@ -111,7 +109,8 @@ class CurrencyOfOfferDropDown extends StatefulWidget {
   CurrencyOfOfferDropDown({super.key});
 
   @override
-  State<CurrencyOfOfferDropDown> createState() => _CurrencyOfOfferDropDownState();
+  State<CurrencyOfOfferDropDown> createState() =>
+      _CurrencyOfOfferDropDownState();
 }
 
 class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
@@ -126,9 +125,7 @@ class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
       width: 85,
       height: 48,
       decoration: BoxDecoration(
-          color: Color(0xffF8F9FE),
-          borderRadius:  BorderRadius.circular(4)
-          ),
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Center(
@@ -150,7 +147,7 @@ class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
                           child: RichText(
                         text: TextSpan(
                           text: dropdownvalue,
-                          style:  TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
                               color: primaryColor),
@@ -215,10 +212,12 @@ class CurrencyOfMarketPlaceDropDown extends StatefulWidget {
   CurrencyOfMarketPlaceDropDown({super.key});
 
   @override
-  State<CurrencyOfMarketPlaceDropDown> createState() => _CurrencyOfMarketPlaceDropDownState();
+  State<CurrencyOfMarketPlaceDropDown> createState() =>
+      _CurrencyOfMarketPlaceDropDownState();
 }
 
-class _CurrencyOfMarketPlaceDropDownState extends State<CurrencyOfMarketPlaceDropDown> {
+class _CurrencyOfMarketPlaceDropDownState
+    extends State<CurrencyOfMarketPlaceDropDown> {
   String dropdownvalue = 'GBP/NGN';
 
   // List of items in our dropdown menu
@@ -230,9 +229,7 @@ class _CurrencyOfMarketPlaceDropDownState extends State<CurrencyOfMarketPlaceDro
       width: 110,
       height: 48,
       decoration: BoxDecoration(
-          color: Color(0xffF8F9FE),
-          borderRadius:  BorderRadius.circular(4)
-          ),
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Center(
@@ -254,12 +251,11 @@ class _CurrencyOfMarketPlaceDropDownState extends State<CurrencyOfMarketPlaceDro
                           child: RichText(
                         text: TextSpan(
                           text: dropdownvalue,
-                          style:  TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
                               color: primaryColor,
-                              fontFamily: "PushPenny"
-                              ),
+                              fontFamily: "PushPenny"),
                         ),
                       )
                           //             Text(
@@ -317,10 +313,9 @@ class _CurrencyOfMarketPlaceDropDownState extends State<CurrencyOfMarketPlaceDro
   }
 }
 
-
 class ConnectDropDown extends StatefulWidget {
   ConnectDropDown({super.key});
-  
+
   @override
   State<ConnectDropDown> createState() => _ConnectDropDownState();
 }
@@ -337,9 +332,7 @@ class _ConnectDropDownState extends State<ConnectDropDown> {
       width: 110,
       height: 48,
       decoration: BoxDecoration(
-          color: Color(0xffF8F9FE),
-          borderRadius:  BorderRadius.circular(4)
-          ),
+          color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Center(
@@ -361,12 +354,11 @@ class _ConnectDropDownState extends State<ConnectDropDown> {
                           child: RichText(
                         text: TextSpan(
                           text: dropdownvalue,
-                          style:  TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
                               color: primaryColor,
-                              fontFamily: "PushPenny"
-                              ),
+                              fontFamily: "PushPenny"),
                         ),
                       )
                           //             Text(

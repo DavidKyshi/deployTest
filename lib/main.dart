@@ -3,6 +3,7 @@ import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.d
 import 'helper/screen_export.dart';
 import 'providers/over_view_provider.dart';
 import 'providers/payout_transactions.dart';
+import 'providers/transaction_summary_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,8 @@ void main() async {
     ChangeNotifierProvider(create: (_) => UsersProvider()),
     ChangeNotifierProvider(create: (_) => OfferManagementProvider()),
     ChangeNotifierProvider(create: (_) => PayOutTransactionProvider()),
-    ChangeNotifierProvider(create: (_) => OverViewProvider())
+    ChangeNotifierProvider(create: (_) => OverViewProvider()),
+    ChangeNotifierProvider(create: (_) => TransactionSummaryProvider()),
   ], child: MyApp()));
 }
 

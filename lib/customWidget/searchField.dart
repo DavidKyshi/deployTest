@@ -103,26 +103,27 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.createOffer ?
-                  InkWell(
-                    onTap: () =>
-                        pageProvider.gotoPage(PAGES.createAnOfferScreen),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 13, horizontal: 35),
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(48)),
-                      child: const Text(
-                        "Create offer",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'PushPenny'),
-                      ),
-                    ),
-                  )  :const SizedBox(),
+                 // widget.createOffer?
+                      InkWell(
+                          onTap: () =>
+                              pageProvider.gotoPage(PAGES.createAnOfferScreen),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 13, horizontal: 35),
+                            decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(48)),
+                            child: const Text(
+                              "Create offer",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'PushPenny'),
+                            ),
+                          ),
+                        ),
+                      //: const SizedBox(),
                   const SizedBox(
                     width: 15,
                   ),

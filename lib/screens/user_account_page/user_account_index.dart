@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../customWidget/searchField.dart';
 import '../../models/users.dart';
+import '../../providers/transaction_summary_provider.dart';
 import '../../providers/users.dart';
 
 class UserAccountIndex extends StatefulWidget {
@@ -56,6 +57,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   final TextEditingController _textEditingController = TextEditingController();
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
+      
   ScrollController? controller;
   final _debouncer = Debouncer();
 
@@ -452,7 +454,9 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             userProvider.getConnectSerivices(context);
                             userProvider.getCards(context);
                             userProvider.getTransactions(context);
-
+                            Provider.of<TransactionSummaryProvider>(context, listen: false)
+                         .getAllTransactionSummary(context, user.id!);
+                            //getAllTransactionSummary
                           },
                           child: Container(
                             height: 20,

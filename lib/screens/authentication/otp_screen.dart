@@ -126,9 +126,14 @@ class _OtpScreenState extends State<OtpScreen> {
                    Provider.of<OfferManagementProvider>(context, listen: false)
                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getAcceptedOfferManagement(context);
+                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
-                        .getCreatedUserAccount(context);
+                        .getAcceptedOfferManagement(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    // .getAcceptedUserOffer(context);
+                    // Provider.of<OfferManagementProvider>(context, listen: false)
+                    //     .getCreatedOffer(context);
+                      //  .getCreatedUserAccount(context);
                    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
@@ -140,17 +145,22 @@ class _OtpScreenState extends State<OtpScreen> {
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getUsers(context: context, entrySize: '100');
-                        Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getAllPayOutTransactions(context);
-                         Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getCompletedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getFailedPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getPendingPayOutTransactions(context);
-                          Provider.of<PayOutTransactionProvider>(context, listen: false)
-                         .getReversedPayOutTransactions(context);
-                 },
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getAllPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getCompletedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getFailedPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getPendingPayOutTransactions(context);
+                    Provider.of<PayOutTransactionProvider>(context,
+                            listen: false)
+                        .getReversedPayOutTransactions(context);
+                  },
                 ),
                 const SizedBox(
                   height: 30,

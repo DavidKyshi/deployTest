@@ -11,80 +11,94 @@ class OverViewOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-            width: 681.64,
-            height: 375.15,
-             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xffE8E8E8))
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TypeOfOfferDropDown(),
-                         CurrencyOfOfferDropDown(),
-                      ],
-                    ),
+    return Container(
+      width: 681.64,
+      height: 375.15,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: const Color(0xffE8E8E8))),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TypeOfOfferDropDown(),
+                CurrencyOfOfferDropDown(),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          RichText(
+              text: TextSpan(
+                  text: '0',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: primaryColor,
+                    fontSize: 40,
                   ),
-                  SizedBox(height: 20,),
-                  RichText(text: TextSpan(
-                    text: '0',
+                  children: [
+                TextSpan(
+                  style: TextStyle(color: Color(0xff6E80A3)),
+                  text: ' Offers!',
+                )
+              ])),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/images/yesterday.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '0 Yesterday, March 7',
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: primaryColor,
-                      fontSize: 40,
-
-                    ),
-                    children: [
-                      TextSpan(
-                        style: TextStyle(
-                          color: Color(0xff6E80A3)
-                        ),
-                        text: ' Offers!',
-                      )
-                    ]
-                  )),
-                  SizedBox(height: 20,),
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset('assets/images/yesterday.png', width: 20, height: 20,),
-                          SizedBox(width: 10,),
-                          Text('0 Yesterday, March 7',
-                          style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: primaryColor,
                       fontSize: 12,
-
                     ),
-                          )
-                        ],
-                      ),
-                      SizedBox(width: 40,),
-                      Row(
-                        children: [
-                          Image.asset('assets/images/today.png', width: 20, height: 20,),
-                           SizedBox(width: 10,),
-                          Text('0 Today, March 8',
-                          style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: primaryColor,
-                      fontSize: 12,
-
-                    ),
-                          )
-                        ],
-                      )
-                    ],
                   )
                 ],
               ),
-          );
+              SizedBox(
+                width: 40,
+              ),
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/images/today.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '0 Today, March 8',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: primaryColor,
+                      fontSize: 12,
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

@@ -240,7 +240,8 @@ class BioDataParameters extends StatefulWidget {
       required this.occupation,
       required this.nationality,
       required this.residence,
-      required this.dateOfRegistration});
+      required this.dateOfRegistration,
+      required this.isAccountKYC});
   final String firstName,
       middleName,
       lastName,
@@ -252,7 +253,7 @@ class BioDataParameters extends StatefulWidget {
       nationality,
       residence,
       dateOfRegistration;
-  final bool emailStatus, phoneNumberStatus;
+  final bool emailStatus, phoneNumberStatus, isAccountKYC;
 
   @override
   State<BioDataParameters> createState() => _BioDataParametersState();
@@ -465,233 +466,247 @@ class _BioDataParametersState extends State<BioDataParameters> {
                 height: 10,
               ),
               InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          insetPadding: EdgeInsets.all(20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                          content: SizedBox(
-                              height: 1095,
-                              width: 600,
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Edit Bright George profile details',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 28,
-                                                    color: primaryColor,
-                                                    fontFamily: "PushPenny"),
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              Text(
-                                                'You are about to make changes to this profile and KYC. Proceed?',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 12,
-                                                    color: Color(0xff6E80A3),
-                                                    fontFamily: "PushPenny"),
-                                              ),
-                                            ],
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            insetPadding: EdgeInsets.all(20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            content: SizedBox(
+                                height: 1095,
+                                width: 600,
+                                child: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Edit Bright George profile details',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 28,
+                                                      color: primaryColor,
+                                                      fontFamily: "PushPenny"),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'You are about to make changes to this profile and KYC. Proceed?',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                      color: Color(0xff6E80A3),
+                                                      fontFamily: "PushPenny"),
+                                                ),
+                                              ],
+                                            ),
+                                            InkWell(
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/cancel.png',
+                                                  width: 40,
+                                                  height: 40,
+                                                ))
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Divider(),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          width: 526,
+                                          height: 768,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xffF8F9FE),
+                                              borderRadius:
+                                                  BorderRadius.circular(7)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 20, 0),
+                                            child: Column(
+                                              children: [
+                                                smallList("First Name",
+                                                    firstNameController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Middle Name",
+                                                    middleNameController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Last Name",
+                                                    lastNameController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList(
+                                                    "Gender", genderController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Date of Birth",
+                                                    dobController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Email Address",
+                                                    emailController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Phone number",
+                                                    phoneNumberController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Occupations",
+                                                    occupationController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Nationality",
+                                                    nationalityController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                smallList("Residence",
+                                                    residencyController),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          InkWell(
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            InkWell(
                                               onTap: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Image.asset(
-                                                'assets/images/cancel.png',
-                                                width: 40,
-                                                height: 40,
-                                              ))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                      Divider(),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        width: 526,
-                                        height: 768,
-                                        decoration: BoxDecoration(
-                                            color: Color(0xffF8F9FE),
-                                            borderRadius:
-                                                BorderRadius.circular(7)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 10, 20, 0),
-                                          child: Column(
-                                            children: [
-                                              smallList("First Name",
-                                                  firstNameController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Middle Name",
-                                                  middleNameController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Last Name",
-                                                  lastNameController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList(
-                                                  "Gender", genderController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Date of Birth",
-                                                  dobController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Email Address",
-                                                  emailController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Phone number",
-                                                  phoneNumberController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Occupations",
-                                                  occupationController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Nationality",
-                                                  nationalityController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              smallList("Residence",
-                                                  residencyController),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Container(
-                                              width: 222,
-                                              height: 56,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffF8F9FE),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Cancel',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 16),
+                                              child: Container(
+                                                width: 222,
+                                                height: 56,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xffF8F9FE),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Cancel',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              userProvider.getAllEditProfile(
-                                                  firstNameController.text,
-                                                  lastNameController.text,
-                                                  middleNameController.text,
-                                                  emailController.text,
-                                                  phoneNumberController.text,
-                                                  occupationController.text,
-                                                  nationalityController.text,
-                                                  residencyController.text,
-                                                  dobController.text,
-                                                  genderController.text,
-                                                  context);
-                                              Navigator.of(context).pop;
-                                            },
-                                            child: Container(
-                                              width: 222,
-                                              height: 56,
-                                              decoration: BoxDecoration(
-                                                color: primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Yes, update profile',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 16),
+                                            InkWell(
+                                              onTap: () {
+                                                userProvider.getEditProfile(
+                                                  user_id: user!.id ?? "",
+                                                  first_name:
+                                                      firstNameController.text,
+                                                  last_name:
+                                                      lastNameController.text,
+                                                  middle_name:
+                                                      middleNameController.text,
+                                                  email: emailController.text,
+                                                  phone_number:
+                                                      phoneNumberController
+                                                          .text,
+                                                  occupation:
+                                                      occupationController.text,
+                                                  nationality:
+                                                      nationalityController
+                                                          .text,
+                                                  residence:
+                                                      residencyController.text,
+                                                  dob: dobController.text,
+                                                  gender: genderController.text,
+                                                  context: context,
+                                                );
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Container(
+                                                width: 222,
+                                                height: 56,
+                                                decoration: BoxDecoration(
+                                                  color: primaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Yes, update profile',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )),
-                        );
-                      });
-                },
-                child: Container(
-                  width: 300,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Edit profile',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14),
-                    ),
-                  ),
-                ),
-              ),
+                                )),
+                          );
+                        });
+                  },
+                  child: widget.isAccountKYC == true
+                      ? Container(
+                          width: 340,
+                          height: 46,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Edit profile',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14),
+                            ),
+                          ),
+                        )
+                      : SizedBox()),
             ],
           )),
     );
