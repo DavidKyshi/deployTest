@@ -4,9 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../providers/over_view_provider.dart';
+
 // ignore: must_be_immutable
 class LastDaysFilter extends StatefulWidget {
-  LastDaysFilter({super.key});
+  final Function(String?)? onChangeDate;
+  final String dropdownDateValue;
+  const LastDaysFilter({super.key,required this.onChangeDate, required this.dropdownDateValue});
 
   @override
   State<LastDaysFilter> createState() => _LastDaysFilterState();
@@ -14,6 +18,10 @@ class LastDaysFilter extends StatefulWidget {
 
 class _LastDaysFilterState extends State<LastDaysFilter> {
   String dropdownvalue = 'Last 7 days';
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  late int today;
+  late int yesterday;
 
   // List of items in our dropdown menu
   var lastDays = [
@@ -21,8 +29,16 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
     'Yesterday',
     'Last 7 days',
     'Last 30 days',
-    'Last 1826 days'
   ];
+  @override
+  void initState() {
+    final String formatted = formatter.format(now);
+    DateTime dateObj = DateFormat('d-MM-yy').parse(formatted);
+    today = dateObj.day;
+    yesterday = dateObj.day - 1;
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +62,12 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 dropdownColor: Colors.white,
                 elevation: 1,
                 // Initial Value
-                value: dropdownvalue,
+                value: widget.dropdownDateValue,
                 selectedItemBuilder: (BuildContext context) {
                   return lastDays.map((String items) {
                     return Center(
                       child: Text(
-                        dropdownvalue,
+                        widget.dropdownDateValue,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -87,11 +103,10 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 }).toList(),
                 // After selecting the desired option,it will
                 // change button value to selected value
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownvalue = newValue!;
-                  });
-                },
+                onChanged:widget.onChangeDate
+                //     (String? value) {
+
+                // },
               ),
             ),
           ],

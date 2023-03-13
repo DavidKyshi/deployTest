@@ -127,15 +127,15 @@ class _OverViewConnectState extends State<OverViewConnect> {
               SizedBox(
                 width: 20,
               ),
-              bottomText("Airtime"),
+              bottomText("Airtime","0"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("Data"),
+              bottomText("Data",""),
               SizedBox(
                 width: 10,
               ),
-              bottomText("Health Plans"),
+              bottomText("Health Plans",""),
             ],
           )
         ],

@@ -37,7 +37,7 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
-  syncfusion_flutter_charts: ^20.4.52
+  syncfusion_flutter_charts: ^20.4.53
   pin_code_fields: ^7.4.0
   lottie: ^1.0.1
 

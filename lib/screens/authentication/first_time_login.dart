@@ -13,6 +13,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../../helper/dialogs.dart';
 import '../../helper/screen_export.dart';
 import '../../models/users.dart';
+import '../../providers/over_view_provider.dart';
 import '../../providers/payout_transactions.dart';
 import '../../userService/userService.dart';
 import 'otp_screen.dart';
@@ -221,6 +222,9 @@ class _FirstTimerState extends State<FirstTimer> {
                   onPressed: () async {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
+                    Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context:
+                    context);
+                    Provider.of<OverViewProvider>(context,listen: false).getMarketPlaceOfferOverView(context: context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
                     // Provider.of<OfferManagementProvider>(context, listen: false)

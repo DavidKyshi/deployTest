@@ -3,23 +3,50 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/models/marketplaceOfferOverView.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../providers/over_view_provider.dart';
 import '../../widgets/over_view_widgets.dart';
+import 'over_view.dart';
 
 class OverViewMarketPlace extends StatefulWidget {
-  const OverViewMarketPlace({super.key});
+  final String dropdownCurrencyPair;
+  final List<StatusData> chartData;
+  final Function(String?)? onChangePairs;
+    OverViewMarketPlace({super.key, required this.dropdownCurrencyPair,required this.onChangePairs, required this.chartData});
 
   @override
   State<OverViewMarketPlace> createState() => _OverViewMarketPlaceState();
 }
 
 class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
+  // late List<StatusData> _chartData =[];
+  late MarketPlaceOfferOverView provider;
+  // late List<ChartData> data;
+  late  TooltipBehavior _tooltip;
+  OverViewProvider get overViewProvider =>
+      Provider.of<OverViewProvider>(context, listen: false);
+  @override
+  void initState() {
+    super.initState();
+     // provider = Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView;
+
+    // [Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView];
+    // getChartData();
+    _tooltip = TooltipBehavior(enable: true);
+  }
   @override
   Widget build(BuildContext context) {
+    // _chartData =[
+    //   StatusData("Active",  provider.activeOffers, primaryColor),
+    //   StatusData("Accepted",  provider.acceptedOffers,Color(0XFF2668EC)),
+    //   StatusData("Expired",  provider.closedOffers,kyshiGreyishBlue),
+    //   StatusData("Withdrawn",  provider.expiredOffers,Color(0XFF4DAEF8))];
     return Container(
-      width: 396.54,
-      height: 375.15,
+      width: 450.54,
+      height: 390,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: const Color(0xffE8E8E8))),
@@ -38,7 +65,7 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                       fontWeight: FontWeight.w500,
                       color: primaryColor),
                 ),
-                CurrencyOfMarketPlaceDropDown(),
+                CurrencyOfMarketPlaceDropDown(dropdownCurrencyPair: widget.dropdownCurrencyPair,onChangePairs: widget.onChangePairs,),
               ],
             ),
           ),
@@ -46,79 +73,79 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
             height: 5,
           ),
           Container(
-            width: 396.54,
-            height: 251.87,
+            // padding: EdgeInsets.symmetric(horizontal: 10),
+            // width: 396.54,
+            height: 231.87,
             decoration: BoxDecoration(
               color: Color(0xffF8F9FE),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 194.72,
-                    height: 194.72,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(500),
-                        border:
-                            Border.all(color: Color(0xffDDDDDD), width: 40)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "0",
-                          style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff6E80A3)),
-                        ),
-                        Text(
-                          "Total Offers",
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: primaryColor),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      WalletStatus(
-                        color: primaryColor,
-                        text: 'Active',
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      WalletStatus(
-                        color: Color(0xff6E80A3),
-                        text: 'Expired',
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      WalletStatus(
-                        color: Color(0xff2668EC),
-                        text: 'Accepted',
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      WalletStatus(
-                        color: Color(0xff4DAEF8),
-                        text: 'Withdrawn',
-                      )
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 300,
+                  child: SfCircularChart(
+                    annotations: <CircularChartAnnotation>[
+                      // CircularChartAnnotation(
+                      //     widget: Container(
+                      //         child: PhysicalModel(
+                      //             child: Container(),
+                      //             shape: BoxShape.circle,
+                      //             elevation: 2,
+                      //             shadowColor: Colors.black,
+                      //             color:  Colors.red))),
+                      CircularChartAnnotation(
+                          widget: Container(
+                              child:  Text('${Provider.of<OverViewProvider>(context,listen: false).totalOffers}',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.5), fontSize: 25))))
                     ],
-                  )
-                ],
-              ),
+                    tooltipBehavior: _tooltip,
+                    series: <CircularSeries>[
+                    DoughnutSeries<StatusData, String>(
+                      dataSource: widget.chartData,
+                      pointColorMapper:(StatusData data,  _) => data.color,
+                      xValueMapper: (StatusData data, _)=> "${data.status} %",
+                      yValueMapper: (StatusData data, _)=>data.amount,
+                      dataLabelSettings: DataLabelSettings(isVisible: true) ,
+                      radius: '80%'
+                      //  explode: true,
+                      //           explodeIndex: 1
+                    )
+                  ],),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WalletStatus(
+                      color: primaryColor,
+                      text: 'Active',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    WalletStatus(
+                      color: Color(0xff6E80A3),
+                      text: 'Expired',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    WalletStatus(
+                      color: Color(0xff2668EC),
+                      text: 'Accepted',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    WalletStatus(
+                      color: Color(0xff4DAEF8),
+                      text: 'Withdrawn',
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
           Row(
@@ -126,28 +153,46 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
               SizedBox(
                 width: 20,
               ),
-              bottomText("GBP/NGN"),
+              bottomText("NGN/GBP", "${Provider.of<OverViewProvider>(context,listen: false).totalNGNGBP}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("USD/NGN"),
+              bottomText("NGN/USD","${Provider.of<OverViewProvider>(context,listen: false).totalNGNUSD}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("CAD/NGN"),
+              bottomText("NGN/CAD", "0"),
             ],
           )
         ],
       ),
     );
   }
+
+  // List<StatusData> getChartData(){
+  //   // final expressChart = overViewProvider.expressChart;
+  //   final List<StatusData> chartData = [
+  //     StatusData("Successful",  20),
+  //     StatusData("Pending",  50),
+  //     StatusData("Failed",  30),
+  //     StatusData("Rejected",  50)
+  //   ];
+  //   return chartData;
+  // }
+}
+class ChartData {
+  ChartData(this.x, this.y);
+
+  final String x;
+  final double y;
 }
 
-Widget bottomText(String text) {
+
+Widget bottomText(String text, String value) {
   return Column(
     children: [
       Text(
-        '0',
+        value,
         style: TextStyle(
             color: primaryColor,
             fontWeight: FontWeight.w500,
@@ -238,7 +283,7 @@ class WalletStatus extends StatelessWidget {
               style: TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.w400,
-                  fontSize: 18),
+                  fontSize: 15),
             )
           ],
         )
