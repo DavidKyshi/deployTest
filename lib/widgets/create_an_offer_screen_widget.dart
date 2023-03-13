@@ -256,7 +256,7 @@ class _PaginatedDataDropDownState extends State<PaginatedDataDropDown> {
 
   // List of items in our dropdown menu
   // var currency = ['🇬🇧 GBP', '🇳🇬 NGN', '🇱🇷 USD'];
-  var currency =['100', '150', '300', '400', "500"];
+  var currency = ['100', '150', '300', '400', "500"];
   @override
   void initState() {
     // TODO: implement initState
@@ -270,9 +270,8 @@ class _PaginatedDataDropDownState extends State<PaginatedDataDropDown> {
       height: 50,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius:  BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey)
-      ),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Center(
@@ -292,25 +291,25 @@ class _PaginatedDataDropDownState extends State<PaginatedDataDropDown> {
                     return currency.map((String items) {
                       return Center(
                           child: RichText(
-                            text: TextSpan(
-                              text: dropdownvalue,
-                              style:  TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15,
-                                  color: primaryColor),
-                            ),
-                          )
-                        //             Text(
-                        //   dropdownvalue,
-                        //   style: const TextStyle( fontWeight: FontWeight.w500,
-                        //                 fontSize: 16,
-                        //                 color: Color(0xff0D2C65) ),
-                        // ),
-                      );
+                        text: TextSpan(
+                          text: dropdownvalue,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: primaryColor),
+                        ),
+                      )
+                          //             Text(
+                          //   dropdownvalue,
+                          //   style: const TextStyle( fontWeight: FontWeight.w500,
+                          //                 fontSize: 16,
+                          //                 color: Color(0xff0D2C65) ),
+                          // ),
+                          );
                     }).toList();
                   },
                   // Down Arrow Icon
-                  icon:  Icon(
+                  icon: Icon(
                     Icons.keyboard_arrow_down,
                     color: primaryColor,
                   ),
@@ -507,9 +506,197 @@ class SummaryBox extends StatelessWidget {
   }
 }
 
-class BankDetails extends StatelessWidget {
+
+class SearchBeneficiary extends StatelessWidget {
+  const SearchBeneficiary({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 485.7,
+        height: 578.6,
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xff8C8C8C),
+            ),
+            borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              children: [
+               BeneficiarySearchBar(),
+
+               //AddBeneficiaryButton()
+              ],
+            ),
+    );
+  }
+}
+
+class BeneficiaryResult extends StatelessWidget {
+  const BeneficiaryResult({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 444,
+      height: 400,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+      color: Color(0xffF8F9FE),
+      ),
+      child: Column(
+        children: [
+          KyshiWalletResult()
+        ],
+      ),
+    );
+  }
+}
+
+class KyshiWalletResult extends StatelessWidget {
+  const KyshiWalletResult({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Kyshi Wallet',
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w400,
+          color: primaryColor
+        ),
+        ),
+        Divider(),
+        Row(
+          children: [
+            Image.asset(ngnWalletBalanceFlag, width: 40, height: 30,),
+            Column(
+              children: [
+                Text('NGN wallet balance',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: primaryColor
+                ),
+                ),
+                RichText(text: TextSpan(
+                  text: '₦3,000,000,000.00',
+                   style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xff6E80A3)
+                ),
+                )
+                ),
+
+              ],
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class AddBeneficiaryButton extends StatelessWidget {
+  const AddBeneficiaryButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 444,
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+      color: primaryColor
+      ),
+      child: Center(
+          child: Row(
+            children: [
+              Image.asset(addBeneficiaryIcon, width: 24, height: 24,),
+              Text('New beneficiary ',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white
+              ),
+              )
+            ],
+          ),
+      ),
+    );
+  }
+}
+
+class BeneficiarySearchBar extends StatelessWidget {
+  const BeneficiarySearchBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 444,
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: primaryColor)
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(searchIcon, width: 24, height: 24,),
+                SizedBox(width: 20,),
+                Container(
+                  color: Colors.blue,
+                  child: TextFormField(
+                   // autofocus: true,
+                    // decoration: InputDecoration(
+                    //   hintText: 'Search existing beneficiary or wallet',
+                    //   //hintStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color: primaryColor),
+                      
+                    // ),
+                  ),
+                )
+                // Text('',
+                // style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color: primaryColor),
+                // )
+              ],
+            ),
+                                            Container(
+                                    width: 38,
+                                    height: 14,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xff7880AA),
+                                        borderRadius: BorderRadius.circular(2)),
+                                    child: Center(
+                                      child: Text(
+                                        'N NGN',
+                                        style: TextStyle(
+                                            fontSize: 9,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BankDetails extends StatefulWidget {
   const BankDetails({super.key});
 
+  @override
+  State<BankDetails> createState() => _BankDetailsState();
+}
+bool isusd = false;
+ bool isgbp = false ;
+ bool isngn = false;
+class _BankDetailsState extends State<BankDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -546,7 +733,7 @@ class BankDetails extends StatelessWidget {
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 395.5,
+                  height: 552,
                   decoration: const BoxDecoration(
                     color: Color(0xffF8F9FE),
                   ),
@@ -597,18 +784,21 @@ class BankDetails extends StatelessWidget {
                         Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('Bank Name'),
                                 // SizedBox(width: 50,),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 20,
-                                  color: Color(0xff23CE6B),
-                                )
+                                // Icon(
+                                //   Icons.arrow_drop_down,
+                                //   size: 20,
+                                //   color: Color(0xff23CE6B),
+                                // )
                               ],
                             ),
-                            Divider()
+                            TextField(
+        autofocus: true,
+       // controller: controller,
+      )
                           ],
                         ),
                         SizedBox(
@@ -619,25 +809,13 @@ class BankDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text('Account number'),
-                                // Container(
-                                //   width: 38,
-                                //   height: 14,
-                                //   decoration: BoxDecoration(
-                                //       color: Color(0xff7880AA),
-                                //       borderRadius: BorderRadius.circular(2)),
-                                //   child: Center(
-                                //     child: Text(
-                                //       'N NGN',
-                                //       style: TextStyle(
-                                //           fontSize: 9,
-                                //           color: Colors.white,
-                                //           fontWeight: FontWeight.w400),
-                                //     ),
-                                //   ),
-                                // )
+                                
                               ],
                             ),
-                            Divider()
+                            TextField(
+        autofocus: true,
+        //controller: controller,
+      )
                           ],
                         ),
                         SizedBox(
@@ -648,25 +826,13 @@ class BankDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text('Beneficiary (Autofill)'),
-                                // Container(
-                                //   width: 38,
-                                //   height: 14,
-                                //   decoration: BoxDecoration(
-                                //       color: Color(0xff7880AA),
-                                //       borderRadius: BorderRadius.circular(2)),
-                                //   child: Center(
-                                //     child: Text(
-                                //       'N NGN',
-                                //       style: TextStyle(
-                                //           fontSize: 9,
-                                //           color: Colors.white,
-                                //           fontWeight: FontWeight.w400),
-                                //     ),
-                                //   ),
-                                // )
+                                
                               ],
                             ),
-                            Divider()
+                            TextField(
+        autofocus: true,
+       // controller: controller,
+      )
                           ],
                         ),
                         SizedBox(
@@ -677,25 +843,13 @@ class BankDetails extends StatelessWidget {
                             Row(
                               children: [
                                 Text('Purpose'),
-                                // Container(
-                                //   width: 38,
-                                //   height: 14,
-                                //   decoration: BoxDecoration(
-                                //       color: Color(0xff7880AA),
-                                //       borderRadius: BorderRadius.circular(2)),
-                                //   child: Center(
-                                //     child: Text(
-                                //       'N NGN',
-                                //       style: TextStyle(
-                                //           fontSize: 9,
-                                //           color: Colors.white,
-                                //           fontWeight: FontWeight.w400),
-                                //     ),
-                                //   ),
-                                // )
+                              
                               ],
                             ),
-                            Divider()
+                            TextField(
+        autofocus: true,
+        //controller: controller,
+      )
                           ],
                         ),
                       ],

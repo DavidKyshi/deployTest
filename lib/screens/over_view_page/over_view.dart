@@ -2,7 +2,7 @@
 
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
- import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../helper/screen_export.dart';
 import '../../providers/over_view_provider.dart';
@@ -21,11 +21,11 @@ class OverViewScreen extends StatefulWidget {
 }
 
 class _OverViewScreenState extends State<OverViewScreen> {
-   late List<StatusData> _chartData;
+  late List<StatusData> _chartData;
   @override
   void initState() {
     super.initState();
-     _chartData = getChartData();
+    _chartData = getChartData();
   }
 
   OverViewProvider get overViewProvider =>
@@ -83,33 +83,34 @@ class _OverViewScreenState extends State<OverViewScreen> {
               width: 651.67,
               height: 338.4,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xffE8E8E8))
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0xffE8E8E8))),
               child: Column(
                 children: [
-                  const Text('Express Transfers',
-                  style: TextStyle(
-                    color: Color(0xff0D2C65),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18
-                  ),
+                  const Text(
+                    'Express Transfers',
+                    style: TextStyle(
+                        color: Color(0xff0D2C65),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18),
                   ),
                   Row(
                     children: [
                       SizedBox(
                         height: 400,
-                        child: SfCircularChart(series: <CircularSeries>[
-                          DoughnutSeries<StatusData, String>(
-                            dataSource: _chartData,
-                            xValueMapper: (StatusData data, _)=> data.status,
-                             yValueMapper: (StatusData data, _)=> data.amount,
-                             dataLabelSettings: DataLabelSettings(isVisible: true) ,
-                            //  explode: true,
-                            //           explodeIndex: 1
-
-                             )
-                        ],),
+                        child: SfCircularChart(
+                          series: <CircularSeries>[
+                            DoughnutSeries<StatusData, String>(
+                              dataSource: _chartData,
+                              xValueMapper: (StatusData data, _) => data.status,
+                              yValueMapper: (StatusData data, _) => data.amount,
+                              dataLabelSettings:
+                                  DataLabelSettings(isVisible: true),
+                              //  explode: true,
+                              //           explodeIndex: 1
+                            )
+                          ],
+                        ),
                       )
                     ],
                   )
@@ -122,20 +123,24 @@ class _OverViewScreenState extends State<OverViewScreen> {
     );
   }
 
-  List<StatusData> getChartData(){
-     final expressChart = overViewProvider.expressChart;
+  List<StatusData> getChartData() {
+    final expressChart = overViewProvider.expressChart;
     final List<StatusData> chartData = [
-     StatusData("Successful",  20),
-     StatusData("Pending",  50),
-     StatusData("Failed",  30)
+      StatusData("Successful", 20),
+      StatusData("Pending", 50),
+      StatusData("Failed", 30)
     ];
     return chartData;
   }
 }
-class StatusData{
-  StatusData( this.status, this.amount,);
+
+class StatusData {
+  StatusData(
+    this.status,
+    this.amount,
+  );
 
   final String status;
-   final int? amount;
+  final int? amount;
   //  final Color color;
 }

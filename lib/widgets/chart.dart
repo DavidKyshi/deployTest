@@ -10,7 +10,7 @@ class ChartTransaction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 584,
-      child:Text("fdf"),
+      child: Text("fdf"),
     );
   }
 }

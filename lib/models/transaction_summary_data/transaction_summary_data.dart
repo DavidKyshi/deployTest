@@ -21,7 +21,8 @@ class TransactionSummaryData {
     return TransactionSummaryData(
       data: data['data'] == null
           ? null
-          : TransactionSummaryUserData.fromMap(data['data'] as Map<String, dynamic>),
+          : TransactionSummaryUserData.fromMap(
+              data['data'] as Map<String, dynamic>),
       status: data['status'] as String?,
     );
   }

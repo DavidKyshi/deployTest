@@ -4,6 +4,20 @@ import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+class _FilterRanger {
+  final String title;
+  final int daysAgo;
+
+  const _FilterRanger(this.title, this.daysAgo);
+}
+
+  const List<_FilterRanger> lastDays = [
+    _FilterRanger('Today', 0),
+    _FilterRanger('Yesterday', 1),
+    _FilterRanger('Last 7 days', 6),
+    _FilterRanger('Last 30 days', 29),
+    _FilterRanger('Last 1826 days', 1825),
+  ];
 // ignore: must_be_immutable
 class LastDaysFilter extends StatefulWidget {
   LastDaysFilter({super.key});
@@ -13,16 +27,10 @@ class LastDaysFilter extends StatefulWidget {
 }
 
 class _LastDaysFilterState extends State<LastDaysFilter> {
-  String dropdownvalue = 'Last 7 days';
+  _FilterRanger dropdownvalue = lastDays[2];
 
   // List of items in our dropdown menu
-  var lastDays = [
-    'Today',
-    'Yesterday',
-    'Last 7 days',
-    'Last 30 days',
-    'Last 1826 days'
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
         child: Column(
           children: [
             DropdownButtonHideUnderline(
-              child: DropdownButton(
+              child: DropdownButton<_FilterRanger>(
                 isExpanded: true,
                 borderRadius: BorderRadius.circular(10),
                 dropdownColor: Colors.white,
@@ -48,11 +56,11 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 // Initial Value
                 value: dropdownvalue,
                 selectedItemBuilder: (BuildContext context) {
-                  return lastDays.map((String items) {
+                  return lastDays.map((items) {
                     return Center(
                       child: Text(
-                        dropdownvalue,
-                        style: const TextStyle(
+                        dropdownvalue.title,
+                        style:  TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color: Color(0xff0D2C65)),
@@ -64,7 +72,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 icon: const Icon(Icons.keyboard_arrow_down),
 
                 // Array list of items
-                items: lastDays.map((String items) {
+                items: lastDays.map((items) {
                   return DropdownMenuItem(
                     value: items,
                     child: Container(
@@ -76,7 +84,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                               bottom: BorderSide(
                                   color: Color(0xffDDDDDD), width: 0.5))),
                       child: Text(
-                        items,
+                        items.title,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -87,10 +95,11 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 }).toList(),
                 // After selecting the desired option,it will
                 // change button value to selected value
-                onChanged: (String? newValue) {
+                onChanged: ( newValue) {
                   setState(() {
                     dropdownvalue = newValue!;
                   });
+                  Provider.of<UsersProvider>(context,listen:false).getDaysAgo(context:context,daysAgo:newValue?.daysAgo.toString());
                 },
               ),
             ),

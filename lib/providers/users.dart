@@ -13,13 +13,12 @@ import '../models/transactions.dart';
 import '../userService/userService.dart';
 
 class UsersProvider extends ChangeNotifier {
- 
   List<User> editUsers = [];
   List<User> _users = [];
   String _loginError = "";
   String? currentSelectedUserId;
   String? _currentSelectedWalletId = "";
-  late LoginModel _loggedInAdmin ;
+  late LoginModel _loggedInAdmin;
 
   //String? currency = users.first.wallets!.first.currency;
   String? _currentUserName = "";
@@ -67,6 +66,7 @@ class UsersProvider extends ChangeNotifier {
     _currentUserName = name;
     notifyListeners();
   }
+
   void selectWalletId(String id) {
     _currentSelectedWalletId = id;
     notifyListeners();
@@ -76,10 +76,12 @@ class UsersProvider extends ChangeNotifier {
     _accessToken = token;
     notifyListeners();
   }
+
   void setLoginError(String error) {
     _loginError = error;
     notifyListeners();
   }
+
   void setAdmin(LoginModel admin) {
     _loggedInAdmin = admin;
     notifyListeners();
@@ -90,6 +92,34 @@ class UsersProvider extends ChangeNotifier {
     print("GET USERS CALLED");
     Map<String, dynamic> responseData =
         await UserService().getAllUsers(context: context, entrySize: entrySize);
+    // print("$responseData RAW DATA");
+    final data = List.from(responseData['data']);
+    _users = List<User>.from(data.map((x) => User.fromJson(x)));
+    print("${_users.length} ALL USERS RAW DATA");
+    notifyListeners();
+    return users;
+  }
+
+  Future<List<User>> getDaysAgo(
+      {required BuildContext context, required String? daysAgo}) async {
+    print("GET USERS CALLED");
+    Map<String, dynamic> responseData =
+        await UserService().getAllUsers(context: context, daysAgo: 1);
+    // print("$responseData RAW DATA");
+    final data = List.from(responseData['data']);
+    _users = List<User>.from(data.map((x) => User.fromJson(x)));
+    print("${_users.length} ALL USERS RAW DATA");
+    notifyListeners();
+    return users;
+  }
+
+  Future<List<User>> getUsersByRange(
+      {required BuildContext context,
+      required String startDate,
+      required String endDate}) async {
+    print("GET USERS CALLED");
+    Map<String, dynamic> responseData = await UserService()
+        .getAllUsers(context: context, startDate: startDate, endDate: endDate);
     // print("$responseData RAW DATA");
     final data = List.from(responseData['data']);
     _users = List<User>.from(data.map((x) => User.fromJson(x)));
@@ -109,8 +139,6 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
     return _connectService;
   }
-
-  
 
   // Future<List<User>> getAllEditProfile({
   //    required String user_id,
@@ -212,23 +240,32 @@ class UsersProvider extends ChangeNotifier {
 
   Future<List<Services>> getCards(BuildContext context) async {
     // Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
-    Map<String, dynamic> responseData = await UserService().getKyshiCard(userId:currentSelectedUserId ?? "", context: context);
+    Map<String, dynamic> responseData = await UserService()
+        .getKyshiCard(userId: currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
     _kyshiCard = List<Services>.from(data.map((x) => Services.fromJson(x)));
     notifyListeners();
     return _kyshiCard;
   }
-  Future<List<Wallet>> getAllWallets(BuildContext context, String entrySize) async {
-    Map<String, dynamic> responseData = await UserService().getWalletManagement(context: context, entrySize: entrySize);
+
+  Future<List<Wallet>> getAllWallets(
+      BuildContext context, String entrySize) async {
+    Map<String, dynamic> responseData = await UserService()
+        .getWalletManagement(context: context, entrySize: entrySize);
     final data = List.from(responseData['data']);
     _allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
     // print("${allWallets} XXXXXXXXXXX");
     // print( _allWallets.map((e) => "${e.toJson()}  ALL WALLETS OBJECT"));
 
-    _pendingWallets = _allWallets.where((element) => element.status == "PENDING" || element.status == "IN_PROGRESS").toList();
-    _activeWallets = _allWallets.where((element) => element.status == "ACTIVE").toList();
+    _pendingWallets = _allWallets
+        .where((element) =>
+            element.status == "PENDING" || element.status == "IN_PROGRESS")
+        .toList();
+    _activeWallets =
+        _allWallets.where((element) => element.status == "ACTIVE").toList();
     // _inActiveWallets = _allWallets.where((element) => element.status == "IN_PROGRESS").toList();
-    _rejectedWallets = _allWallets.where((element) => element.status == "REJECTED").toList();
+    _rejectedWallets =
+        _allWallets.where((element) => element.status == "REJECTED").toList();
     notifyListeners();
     return _allWallets;
   }

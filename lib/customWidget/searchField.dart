@@ -5,12 +5,14 @@ import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/wallet_balance.dart';
+
 class SearchField extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
-  final Function ()? exportCvsTap;
+  final Function()? exportCvsTap;
   final String? Function(String?)? validator;
   final Function()? onTap;
   final bool createOffer;
@@ -54,7 +56,8 @@ class SearchField extends StatefulWidget {
       this.isDense,
       this.hintText,
       this.initialValue,
-      this.createOffer = false, this.exportCvsTap})
+      this.createOffer = false,
+      this.exportCvsTap})
       : super(key: key);
 
   @override
@@ -103,27 +106,30 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                 // widget.createOffer?
-                      InkWell(
-                          onTap: () =>
-                              pageProvider.gotoPage(PAGES.createAnOfferScreen),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 13, horizontal: 35),
-                            decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(48)),
-                            child: const Text(
-                              "Create offer",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'PushPenny'),
-                            ),
-                          ),
-                        ),
-                      //: const SizedBox(),
+                   widget.createOffer?
+                  InkWell(
+                    onTap: () {
+                      Provider.of<WalletBalanceProvider>(context, listen: false)
+                          .getAllWalletBalanceResponse(context);
+                      pageProvider.gotoPage(PAGES.createAnOfferScreen);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 13, horizontal: 35),
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(48)),
+                      child: const Text(
+                        "Create offer",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny'),
+                      ),
+                    ),
+                  )
+                  : const SizedBox(),
                   const SizedBox(
                     width: 15,
                   ),

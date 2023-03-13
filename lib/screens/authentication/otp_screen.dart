@@ -42,7 +42,7 @@ class _OtpScreenState extends State<OtpScreen> {
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:  [
+        children: [
           CupertinoActivityIndicator(
             color: primaryColor,
             animating: true,
@@ -120,11 +120,12 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                 KyshiDynamicButtons(
-                  goDashBoard: true, onTap: () {
-                   verifyOtp();
-                   Provider.of<OfferManagementProvider>(context, listen: false)
-                       .getAllOfferManagement(context);
+                KyshiDynamicButtons(
+                  goDashBoard: true,
+                  onTap: () {
+                    verifyOtp();
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
@@ -133,8 +134,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     // .getAcceptedUserOffer(context);
                     // Provider.of<OfferManagementProvider>(context, listen: false)
                     //     .getCreatedOffer(context);
-                      //  .getCreatedUserAccount(context);
-                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
+                    //  .getCreatedUserAccount(context);
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getAllWallets(context, "50");
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
