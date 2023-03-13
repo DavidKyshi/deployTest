@@ -24,7 +24,8 @@ class UserAccountScreen extends StatelessWidget {
                   // crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    LastDaysFilter(),
+                    LastDaysFilter(
+                      dropdownDateValue: '', onChangeDate: (String? value ) {  },),
                     SizedBox(
                       width: 20,
                     ),

@@ -4,33 +4,41 @@ import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
-class _FilterRanger {
-  final String title;
-  final int daysAgo;
+import '../providers/over_view_provider.dart';
 
-  const _FilterRanger(this.title, this.daysAgo);
-}
-
-  const List<_FilterRanger> lastDays = [
-    _FilterRanger('Today', 0),
-    _FilterRanger('Yesterday', 1),
-    _FilterRanger('Last 7 days', 6),
-    _FilterRanger('Last 30 days', 29),
-    _FilterRanger('Last 1826 days', 1825),
-  ];
 // ignore: must_be_immutable
 class LastDaysFilter extends StatefulWidget {
-  LastDaysFilter({super.key});
+  final Function(String?)? onChangeDate;
+  final String dropdownDateValue;
+  const LastDaysFilter({super.key,required this.onChangeDate, required this.dropdownDateValue});
 
   @override
   State<LastDaysFilter> createState() => _LastDaysFilterState();
 }
 
 class _LastDaysFilterState extends State<LastDaysFilter> {
-  _FilterRanger dropdownvalue = lastDays[2];
+  String dropdownvalue = 'Last 7 days';
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  late int today;
+  late int yesterday;
 
   // List of items in our dropdown menu
-
+  var lastDays = [
+    'Today',
+    'Yesterday',
+    'Last 7 days',
+    'Last 30 days',
+  ];
+  @override
+  void initState() {
+    final String formatted = formatter.format(now);
+    DateTime dateObj = DateFormat('d-MM-yy').parse(formatted);
+    today = dateObj.day;
+    yesterday = dateObj.day - 1;
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +56,19 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
         child: Column(
           children: [
             DropdownButtonHideUnderline(
-              child: DropdownButton<_FilterRanger>(
+              child: DropdownButton(
                 isExpanded: true,
                 borderRadius: BorderRadius.circular(10),
                 dropdownColor: Colors.white,
                 elevation: 1,
                 // Initial Value
-                value: dropdownvalue,
+                value: widget.dropdownDateValue,
                 selectedItemBuilder: (BuildContext context) {
                   return lastDays.map((items) {
                     return Center(
                       child: Text(
-                        dropdownvalue.title,
-                        style:  TextStyle(
+                        widget.dropdownDateValue,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color: Color(0xff0D2C65)),
@@ -84,7 +92,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                               bottom: BorderSide(
                                   color: Color(0xffDDDDDD), width: 0.5))),
                       child: Text(
-                        items.title,
+                        items,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -95,12 +103,10 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 }).toList(),
                 // After selecting the desired option,it will
                 // change button value to selected value
-                onChanged: ( newValue) {
-                  setState(() {
-                    dropdownvalue = newValue!;
-                  });
-                  Provider.of<UsersProvider>(context,listen:false).getDaysAgo(context:context,daysAgo:newValue?.daysAgo.toString());
-                },
+                onChanged:widget.onChangeDate
+                //     (String? value) {
+
+                // },
               ),
             ),
           ],

@@ -4,11 +4,21 @@ import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/create_an_offer_screen_widget.dart';
 
+import '../../models/offersOverview.dart';
+import '../../providers/over_view_provider.dart';
 import '../../widgets/over_view_widgets.dart';
 
-class OverViewAirtime extends StatelessWidget {
+class OverViewAirtime extends StatefulWidget {
   const OverViewAirtime({super.key});
 
+  @override
+  State<OverViewAirtime> createState() => _OverViewAirtimeState();
+}
+
+class _OverViewAirtimeState extends State<OverViewAirtime> {
+  late List<OverViewdata> data;
+  String dropdownvalue = 'Created';
+  String dropdownvalueCurrency = 'NGN';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +48,12 @@ class OverViewAirtime extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    CurrencyOfOfferDropDown(),
+                    CurrencyOfOfferDropDown(onChangedCurr: (String? valueCur) {
+                      setState(() {
+                        dropdownvalueCurrency = valueCur!;
+                      });
+                      Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(dropdownvalueCurrency);
+                    }, dropdownvalueCurrency: dropdownvalueCurrency,),
                   ],
                 ),
               ],

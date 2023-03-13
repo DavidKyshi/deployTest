@@ -30,6 +30,7 @@ class MarketPlaceRevenue extends StatelessWidget {
           ),
           Row(
             children: [
+              // Provider.of<OverViewProvider>(context,listen: false)
               boxy("NGN", "₦ 0.00", "USD", "\$0.00"),
               SizedBox(
                 width: 20,

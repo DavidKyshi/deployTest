@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import '../helper/screen_export.dart';
+import '../providers/over_view_provider.dart';
 import '../styleguide/colors.dart';
 
 class TypeOfOfferDropDown extends StatefulWidget {
-  TypeOfOfferDropDown({super.key});
+  final Function(String?)? onChanged;
+  final String dropdownvalue;
+  const TypeOfOfferDropDown({super.key, this.onChanged, required this.dropdownvalue});
 
   @override
   State<TypeOfOfferDropDown> createState() => _TypeOfOfferDropDownState();
@@ -37,13 +40,13 @@ class _TypeOfOfferDropDownState extends State<TypeOfOfferDropDown> {
                   dropdownColor: Colors.white,
                   elevation: 1,
                   // Initial Value
-                  value: dropdownvalue,
+                  value: widget.dropdownvalue,
                   selectedItemBuilder: (BuildContext context) {
                     return currency.map((String items) {
                       return Center(
                           child: RichText(
                         text: TextSpan(
-                          text: dropdownvalue,
+                          text: widget.dropdownvalue,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -90,11 +93,14 @@ class _TypeOfOfferDropDownState extends State<TypeOfOfferDropDown> {
                   }).toList(),
                   // After selecting the desired option,it will
                   // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
+                  onChanged: widget.onChanged
+                  //     (String? newValue) {
+                  //   setState(() {
+                  //     dropdownvalue = newValue!;
+                  //   });
+                  //   print(dropdownvalue);
+                  //   Provider.of<OverViewProvider>(context,listen: false).setOfferStatus(dropdownvalue);
+                  // },
                 ),
               ),
             ],
@@ -106,7 +112,9 @@ class _TypeOfOfferDropDownState extends State<TypeOfOfferDropDown> {
 }
 
 class CurrencyOfOfferDropDown extends StatefulWidget {
-  CurrencyOfOfferDropDown({super.key});
+  final Function(String?)? onChangedCurr;
+  final String dropdownvalueCurrency;
+  CurrencyOfOfferDropDown({super.key,required this.onChangedCurr, required this.dropdownvalueCurrency});
 
   @override
   State<CurrencyOfOfferDropDown> createState() =>
@@ -140,13 +148,13 @@ class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
                   dropdownColor: Colors.white,
                   elevation: 1,
                   // Initial Value
-                  value: dropdownvalue,
+                  value: widget.dropdownvalueCurrency,
                   selectedItemBuilder: (BuildContext context) {
                     return currency.map((String items) {
                       return Center(
                           child: RichText(
                         text: TextSpan(
-                          text: dropdownvalue,
+                          text: widget.dropdownvalueCurrency,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -193,11 +201,13 @@ class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
                   }).toList(),
                   // After selecting the desired option,it will
                   // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
+                  onChanged: widget.onChangedCurr
+                    //   (String? newValue) {
+                    // setState(() {
+                    //   dropdownvalue = newValue!;
+                    //   Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(newValue);
+                    // });
+                  // },
                 ),
               ),
             ],
@@ -209,7 +219,9 @@ class _CurrencyOfOfferDropDownState extends State<CurrencyOfOfferDropDown> {
 }
 
 class CurrencyOfMarketPlaceDropDown extends StatefulWidget {
-  CurrencyOfMarketPlaceDropDown({super.key});
+  final String dropdownCurrencyPair;
+  final Function(String?)? onChangePairs;
+  const CurrencyOfMarketPlaceDropDown({super.key, required this.dropdownCurrencyPair,required this.onChangePairs});
 
   @override
   State<CurrencyOfMarketPlaceDropDown> createState() =>
@@ -218,10 +230,9 @@ class CurrencyOfMarketPlaceDropDown extends StatefulWidget {
 
 class _CurrencyOfMarketPlaceDropDownState
     extends State<CurrencyOfMarketPlaceDropDown> {
-  String dropdownvalue = 'GBP/NGN';
 
   // List of items in our dropdown menu
-  var currency = ['GBP/NGN', 'USD/NGN', 'CAD/NGN'];
+  var currency = ['NGN/GBP', 'NGN/USD', 'NGN/CAD'];
 
   @override
   Widget build(BuildContext context) {
@@ -244,13 +255,13 @@ class _CurrencyOfMarketPlaceDropDownState
                   dropdownColor: Colors.white,
                   elevation: 1,
                   // Initial Value
-                  value: dropdownvalue,
+                  value: widget.dropdownCurrencyPair,
                   selectedItemBuilder: (BuildContext context) {
                     return currency.map((String items) {
                       return Center(
                           child: RichText(
                         text: TextSpan(
-                          text: dropdownvalue,
+                          text: widget.dropdownCurrencyPair,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -298,11 +309,12 @@ class _CurrencyOfMarketPlaceDropDownState
                   }).toList(),
                   // After selecting the desired option,it will
                   // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
+                  onChanged: widget.onChangePairs
+                  //     (String? newValue) {
+                  //   setState(() {
+                  //     dropdownvalue = newValue!;
+                  //   });
+                  // },
                 ),
               ),
             ],
