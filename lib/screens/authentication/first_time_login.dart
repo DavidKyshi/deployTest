@@ -224,9 +224,13 @@ class _FirstTimerState extends State<FirstTimer> {
                         .getAllOfferManagement(context);
                     Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context:
                     context);
+                    Provider.of<OverViewProvider>(context,listen: false).getKyshiConnectGraph(context: context);
+                    Provider.of<OverViewProvider>(context,listen: false).getKyshiConnectOverView(context: context);
                     Provider.of<OverViewProvider>(context,listen: false).getMarketPlaceOfferOverView(context: context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
+                    Provider.of<OverViewProvider>(context,listen: false).getAllExpressChart(context: context);
+                    Provider.of<OverViewProvider>(context,listen: false).getMarketPlaceRevenue(context: context);
                     // Provider.of<OfferManagementProvider>(context, listen: false)
                     // .getAcceptedUserOffer(context);
                     // Provider.of<OfferManagementProvider>(context, listen: false)

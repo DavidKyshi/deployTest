@@ -101,30 +101,6 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getExpressChart(
-      {required BuildContext context}) async {
-    final token =
-        Provider.of<UsersProvider>(context, listen: false).accessToken;
-    String baseUrl = dotenv.env['API_URL']!;
-    final Uri uri = Uri.parse("$baseUrl/ops/dashboard/express");
-    try {
-      // customInternalDio.get("/ops/users",)
-      Response response = await customInternalDio.get<Map<String, dynamic>>(
-          "/ops/dashboard/express",
-          options: Options(headers: {"authorization": "Bearer $token"}));
-      return response.data;
-    } catch (e) {
-      if (kDebugMode) {
-        print("$e An error occurred");
-      }
-      if (e is DioError) {
-        print("${e.response?.data}hkhgjghbjhgb");
-        throw e.response?.data;
-      }
-      rethrow;
-    }
-  }
-
   Future<Map<String, dynamic>> getOfferManagement(String type,
       {String? userId, required BuildContext context}) async {
     final token =

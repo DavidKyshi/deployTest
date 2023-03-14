@@ -106,10 +106,67 @@ class OverViewService{
       }else{
         url = "$baseUrl/ops/dashboard/connect?entry_size=$daysAgo&health=true";
       }
+      // print("$url CHECKING CONNECT URL");
     try {
       // customInternalDio.get("/ops/users",)
       // print("$status $baseCurrency $daysAgo ALL PARAMETERS");
       Response response = await customInternalDio.get<Map<String, dynamic>>(url,
+          options: Options(headers: {"authorization": "Bearer $token"}));
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> getKyshiConnectGraph(
+      {required BuildContext context, required int daysAgo, required String connectService, required String connectBaseCur}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/connect/dashboard");
+    try {
+      // customInternalDio.get("/ops/users",)
+      // print("$status $baseCurrency $daysAgo ALL PARAMETERS");
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/connect/dashboard",
+          queryParameters: {
+            "days_ago": daysAgo,
+            "connect":connectService,
+            "base_currency":connectBaseCur
+          },
+          options: Options(headers: {"authorization": "Bearer $token"}));
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getExpressChart(
+      {required BuildContext context,required int daysAgo}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/dashboard/express");
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(
+          "/ops/dashboard/express",
+          queryParameters: {
+            "days_ago":daysAgo
+          },
           options: Options(headers: {"authorization": "Bearer $token"}));
       return response.data;
     } catch (e) {

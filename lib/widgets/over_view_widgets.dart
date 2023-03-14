@@ -326,17 +326,17 @@ class _CurrencyOfMarketPlaceDropDownState
 }
 
 class ConnectDropDown extends StatefulWidget {
-  ConnectDropDown({super.key});
+  final Function(String?)? onChangedAirtimeGraph;
+  final String dropDownAirtimeGraph;
+  const ConnectDropDown({super.key,required this.onChangedAirtimeGraph, required this.dropDownAirtimeGraph});
 
   @override
   State<ConnectDropDown> createState() => _ConnectDropDownState();
 }
 
 class _ConnectDropDownState extends State<ConnectDropDown> {
-  String dropdownvalue = 'Airtime';
-
   // List of items in our dropdown menu
-  List<String> currency = ['Airtime', 'Data Plan', 'Health Plan'];
+  List<String> currency = ['Airtime', 'Data', 'Health'];
 
   @override
   Widget build(BuildContext context) {
@@ -359,13 +359,13 @@ class _ConnectDropDownState extends State<ConnectDropDown> {
                   dropdownColor: Colors.white,
                   elevation: 1,
                   // Initial Value
-                  value: dropdownvalue,
+                  value: widget.dropDownAirtimeGraph,
                   selectedItemBuilder: (BuildContext context) {
                     return currency.map((String items) {
                       return Center(
                           child: RichText(
                         text: TextSpan(
-                          text: dropdownvalue,
+                          text: widget.dropDownAirtimeGraph,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
@@ -413,11 +413,12 @@ class _ConnectDropDownState extends State<ConnectDropDown> {
                   }).toList(),
                   // After selecting the desired option,it will
                   // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
+                  onChanged: widget.onChangedAirtimeGraph
+                  //     (String? newValue) {
+                  //   setState(() {
+                  //     dropdownvalue = newValue!;
+                  //   });
+                  // },
                 ),
               ),
             ],

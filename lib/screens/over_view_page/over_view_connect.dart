@@ -4,18 +4,38 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../models/kyshiConnectOverViewResponse.dart';
+import '../../providers/over_view_provider.dart';
 import '../../widgets/over_view_widgets.dart';
+import 'over_view.dart';
 import 'over_view_marketplace.dart';
 
 class OverViewConnect extends StatefulWidget {
-  const OverViewConnect({super.key});
+  final Function(String?)? onChangedAirtimeGraph;
+  final String dropDownAirtimeGraph2;
+  final List<StatusData> chartData;
+  final Data connectData;
+  // final Function(String?)? onChangedCurr;
+  const OverViewConnect({super.key, required this.onChangedAirtimeGraph,
+    required this.dropDownAirtimeGraph2, required this.chartData, required this.connectData});
 
   @override
   State<OverViewConnect> createState() => _OverViewConnectState();
 }
 
 class _OverViewConnectState extends State<OverViewConnect> {
+  late  TooltipBehavior _tooltip;
+
+  @override
+  void initState() {
+    _tooltip = TooltipBehavior(enable: true);
+    // TODO: implement initState
+    super.initState();
+  }
+  OverViewProvider get overViewProvider =>
+      Provider.of<OverViewProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +59,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       fontWeight: FontWeight.w500,
                       color: primaryColor),
                 ),
-                ConnectDropDown(),
+                ConnectDropDown(dropDownAirtimeGraph: widget.dropDownAirtimeGraph2,onChangedAirtimeGraph: widget.onChangedAirtimeGraph,),
               ],
             ),
           ),
@@ -58,6 +78,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  widget.chartData.isEmpty?
                   Container(
                     width: 194.72,
                     height: 194.72,
@@ -84,7 +105,49 @@ class _OverViewConnectState extends State<OverViewConnect> {
                         ),
                       ],
                     ),
-                  ),
+                  ):
+              SizedBox(
+              height: 300,
+              child: SfCircularChart(
+                annotations: <CircularChartAnnotation>[
+                  // CircularChartAnnotation(
+                  //     widget: Container(
+                  //         child: PhysicalModel(
+                  //             child: Container(),
+                  //             shape: BoxShape.circle,
+                  //             elevation: 2,
+                  //             shadowColor: Colors.black,
+                  //             color:  Colors.red))),
+                  CircularChartAnnotation(
+                      widget: Column(
+                        children: [
+                          Text('${overViewProvider.totalConnectTrx ?? 0}',
+                              style: TextStyle(
+                                  color: kyshiGreyishBlue,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'PushPenny')),
+                          Text('Total Transaction',
+                              style: TextStyle(
+                                  color: primaryColor, fontSize: 12,fontWeight:
+                              FontWeight.w500,fontFamily: 'PushPenny'))
+                        ],
+                      ))
+                ],
+                tooltipBehavior: _tooltip,
+                series: <CircularSeries>[
+                  DoughnutSeries<StatusData, String>(
+                      dataSource: widget.chartData,
+                      pointColorMapper:(StatusData data,  _) => data.color,
+                      xValueMapper: (StatusData data, _)=> "${data.status} %",
+                      yValueMapper: (StatusData data, _)=>data.amount,
+                      dataLabelSettings: DataLabelSettings(isVisible: true) ,
+                      radius: '80%'
+                    //  explode: true,
+                    //           explodeIndex: 1
+                  )
+                ],),
+            ),
                   SizedBox(
                     width: 20,
                   ),
@@ -93,6 +156,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                     children: [
                       WalletStatus(
                         color: Color(0xff2668EC),
+                        value:widget.connectData.kyshiConnectDataNgnSum ?? 0 ,
                         text: 'NGN',
                       ),
                       SizedBox(
@@ -100,6 +164,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       ),
                       WalletStatus(
                         color: primaryColor,
+                        value: widget.connectData.kyshiConnectDataGbpSum ?? 0,
                         text: 'GBP',
                       ),
                       SizedBox(
@@ -107,6 +172,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       ),
                       WalletStatus(
                         color: Color(0xff6E80A3),
+                        value: widget.connectData.kyshiConnectDataUsdSum ?? 0,
                         text: 'USD',
                       ),
                       SizedBox(
@@ -114,6 +180,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       ),
                       WalletStatus(
                         color: Color(0xff4DAEF8),
+                        value: widget.connectData.kyshiConnectDataCadSum ?? 0,
                         text: 'CAD',
                       )
                     ],

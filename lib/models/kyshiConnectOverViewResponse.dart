@@ -40,21 +40,21 @@ class Data {
   });
 
   int? totalConnectTransaction;
-  int? totalConnectTransactionSum;
-  int? kyshiConnectDataSum;
-  int? kyshiConnectDataGbpSum;
-  int? kyshiConnectDataUsdSum;
-  int? kyshiConnectDataCadSum;
-  int? kyshiConnectDataNgnSum;
+  double? totalConnectTransactionSum;
+  double? kyshiConnectDataSum;
+  double? kyshiConnectDataGbpSum;
+  double? kyshiConnectDataUsdSum;
+  double? kyshiConnectDataCadSum;
+  double? kyshiConnectDataNgnSum;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    totalConnectTransaction: json["total_connect_transaction"],
-    totalConnectTransactionSum: json["total_connect_transaction_sum"],
-    kyshiConnectDataSum: json["kyshi_connect_data_sum"],
-    kyshiConnectDataGbpSum: json["kyshi_connect_data_gbp_sum"],
-    kyshiConnectDataUsdSum: json["kyshi_connect_data_usd_sum"],
-    kyshiConnectDataCadSum: json["kyshi_connect_data_cad_sum"],
-    kyshiConnectDataNgnSum: json["kyshi_connect_data_ngn_sum"],
+    totalConnectTransaction: json["total_connect_transaction"] ?? 0,
+    totalConnectTransactionSum: json["total_connect_transaction_sum"] ?? 0,
+    kyshiConnectDataSum: json["kyshi_connect_data_sum"] ?? 0,
+    kyshiConnectDataGbpSum: json["kyshi_connect_data_gbp_sum"] ?? 0,
+    kyshiConnectDataUsdSum: json["kyshi_connect_data_usd_sum"] ?? 0,
+    kyshiConnectDataCadSum: json["kyshi_connect_data_cad_sum"] ?? 0,
+    kyshiConnectDataNgnSum: json["kyshi_connect_data_ngn_sum"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {

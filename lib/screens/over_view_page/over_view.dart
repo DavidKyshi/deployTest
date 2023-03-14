@@ -5,6 +5,8 @@ import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../helper/screen_export.dart';
+import '../../models/kyshiConnectGraph.dart';
+import '../../models/kyshiConnectOverViewResponse.dart';
 import '../../models/marketplaceOfferOverView.dart';
 import '../../models/offersOverview.dart';
 import '../../providers/over_view_provider.dart';
@@ -21,9 +23,13 @@ class OverViewScreen extends StatefulWidget {
 }
 class _OverViewScreenState extends State<OverViewScreen> {
   late List<StatusData> _chartData;
+  late List<StatusData> connectData;
   late List<OverViewdata> data;
+  late List<ConnectOverViewGraph> airtimeData;
   bool isLoading = false;
   String dropdownCurrencyPair = "NGN/GBP";
+  String dropDownAirtimeGraph = 'Airtime';
+  String dropDownAirtimeGraph2 = 'Airtime';
   String dropdownvalue = 'Accepted';
   String dropdownDateValue = 'Last 7 days';
   String dropdownvalueCurrency = 'NGN';
@@ -34,15 +40,28 @@ class _OverViewScreenState extends State<OverViewScreen> {
   String baseCur = "";
   String quoteCur ="";
   late MarketPlaceOfferOverView provider;
+  late Data connectProvider;
   @override
   void initState() {
     super.initState();
     data = overViewProvider.overViewOffers;
+    airtimeData = overViewProvider.kyshiConnectGraph;
      provider = overViewProvider.marketPlaceOfferOverView;
+     connectProvider = overViewProvider.kyshiConnectOverViewResponse;
     final String formatted = formatter.format(now);
     DateTime dateObj = DateFormat('d-MM-yy').parse(formatted);
     today = dateObj.day;
     yesterday = dateObj.day - 1;
+    final ngn =(connectProvider.kyshiConnectDataNgnSum!  * 100/connectProvider.totalConnectTransaction!).toStringAsFixed(2);
+    final gbp = (connectProvider.kyshiConnectDataGbpSum!  * 100/connectProvider.totalConnectTransaction!).toStringAsFixed(2);
+    final usd =(connectProvider.kyshiConnectDataUsdSum!  * 100/connectProvider.totalConnectTransaction!).toStringAsFixed(2);
+    final cad = (connectProvider.kyshiConnectDataCadSum!  * 100/connectProvider.totalConnectTransaction!).toStringAsFixed(2);
+    // print("$ngn $gbp $usd $cad currency figures");
+    connectData = [
+      StatusData("NGN", double.tryParse(ngn) , primaryColor),
+      StatusData("GBP", double.tryParse(gbp) ,Color(0XFF2668EC)),
+      StatusData("USD", double.tryParse(usd) ,kyshiGreyishBlue),
+      StatusData("CAD", double.tryParse(cad) ,Color(0XFF4DAEF8))];
     // _chartData = getChartData();
   }
   double? totalOffer(){
@@ -90,7 +109,20 @@ class _OverViewScreenState extends State<OverViewScreen> {
       backgroundColor: Colors.white,
       body: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
         return SingleChildScrollView(
-          child: Column(
+          child:isLoading ?Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:  [
+                SizedBox(height: 70,),
+                CupertinoActivityIndicator(
+                  color: primaryColor,
+                  animating: true,
+                  radius: 20,
+                )
+              ],
+            ),
+          ): Column(
             children: [
               SizedBox(height: 20,),
               // Text(dropdownvalue),
@@ -135,17 +167,6 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 ),
               ),
               SizedBox(height: 20,),
-              isLoading ?Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:  [
-                  CupertinoActivityIndicator(
-                    color: primaryColor,
-                    animating: true,
-                    radius: 20,
-                  )
-                ],
-              ):
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Row(
@@ -171,10 +192,10 @@ class _OverViewScreenState extends State<OverViewScreen> {
                                 setState(() {
                                   dropdownvalueCurrency = valueCur!;
                                   isLoading = true;
+                                  Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(dropdownvalueCurrency);
                                   Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context: context);
                                   data = overViewProvider.overViewOffers;
                                 });
-                                Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(dropdownvalueCurrency);
                                 Future.delayed(Duration(seconds: 9)).then((value) =>
                                     setState(() {
                                       isLoading = false;
@@ -206,7 +227,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
                                     setState(() {
                                       isLoading = false;
                                     }));
-                    }, chartData: _chartData,),
+                    }, chartData: _chartData, marketPairsData: provider,),
                   ],
                 ),
               ),
@@ -217,11 +238,60 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
                 child: Row(
                   children: [
-                    OverViewConnect(),
+                    OverViewConnect(
+                      dropDownAirtimeGraph2: dropDownAirtimeGraph2,
+                      onChangedAirtimeGraph: (String? connectService) {
+                        Data dat = overViewProvider.kyshiConnectOverViewResponse;
+                        setState(() {
+                          dropDownAirtimeGraph2 = connectService!;
+                          isLoading = true;
+                          selectedCurrency(dropdownCurrencyPair);
+                          overViewProvider.setConnectService2(dropDownAirtimeGraph2);
+                          overViewProvider.getKyshiConnectOverView(context: context);
+                          overViewProvider.setTotalConnectTrx(dat.totalConnectTransaction ?? 0);
+                          // provider.setTotalNGNUSD(pro.totalOffers ?? 0);
+                        });
+                        Future.delayed(Duration(seconds: 9)).then((value) =>
+                            setState(() {
+                              isLoading = false;
+                            }));
+                    }, chartData: connectData, connectData: connectProvider,),
                     SizedBox(
                       width: 40,
                     ),
-                    OverViewAirtime()
+                    OverViewAirtime(
+                      dropDownAirtimeGraph: dropDownAirtimeGraph,
+                      onChangedAirtimeGraph: (String? connectService) {
+                        // final provider = Provider.of<OverViewProvider>(context,listen: false);
+                        setState(() {
+                          isLoading = true;
+                          dropDownAirtimeGraph = connectService!;
+                          overViewProvider.setConnectService(dropDownAirtimeGraph);
+                          overViewProvider.getKyshiConnectGraph(context: context);
+                          airtimeData = overViewProvider.kyshiConnectGraph;
+                          // provider.setTotalNGNUSD(pro.totalOffers ?? 0);
+                        });
+                        Future.delayed(Duration(seconds: 9)).then((value) =>
+                            setState(() {
+                              isLoading = false;
+                            }));
+                    },
+                      dropdownvalueCurrency: dropdownvalueCurrency,
+                      onChangedCurr: (String? valueCur) {
+                        setState(() {
+                          isLoading = true;
+                          dropdownvalueCurrency = valueCur!;
+                          overViewProvider.setConnectBaseCur(dropdownvalueCurrency);
+                          overViewProvider.getKyshiConnectGraph(context: context);
+                          airtimeData = overViewProvider.kyshiConnectGraph;
+                          // provider.setTotalNGNUSD(pro.totalOffers ?? 0);
+                        });
+                        Future.delayed(Duration(seconds: 9)).then((value) =>
+                            setState(() {
+                              isLoading = false;
+                            }));
+
+                    }, data: airtimeData,)
                   ],
                 ),
               ),

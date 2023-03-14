@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
-class MarketPlaceRevenue extends StatelessWidget {
+import '../../helper/screen_export.dart';
+import '../../providers/over_view_provider.dart';
+
+class MarketPlaceRevenue extends StatefulWidget {
   const MarketPlaceRevenue({super.key});
 
   @override
+  State<MarketPlaceRevenue> createState() => _MarketPlaceRevenueState();
+}
+
+class _MarketPlaceRevenueState extends State<MarketPlaceRevenue> {
+  OverViewProvider get overViewProvider =>
+      Provider.of<OverViewProvider>(context, listen: false);
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 438.08,
-      height: 338.4,
+      width:350,
+      height: 375.4,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Color(0xffE8E8E8))),
@@ -31,11 +41,11 @@ class MarketPlaceRevenue extends StatelessWidget {
           Row(
             children: [
               // Provider.of<OverViewProvider>(context,listen: false)
-              boxy("NGN", "₦ 0.00", "USD", "\$0.00"),
+              boxy("NGN", "₦ ${overViewProvider.ngnRevenue}", "USD", "\$ ${overViewProvider.usdRevenue}"),
               SizedBox(
                 width: 20,
               ),
-              boxy("GBP ", "£ 0.00", "CAD", "C\$ 0.00"),
+              boxy("GBP ", "£ ${overViewProvider.gbpRevenue}", "CAD", "C\$ ${overViewProvider.cadRevenue}"),
             ],
           )
         ],
@@ -47,7 +57,7 @@ class MarketPlaceRevenue extends StatelessWidget {
 Container boxy(String baseCurrency, String baseAmount, String quoteCurrency,
     String quoteAmount) {
   return Container(
-    width: 206.23,
+    width: 150.23,
     height: 282.12,
     decoration: BoxDecoration(
         color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),

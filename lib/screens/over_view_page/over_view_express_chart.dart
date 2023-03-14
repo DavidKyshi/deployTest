@@ -1,19 +1,46 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/models/express_chart.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../providers/over_view_provider.dart';
 import '../../styleguide/colors.dart';
 import 'market_place_revenue.dart';
+import 'over_view.dart';
 import 'over_view_marketplace.dart';
 
-class OverViewExpressChart extends StatelessWidget {
+class OverViewExpressChart extends StatefulWidget {
   const OverViewExpressChart({super.key});
 
   @override
+  State<OverViewExpressChart> createState() => _OverViewExpressChartState();
+}
+
+class _OverViewExpressChartState extends State<OverViewExpressChart> {
+  ExpressChart? _expressChart;
+  late  TooltipBehavior _tooltip;
+  late List<StatusData> _data;
+
+  OverViewProvider get overViewProvider =>
+      Provider.of<OverViewProvider>(context, listen: false);
+  @override
+  void initState() {
+    _expressChart = overViewProvider.expressChat;
+    _tooltip = TooltipBehavior(enable: true);
+    _data =[
+      StatusData("GBP", _expressChart?.expressTransferGbpSum , kyshiGreen),
+      StatusData("USD", _expressChart?.expressTransferUsdSum  ,primaryColor),
+      StatusData("CAD", _expressChart?.expressTransferCadSum  ,const Color(0XFF4DAEF8))];
+
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 651.67,
-      height: 338.4,
+      width: 725.67,
+      height: 390.4,
       decoration: BoxDecoration(
           border: Border.all(color: Color(0xffE8E8E8)),
           borderRadius: BorderRadius.circular(10)),
@@ -35,7 +62,7 @@ class OverViewExpressChart extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Container(
+                 _data.isEmpty ? Container(
                     width: 194.72,
                     height: 194.72,
                     decoration: BoxDecoration(
@@ -61,13 +88,59 @@ class OverViewExpressChart extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ) :
+                  SizedBox(
+                    height: 300,
+                    child: SfCircularChart(
+                      annotations: <CircularChartAnnotation>[
+                        // CircularChartAnnotation(
+                        //     widget: Container(
+                        //         child: PhysicalModel(
+                        //             child: Container(),
+                        //             shape: BoxShape.circle,
+                        //             elevation: 2,
+                        //             shadowColor: Colors.black,
+                        //             color:  Colors.red))),
+                        CircularChartAnnotation(
+                            widget: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text('${_expressChart?.totalCountExpressTransfer ?? 0}',
+                                    style: TextStyle(
+                                        color: kyshiGreyishBlue,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'PushPenny')),
+                                Text('Total Transaction',
+                                    style: TextStyle(
+                                        color: primaryColor, fontSize: 10,fontWeight:
+                                    FontWeight.w500,fontFamily: 'PushPenny'))
+                              ],
+                            ))
+                      ],
+                      tooltipBehavior: _tooltip,
+                      series: <CircularSeries>[
+                        DoughnutSeries<StatusData, String>(
+                            dataSource: _data,
+                            pointColorMapper:(StatusData data,  _) => data.color,
+                            xValueMapper: (StatusData data, _)=> "${data.status} %",
+                            yValueMapper: (StatusData data, _)=>data.amount,
+                            dataLabelSettings: const DataLabelSettings(isVisible: true) ,
+                            radius: '80%'
+                          //  explode: true,
+                          //           explodeIndex: 1
+                        )
+                      ],),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      bottomText2('Successful'),
-                      bottomText2('Failed'),
-                      bottomText2('Pending'),
+                      bottomText2('Successful', value: _expressChart?.successfullCountExpressTransfer ?? 0),
+                      const SizedBox(width: 7,),
+                      bottomText2('Failed', value: _expressChart?.failedCountExpressTransfer ?? 0),
+                      const SizedBox(width: 7,),
+                      bottomText2('Pending', value: _expressChart?.pendingCountExpressTransfer ?? 0),
                     ],
                   )
                 ],
@@ -81,12 +154,12 @@ class OverViewExpressChart extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    bottomText3('GBP Transactions'),
-                    bottomText3('USD Transations'),
-                    bottomText3('CAD Transactions'),
+                    bottomText3('GBP Transactions', value: _expressChart?.totalCountExpressTransferGbp ?? 0),
+                    bottomText3('USD Transactions', value: _expressChart?.totalCountExpressTransferUsd ?? 0),
+                    bottomText3('CAD Transactions', value: _expressChart?.totalCountExpressTransferCad ?? 0),
                     Row(
                       children: [
-                        WalletStatus2(
+                        const WalletStatus2(
                           color: Color(0xff23CE6B),
                           text: 'GBP',
                         ),
@@ -94,7 +167,7 @@ class OverViewExpressChart extends StatelessWidget {
                           color: primaryColor,
                           text: 'USD',
                         ),
-                        WalletStatus2(
+                        const WalletStatus2(
                           color: Color(0xff4DAEF8),
                           text: 'CAD',
                         ),
@@ -103,8 +176,8 @@ class OverViewExpressChart extends StatelessWidget {
                   ],
                 ),
               ),
-              boxy2("Total GBP ", "£ 0.00", "Total USD", "\$0.00", "Total  CAD",
-                  "C\$ 0.00")
+              boxy2("Total GBP ", "£ ${_expressChart?.expressTransferGbpSum ?? 0}", "Total USD", "\$${_expressChart?.expressTransferUsdSum ?? 0}", "Total  CAD",
+                  "C\$ ${_expressChart?.expressTransferCadSum ?? 0}")
             ],
           )
         ],

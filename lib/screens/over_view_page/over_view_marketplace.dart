@@ -7,6 +7,7 @@ import 'package:kyshi_operations_dashboard/models/marketplaceOfferOverView.dart'
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../models/kyshiConnectOverViewResponse.dart';
 import '../../providers/over_view_provider.dart';
 import '../../widgets/over_view_widgets.dart';
 import 'over_view.dart';
@@ -14,8 +15,10 @@ import 'over_view.dart';
 class OverViewMarketPlace extends StatefulWidget {
   final String dropdownCurrencyPair;
   final List<StatusData> chartData;
+  final MarketPlaceOfferOverView marketPairsData;
   final Function(String?)? onChangePairs;
-    OverViewMarketPlace({super.key, required this.dropdownCurrencyPair,required this.onChangePairs, required this.chartData});
+    const OverViewMarketPlace({super.key, required this.dropdownCurrencyPair,
+      required this.onChangePairs, required this.chartData, required this.marketPairsData});
 
   @override
   State<OverViewMarketPlace> createState() => _OverViewMarketPlaceState();
@@ -120,6 +123,7 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                   children: [
                     WalletStatus(
                       color: primaryColor,
+                      value: widget.marketPairsData.activeOffers ?? 0,
                       text: 'Active',
                     ),
                     SizedBox(
@@ -127,6 +131,7 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                     ),
                     WalletStatus(
                       color: Color(0xff6E80A3),
+                      value: widget.marketPairsData.expiredOffers ?? 0,
                       text: 'Expired',
                     ),
                     SizedBox(
@@ -134,6 +139,7 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                     ),
                     WalletStatus(
                       color: Color(0xff2668EC),
+                      value: widget.marketPairsData.acceptedOffers ?? 0,
                       text: 'Accepted',
                     ),
                     SizedBox(
@@ -141,6 +147,7 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                     ),
                     WalletStatus(
                       color: Color(0xff4DAEF8),
+                      value: widget.marketPairsData.withdrawnOffers ?? 0,
                       text: 'Withdrawn',
                     )
                   ],
@@ -211,11 +218,11 @@ Widget bottomText(String text, String value) {
   );
 }
 
-Widget bottomText2(String text) {
+Widget bottomText2(String text, {required double value}) {
   return Column(
     children: [
       Text(
-        '0',
+        "$value",
         style: TextStyle(
             color: Color(0xff6E80A3),
             fontWeight: FontWeight.w500,
@@ -234,11 +241,11 @@ Widget bottomText2(String text) {
   );
 }
 
-Widget bottomText3(String text) {
+Widget bottomText3(String text,{required double value}) {
   return Column(
     children: [
       Text(
-        '0',
+        '$value',
         style: TextStyle(
             color: Color(0xff6E80A3),
             fontWeight: FontWeight.w500,
@@ -258,15 +265,16 @@ Widget bottomText3(String text) {
 }
 
 class WalletStatus extends StatelessWidget {
-  const WalletStatus({super.key, required this.text, required this.color});
+  const WalletStatus({super.key, required this.text, required this.color, this.value});
   final String text;
   final Color color;
+  final double? value;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          '0',
+          '${value ?? 0}',
           style: TextStyle(
               color: primaryColor, fontWeight: FontWeight.w500, fontSize: 20),
         ),

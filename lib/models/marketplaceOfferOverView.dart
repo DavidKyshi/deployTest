@@ -21,15 +21,15 @@ class MarketPlaceOfferOverView {
     this.ngnCadAndCadNgnOffers,
   });
 
-  int? activeOffers;
-  int? closedOffers;
-  int? expiredOffers;
-  int? withdrawnOffers;
-  int? acceptedOffers;
-  int? totalOffers;
-  int? ngnGbpAndGbpNgnOffers;
-  int? ngnUsdAndUsdNgnOffers;
-  int? ngnCadAndCadNgnOffers;
+  double? activeOffers;
+  double? closedOffers;
+  double? expiredOffers;
+  double? withdrawnOffers;
+  double? acceptedOffers;
+  double? totalOffers;
+  double? ngnGbpAndGbpNgnOffers;
+  double? ngnUsdAndUsdNgnOffers;
+  double? ngnCadAndCadNgnOffers;
 
   factory MarketPlaceOfferOverView.fromJson(Map<String, dynamic> json) => MarketPlaceOfferOverView(
     activeOffers: json["active_offers"],
