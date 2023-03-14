@@ -17,7 +17,7 @@ export 'package:kyshi_operations_dashboard/constants/controller.dart';
 // export 'package:kyshi_operations_dashboard/controllers/navigation_controller.dart';
 export 'package:kyshi_operations_dashboard/helper/local_navigator.dart';
 export 'package:kyshi_operations_dashboard/routing/route.dart';
-export 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
+//export 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 export 'package:kyshi_operations_dashboard/widgets/side_menu_item.dart';
 //export 'package:kyshi_operations_dashboard/widgets/wallet_beneficiaries.dart';
 export 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';

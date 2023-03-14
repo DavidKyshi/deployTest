@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         title: 'Operation Dashboard',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            //primarySwatch: primeColor,
             fontFamily: 'PushPenny',
             pageTransitionsTheme: const PageTransitionsTheme(builders: {
               TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),

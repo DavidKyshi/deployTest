@@ -22,20 +22,20 @@ class TransactionSummaryUserData {
   final int? totalFailedTransactions;
 
   const TransactionSummaryUserData({
-    this.successfulExpressTransactions,
-    this.failedExpressTransactions,
-    this.successfulSwapsTransactions,
-    this.failedSwapsTransactions,
-    this.successfulWithdrawalsTransactions,
-    this.failedWithdrawalsTransactions,
-    this.successfulConnectTransactions,
-    this.failedConnectTransactions,
-    this.successfulCardTransactions,
-    this.failedCardTransactions,
-    this.successfulCreditTransactions,
-    this.failedCreditTransactions,
-    this.totalSuccessfulTransactions,
-    this.totalFailedTransactions,
+    this.successfulExpressTransactions = 0,
+    this.failedExpressTransactions = 0,
+    this.successfulSwapsTransactions = 0,
+    this.failedSwapsTransactions =0,
+    this.successfulWithdrawalsTransactions = 0,
+    this.failedWithdrawalsTransactions = 0,
+    this.successfulConnectTransactions = 0,
+    this.failedConnectTransactions = 0,
+    this.successfulCardTransactions = 0,
+    this.failedCardTransactions = 0,
+    this.successfulCreditTransactions = 0,
+    this.failedCreditTransactions = 0,
+    this.totalSuccessfulTransactions = 0,
+    this.totalFailedTransactions = 0,
   });
 
   @override

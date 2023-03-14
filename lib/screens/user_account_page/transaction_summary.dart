@@ -76,21 +76,22 @@ class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
                 SizedBox(
                   height: 20,
                 ),
+                
                 // ...transactionSummaryProvider.allUsersTransactionSummary
                 //     .map((allUsersTransactionSummary) => 
                     TransactionBoardChat(
-                          failedCardTransaction: '',
-                          failedConnectTransaction: '',
-                          failedExpressTransaction: '',
-                          failedSwapTransaction: '',
-                          failedTopUpTransaction: '',
-                          failedWithdrawlTransaction: '',
-                          successfulCardTransaction: '',
-                          successfulConnectTransaction: '',
-                          successfulExpressTransaction: '',
-                          successfulSwapTransaction: '',
-                          successfulTopUpTransaction: '',
-                          successfulWithdrawlTransaction: '',
+                          failedCardTransaction: transaction.failedCardTransactions.toString(),
+                          failedConnectTransaction: transaction.failedConnectTransactions.toString(),
+                          failedExpressTransaction: transaction.failedExpressTransactions.toString(),
+                          failedSwapTransaction: transaction.failedSwapsTransactions.toString(),
+                          failedTopUpTransaction: transaction.totalFailedTransactions.toString(),
+                          failedWithdrawlTransaction: transaction.failedWithdrawalsTransactions.toString(),
+                          successfulCardTransaction: transaction.successfulCardTransactions.toString(),
+                          successfulConnectTransaction: transaction.successfulConnectTransactions.toString(),
+                          successfulExpressTransaction: transaction.successfulExpressTransactions.toString(),
+                          successfulSwapTransaction: transaction.successfulSwapsTransactions.toString(),
+                          successfulTopUpTransaction: transaction.totalSuccessfulTransactions.toString(),
+                          successfulWithdrawlTransaction: transaction.successfulWithdrawalsTransactions.toString(),
                         )
                         //)
                    // .toList()

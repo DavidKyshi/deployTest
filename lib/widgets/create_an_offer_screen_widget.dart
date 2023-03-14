@@ -506,7 +506,6 @@ class SummaryBox extends StatelessWidget {
   }
 }
 
-
 class SearchBeneficiary extends StatelessWidget {
   const SearchBeneficiary({super.key});
 
@@ -514,19 +513,24 @@ class SearchBeneficiary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 485.7,
-        height: 578.6,
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: const Color(0xff8C8C8C),
-            ),
-            borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              children: [
-               BeneficiarySearchBar(),
-
-               //AddBeneficiaryButton()
-              ],
-            ),
+      height: 578.6,
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: const Color(0xff8C8C8C),
+          ),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          BeneficiarySearchBar(),
+          SizedBox(
+            height: 30,
+          ),
+          AddBeneficiaryButton(),
+        ],
+      ),
     );
   }
 }
@@ -541,11 +545,11 @@ class BeneficiaryResult extends StatelessWidget {
       height: 400,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-      color: Color(0xffF8F9FE),
+        color: Color(0xffF8F9FE),
       ),
       child: Column(
         children: [
-          KyshiWalletResult()
+          KyshiWalletResult(),
         ],
       ),
     );
@@ -559,36 +563,36 @@ class KyshiWalletResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Kyshi Wallet',
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w400,
-          color: primaryColor
-        ),
+        Text(
+          'Kyshi Wallet',
+          style: TextStyle(
+              fontSize: 10, fontWeight: FontWeight.w400, color: primaryColor),
         ),
         Divider(),
         Row(
           children: [
-            Image.asset(ngnWalletBalanceFlag, width: 40, height: 30,),
+            Image.asset(
+              ngnWalletBalanceFlag,
+              width: 40,
+              height: 30,
+            ),
             Column(
               children: [
-                Text('NGN wallet balance',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: primaryColor
+                Text(
+                  'NGN wallet balance',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: primaryColor),
                 ),
-                ),
-                RichText(text: TextSpan(
+                RichText(
+                    text: TextSpan(
                   text: '₦3,000,000,000.00',
-                   style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff6E80A3)
-                ),
-                )
-                ),
-
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff6E80A3)),
+                )),
               ],
             )
           ],
@@ -607,81 +611,150 @@ class AddBeneficiaryButton extends StatelessWidget {
       width: 444,
       height: 54,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-      color: primaryColor
-      ),
+          borderRadius: BorderRadius.circular(5), color: primaryColor),
       child: Center(
-          child: Row(
-            children: [
-              Image.asset(addBeneficiaryIcon, width: 24, height: 24,),
-              Text('New beneficiary ',
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              addBeneficiaryIcon,
+              width: 24,
+              height: 24,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'New beneficiary ',
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white
-              ),
-              )
-            ],
-          ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
-class BeneficiarySearchBar extends StatelessWidget {
+class BeneficiarySearchBar extends StatefulWidget {
   const BeneficiarySearchBar({super.key});
 
   @override
+  State<BeneficiarySearchBar> createState() => _BeneficiarySearchBarState();
+}
+
+class _BeneficiarySearchBarState extends State<BeneficiarySearchBar> {
+   bool _isSearching = false;
+   TextEditingController _searchController = TextEditingController();
+     List<String> _filteredFruits = [];
+     List<String> _fruits = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+  ];
+  @override
+  void initState() {
+    super.initState();
+    _filteredFruits = _fruits;
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 444,
-      height: 54,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: primaryColor)
-      ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset(searchIcon, width: 24, height: 24,),
-                SizedBox(width: 20,),
-                Container(
-                  color: Colors.blue,
-                  child: TextFormField(
-                   // autofocus: true,
-                    // decoration: InputDecoration(
-                    //   hintText: 'Search existing beneficiary or wallet',
-                    //   //hintStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color: primaryColor),
-                      
-                    // ),
-                  ),
-                )
-                // Text('',
-                // style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color: primaryColor),
-                // )
-              ],
+      height: 400,
+      child: Column(
+        children: [
+          Container(
+            width: 444,
+            height: 54,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: primaryColor)),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          searchIcon,
+                          width: 24,
+                          height: 24,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                          width: 300,
+                          //color: Colors.blue,
+                          child: TextField(
+                            autofocus: true,
+                            controller: _searchController,
+                            onChanged: (searchTerm) {
+          setState(() {
+            _isSearching == true;
+            _filteredFruits = _fruits
+                .where((fruit) =>
+                    fruit.toLowerCase().contains(searchTerm.toLowerCase()))
+                .toList();
+          });
+        },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search existing beneficiary or wallet',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                  color: primaryColor),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      width: 38,
+                      height: 14,
+                      decoration: BoxDecoration(
+                          color: Color(0xff7880AA),
+                          borderRadius: BorderRadius.circular(2)),
+                      child: Center(
+                        child: Text(
+                          'N NGN',
+                          style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-                                            Container(
-                                    width: 38,
-                                    height: 14,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff7880AA),
-                                        borderRadius: BorderRadius.circular(2)),
-                                    child: Center(
-                                      child: Text(
-                                        'N NGN',
-                                        style: TextStyle(
-                                            fontSize: 9,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  )
-          ],
-        ),
+          ),
+
+          _isSearching == true
+            ? Container(
+              color: Colors.blue,
+                padding: EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  itemCount: _filteredFruits.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(_filteredFruits[index]),
+                    );
+                  },
+                ),
+              )
+            : Container(),
+
+        ],
       ),
     );
   }
@@ -693,9 +766,11 @@ class BankDetails extends StatefulWidget {
   @override
   State<BankDetails> createState() => _BankDetailsState();
 }
+
 bool isusd = false;
- bool isgbp = false ;
- bool isngn = false;
+bool isgbp = false;
+bool isngn = false;
+
 class _BankDetailsState extends State<BankDetails> {
   @override
   Widget build(BuildContext context) {
@@ -796,9 +871,9 @@ class _BankDetailsState extends State<BankDetails> {
                               ],
                             ),
                             TextField(
-        autofocus: true,
-       // controller: controller,
-      )
+                              autofocus: true,
+                              // controller: controller,
+                            )
                           ],
                         ),
                         SizedBox(
@@ -809,13 +884,12 @@ class _BankDetailsState extends State<BankDetails> {
                             Row(
                               children: [
                                 Text('Account number'),
-                                
                               ],
                             ),
                             TextField(
-        autofocus: true,
-        //controller: controller,
-      )
+                              autofocus: true,
+                              //controller: controller,
+                            )
                           ],
                         ),
                         SizedBox(
@@ -826,13 +900,12 @@ class _BankDetailsState extends State<BankDetails> {
                             Row(
                               children: [
                                 Text('Beneficiary (Autofill)'),
-                                
                               ],
                             ),
                             TextField(
-        autofocus: true,
-       // controller: controller,
-      )
+                              autofocus: true,
+                              // controller: controller,
+                            )
                           ],
                         ),
                         SizedBox(
@@ -843,13 +916,12 @@ class _BankDetailsState extends State<BankDetails> {
                             Row(
                               children: [
                                 Text('Purpose'),
-                              
                               ],
                             ),
                             TextField(
-        autofocus: true,
-        //controller: controller,
-      )
+                              autofocus: true,
+                              //controller: controller,
+                            )
                           ],
                         ),
                       ],
@@ -879,5 +951,103 @@ class _BankDetailsState extends State<BankDetails> {
             ],
           ),
         ));
+  }
+}
+
+class FruitSearch extends StatefulWidget {
+  const FruitSearch({Key? key}) : super(key: key);
+
+  @override
+  _FruitSearchState createState() => _FruitSearchState();
+}
+
+class _FruitSearchState extends State<FruitSearch> {
+  TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
+
+  List<String> _fruits = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape',
+    'Honeydew melon',
+    'Kiwi',
+    'Lemon',
+    'Mango',
+    'Nectarine',
+    'Orange',
+    'Peach',
+    'Quince',
+    'Raspberry',
+    'Strawberry',
+    'Tangerine',
+    'Ugli fruit',
+    'Watermelon',
+  ];
+
+  List<String> _filteredFruits = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredFruits = _fruits;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: _isSearching ? _buildSearchField() : Text('Fruits'),
+        actions: [
+          IconButton(
+            icon: Icon(_isSearching ? Icons.cancel : Icons.search),
+            onPressed: () {
+              setState(() {
+                _isSearching = !_isSearching;
+                if (!_isSearching) {
+                  _searchController.clear();
+                  _filteredFruits = _fruits;
+                }
+              });
+            },
+          ),
+        ],
+      ),
+      body: _isSearching
+          ? Container(
+              padding: EdgeInsets.all(16.0),
+              child: ListView.builder(
+                itemCount: _filteredFruits.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(_filteredFruits[index]),
+                  );
+                },
+              ),
+            )
+          : Container(),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return TextField(
+      controller: _searchController,
+      autofocus: true,
+      decoration: InputDecoration(
+        hintText: 'Search fruits...',
+        border: InputBorder.none,
+      ),
+      onChanged: (searchTerm) {
+        setState(() {
+          _filteredFruits = _fruits
+              .where((fruit) =>
+                  fruit.toLowerCase().contains(searchTerm.toLowerCase()))
+              .toList();
+        });
+      },
+    );
   }
 }
