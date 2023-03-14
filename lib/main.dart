@@ -1,3 +1,4 @@
+import 'package:kyshi_operations_dashboard/providers/wallet_balance.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 
 import 'helper/screen_export.dart';
@@ -16,6 +17,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => PayOutTransactionProvider()),
     ChangeNotifierProvider(create: (_) => OverViewProvider()),
     ChangeNotifierProvider(create: (_) => TransactionSummaryProvider()),
+    ChangeNotifierProvider(create: (_) => WalletBalanceProvider())
   ], child: MyApp()));
 }
 
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         title: 'Operation Dashboard',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            //primarySwatch: primeColor,
             fontFamily: 'PushPenny',
             pageTransitionsTheme: const PageTransitionsTheme(builders: {
               TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),

@@ -22,20 +22,20 @@ class TransactionSummaryUserData {
   final int? totalFailedTransactions;
 
   const TransactionSummaryUserData({
-    this.successfulExpressTransactions,
-    this.failedExpressTransactions,
-    this.successfulSwapsTransactions,
-    this.failedSwapsTransactions,
-    this.successfulWithdrawalsTransactions,
-    this.failedWithdrawalsTransactions,
-    this.successfulConnectTransactions,
-    this.failedConnectTransactions,
-    this.successfulCardTransactions,
-    this.failedCardTransactions,
-    this.successfulCreditTransactions,
-    this.failedCreditTransactions,
-    this.totalSuccessfulTransactions,
-    this.totalFailedTransactions,
+    this.successfulExpressTransactions = 0,
+    this.failedExpressTransactions = 0,
+    this.successfulSwapsTransactions = 0,
+    this.failedSwapsTransactions =0,
+    this.successfulWithdrawalsTransactions = 0,
+    this.failedWithdrawalsTransactions = 0,
+    this.successfulConnectTransactions = 0,
+    this.failedConnectTransactions = 0,
+    this.successfulCardTransactions = 0,
+    this.failedCardTransactions = 0,
+    this.successfulCreditTransactions = 0,
+    this.failedCreditTransactions = 0,
+    this.totalSuccessfulTransactions = 0,
+    this.totalFailedTransactions = 0,
   });
 
   @override
@@ -43,7 +43,8 @@ class TransactionSummaryUserData {
     return 'Data(successfulExpressTransactions: $successfulExpressTransactions, failedExpressTransactions: $failedExpressTransactions, successfulSwapsTransactions: $successfulSwapsTransactions, failedSwapsTransactions: $failedSwapsTransactions, successfulWithdrawalsTransactions: $successfulWithdrawalsTransactions, failedWithdrawalsTransactions: $failedWithdrawalsTransactions, successfulConnectTransactions: $successfulConnectTransactions, failedConnectTransactions: $failedConnectTransactions, successfulCardTransactions: $successfulCardTransactions, failedCardTransactions: $failedCardTransactions, successfulCreditTransactions: $successfulCreditTransactions, failedCreditTransactions: $failedCreditTransactions, totalSuccessfulTransactions: $totalSuccessfulTransactions, totalFailedTransactions: $totalFailedTransactions)';
   }
 
-  factory TransactionSummaryUserData.fromMap(Map<String, dynamic> data) => TransactionSummaryUserData(
+  factory TransactionSummaryUserData.fromMap(Map<String, dynamic> data) =>
+      TransactionSummaryUserData(
         successfulExpressTransactions:
             data['successful_express_transactions'] as int?,
         failedExpressTransactions: data['failed_express_transactions'] as int?,
@@ -90,7 +91,8 @@ class TransactionSummaryUserData {
   ///
   /// Parses the string and returns the resulting Json object as [Data].
   factory TransactionSummaryUserData.fromJson(String data) {
-    return TransactionSummaryUserData.fromMap(json.decode(data) as Map<String, dynamic>);
+    return TransactionSummaryUserData.fromMap(
+        json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`

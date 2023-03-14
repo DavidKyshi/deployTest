@@ -64,7 +64,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 // Initial Value
                 value: widget.dropdownDateValue,
                 selectedItemBuilder: (BuildContext context) {
-                  return lastDays.map((String items) {
+                  return lastDays.map((items) {
                     return Center(
                       child: Text(
                         widget.dropdownDateValue,
@@ -80,7 +80,7 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
                 icon: const Icon(Icons.keyboard_arrow_down),
 
                 // Array list of items
-                items: lastDays.map((String items) {
+                items: lastDays.map((items) {
                   return DropdownMenuItem(
                     value: items,
                     child: Container(

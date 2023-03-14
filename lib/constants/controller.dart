@@ -13,6 +13,7 @@ import '../screens/authentication/welcome_back.dart';
 import '../screens/offers_management/create_an_offer_screen.dart';
 import '../screens/over_view_page/over_view.dart';
 import '../screens/payout_transaction/payout_transaction.dart';
+import '../widgets/create_an_offer_screen_widget.dart';
 
 class PAGES {
   static const int dashbaord = 0;
@@ -23,6 +24,7 @@ class PAGES {
   static const int welcomeScreen = 5;
   static const int walletManagement = 6;
   static const int overView = 7;
+  static const int testing = 8;
 }
 
 class PAGE {
@@ -111,6 +113,7 @@ class _State {
       width: 28,
       height: 28,
     ),
+    PAGE(index: PAGES.testing, title: 'test', page: FruitSearch(), showInSideBar: false)
   ];
 }
 

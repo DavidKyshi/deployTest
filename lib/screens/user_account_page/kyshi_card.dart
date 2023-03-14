@@ -87,8 +87,7 @@ class _KyshiCardState extends State<KyshiCard> {
   List<Services>? kyshiCards;
   @override
   void initState() {
-    kyshiCards =
-        Provider.of<UsersProvider>(context, listen: false).kyshiCard;
+    kyshiCards = Provider.of<UsersProvider>(context, listen: false).kyshiCard;
     // TODO: implement initState
     super.initState();
   }

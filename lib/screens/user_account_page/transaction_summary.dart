@@ -16,7 +16,7 @@ class TransactionSummaryBoard extends StatefulWidget {
 class _TransactionSummaryBoardState extends State<TransactionSummaryBoard> {
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
-TransactionSummaryProvider get transactionSummaryProvider =>
+  TransactionSummaryProvider get transactionSummaryProvider =>
       Provider.of<TransactionSummaryProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
@@ -76,25 +76,25 @@ TransactionSummaryProvider get transactionSummaryProvider =>
                 SizedBox(
                   height: 20,
                 ),
-                ...transactionSummaryProvider.allUsersTransactionSummary
-                .map((allUsersTransactionSummary)=>
-                   TransactionBoardChat(
-                  failedCardTransaction: '',
-                  failedConnectTransaction: '',
-                  failedExpressTransaction: '',
-                  failedSwapTransaction: '',
-                  failedTopUpTransaction: '',
-                  failedWithdrawlTransaction: '',
-                  successfulCardTransaction: '',
-                  successfulConnectTransaction:'',
-                  successfulExpressTransaction: '',
-                  successfulSwapTransaction:'',
-                  successfulTopUpTransaction: '',
-                  successfulWithdrawlTransaction: '',
-                )
-                 ).toList()
                 
-                
+                // ...transactionSummaryProvider.allUsersTransactionSummary
+                //     .map((allUsersTransactionSummary) => 
+                    TransactionBoardChat(
+                          failedCardTransaction: transaction.failedCardTransactions.toString(),
+                          failedConnectTransaction: transaction.failedConnectTransactions.toString(),
+                          failedExpressTransaction: transaction.failedExpressTransactions.toString(),
+                          failedSwapTransaction: transaction.failedSwapsTransactions.toString(),
+                          failedTopUpTransaction: transaction.totalFailedTransactions.toString(),
+                          failedWithdrawlTransaction: transaction.failedWithdrawalsTransactions.toString(),
+                          successfulCardTransaction: transaction.successfulCardTransactions.toString(),
+                          successfulConnectTransaction: transaction.successfulConnectTransactions.toString(),
+                          successfulExpressTransaction: transaction.successfulExpressTransactions.toString(),
+                          successfulSwapTransaction: transaction.successfulSwapsTransactions.toString(),
+                          successfulTopUpTransaction: transaction.totalSuccessfulTransactions.toString(),
+                          successfulWithdrawlTransaction: transaction.successfulWithdrawalsTransactions.toString(),
+                        )
+                        //)
+                   // .toList()
               ],
             ),
             SizedBox(
@@ -104,10 +104,16 @@ TransactionSummaryProvider get transactionSummaryProvider =>
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                Container(
                   //'assets/images/graph2.png',
                   width: 633,
                   height: 300,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffE8E8E8),
+                    ),
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  child: Center(child: Text('No Data')),
                   //color: Colors.amber,
                 ),
                 SizedBox(

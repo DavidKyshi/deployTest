@@ -45,3 +45,9 @@ const String inactiveOverview = "assets/images/inactiveOverview.png";
 const String inactivePayoutTransaction =
     "assets/images/inactivePayouttransactions.png";
 const String inactiveWalletTransaction = "assets/images/inactiveWallet.png";
+const String ngnWalletBalanceFlag = 'assets/images/ngn.png';
+const String gbpWalletBalanceFlag = 'assets/images/uk.png';
+const String usdWalletBalanceFlag = 'assets/images/usd.png';
+const String cadWalletBalanceFlag = 'assets/images/cadflag.png';
+const String searchIcon = 'assets/images/search.png';
+const String addBeneficiaryIcon = 'assets/images/addBeneficiary.png';

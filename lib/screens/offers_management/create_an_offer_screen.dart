@@ -25,85 +25,69 @@ class CreateAnOfferScreen extends StatelessWidget {
                 color: Color(0xffF9F9F9),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                  
                 )),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-            'Marketplace',
-            style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-                fontFamily: "PushPenny",
-                color: primaryColor),
-          ),
-          SizedBox(
-                        height: 10,
+                      Text(
+                        'Marketplace',
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "PushPenny",
+                            color: primaryColor),
                       ),
-          Icon(Icons.arrow_forward_ios,
-          color: primaryColor,
-          size: 18,
-          ),
-          SizedBox(
-                        height: 10,
-                      ),
-          Text('Create offer',
-          style: TextStyle(
-            color: Color(0xff6E80A3),
-            fontSize: 14,
-            fontWeight: FontWeight.w400
-          ),
-          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                       Row(
-                        children: [
-                         WalletBalanceContainer() 
-                        ],
-                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      CreateAnOfferCard(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: primaryColor,
+                        size: 18,
+                      ),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            '1 Hour',
-                            style: TextStyle(
-                                color: Color(0xff2668EC),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            '5 Hour',
-                            style: TextStyle(
-                                color: Color(0xffFF5C5C),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
+                      Text(
+                        'Create offer',
+                        style: TextStyle(
+                            color: Color(0xff6E80A3),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                      )
                     ],
                   ),
                   SizedBox(
-                    width: 40,
+                    height: 20,
                   ),
-                  BankDetails()
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [WalletBalanceContainer()],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CreateAnOfferCard(),
+                       SizedBox(
+                width: 40,
+              ),
+              SearchBeneficiary()
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                 
                 ],
               ),
             )

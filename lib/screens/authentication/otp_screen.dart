@@ -42,7 +42,7 @@ class _OtpScreenState extends State<OtpScreen> {
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:  [
+        children: [
           CupertinoActivityIndicator(
             color: primaryColor,
             animating: true,
@@ -133,12 +133,8 @@ class _OtpScreenState extends State<OtpScreen> {
                    Provider.of<OverViewProvider>(context,listen: false).getAllExpressChart(context: context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
-                    // Provider.of<OfferManagementProvider>(context, listen: false)
-                    // .getAcceptedUserOffer(context);
-                    // Provider.of<OfferManagementProvider>(context, listen: false)
-                    //     .getCreatedOffer(context);
-                      //  .getCreatedUserAccount(context);
-                   Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getAllWallets(context, "50");
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)

@@ -243,7 +243,7 @@ class SucessfullTransaction extends StatelessWidget {
               children: [
                 Transaction(
                   image: 'assets/images/topup.png',
-                  number: '0',
+                  number: successfulTopUpTransaction,
                   subNumber: '0',
                   text: 'Topup Transaction',
                 ),
@@ -252,7 +252,7 @@ class SucessfullTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/express.png',
-                  number: '0',
+                  number: successfulExpressTransaction,
                   subNumber: '0',
                   text: 'Express transactions',
                 ),
@@ -261,7 +261,7 @@ class SucessfullTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/connect.png',
-                  number: '0',
+                  number: successfulConnectTransaction,
                   subNumber: '0',
                   text: 'Connect transactions',
                 ),
@@ -276,7 +276,7 @@ class SucessfullTransaction extends StatelessWidget {
               children: [
                 Transaction(
                   image: 'assets/images/withdrawl.png',
-                  number: '0',
+                  number: successfulWithdrawlTransaction,
                   subNumber: '0',
                   text: 'Withdrawal transactions',
                 ),
@@ -285,7 +285,7 @@ class SucessfullTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/swap.png',
-                  number: '0',
+                  number: successfulSwapTransaction,
                   subNumber: '0',
                   text: 'Swap transactions',
                 ),
@@ -294,7 +294,7 @@ class SucessfullTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/card.png',
-                  number: '0',
+                  number: successfulCardTransaction,
                   subNumber: '0',
                   text: 'Card transactions',
                 ),
@@ -339,7 +339,7 @@ class FailedTransaction extends StatelessWidget {
               children: [
                 Transaction(
                   image: 'assets/images/topup.png',
-                  number: '0',
+                  number: failedTopUpTransaction,
                   subNumber: '0',
                   text: 'Topup Transaction',
                 ),
@@ -348,7 +348,7 @@ class FailedTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/express.png',
-                  number: '0',
+                  number: failedExpressTransaction,
                   subNumber: '0',
                   text: 'Express transactions',
                 ),
@@ -357,7 +357,7 @@ class FailedTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/connect.png',
-                  number: '0',
+                  number: failedConnectTransaction,
                   subNumber: '0',
                   text: 'Connect transactions',
                 ),
@@ -372,7 +372,7 @@ class FailedTransaction extends StatelessWidget {
               children: [
                 Transaction(
                   image: 'assets/images/withdrawl.png',
-                  number: '0',
+                  number: failedWithdrawlTransaction,
                   subNumber: '0',
                   text: 'Withdrawal transactions',
                 ),
@@ -381,7 +381,7 @@ class FailedTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/swap.png',
-                  number: '0',
+                  number: failedSwapTransaction,
                   subNumber: '0',
                   text: 'Swap transactions',
                 ),
@@ -390,7 +390,7 @@ class FailedTransaction extends StatelessWidget {
                 ),
                 Transaction(
                   image: 'assets/images/card.png',
-                  number: '0',
+                  number: failedCardTransaction,
                   subNumber: '0',
                   text: 'Card transactions',
                 ),
