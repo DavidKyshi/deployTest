@@ -1,0 +1,63 @@
+name: Build and Deploy to Dev Cloud Run
+
+on:
+  push:
+    branches:
+      - development
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GCP_EMAIL: ${{ secrets.DEV_GCP_EMAIL }}
+  GCP_CREDENTIALS: ${{ secrets.DEV_GCP_KEY }}
+  GITHUB_SHA: ${{ github.sha }}
+  CLOUD_RUN_ZONE: ${{ secrets.DEV_CLOUD_RUN_ZONE }}
+  GCP_SERVICE_NAME: ${{ secrets.DEV_GCP_SERVICE_NAME }}
+  IMAGE_NAME: gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ secrets.DEV_GCP_APPLICATION }}
+  GCP_PROJECT_ID: ${{ secrets.DEV_GCP_PROJECT_ID }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_email: ${{ env.GCP_EMAIL }}
+          service_account_key: ${{ env.GCP_CREDENTIALS }}
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          export_default_credentials: true
+
+        # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |
+          # Set up docker to authenticate
+          # via gcloud command-line tool.
+          gcloud --quiet auth configure-docker
+
+      - name: Get Commit Short Hash
+        id: hash
+        shell: bash
+        run: echo "::set-output name=commit_hash::$(git rev-parse --short HEAD)"
+
+      # Build and Push the Docker image to Dev Google Container Registry
+      - name: Build & Publish to Dev Registry
+        run: |
+          gcloud builds submit --tag  $IMAGE_NAME:${{steps.hash.outputs.commit_hash}}
+          gcloud config set run/region $CLOUD_RUN_ZONE
+        # working-directory: ${{ env.root }}
+
+      # Deploy the Docker image to the Cloud Run
+      - name: Deploy to GCP service ${{ env.GCP_SERVICE_NAME }}
+        run: |
+          gcloud run deploy ${{ env.GCP_SERVICE_NAME }} --image $IMAGE_NAME:${{steps.hash.outputs.commit_hash}} \
+          --project ${{ env.GCP_PROJECT_ID }} \
+          --platform managed \
+          --region $CLOUD_RUN_ZONE \
+          --allow-unauthenticated \
+          --vpc-connector kyshi-dev \
+          --vpc-egress private-ranges-only \
+          --cpu 1 \
+          --memory 1Gi
