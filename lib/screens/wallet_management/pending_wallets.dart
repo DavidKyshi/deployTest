@@ -12,6 +12,7 @@ import '../../models/wallet_comment_model.dart';
 import '../../models/wallet_management.dart';
 import '../../userService/userService.dart';
 import '../../widgets/accept_offer_alertbox.dart';
+import '../user_account_page/user_account_index.dart';
 import '../user_account_page/wallet/wallet_beneficiaries.dart';
 
 class PendingWallets extends StatefulWidget {
@@ -24,6 +25,7 @@ class PendingWallets extends StatefulWidget {
 class _PendingWallets extends State<PendingWallets> {
   ScrollController? controller;
   List<Wallet>? pendingWallets;
+  final _controller = TextEditingController();
 
   final List<String> date = [
     "Active",
@@ -42,6 +44,7 @@ class _PendingWallets extends State<PendingWallets> {
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
+  final _debouncer = Debouncer();
   bool manageWallet = false;
   List<CommentDetails> comments = [];
   @override
@@ -58,19 +61,7 @@ class _PendingWallets extends State<PendingWallets> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> id = [
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey,
-            thumbColor: activeWalletSwitchValue ? primaryColor : Colors.white,
-            value: activeWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                activeWalletSwitchValue = value;
-              });
-            }),
-      ),
+
       Transform.scale(
         scale: 0.8,
         child: CupertinoSwitch(
@@ -91,197 +82,216 @@ class _PendingWallets extends State<PendingWallets> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
             child: SingleChildScrollView(
-              child: Container(
-                height: 800,
-                decoration: BoxDecoration(
-                    color: const Color(0XFFEAEBF1),
-                    borderRadius: BorderRadius.circular(12)),
-                width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                      dataRowHeight: 60,
-                      columns: const <DataColumn>[
-                        DataColumn(
-                            label: Text("Created",
-                                style: TextStyle(
-                                    //color: primaryColor,
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("User",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Currency",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Provider",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Available",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Total",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Tier",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Status",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Comments",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                        DataColumn(
-                            label: Text("Actions",
-                                style: TextStyle(
-                                    color: Color(0XFF233375),
-                                    fontFamily: 'PushPenny',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12))),
-                      ],
-                      rows: pendingWallets!
-                          .map((e) => DataRow(cells: [
-                                DataCell(
-                                  Text(e.createdAt ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.user ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.currency ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.provider ?? "",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.availableBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.ledgerBalance ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text("${e.tier?.name ?? ""}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(
-                                  Text(e.status ?? "",
-                                      style: TextStyle(
-                                          color: warning,
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ),
-                                DataCell(InkWell(
-                                  onTap: () async {
-                                    Map<String, dynamic> response =
-                                        await UserService().getWalletComments(
-                                            context: context);
-                                    WalletCommentModel commentModel =
-                                        WalletCommentModel.fromJson(response);
-                                    setState(() {
-                                      comments = commentModel.data ?? [];
-                                    });
-                                    viewCommentAlertBox(
-                                        context: context, comment: comments);
-                                  },
-                                  child: OfferButton(
-                                    isBorder: false,
-                                    text: 'VIEW COMMENT',
-                                    comment: true,
-                                    commentBackground: false,
-                                    color: const Color(0XFF6D48FF),
-                                  ),
-                                )),
-                                DataCell(
-                                  InkWell(
-                                      onTap: () {
-                                        userProvider.selectWalletId(e.id ?? "");
-                                        editWalletStatusDialog(
-                                          context,
-                                          walletType: "NGN",
-                                          title: 'Add comment',
-                                        );
+              child: Column(
+                children: [
+                  SearchField(
+                    hintText: "Search wallet....",
+                    onChanged: (value){
+                      _debouncer.run(() {
+                        setState(() {
+                          // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                          List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
+                          pendingWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                          // isLoading = false;
+                          // print("$user SEARCHED USERS");
+                        });
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20,),
+                  Container(
+                    height: 800,
+                    decoration: BoxDecoration(
+                        color: const Color(0XFFEAEBF1),
+                        borderRadius: BorderRadius.circular(12)),
+                    width: MediaQuery.of(context).size.width,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                          dataRowHeight: 60,
+                          columns: const <DataColumn>[
+                            DataColumn(
+                                label: Text("Created",
+                                    style: TextStyle(
+                                        //color: primaryColor,
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("User",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Currency",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Provider",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Available",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Total",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Tier",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Status",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Comments",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                            DataColumn(
+                                label: Text("Actions",
+                                    style: TextStyle(
+                                        color: Color(0XFF233375),
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12))),
+                          ],
+                          rows: pendingWallets!
+                              .map((e) => DataRow(cells: [
+                                    DataCell(
+                                      Text(e.createdAt ?? "",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text(e.user ?? "",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text(e.currency ?? "",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text(e.provider ?? "",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text("${e.availableBalance ?? ""}",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text("${e.ledgerBalance ?? ""}",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text("${e.tier?.name ?? ""}",
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(
+                                      Text(e.status ?? "",
+                                          style: TextStyle(
+                                              color: warning,
+                                              fontFamily: 'PushPenny',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14)),
+                                    ),
+                                    DataCell(InkWell(
+                                      onTap: () async {
+                                        Map<String, dynamic> response =
+                                            await UserService().getWalletComments(
+                                                context: context);
+                                        WalletCommentModel commentModel =
+                                            WalletCommentModel.fromJson(response);
+                                        setState(() {
+                                          comments = commentModel.data ?? [];
+                                        });
+                                        viewCommentAlertBox(
+                                            context: context, comment: comments);
                                       },
                                       child: OfferButton(
                                         isBorder: false,
-                                        text: 'MANAGE WALLET',
-                                        comment: false,
-                                      )),
-                                ),
-                              ]))
-                          .toList()),
-                ),
+                                        text: 'VIEW COMMENT',
+                                        comment: true,
+                                        commentBackground: false,
+                                        color: const Color(0XFF6D48FF),
+                                      ),
+                                    )),
+                                    DataCell(
+                                      InkWell(
+                                          onTap: () {
+                                            userProvider.selectWalletId(e.id ?? "");
+                                            editWalletStatusDialog(
+                                              context,
+                                              walletType: "NGN",
+                                              title: 'Add comment', controller: _controller, ontap: () {  },
+                                            );
+                                          },
+                                          child: OfferButton(
+                                            isBorder: false,
+                                            text: 'MANAGE WALLET',
+                                            comment: false,
+                                          )),
+                                    ),
+                                  ]))
+                              .toList()),
+                    ),
+                  ),
+                ],
               ),
             ),
             // Column(

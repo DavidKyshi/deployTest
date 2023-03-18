@@ -95,14 +95,14 @@ class _WalletDetailsState extends State<WalletDetails> {
                     walletDetailsHeader(
                         title: "${widget.wallet?.currency} Wallet details",
                         subTitle: "Export PDF",
-                        image: pdfIcon),
+                        image: pdfIcon, show: true),
                     SizedBox(
                       width: 120,
                     ),
                     walletDetailsHeader(
                         title: "${widget.wallet?.currency} Wallet Reports",
                         subTitle: "This Week",
-                        image: downArrow),
+                        image: downArrow, show: false),
                   ],
                 ),
                 SizedBox(
@@ -268,7 +268,7 @@ class _WalletDetailsState extends State<WalletDetails> {
   }
 
   Container walletDetailsHeader(
-      {required title, required subTitle, required String image}) {
+      {required title, required subTitle, required String image, required bool show}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       decoration: BoxDecoration(
@@ -289,6 +289,7 @@ class _WalletDetailsState extends State<WalletDetails> {
           SizedBox(
             width: 8,
           ),
+          show ?
           Container(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
             decoration: BoxDecoration(
@@ -310,7 +311,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                 SvgPicture.asset(image)
               ],
             ),
-          )
+          ) : SizedBox()
         ],
       ),
     );

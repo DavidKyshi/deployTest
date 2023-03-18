@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:kyshi_operations_dashboard/widgets/create_an_offer_screen_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../helper/convertDate.dart';
 import '../../models/kyshiConnectGraph.dart';
 import '../../models/offersOverview.dart';
 import '../../providers/over_view_provider.dart';
@@ -12,12 +14,12 @@ import '../../widgets/over_view_widgets.dart';
 
 class OverViewAirtime extends StatefulWidget {
   final Function(String?)? onChangedAirtimeGraph;
-  final List<ConnectOverViewGraph> data;
+  // final List<ConnectOverViewGraph> data;
   final String dropDownAirtimeGraph;
   final String dropdownvalueCurrency;
   final Function(String?)? onChangedCurr;
   const OverViewAirtime({super.key,required this.onChangedCurr,required this.onChangedAirtimeGraph,
-    required this.dropDownAirtimeGraph, required this.dropdownvalueCurrency, required this.data});
+    required this.dropDownAirtimeGraph, required this.dropdownvalueCurrency});
 
   @override
   State<OverViewAirtime> createState() => _OverViewAirtimeState();
@@ -28,18 +30,48 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
   late  TooltipBehavior _tooltip;
   String dropdownvalue = 'Created';
   String dropdownvalueCurrency = 'NGN';
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  double totalTrans = 0;
+  late String today;
+  late String yesterday;
+  OverViewProvider get overViewProvider =>
+      Provider.of<OverViewProvider>(context, listen: false);
 
   @override
   void initState() {
     _tooltip = TooltipBehavior(enable: true);
+    today = formatter.format(now);
+    yesterday = formatter.format(now.subtract(Duration(days: 1)));
+    print(today);
+    print(yesterday);
     // TODO: implement initState
     super.initState();
   }
+  double getDays(List<ConnectOverViewGraph> dat, String today){
+    for (int i = 0; i < dat.length; i++) {
+      ConnectOverViewGraph entry = dat[i];
+      if (entry.day == today) {
+        totalTrans = entry.totalTrans!;
+        return totalTrans;
+      }
+    }
+    return 0;
+  }
   @override
   Widget build(BuildContext context) {
+    double todayTotalTrans = getDays(overViewProvider.kyshiConnectGraph, today);
+    double yesterdayTotalTrans = getDays(overViewProvider.kyshiConnectGraph, yesterday);
+    double? totalService(){
+      if(overViewProvider.kyshiConnectGraph.isEmpty){
+        return 0;
+      }else{
+        return overViewProvider.kyshiConnectGraph.map((e) => e.totalTrans).reduce((value, element) => value! + element!)?.toDouble();
+      }
+    }
     return Container(
-      width: 681.64,
-      // height: 700,
+      width: MediaQuery.of(context).size.width /2.2,
+      height: 400,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: const Color(0xffE8E8E8))),
@@ -51,7 +83,7 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Airtime',
+                  widget.dropDownAirtimeGraph,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
@@ -75,7 +107,8 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
             ),
             RichText(
                 text: TextSpan(
-              text: '₦ 0.00',
+              text: "${totalService()} Total Transactions",
+              // '${widget.dropdownvalueCurrency ==  "NGN" ? "₦" :widget.dropdownvalueCurrency ==  "GBP" ? "£" : "\$"} ${totalService()}',
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 color: primaryColor,
@@ -98,8 +131,7 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/yesterday.png',
+                    SvgPicture.asset(yesterdayTotalTrans  >todayTotalTrans ? high : low,
                       width: 20,
                       height: 20,
                     ),
@@ -107,7 +139,7 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                       width: 10,
                     ),
                     Text(
-                      '₦ 0.00 Yesterday, March 7',
+                      '$yesterdayTotalTrans Yesterday, $yesterday',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: primaryColor,
@@ -121,8 +153,7 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/today.png',
+                    SvgPicture.asset(todayTotalTrans >yesterdayTotalTrans ? high : low,
                       width: 20,
                       height: 20,
                     ),
@@ -130,7 +161,7 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                       width: 10,
                     ),
                     Text(
-                      '₦ 0.00 Today, March 8',
+                      '$todayTotalTrans Today, $today',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: primaryColor,
@@ -141,10 +172,10 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                 )
               ],
             ),
-            widget.data.isEmpty ? SizedBox():
+            overViewProvider.kyshiConnectGraph.isEmpty ? SizedBox():
             SizedBox(
-              height: 390,
-              width: 600,
+              height: 220,
+              width: MediaQuery.of(context).size.width /2.2,
               child: SfCartesianChart(
                   isTransposed: true,
                   primaryXAxis: CategoryAxis(),
@@ -152,11 +183,11 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                   tooltipBehavior: _tooltip,
                   series: <ChartSeries<ConnectOverViewGraph, String>>[
                     BarSeries<ConnectOverViewGraph, String>(
-                        dataSource: widget.data,
+                        dataSource: overViewProvider.kyshiConnectGraph,
                         // width: 20,
-                        xValueMapper: (ConnectOverViewGraph data, _) => data.day,
+                        xValueMapper: (ConnectOverViewGraph data, _) => convertDay(data.day!),
                         yValueMapper: (ConnectOverViewGraph data, _) => data.totalTrans,
-                        name: 'Airtime',
+                        name: widget.dropDownAirtimeGraph,
                         color: primaryColor,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
                     )

@@ -9,7 +9,7 @@ class OverViewService{
     final token =
         Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
-    final Uri uri = Uri.parse("$baseUrl/ops/dashboard/express");
+    // final Uri uri = Uri.parse("$baseUrl/ops/dashboard/express");
     try {
       // customInternalDio.get("/ops/users",)
       // print("$status $baseCurrency $daysAgo ALL PARAMETERS");
@@ -21,6 +21,7 @@ class OverViewService{
             "days_ago": daysAgo
           },
           options: Options(headers: {"authorization": "Bearer $token"}));
+      print("OFFER DATA RETURNED");
       return response.data;
     } catch (e) {
       if (kDebugMode) {
@@ -42,7 +43,7 @@ class OverViewService{
     final Uri uri = Uri.parse("$baseUrl/ops/dashboard/marketplace/offer");
     try {
       // customInternalDio.get("/ops/users",)
-      print("$baseCurrency $quoteCurrency $daysAgo ALL PARAMETERS");
+      // print("$baseCurrency $quoteCurrency $daysAgo ALL PARAMETERS for MARKETPLACE OVERVIEW");
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/dashboard/marketplace/offer",
           queryParameters: {

@@ -40,7 +40,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
          
           Container(
               //  width: 500,
-              height: 800,
+              height: MediaQuery.of(context).size.height,
               child: UserAccountIndex())
         ],
       )

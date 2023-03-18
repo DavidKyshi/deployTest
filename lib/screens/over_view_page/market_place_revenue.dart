@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../helper/screen_export.dart';
@@ -41,11 +42,11 @@ class _MarketPlaceRevenueState extends State<MarketPlaceRevenue> {
           Row(
             children: [
               // Provider.of<OverViewProvider>(context,listen: false)
-              boxy("NGN", "₦ ${overViewProvider.ngnRevenue}", "USD", "\$ ${overViewProvider.usdRevenue}"),
+              boxy("NGN", "₦ ${Util.formatAmount(overViewProvider.ngnRevenue)}", "USD", "\$ ${Util.formatAmount(overViewProvider.usdRevenue)}"),
               SizedBox(
                 width: 20,
               ),
-              boxy("GBP ", "£ ${overViewProvider.gbpRevenue}", "CAD", "C\$ ${overViewProvider.cadRevenue}"),
+              boxy("GBP ", "£ ${Util.formatAmount(overViewProvider.gbpRevenue)}", "CAD", "C\$ ${Util.formatAmount(overViewProvider.cadRevenue)}"),
             ],
           )
         ],

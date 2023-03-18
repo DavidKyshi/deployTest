@@ -230,7 +230,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           SvgPicture.asset(empty),
                           Text(
                             "The user is yet to make transaction"
-                            " \nwith Kyshi connect services,"
                             "  it will\n appear here when the user does",
                             style: TextStyle(
                               color: primaryColor,

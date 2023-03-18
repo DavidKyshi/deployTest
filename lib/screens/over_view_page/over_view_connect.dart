@@ -2,6 +2,7 @@
 
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -15,11 +16,11 @@ import 'over_view_marketplace.dart';
 class OverViewConnect extends StatefulWidget {
   final Function(String?)? onChangedAirtimeGraph;
   final String dropDownAirtimeGraph2;
-  final List<StatusData> chartData;
-  final Data connectData;
+  // final List<StatusData> chartData;
+  // final Data connectData;
   // final Function(String?)? onChangedCurr;
   const OverViewConnect({super.key, required this.onChangedAirtimeGraph,
-    required this.dropDownAirtimeGraph2, required this.chartData, required this.connectData});
+    required this.dropDownAirtimeGraph2});
 
   @override
   State<OverViewConnect> createState() => _OverViewConnectState();
@@ -34,17 +35,61 @@ class _OverViewConnectState extends State<OverViewConnect> {
     // TODO: implement initState
     super.initState();
   }
+  bool check (){
+    if(widget.dropDownAirtimeGraph2 == "Airtime"){
+      return overViewProvider.statusDataAirtime.isEmpty;
+    }else if(widget.dropDownAirtimeGraph2 == "Data"){
+      return overViewProvider.statusData.isEmpty;
+    }else{
+      return overViewProvider.statusDataHealth.isEmpty;
+    }
+  }
+
+  bool isAvailable(){
+      if(widget.dropDownAirtimeGraph2 == "Airtime" && overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum == 0 &&
+          overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum == 0&&
+          overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum == 0 &&
+          overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum == 0) {
+        return false;
+        // if(overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum == 0 &&
+        //     overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum == 0&&
+        //     overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum == 0 &&
+        //     overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum == 0){
+        //   return false;
+        // }
+      } else if(widget.dropDownAirtimeGraph2 == "Data" && overViewProvider.kyshiConnectData?.kyshiConnectDataGbpSum == 0 &&
+            overViewProvider.kyshiConnectData?.kyshiConnectDataUsdSum == 0&&
+            overViewProvider.kyshiConnectData?.kyshiConnectDataNgnSum == 0 &&
+            overViewProvider.kyshiConnectData?.kyshiConnectDataCadSum == 0){
+          return false;
+          // if (overViewProvider.kyshiConnectData?.kyshiConnectDataGbpSum == 0 &&
+          //     overViewProvider.kyshiConnectData?.kyshiConnectDataUsdSum == 0&&
+          //     overViewProvider.kyshiConnectData?.kyshiConnectDataNgnSum == 0 &&
+          //     overViewProvider.kyshiConnectData?.kyshiConnectDataCadSum == 0){
+          //   return false;
+          // }
+        }else if (widget.dropDownAirtimeGraph2 == "Health" && overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthGbpSum == 0 &&
+          overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthUsdSum == 0&&
+          overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthNgnSum == 0 &&
+          overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthCadSum == 0 ){
+        return false;
+      }
+      return true;
+  }
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
+    final double result= overViewProvider.kyshiConnectAirtime!.data!.totalConnectTransactionSum!  +
+        overViewProvider.kyshiConnectHealth!.data!.totalConnectTransactionSum! + overViewProvider.kyshiConnectData!.totalConnectTransactionSum!;
     return Container(
-      width: 396.54,
-      height: 375.15,
+      width: MediaQuery.of(context).size.width /3.5,
+      height: 400,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: const Color(0xffE8E8E8))),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -78,7 +123,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  widget.chartData.isEmpty?
+                  check() || !isAvailable()?
                   Container(
                     width: 194.72,
                     height: 194.72,
@@ -90,7 +135,7 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "0",
+                          "$result",
                           style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.w500,
@@ -110,21 +155,16 @@ class _OverViewConnectState extends State<OverViewConnect> {
               height: 300,
               child: SfCircularChart(
                 annotations: <CircularChartAnnotation>[
-                  // CircularChartAnnotation(
-                  //     widget: Container(
-                  //         child: PhysicalModel(
-                  //             child: Container(),
-                  //             shape: BoxShape.circle,
-                  //             elevation: 2,
-                  //             shadowColor: Colors.black,
-                  //             color:  Colors.red))),
                   CircularChartAnnotation(
+                    width: "100",
                       widget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('${overViewProvider.totalConnectTrx ?? 0}',
+                          Text('${Util.formatAmount(result)}',
                               style: TextStyle(
                                   color: kyshiGreyishBlue,
-                                  fontSize: 40,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'PushPenny')),
                           Text('Total Transaction',
@@ -137,12 +177,14 @@ class _OverViewConnectState extends State<OverViewConnect> {
                 tooltipBehavior: _tooltip,
                 series: <CircularSeries>[
                   DoughnutSeries<StatusData, String>(
-                      dataSource: widget.chartData,
+                      dataSource:widget.dropDownAirtimeGraph2 == "Airtime"? overViewProvider.statusDataAirtime:
+                      widget.dropDownAirtimeGraph2 == "Data" ? overViewProvider.statusData : overViewProvider.statusDataHealth
+                      ,
                       pointColorMapper:(StatusData data,  _) => data.color,
                       xValueMapper: (StatusData data, _)=> "${data.status} %",
                       yValueMapper: (StatusData data, _)=>data.amount,
                       dataLabelSettings: DataLabelSettings(isVisible: true) ,
-                      radius: '80%'
+                      radius: '100%'
                     //  explode: true,
                     //           explodeIndex: 1
                   )
@@ -155,16 +197,23 @@ class _OverViewConnectState extends State<OverViewConnect> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       WalletStatus(
-                        color: Color(0xff2668EC),
-                        value:widget.connectData.kyshiConnectDataNgnSum ?? 0 ,
+                        color: primaryColor,
+                        value:widget.dropDownAirtimeGraph2 == "Airtime" ?
+                        overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum ?? 0 :
+                        widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataNgnSum :
+                            overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthNgnSum
+                        ,
                         text: 'NGN',
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       WalletStatus(
-                        color: primaryColor,
-                        value: widget.connectData.kyshiConnectDataGbpSum ?? 0,
+                        color: Color(0xff2668EC),
+                        value:widget.dropDownAirtimeGraph2 == "Airtime" ?
+                      overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum ?? 0 :
+                      widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataGbpSum :
+                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthGbpSum,
                         text: 'GBP',
                       ),
                       SizedBox(
@@ -172,7 +221,10 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       ),
                       WalletStatus(
                         color: Color(0xff6E80A3),
-                        value: widget.connectData.kyshiConnectDataUsdSum ?? 0,
+                        value:widget.dropDownAirtimeGraph2 == "Airtime" ?
+                      overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum ?? 0 :
+                      widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataUsdSum :
+                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthUsdSum,
                         text: 'USD',
                       ),
                       SizedBox(
@@ -180,7 +232,10 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       ),
                       WalletStatus(
                         color: Color(0xff4DAEF8),
-                        value: widget.connectData.kyshiConnectDataCadSum ?? 0,
+                        value: widget.dropDownAirtimeGraph2 == "Airtime" ?
+                        overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum ?? 0 :
+                        widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataCadSum :
+                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthCadSum,
                         text: 'CAD',
                       )
                     ],
@@ -194,15 +249,15 @@ class _OverViewConnectState extends State<OverViewConnect> {
               SizedBox(
                 width: 20,
               ),
-              bottomText("Airtime","0"),
+              bottomText("Airtime","${Util.formatAmount(overViewProvider.kyshiConnectAirtime?.data?.totalConnectTransactionSum)}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("Data",""),
+              bottomText("Data","${Util.formatAmount(overViewProvider.kyshiConnectData?.totalConnectTransactionSum)}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("Health Plans",""),
+              bottomText("Health Plans","${Util.formatAmount(overViewProvider.kyshiConnectHealth?.data?.totalConnectTransactionSum)}"),
             ],
           )
         ],

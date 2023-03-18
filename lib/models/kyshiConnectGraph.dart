@@ -39,7 +39,7 @@ class ConnectOverViewGraph {
   });
 
   String? day;
-  int? totalTrans;
+  double? totalTrans;
 
   factory ConnectOverViewGraph.fromJson(Map<String, dynamic> json) => ConnectOverViewGraph(
     day: json["day"],

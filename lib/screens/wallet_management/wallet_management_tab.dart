@@ -25,6 +25,10 @@ class _WalletTabState extends State<WalletTab> {
   String dropdownvalue = '100';
   var currency = ['100', '300', '500', '700', "1000"];
   bool isLoading = false;
+
+
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -209,7 +213,6 @@ class _WalletTabState extends State<WalletTab> {
                 const SizedBox(
                   height: 20,
                 ),
-                const SearchField(),
                 Container(
                   height: MediaQuery.of(context).size.height / 1.1,
                   child: const TabBarView(

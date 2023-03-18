@@ -250,11 +250,12 @@ class UsersProvider extends ChangeNotifier {
 
   Future<List<Wallet>> getAllWallets(
       BuildContext context, String entrySize) async {
+    // print("getALL WALLETS CALLED");
     Map<String, dynamic> responseData = await UserService()
         .getWalletManagement(context: context, entrySize: entrySize);
     final data = List.from(responseData['data']);
     _allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
-    // print("${allWallets} XXXXXXXXXXX");
+    // print("${_allWallets.map((e) => e.status)} XXXXXXXXXXX");
     // print( _allWallets.map((e) => "${e.toJson()}  ALL WALLETS OBJECT"));
 
     _pendingWallets = _allWallets

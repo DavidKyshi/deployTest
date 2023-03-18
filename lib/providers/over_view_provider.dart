@@ -1,3 +1,6 @@
+import 'package:kyshi_operations_dashboard/models/connectModel/connect_airtime.dart';
+import 'package:kyshi_operations_dashboard/models/connectModel/connect_data.dart';
+import 'package:kyshi_operations_dashboard/models/connectModel/connect_health.dart';
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:kyshi_operations_dashboard/models/kyshiConnectGraph.dart';
 import 'package:kyshi_operations_dashboard/models/kyshiConnectOverViewResponse.dart';
@@ -8,14 +11,22 @@ import 'package:kyshi_operations_dashboard/userService/overview_service.dart';
 
 import '../helper/screen_export.dart';
 import '../models/marketplaceRevenueModel.dart';
+import '../screens/over_view_page/over_view.dart';
+import '../styleguide/colors.dart';
 import '../userService/userService.dart';
 
 class OverViewProvider extends ChangeNotifier {
   ExpressChart? _expressChart;
   List<OverViewdata> _overViewOffers = [];
+  List<StatusData> _chartData = [];
+  List<StatusData> _statusDataAirtime = [];
+  List<StatusData>_statusDataHealth = [];
+  List<StatusData>_statusData = [];
   MarketPlaceOfferOverView? _marketPlaceOfferOverView ;
   MarketPlaceRevenueModel? _marketPlaceRevenue;
-  Data? _kyshiConnectOverViewResponse;
+  ConnectAirtime? _kyshiConnectAirtime;
+  ConnectData? _kyshiConnectData;
+  ConnectHealth? _kyshiConnectHealth;
   List<ConnectOverViewGraph> _kyshiConnectGraph = [];
   double _ngnRevenue = 0;
   double _gbpRevenue = 0;
@@ -30,12 +41,20 @@ class OverViewProvider extends ChangeNotifier {
   String _quoteCurrency = "GBP";
   int _offerDaysAgo = 500;
   double _totalOffers = 0;
-  int _totalConnectTrx =0;
+  double _activeOffers = 0;
+  double _expiredOffers = 0;
+  double _acceptedOffers = 0;
+  double _withDrawnOffers = 0;
+  double _totalConnectTrx =0;
   double _totalNGNGBP = 0;
   double _totalNGNUSD =0;
 
+  get chatData => _chartData;
+  get statusDataAirtime => _statusDataAirtime;
+  get statusDataHealth =>_statusDataHealth;
+  get statusData => _statusData;
   get expressChat => _expressChart;
-  get overViewOffers => _overViewOffers;
+  List<OverViewdata> get overViewOffers => _overViewOffers;
   get ngnRevenue => _ngnRevenue;
   get usdRevenue => _usdRevenue;
   get gbpRevenue => _gbpRevenue;
@@ -48,10 +67,16 @@ class OverViewProvider extends ChangeNotifier {
   get baseCurrency => _baseCurrency;
   get quoteCurrency => _quoteCurrency;
   get marketPlaceOfferOverView => _marketPlaceOfferOverView;
-  get kyshiConnectOverViewResponse => _kyshiConnectOverViewResponse;
-  get kyshiConnectGraph => _kyshiConnectGraph;
+  ConnectAirtime? get kyshiConnectAirtime => _kyshiConnectAirtime;
+  ConnectData? get kyshiConnectData => _kyshiConnectData;
+  ConnectHealth? get kyshiConnectHealth=> _kyshiConnectHealth;
+  List <ConnectOverViewGraph> get kyshiConnectGraph => _kyshiConnectGraph;
   get marketPlaceRevenue => _marketPlaceRevenue;
   get totalOffers => _totalOffers;
+  get activeOffers => _activeOffers;
+  get expiredOffers => _expiredOffers;
+  get acceptedOffers => _acceptedOffers;
+  get withDrawnOffers => _withDrawnOffers;
   get totalConnectTrx => _totalConnectTrx;
   get totalNGNGBP => _totalNGNGBP;
   get totalNGNUSD => _totalNGNUSD;
@@ -71,7 +96,7 @@ class OverViewProvider extends ChangeNotifier {
     _totalOffers = offers;
     notifyListeners();
   }
-  void setTotalConnectTrx(int connect) {
+  void setTotalConnectTrx(double connect) {
     _totalConnectTrx = connect;
     notifyListeners();
   }
@@ -108,7 +133,7 @@ class OverViewProvider extends ChangeNotifier {
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
         await OverViewService().getExpressChart(context: context, daysAgo: _offerDaysAgo);
-    print("$responseData RAW DATA EXPRESS");
+    // print("$responseData RAW DATA EXPRESS");
     final data = responseData;
     _expressChart = ExpressChart.fromJson(data);
     notifyListeners();
@@ -117,13 +142,14 @@ class OverViewProvider extends ChangeNotifier {
 
   Future<List<OverViewdata>> getOverViewOffers(
       {required BuildContext context}) async {
+    // print(" OVERVIEW OFFERS DATA CALLED");
     Map<String, dynamic> responseData =
     await OverViewService().getOverViewOffers(context: context, status: _offerStatus,
         baseCurrency: _offerCurrency, daysAgo: _offerDaysAgo);
-    print("$responseData OVERVIEW DATA");
+    // print("$responseData OVERVIEW OFFERS DATA");
     final data = List.from(responseData['data']);
     _overViewOffers = List<OverViewdata>.from(data.map((x) => OverViewdata.fromJson(x)));
-    // print("${_overViewOffers.length} llllllllwwwwww");
+    // print("${_overViewOffers.map((e) => e.totalOffers).reduce((value, element) => value! +element! )} llllllllwwwwww");
     notifyListeners();
     return _overViewOffers;
   }
@@ -132,12 +158,23 @@ class OverViewProvider extends ChangeNotifier {
     Map<String, dynamic> responseData =
     await OverViewService().getMarketPlaceOfferOverView(context: context,
         baseCurrency: _baseCurrency, daysAgo: _offerDaysAgo, quoteCurrency: _quoteCurrency);
-    print("$responseData OVERVIEW DATA");
     // final data = responseData['data'];
     _marketPlaceOfferOverView =  MarketPlaceOfferOverView.fromJson(responseData);
     _totalOffers = _marketPlaceOfferOverView?.totalOffers ?? 0;
-    _totalNGNGBP = _marketPlaceOfferOverView?.totalOffers ?? 0;
-        print("${_marketPlaceOfferOverView?.toJson()} dddddddddddooo");
+    _totalNGNGBP = _marketPlaceOfferOverView?.ngnGbpAndGbpNgnOffers ?? 0;
+    _totalNGNUSD = _marketPlaceOfferOverView?.ngnUsdAndUsdNgnOffers ?? 0;
+    _activeOffers = _marketPlaceOfferOverView?.activeOffers ?? 0;
+    _expiredOffers = _marketPlaceOfferOverView?.expiredOffers ?? 0;
+    _acceptedOffers = _marketPlaceOfferOverView?.acceptedOffers ?? 0;
+    _withDrawnOffers = _marketPlaceOfferOverView?.withdrawnOffers ?? 0;
+
+    _chartData = [
+      StatusData("Active", double.tryParse(((_activeOffers *100/_totalOffers).toDouble()).toStringAsFixed(2)), primaryColor),
+      StatusData("Accepted",  double.tryParse(((_acceptedOffers *100/_totalOffers).toDouble()).toStringAsFixed(2)),const Color(0XFF2668EC)),
+      StatusData("Expired",  double.tryParse(((_expiredOffers *100/_totalOffers).toDouble()).toStringAsFixed(2)),kyshiGreyishBlue),
+      StatusData("Withdrawn",  double.tryParse(((_withDrawnOffers*100/_totalOffers).toDouble()).toStringAsFixed(2)),const Color(0XFF4DAEF8))];
+
+        // print("${_marketPlaceOfferOverView?.toJson()} dddddddddddooo");
     notifyListeners();
     return _marketPlaceOfferOverView;
   }
@@ -145,7 +182,7 @@ class OverViewProvider extends ChangeNotifier {
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
     await OverViewService().getMarketPlaceRevenue(context: context, daysAgo: _offerDaysAgo);
-    print("$responseData REVENUE DATA");
+    // print("$responseData REVENUE DATA");
     // final data = responseData['data'];
     _marketPlaceRevenue =  MarketPlaceRevenueModel.fromJson(responseData);
     _ngnRevenue = _marketPlaceRevenue?.ngnRevenue?.serviceChargeSum ?? 0.0;
@@ -160,17 +197,66 @@ class OverViewProvider extends ChangeNotifier {
   }
 
 
-  Future<Data?> getKyshiConnectOverView(
+  Future<ConnectAirtime?> getKyshiConnectAirtime(
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
-    await OverViewService().getKyshiConnectOverView(context: context, daysAgo: _offerDaysAgo, connectService: _connectService2);
+    await OverViewService().getKyshiConnectOverView(context: context, daysAgo: _offerDaysAgo, connectService: "airtime");
+    // print("${responseData["data"]} CONNECT AIRTIME");
+    // print("tessttststtststtsst");
+    final data = responseData['data'];
+    _kyshiConnectAirtime =ConnectAirtime.fromJson(responseData);
+    // _connectService2 == "airtime"?ConnectAirtime.fromJson(responseData["data"]):
+    // _connectService2 == "data" ? ConnectData.fromJson(responseData["data"]) : ConnectHealth.fromJson(responseData["data"]);
+    _totalConnectTrx = _kyshiConnectAirtime?.data?.totalConnectTransactionSum ?? 0;
+    int test = _kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum?.toInt() ?? 0;
+    _statusDataAirtime = [
+      StatusData("NGN", double.tryParse(((_kyshiConnectAirtime!.data!.kyshiConnectAirtimeNgnSum! *100/test).toDouble()).toStringAsFixed(2)), primaryColor),
+      StatusData("GBP",  double.tryParse(((_kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF2668EC)),
+      StatusData("USD",  double.tryParse(((_kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)),kyshiGreyishBlue),
+      StatusData("CAD",  double.tryParse(((_kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF4DAEF8))];
+    notifyListeners();
+    return _kyshiConnectAirtime;
+  }
+  Future<ConnectData?> getKyshiConnectData(
+      {required BuildContext context}) async {
+    Map<String, dynamic> responseData =
+    await OverViewService().getKyshiConnectOverView(context: context, daysAgo: _offerDaysAgo, connectService: "data");
     // print("${responseData["data"]} CONNECT DATA");
     // print("tessttststtststtsst");
-    // final data = responseData['data'];
-    _kyshiConnectOverViewResponse =  Data.fromJson(responseData["data"]);
-    _totalConnectTrx = _kyshiConnectOverViewResponse?.totalConnectTransaction ?? 0;
+    final data = responseData['data'];
+    _kyshiConnectData =ConnectData.fromJson(responseData);
+    // _connectService2 == "airtime"?ConnectAirtime.fromJson(responseData["data"]):
+    // _connectService2 == "data" ? ConnectData.fromJson(responseData["data"]) : ConnectHealth.fromJson(responseData["data"]);
+    _totalConnectTrx = _kyshiConnectAirtime?.data?.totalConnectTransactionSum ?? 0;
+    int test = _kyshiConnectData?.totalConnectTransactionSum?.toInt() ?? 0;
+    _statusData = [
+      StatusData("NGN", double.tryParse(((_kyshiConnectData?.kyshiConnectDataNgnSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)), primaryColor),
+      StatusData("GBP",  double.tryParse(((_kyshiConnectData?.kyshiConnectDataNgnSum ??0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF2668EC)),
+      StatusData("USD",  double.tryParse(((_kyshiConnectData?.kyshiConnectDataNgnSum ??0 *100/test).toDouble()).toStringAsFixed(2)),kyshiGreyishBlue),
+      StatusData("CAD",  double.tryParse(((_kyshiConnectData?.kyshiConnectDataNgnSum ??0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF4DAEF8))];
     notifyListeners();
-    return _kyshiConnectOverViewResponse;
+    return _kyshiConnectData;
+  }
+
+  Future<ConnectHealth?> getKyshiConnectHealth(
+      {required BuildContext context}) async {
+    Map<String, dynamic> responseData =
+    await OverViewService().getKyshiConnectOverView(context: context, daysAgo: _offerDaysAgo, connectService: "health");
+    // print("${responseData["data"]} CONNECT HEALTH");
+    // print("tessttststtststtsst");
+    final data = responseData['data'];
+    _kyshiConnectHealth = ConnectHealth.fromJson(responseData);
+    // _connectService2 == "airtime"?ConnectAirtime.fromJson(responseData["data"]):
+    // _connectService2 == "data" ? ConnectData.fromJson(responseData["data"]) : ConnectHealth.fromJson(responseData["data"]);
+    _totalConnectTrx = _kyshiConnectAirtime?.data?.totalConnectTransactionSum ?? 0;
+    int test = _kyshiConnectHealth?.data?.totalConnectTransactionSum?.toInt() ?? 0;
+    _statusDataHealth = [
+      StatusData("NGN", double.tryParse(((_kyshiConnectHealth?.data?.kyshiConnectHealthNgnSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)), primaryColor),
+      StatusData("GBP",  double.tryParse(((_kyshiConnectHealth?.data?.kyshiConnectHealthGbpSum ??0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF2668EC)),
+      StatusData("USD",  double.tryParse(((_kyshiConnectHealth?.data?.kyshiConnectHealthUsdSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)),kyshiGreyishBlue),
+      StatusData("CAD",  double.tryParse(((_kyshiConnectHealth?.data?.kyshiConnectHealthCadSum ?? 0 *100/test).toDouble()).toStringAsFixed(2)),const Color(0XFF4DAEF8))];
+    notifyListeners();
+    return _kyshiConnectHealth;
   }
 
 
@@ -178,9 +264,10 @@ class OverViewProvider extends ChangeNotifier {
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
     await OverViewService().getKyshiConnectGraph(context: context, daysAgo: _offerDaysAgo, connectService: _connectService, connectBaseCur: _connectBaseCur);
-    // print("$responseData CONNECT DATA");
+    print("$responseData CONNECT DATA");
     // final data = responseData['data'];
     final data = List.from(responseData['data']);
+    // print("$data connect graph");
     _kyshiConnectGraph = List<ConnectOverViewGraph>.from(data.map((x) => ConnectOverViewGraph.fromJson(x)));
     // print("${_overViewOffers.length} llllllllwwwwww");
     notifyListeners();

@@ -1,5 +1,6 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -29,9 +30,9 @@ class _OverViewExpressChartState extends State<OverViewExpressChart> {
     _expressChart = overViewProvider.expressChat;
     _tooltip = TooltipBehavior(enable: true);
     _data =[
-      StatusData("GBP", _expressChart?.expressTransferGbpSum , kyshiGreen),
-      StatusData("USD", _expressChart?.expressTransferUsdSum  ,primaryColor),
-      StatusData("CAD", _expressChart?.expressTransferCadSum  ,const Color(0XFF4DAEF8))];
+      StatusData("GBP", double.tryParse((_expressChart!.totalCountExpressTransferGbp! * 100 / _expressChart!.totalCountExpressTransfer! ).toStringAsFixed(2)), kyshiGreen),
+      StatusData("USD", double.tryParse((_expressChart!.totalCountExpressTransferUsd! * 100 / _expressChart!.totalCountExpressTransfer! ).toStringAsFixed(2))  ,primaryColor),
+      StatusData("CAD",double.tryParse((_expressChart!.totalCountExpressTransferCad! * 100 / _expressChart!.totalCountExpressTransfer! ).toStringAsFixed(2))  ,const Color(0XFF4DAEF8))];
 
     // TODO: implement initState
     super.initState();
@@ -93,20 +94,12 @@ class _OverViewExpressChartState extends State<OverViewExpressChart> {
                     height: 300,
                     child: SfCircularChart(
                       annotations: <CircularChartAnnotation>[
-                        // CircularChartAnnotation(
-                        //     widget: Container(
-                        //         child: PhysicalModel(
-                        //             child: Container(),
-                        //             shape: BoxShape.circle,
-                        //             elevation: 2,
-                        //             shadowColor: Colors.black,
-                        //             color:  Colors.red))),
                         CircularChartAnnotation(
                             widget: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('${_expressChart?.totalCountExpressTransfer ?? 0}',
+                                Text('${Util.formatAmount(_expressChart?.totalCountExpressTransfer ?? 0)}',
                                     style: TextStyle(
                                         color: kyshiGreyishBlue,
                                         fontSize: 30,

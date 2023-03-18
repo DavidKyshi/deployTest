@@ -28,6 +28,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
   final List<String> currency = ["NGN", "NGN"];
   User? user;
   String? id;
+  final controller = TextEditingController();
 
   // List of items in our dropdown menu
 
@@ -75,8 +76,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                 height: 800,
                 child: user!.wallets!.isEmpty
                     ? GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                         ),
                         itemBuilder: (context, index) {
@@ -279,9 +279,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 height: 40,
                                               ),
                                               Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 8,
+                                                padding: const EdgeInsets.symmetric(vertical: 8,
                                                         horizontal: 10),
                                                 decoration: BoxDecoration(
                                                     color: primaryColor
@@ -293,11 +291,11 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceAround,
-                                                  children: const [
-                                                    SizedBox(
+                                                  children:  [
+                                                    const SizedBox(
                                                       width: 20,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       "View full wallet details",
                                                       style: TextStyle(
                                                           color: Colors.white,
@@ -307,9 +305,8 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                           fontFamily:
                                                               'PushPenny'),
                                                     ),
-                                                    Icon(Icons
-                                                        .calendar_today_outlined),
-                                                    SizedBox(
+                                                   SvgPicture.asset(wallet),
+                                                    const SizedBox(
                                                       width: 20,
                                                     ),
                                                   ],
@@ -336,12 +333,10 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               walletStatus(
-                                title:
-                                    "${user?.wallets![index].currency} wallet details",
+                                title: "${user?.wallets![index].currency} wallet details",
                                 subTitle: user?.wallets![index].status ?? "",
                                 color: primaryColor,
-                                backgroundColor:
-                                    walletColor(wallet: user?.wallets![index]),
+                                backgroundColor: walletColor(wallet: user?.wallets![index]),
                                 containerColor: const Color(0x0ff9f9f9),
                                 padding2: 60,
                                 padding1: 10,
@@ -349,7 +344,15 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                   editWalletStatusDialog(
                                     walletType: 'NGN',
                                     context,
-                                    title: "Add comment",
+                                    title: "Add comment", ontap: () {
+                                    final id = Provider.of<UsersProvider>(context, listen: false).currentSelectedWalletId;
+                                    print("$id ${controller.text} changing wallet");
+                                    updateStatus(
+                                        context: context,
+                                        id: id,
+                                        text: controller.text,
+                                        dropDown: dropDownValue);
+                                  }, controller: controller,
                                   );
                                 },
                               ),
@@ -364,22 +367,17 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                   fit: StackFit.loose,
                                   children: [
                                     Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
+                                      width: MediaQuery.of(context).size.width / 3,
                                       padding: const EdgeInsets.only(
                                           top: 15,
                                           left: 15,
                                           right: 60,
                                           bottom: 40),
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: const Color(0XFF8C8C8C)
-                                                  .withOpacity(0.2)),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
+                                          border: Border.all(color: const Color(0XFF8C8C8C).withOpacity(0.2)),
+                                          borderRadius: BorderRadius.circular(10)),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
@@ -399,16 +397,13 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 height: 20,
                                                 // padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
                                                 decoration: BoxDecoration(
-                                                    color: walletState(
-                                                        wallet: user
-                                                            ?.wallets![index]),
+                                                    color: walletState(wallet: user?.wallets![index]),
                                                     border: Border.all(
                                                         color: primaryColor),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             19)),
-                                                child: Text(
-                                                  "${user?.wallets![index].status}",
+                                                child: Text("${user?.wallets![index].status}",
                                                   style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 12,
@@ -425,8 +420,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                           ),
                                           RichText(
                                               text: TextSpan(
-                                                  text:
-                                                      "₦${user?.wallets![index].availableBalance}",
+                                                  text: "₦${user?.wallets![index].availableBalance}",
                                                   style: TextStyle(
                                                       color: primaryColor,
                                                       fontSize: 40,
@@ -453,22 +447,18 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 Text(
                                                   "Bonus balance",
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                                      fontWeight: FontWeight.w400,
                                                       fontSize: 8,
                                                       fontFamily: 'PushPenny',
                                                       color: kyshiGreyishBlue),
                                                 ),
                                                 RichText(
                                                   text: TextSpan(
-                                                    text:
-                                                        "₦${user?.wallets![index].totalBalance}",
+                                                    text: "₦${user?.wallets![index].totalBalance}",
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        fontWeight: FontWeight.w500,
                                                         fontSize: 20,
-                                                        color:
-                                                            kyshiGreyishBlue),
+                                                        color: kyshiGreyishBlue),
                                                   ),
                                                 )
                                               ],
@@ -486,18 +476,13 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        WalletDetails(
-                                                          wallet: user
-                                                              ?.wallets![index],
+                                                        WalletDetails(wallet: user?.wallets![index],
                                                         )));
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 15, horizontal: 15),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
+                                            width: MediaQuery.of(context).size.width / 3,
                                             // height: 500,
                                             decoration: BoxDecoration(
                                                 color: const Color(0XFFF8F9FE),
@@ -538,53 +523,48 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 bankAccountDetails(
                                                     detail: "Account Name",
                                                     value: user?.wallets![index]
-                                                            .accountName ??
-                                                        "no name"),
+                                                            .accountName ?? "no name"),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
                                                 bankAccountDetails(
                                                     detail: "Bank Name",
-                                                    value: user?.wallets![index]
-                                                            .bankName ??
-                                                        "no bank"),
+                                                    value: user?.wallets![index].bankName ?? "no bank"),
                                                 const SizedBox(
                                                   height: 40,
                                                 ),
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 10),
-                                                  decoration: BoxDecoration(
-                                                      color: primaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24)),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: const [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "View full wallet details",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            fontFamily:
-                                                                'PushPenny'),
-                                                      ),
-                                                      Icon(Icons
-                                                          .calendar_today_outlined),
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                    ],
+                                                InkWell(
+                                                  onTap: (){
+                                                    print("conatiner tapped");
+                                                  },
+                                                  child: Container(
+                                                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                                    decoration: BoxDecoration(
+                                                        color: primaryColor,
+                                                        borderRadius: BorderRadius.circular(24)),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.spaceAround,
+                                                      children:  [
+                                                        SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                        Text(
+                                                          "View full wallet details",
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight.w400,
+                                                              fontFamily:
+                                                                  'PushPenny'),
+                                                        ),
+                                                       SvgPicture.asset(wallet),
+                                                        SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 )
                                               ],
@@ -1330,8 +1310,7 @@ updateStatus(
     "status": dropDown.toUpperCase()
   }, context: context);
   if (response["status"] == "True") {
-    Provider.of<UsersProvider>(context, listen: false)
-        .getAllWallets(context, "50");
+    Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
     snackBar(context, contentTypeSuccess,
         title: "Awesome!!", message: ' Request sent Successfully ');
   } else {
@@ -1351,16 +1330,16 @@ var changeWalletStatus = [
   'Active',
   'Pending',
   'In-progress',
-  'Reject and  close application',
-  'Rejected and re-open application',
+  // 'Reject and  close applicatio
 ];
 
 void editWalletStatusDialog(BuildContext context,
     {additionalButton,
-    // required Function()? btnFunction,
+    required Function()? ontap,
     required String walletType,
+      required TextEditingController controller,
     required String title}) {
-  final TextEditingController controller = TextEditingController();
+  // final TextEditingController controller = TextEditingController();
   showDialog(
       barrierDismissible: true,
       context: context,
@@ -1502,44 +1481,7 @@ void editWalletStatusDialog(BuildContext context,
                           ),
                           KyshiButtonResponsive(
                             color: primaryColor,
-                            onPressed: () async {
-                              final id = Provider.of<UsersProvider>(context,
-                                      listen: false)
-                                  .currentSelectedWalletId;
-                              print("${id} changing");
-                              updateStatus(
-                                  context: context,
-                                  id: id,
-                                  text: controller.text,
-                                  dropDown: dropDownValue);
-                              //  Response response =
-                              //      await UserService().updateWalletStatus(data: {
-                              //    "wallet_id": id,
-                              //    "details":controller.text,
-                              //    "status":dropDownValue.toUpperCase()
-                              //  }, context: context);
-                              //  if(response.statusCode == 200){
-                              //    final snackBar = SnackBar(
-                              //      /// need to set following properties for best effect of awesome_snackbar_content
-                              //      elevation: 0,
-                              //      behavior: SnackBarBehavior.floating,
-                              //      backgroundColor: Colors.transparent,
-                              //      content: AwesomeSnackbarContent(
-                              //        title: 'On Snap!',
-                              //        message:
-                              //        'This is an example error message that will be shown in the body of snackbar!',
-                              //
-                              //        /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                              //        contentType: ContentType.success,
-                              //      ),
-                              //    );
-                              //
-                              //    ScaffoldMessenger.of(context)
-                              //      ..hideCurrentSnackBar()
-                              //      ..showSnackBar(snackBar);
-                              //  }
-                              // Navigator.pop(context);
-                            },
+                            onPressed: ontap,
                             text: "Yes, change status",
                             size: 200,
                           ),

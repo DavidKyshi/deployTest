@@ -114,8 +114,7 @@ class _KyshiCardState extends State<KyshiCard> {
                         ),
                         SvgPicture.asset(empty),
                         Text(
-                          "The user is yet to make transaction"
-                          " \nwith Kyshi connect services,"
+                          "The user is yet to activate the Kyshi card"
                           "  it will\n appear here when the user does",
                           style: TextStyle(
                             color: primaryColor,
@@ -301,8 +300,8 @@ class _KyshiCardState extends State<KyshiCard> {
                           ),
                           SvgPicture.asset(empty),
                           Text(
-                            "The user is yet to make transaction"
-                            " \nwith Kyshi connect services,"
+                            "The user is yet to make a top up"
+                            " \to Kyshi card,"
                             "  it will\n appear here when the user does",
                             style: TextStyle(
                               color: primaryColor,

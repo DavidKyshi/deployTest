@@ -29,7 +29,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  bool showPassword = false;
+  bool showPassword = true;
   bool validUser = false;
 
   // late Future<bool goOtpScreen;
