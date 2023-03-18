@@ -10,8 +10,21 @@ import 'payout_all_transaction.dart';
 import 'payout_completed_transaction.dart';
 import 'payout_reversed_transaction.dart';
 
-class PayOutTransactionTab extends StatelessWidget {
+class PayOutTransactionTab extends StatefulWidget {
   const PayOutTransactionTab({super.key});
+
+  @override
+  State<PayOutTransactionTab> createState() => _PayOutTransactionTabState();
+}
+
+class _PayOutTransactionTabState extends State<PayOutTransactionTab> {
+    String _searchQuery = '';
+
+  void _handleSearch(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +89,20 @@ class PayOutTransactionTab extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const SearchField(),
+                SearchField2(
+                       hintText: "Search here....",
+                      onChanged: _handleSearch,
+                    ),         
                 Container(
                   height: MediaQuery.of(context).size.height / 1.1,
                   child: TabBarView(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      PayOutAllTransactionTable(),
-                      PayOutPendingTransactionTable(),
-                      PayOutFailedTransactionTable(),
-                      PayOutCompletedTransactionTable(),
-                      PayOutReversedTransactionTable()
+                      PayOutAllTransactionTable(searchQuery: _searchQuery,),
+                      PayOutPendingTransactionTable(searchQuery: _searchQuery,),
+                      PayOutFailedTransactionTable(searchQuery: _searchQuery,),
+                      PayOutCompletedTransactionTable(searchQuery: _searchQuery,),
+                      PayOutReversedTransactionTable(searchQuery: _searchQuery,)
                     ],
                   ),
                 ),

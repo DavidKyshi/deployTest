@@ -1705,16 +1705,17 @@ class NatureAndPurposeHeadingTextStyle extends StatelessWidget {
         isShow
             ? InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PageNotFoundScreen()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const PageNotFoundScreen()),
+                  // );
                 },
                 child: Text(
                   'Show more',
                   style: TextStyle(
-                      color: Color(0xff23CE6B),
+                    color: Colors.grey,
+                      //color: Color(0xff23CE6B),
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       decoration: TextDecoration.underline),

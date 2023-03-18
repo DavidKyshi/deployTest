@@ -4,13 +4,14 @@ import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/screens/payout_transaction/payout_all_transaction.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 import 'payout_failed_transaction.dart';
 
 class PayOutCompletedTransactionTable extends StatefulWidget {
-  PayOutCompletedTransactionTable({super.key});
-
+  PayOutCompletedTransactionTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<PayOutCompletedTransactionTable> createState() =>
       _PayOutCompletedTransactionTableState();
@@ -24,8 +25,12 @@ class _PayOutCompletedTransactionTableState
 
   @override
   Widget build(BuildContext context) {
-    final completedPayOutTransactionData =
-        payOutTransactionProvider.completedPayOutTransactionData;
+   
+         List<PayOutTransactionUserData>? completedPayOutTransactionData = Provider.of<PayOutTransactionProvider>(context, listen: false).completedPayOutTransactionData;
+     if (widget.searchQuery.isNotEmpty) {
+      completedPayOutTransactionData = completedPayOutTransactionData.where((completedPayOutTransactionData) => completedPayOutTransactionData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

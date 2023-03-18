@@ -72,7 +72,8 @@ class _AllWalletsState extends State<AllWallets> {
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 12),
             child: SingleChildScrollView(
               child: StatefulBuilder(builder: (context, state) {
-                return Column(
+                return 
+                Column(
                   children: [
                      SearchField(
                        hintText: "Search wallet....",

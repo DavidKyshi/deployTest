@@ -3,12 +3,14 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/offer_management_api_response/offer_data.dart';
 import '../../widgets/accept_offer_alertbox.dart';
+import '../user_account_page/user_account_index.dart';
 import 'all_offer.dart';
 
 class WithDrawnOfferTable extends StatefulWidget {
-  WithDrawnOfferTable({super.key});
-
+  WithDrawnOfferTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<WithDrawnOfferTable> createState() => _WithDrawnOfferTableState();
 }
@@ -40,7 +42,11 @@ class _WithDrawnOfferTableState extends State<WithDrawnOfferTable> {
 
   @override
   Widget build(BuildContext context) {
-    final withdrawOfferData = offerManagementProvider.withdrawOfferData;
+     List<OfferData>? withdrawOfferData = Provider.of<OfferManagementProvider>(context, listen: false).withdrawOfferData;
+     if (widget.searchQuery.isNotEmpty) {
+      withdrawOfferData = withdrawOfferData.where((offerData) => offerData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -203,8 +209,14 @@ class _WithDrawnOfferTableState extends State<WithDrawnOfferTable> {
                                         ),
                                         SizedBox(
                                             width: 157,
-                                            child: Text(
-                                                withdrawOfferData.owner ?? "")),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    withdrawOfferData.user ?? ""),
+                                                    Text(withdrawOfferData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

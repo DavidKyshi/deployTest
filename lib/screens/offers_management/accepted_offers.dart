@@ -3,12 +3,14 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/offer_management_api_response/offer_data.dart';
 import '../../widgets/accept_offer_alertbox.dart';
+import '../user_account_page/user_account_index.dart';
 import 'all_offer.dart';
 
 class OfferManageAcceptedOfferTable extends StatefulWidget {
-  OfferManageAcceptedOfferTable({super.key});
-
+  OfferManageAcceptedOfferTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<OfferManageAcceptedOfferTable> createState() =>
       _OfferManageAcceptedOfferTableState();
@@ -42,7 +44,11 @@ class _OfferManageAcceptedOfferTableState
       Provider.of<OfferManagementProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
-    final acceptedOffer = offerManagementProvider.acceptedOfferData;
+   List<OfferData>? acceptedOffer = Provider.of<OfferManagementProvider>(context, listen: false).acceptedOfferData;
+     if (widget.searchQuery.isNotEmpty) {
+      acceptedOffer = acceptedOffer.where((offerData) => offerData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -205,8 +211,14 @@ class _OfferManageAcceptedOfferTableState
                                         ),
                                         SizedBox(
                                             width: 157,
-                                            child: Text(
-                                                acceptedOfferData.owner ?? "")),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    acceptedOfferData.user ?? ""),
+                                                    Text(acceptedOfferData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

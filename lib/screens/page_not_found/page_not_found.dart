@@ -96,7 +96,9 @@ class PageNotFoundScreen extends StatelessWidget {
                               SizedBox(height: 30),
                               KyshiButtonResponsive(
                                 color: primaryColor,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
                                 size: 200,
                                 child: Row(
                                   children: [

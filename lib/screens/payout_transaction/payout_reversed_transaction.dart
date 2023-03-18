@@ -3,14 +3,15 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 import 'payout_all_transaction.dart';
 import 'payout_failed_transaction.dart';
 
 class PayOutReversedTransactionTable extends StatefulWidget {
-  PayOutReversedTransactionTable({super.key});
-
+  PayOutReversedTransactionTable({super.key, required this.searchQuery});
+  final String searchQuery;
   @override
   State<PayOutReversedTransactionTable> createState() =>
       _PayOutReversedTransactionTableState();
@@ -24,8 +25,12 @@ class _PayOutReversedTransactionTableState
 
   @override
   Widget build(BuildContext context) {
-    final reversedPayOutTransactionData =
-        payOutTransactionProvider.reversedPayOutTransactionData;
+
+            List<PayOutTransactionUserData>? reversedPayOutTransactionData = Provider.of<PayOutTransactionProvider>(context, listen: false).reversedPayOutTransactionData;
+     if (widget.searchQuery.isNotEmpty) {
+      reversedPayOutTransactionData = reversedPayOutTransactionData.where((reversedPayOutTransactionData) => reversedPayOutTransactionData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

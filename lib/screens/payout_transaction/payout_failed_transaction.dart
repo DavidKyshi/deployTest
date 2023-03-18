@@ -3,13 +3,14 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 import 'payout_all_transaction.dart';
 
 class PayOutFailedTransactionTable extends StatefulWidget {
-  PayOutFailedTransactionTable({super.key});
-
+  PayOutFailedTransactionTable({super.key, required this.searchQuery});
+  final String searchQuery;
   @override
   State<PayOutFailedTransactionTable> createState() =>
       _PayOutFailedTransactionTableState();
@@ -23,8 +24,12 @@ class _PayOutFailedTransactionTableState
   bool ontap = false;
   @override
   Widget build(BuildContext context) {
-    final failedPayOutTransactionData =
-        payOutTransactionProvider.failedPayOutTransactionData;
+   
+        List<PayOutTransactionUserData>? failedPayOutTransactionData = Provider.of<PayOutTransactionProvider>(context, listen: false).failedPayOutTransactionData;
+     if (widget.searchQuery.isNotEmpty) {
+      failedPayOutTransactionData = failedPayOutTransactionData.where((failedPayOutTransactionData) => failedPayOutTransactionData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

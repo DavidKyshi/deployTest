@@ -192,8 +192,14 @@ class _CreateOfferTableState extends State<CreateOfferTable> {
                                         ),
                                         SizedBox(
                                             width: 157,
-                                            child: Text(
-                                                createdOfferData.owner ?? "")),
+                                            child:  Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    createdOfferData.user ?? ""),
+                                                    Text(createdOfferData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

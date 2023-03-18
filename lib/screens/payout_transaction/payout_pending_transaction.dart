@@ -3,14 +3,15 @@
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 import 'payout_all_transaction.dart';
 import 'payout_failed_transaction.dart';
 
 class PayOutPendingTransactionTable extends StatefulWidget {
-  PayOutPendingTransactionTable({super.key});
-
+  PayOutPendingTransactionTable({super.key, required this.searchQuery});
+  final String searchQuery;
   @override
   State<PayOutPendingTransactionTable> createState() =>
       _PayOutPendingTransactionTableState();
@@ -24,8 +25,13 @@ class _PayOutPendingTransactionTableState
     Color _colorContainer = primaryColor;
   @override
   Widget build(BuildContext context) {
-    final pendingPayOutTransactionData =
-        payOutTransactionProvider.pendingPayOutTransactionData;
+   
+
+        List<PayOutTransactionUserData>? pendingPayOutTransactionData = Provider.of<PayOutTransactionProvider>(context, listen: false).pendingPayOutTransactionData;
+     if (widget.searchQuery.isNotEmpty) {
+      pendingPayOutTransactionData = pendingPayOutTransactionData.where((pendingPayOutTransactionData) => pendingPayOutTransactionData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

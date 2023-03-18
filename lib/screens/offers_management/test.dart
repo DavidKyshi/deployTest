@@ -178,7 +178,14 @@ class _TextTabState extends State<TextTab> {
                                   ),
                                   SizedBox(
                                       width: 157,
-                                      child: Text(offersData.owner ?? "")),
+                                      child:Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    offersData.user ?? ""),
+                                                    Text(offersData.email ?? "")
+                                              ],
+                                            )),
                                   SizedBox(
                                     width: 50,
                                   ),

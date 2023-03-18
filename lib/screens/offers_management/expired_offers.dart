@@ -1,14 +1,16 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/models/offer_management_api_response/offer_data.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../widgets/accept_offer_alertbox.dart';
 import 'all_offer.dart';
 
 class ExpiredOfferTable extends StatefulWidget {
-  ExpiredOfferTable({super.key});
-
+  ExpiredOfferTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<ExpiredOfferTable> createState() => _ExpiredOfferTableState();
 }
@@ -39,7 +41,11 @@ class _ExpiredOfferTableState extends State<ExpiredOfferTable> {
       Provider.of<OfferManagementProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
-    final expiredOffer = offerManagementProvider.closedOfferData;
+    List<OfferData>? expiredOffer = Provider.of<OfferManagementProvider>(context, listen: false).closedOfferData;
+     if (widget.searchQuery.isNotEmpty) {
+      expiredOffer = expiredOffer.where((offerData) => offerData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -202,8 +208,14 @@ class _ExpiredOfferTableState extends State<ExpiredOfferTable> {
                                         ),
                                         SizedBox(
                                             width: 157,
-                                            child: Text(
-                                                closedOfferData.owner ?? "")),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    closedOfferData.user ?? ""),
+                                                    Text(closedOfferData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

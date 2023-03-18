@@ -5,10 +5,11 @@ import 'package:kyshi_operations_dashboard/models/offer_management_api_response/
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../widgets/accept_offer_alertbox.dart';
+import '../user_account_page/user_account_index.dart';
 
 class AllOfferTable extends StatefulWidget {
-  AllOfferTable({super.key});
-
+  AllOfferTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<AllOfferTable> createState() => _AllOfferTableState();
 }
@@ -19,11 +20,7 @@ class _AllOfferTableState extends State<AllOfferTable> {
   OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  
 
   Text titleText(String title) {
     return Text(
@@ -45,16 +42,29 @@ class _AllOfferTableState extends State<AllOfferTable> {
     );
   }
 
+
+   @override
+  void initState() {
+   
+    super.initState();
+  }
+ 
   @override
   Widget build(BuildContext context) {
-    final offerData = offerManagementProvider.offerData;
+     List<OfferData>? offerData = Provider.of<OfferManagementProvider>(context, listen: false).offerData;
+     if (widget.searchQuery.isNotEmpty) {
+      offerData = offerData.where((offerData) => offerData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
+    // offerData = 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-          child: Container(
+          child: 
+          Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -211,7 +221,14 @@ class _AllOfferTableState extends State<AllOfferTable> {
                                         SizedBox(
                                             width: 157,
                                             child:
-                                                Text(offersData.owner ?? "")),
+                                                Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    offersData.user ?? ""),
+                                                    Text(offersData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

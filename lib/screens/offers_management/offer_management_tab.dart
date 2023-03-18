@@ -9,6 +9,8 @@ import 'package:kyshi_operations_dashboard/screens/offers_management/test.dart';
 import 'package:kyshi_operations_dashboard/screens/offers_management/withdraw_offers.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/accept_offer.dart';
 
+import '../../models/offer_management_api_response/offer_data.dart';
+import '../user_account_page/user_account_index.dart';
 import 'accepted_offers.dart';
 import 'all_offer.dart';
 import 'open_offers.dart';
@@ -26,6 +28,15 @@ class _OfferManagementTabState extends State<OfferManagementTab> {
   @override
   void initState() {
     super.initState();
+  }
+ 
+
+     String _searchQuery = '';
+
+  void _handleSearch(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
   }
 
   @override
@@ -112,18 +123,21 @@ class _OfferManagementTabState extends State<OfferManagementTab> {
                   SizedBox(
                     height: 20,
                   ),
-                  SearchField(),
-                  Container(
+ SearchField2(
+                       hintText: "Search here....",
+                      onChanged: _handleSearch,
+                    ),            
+                          Container(
                     height: MediaQuery.of(context).size.height / 1.1,
                     child: TabBarView(
                       children: [
-                        TextTab(),
-                        // AllOfferTable(),
-                        OpenOfferTable(),
-                        ClosedOfferTable(),
-                        OfferManageAcceptedOfferTable(),
-                        ExpiredOfferTable(),
-                        WithDrawnOfferTable(),
+                       // TextTab(),
+                         AllOfferTable(searchQuery: _searchQuery,),
+                        OpenOfferTable(searchQuery: _searchQuery,),
+                        ClosedOfferTable(searchQuery: _searchQuery,),
+                        OfferManageAcceptedOfferTable(searchQuery: _searchQuery,),
+                        ExpiredOfferTable(searchQuery: _searchQuery,),
+                        WithDrawnOfferTable(searchQuery: _searchQuery,),
                       ],
                     ),
                   ),

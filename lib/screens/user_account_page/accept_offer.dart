@@ -192,9 +192,14 @@ class _AcceptOfferTableState extends State<AcceptOfferTable> {
                                         ),
                                         SizedBox(
                                             width: 157,
-                                            child: Text(
-                                                acceptedUserOfferData.owner ??
-                                                    "")),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                subText(
+                                                    acceptedUserOfferData.user ?? ""),
+                                                    Text(acceptedUserOfferData.email ?? "")
+                                              ],
+                                            )),
                                         SizedBox(
                                           width: 50,
                                         ),

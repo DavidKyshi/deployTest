@@ -4,14 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
+import '../../models/pay_out_transaction/pay_out_transaction_data.dart';
 import '../../providers/payout_transactions.dart';
 import '../../widgets/accept_offer_alertbox.dart';
 import '../offers_management/all_offer.dart';
 import 'payout_failed_transaction.dart';
 
 class PayOutAllTransactionTable extends StatefulWidget {
-  PayOutAllTransactionTable({super.key});
-
+  PayOutAllTransactionTable({super.key, required this.searchQuery});
+final String searchQuery;
   @override
   State<PayOutAllTransactionTable> createState() =>
       _PayOutAllTransactionTableState();
@@ -26,9 +27,12 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
 
   @override
   Widget build(BuildContext context) {
-    final allPayOutTransactionData =
-        payOutTransactionProvider.allPayOutTransactionData;
-    var f = NumberFormat("###.0#", "en_US");
+   
+    List<PayOutTransactionUserData>? allPayOutTransactionData = Provider.of<PayOutTransactionProvider>(context, listen: false).allPayOutTransactionData;
+     if (widget.searchQuery.isNotEmpty) {
+      allPayOutTransactionData = allPayOutTransactionData.where((allPayOutTransactionData) => allPayOutTransactionData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+      //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
   
     return Scaffold(
       backgroundColor: Colors.white,
@@ -44,28 +48,26 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: allPayOutTransactionData.isEmpty
-                    ? Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/book-search.png',
-                              width: 66,
-                              height: 67,
-                            ),
-                            Text(
-                              'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18,
-                                  fontFamily: "PushPenny",
-                                  color: primaryColor),
-                            ),
-                          ],
+                    ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/book-search.png',
+                          width: 66,
+                          height: 67,
                         ),
-                      )
+                        Text(
+                          'We currently don’t have any offer at \n the Kyshi marketplace,  it will appear \n here when we do',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              fontFamily: "PushPenny",
+                              color: primaryColor),
+                        ),
+                      ],
+                    )
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                         child: Column(

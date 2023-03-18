@@ -7,7 +7,8 @@ import '../../helper/screen_export.dart';
 @immutable
 class OfferData {
   final String? id;
-  final String? owner;
+  final String? user;
+  final String? email;
   final DateTime? createdAt;
   final DateTime? modifiedAt;
   final String? status;
@@ -39,7 +40,8 @@ class OfferData {
 
   const OfferData({
     this.id,
-    this.owner,
+    this.user,
+    this.email,
     this.createdAt,
     this.modifiedAt,
     this.status,
@@ -72,12 +74,13 @@ class OfferData {
 
   @override
   String toString() {
-    return 'Datum(id: $id, owner: $owner, createdAt: $createdAt, modifiedAt: $modifiedAt, status: $status, baseAmount: $baseAmount, quoteAmount: $quoteAmount, baseFee: $baseFee, quoteFee: $quoteFee, exchangeRate: $exchangeRate, creatorNarration: $creatorNarration, acceptorNarration: $acceptorNarration, acceptedAt: $acceptedAt, quoteFundsPaid: $quoteFundsPaid, baseFundsPaid: $baseFundsPaid, eligibleForFreeSwap: $eligibleForFreeSwap, expiresAt: $expiresAt, repostAtKyshiRate: $repostAtKyshiRate, metadata: $metadata, createdBy: $createdBy, baseCurrency: $baseCurrency, quoteCurrency: $quoteCurrency, createrBaseWallet: $createrBaseWallet, createrQuoteWallet: $createrQuoteWallet, createrQuoteBeneficiary: $createrQuoteBeneficiary, acceptedBy: $acceptedBy, accepterBaseBeneficiary: $accepterBaseBeneficiary, accepterBaseWallet: $accepterBaseWallet, accepterQuoteWallet: $accepterQuoteWallet, likedBy: $likedBy)';
+    return 'Datum(id: $id, user: $user, email:$email, createdAt: $createdAt, modifiedAt: $modifiedAt, status: $status, baseAmount: $baseAmount, quoteAmount: $quoteAmount, baseFee: $baseFee, quoteFee: $quoteFee, exchangeRate: $exchangeRate, creatorNarration: $creatorNarration, acceptorNarration: $acceptorNarration, acceptedAt: $acceptedAt, quoteFundsPaid: $quoteFundsPaid, baseFundsPaid: $baseFundsPaid, eligibleForFreeSwap: $eligibleForFreeSwap, expiresAt: $expiresAt, repostAtKyshiRate: $repostAtKyshiRate, metadata: $metadata, createdBy: $createdBy, baseCurrency: $baseCurrency, quoteCurrency: $quoteCurrency, createrBaseWallet: $createrBaseWallet, createrQuoteWallet: $createrQuoteWallet, createrQuoteBeneficiary: $createrQuoteBeneficiary, acceptedBy: $acceptedBy, accepterBaseBeneficiary: $accepterBaseBeneficiary, accepterBaseWallet: $accepterBaseWallet, accepterQuoteWallet: $accepterQuoteWallet, likedBy: $likedBy)';
   }
 
   factory OfferData.fromMap(Map<String, dynamic> data) => OfferData(
         id: data['id'] as String?,
-        owner: data['owner'] as String?,
+        user: data['user'] as String?,
+        email: data['email'] as String?,
         createdAt: data['created_at'] == null
             ? null
             : DateTime.parse(data['created_at'] as String),
@@ -116,7 +119,8 @@ class OfferData {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'owner': owner,
+        'user': user,
+        'email':email,
         'created_at': createdAt?.toIso8601String(),
         'modified_at': modifiedAt?.toIso8601String(),
         'status': status,
@@ -161,7 +165,7 @@ class OfferData {
 
   OfferData copyWith({
     String? id,
-    String? owner,
+    String? user,
     DateTime? createdAt,
     DateTime? modifiedAt,
     String? status,
@@ -193,7 +197,8 @@ class OfferData {
   }) {
     return OfferData(
       id: id ?? this.id,
-      owner: owner ?? this.owner,
+      user: user ?? this.user,
+      email:email?? this.email,
       createdAt: createdAt ?? this.createdAt,
       modifiedAt: modifiedAt ?? this.modifiedAt,
       status: status ?? this.status,
@@ -238,7 +243,8 @@ class OfferData {
   @override
   int get hashCode =>
       id.hashCode ^
-      owner.hashCode ^
+      user.hashCode ^
+      email.hashCode ^
       createdAt.hashCode ^
       modifiedAt.hashCode ^
       status.hashCode ^
