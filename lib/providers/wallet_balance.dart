@@ -3,13 +3,16 @@ import '../models/wallet_balance/wallet_balance.dart';
 import '../userService/userService.dart';
 
 class WalletBalanceProvider extends ChangeNotifier {
-     List<WalletBalance> walletBalance = [];
+  List<WalletBalance> walletBalance = [];
 
-       Future<List<WalletBalance>> getAllWalletBalanceResponse(BuildContext context) async {
+  Future<List<WalletBalance>> getAllWalletBalanceResponse(
+      BuildContext context) async {
     List<dynamic> responseData =
-        await UserService().getWalletBalanceResponse( context: context);
-    final List<dynamic> data = List.from(responseData['data'.length]);
-    walletBalance = List<WalletBalance>.from(data.map((x) => WalletBalance.fromMap(x)));
+        await UserService().getWalletBalanceResponse(context: context);
+    final data = List.from(responseData);
+    print(data);
+    walletBalance =
+        List<WalletBalance>.from(data.map((x) => WalletBalance.fromMap(x)));
     notifyListeners();
     return walletBalance;
   }

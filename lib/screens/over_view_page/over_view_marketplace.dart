@@ -15,7 +15,11 @@ class OverViewMarketPlace extends StatefulWidget {
   final String dropdownCurrencyPair;
   final List<StatusData> chartData;
   final Function(String?)? onChangePairs;
-    OverViewMarketPlace({super.key, required this.dropdownCurrencyPair,required this.onChangePairs, required this.chartData});
+  OverViewMarketPlace(
+      {super.key,
+      required this.dropdownCurrencyPair,
+      required this.onChangePairs,
+      required this.chartData});
 
   @override
   State<OverViewMarketPlace> createState() => _OverViewMarketPlaceState();
@@ -25,18 +29,19 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
   // late List<StatusData> _chartData =[];
   late MarketPlaceOfferOverView provider;
   // late List<ChartData> data;
-  late  TooltipBehavior _tooltip;
+  late TooltipBehavior _tooltip;
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
   @override
   void initState() {
     super.initState();
-     // provider = Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView;
+    // provider = Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView;
 
     // [Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView];
     // getChartData();
     _tooltip = TooltipBehavior(enable: true);
   }
+
   @override
   Widget build(BuildContext context) {
     // _chartData =[
@@ -65,7 +70,10 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                       fontWeight: FontWeight.w500,
                       color: primaryColor),
                 ),
-                CurrencyOfMarketPlaceDropDown(dropdownCurrencyPair: widget.dropdownCurrencyPair,onChangePairs: widget.onChangePairs,),
+                CurrencyOfMarketPlaceDropDown(
+                  dropdownCurrencyPair: widget.dropdownCurrencyPair,
+                  onChangePairs: widget.onChangePairs,
+                ),
               ],
             ),
           ),
@@ -97,23 +105,27 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                       //             color:  Colors.red))),
                       CircularChartAnnotation(
                           widget: Container(
-                              child:  Text('${Provider.of<OverViewProvider>(context,listen: false).totalOffers}',
+                              child: Text(
+                                  '${Provider.of<OverViewProvider>(context, listen: false).totalOffers}',
                                   style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 0, 0.5), fontSize: 25))))
+                                      color: Color.fromRGBO(0, 0, 0, 0.5),
+                                      fontSize: 25))))
                     ],
                     tooltipBehavior: _tooltip,
                     series: <CircularSeries>[
-                    DoughnutSeries<StatusData, String>(
-                      dataSource: widget.chartData,
-                      pointColorMapper:(StatusData data,  _) => data.color,
-                      xValueMapper: (StatusData data, _)=> "${data.status} %",
-                      yValueMapper: (StatusData data, _)=>data.amount,
-                      dataLabelSettings: DataLabelSettings(isVisible: true) ,
-                      radius: '80%'
-                      //  explode: true,
-                      //           explodeIndex: 1
-                    )
-                  ],),
+                      DoughnutSeries<StatusData, String>(
+                          dataSource: widget.chartData,
+                          pointColorMapper: (StatusData data, _) => data.color,
+                          xValueMapper: (StatusData data, _) =>
+                              "${data.status} %",
+                          yValueMapper: (StatusData data, _) => data.amount,
+                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                          radius: '80%'
+                          //  explode: true,
+                          //           explodeIndex: 1
+                          )
+                    ],
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,11 +165,13 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
               SizedBox(
                 width: 20,
               ),
-              bottomText("NGN/GBP", "${Provider.of<OverViewProvider>(context,listen: false).totalNGNGBP}"),
+              bottomText("NGN/GBP",
+                  "${Provider.of<OverViewProvider>(context, listen: false).totalNGNGBP}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("NGN/USD","${Provider.of<OverViewProvider>(context,listen: false).totalNGNUSD}"),
+              bottomText("NGN/USD",
+                  "${Provider.of<OverViewProvider>(context, listen: false).totalNGNUSD}"),
               SizedBox(
                 width: 10,
               ),
@@ -180,13 +194,13 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
   //   return chartData;
   // }
 }
+
 class ChartData {
   ChartData(this.x, this.y);
 
   final String x;
   final double y;
 }
-
 
 Widget bottomText(String text, String value) {
   return Column(

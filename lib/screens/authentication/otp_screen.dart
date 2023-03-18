@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kyshi_operations_dashboard/helper/dialogs.dart';
 import 'package:kyshi_operations_dashboard/models/express_chart.dart';
+import 'package:kyshi_operations_dashboard/providers/kyshi_wallet_beneficiary_list.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/first_time_login.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/forgot_password.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
@@ -120,13 +121,16 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                 KyshiDynamicButtons(
-                  goDashBoard: true, onTap: () {
-                   verifyOtp();
-                   Provider.of<OfferManagementProvider>(context, listen: false)
-                       .getAllOfferManagement(context);
-                   Provider.of<OverViewProvider>(context,listen: false).getMarketPlaceOfferOverView(context: context);
-                   Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context: context);
+                KyshiDynamicButtons(
+                  goDashBoard: true,
+                  onTap: () {
+                    verifyOtp();
+                    Provider.of<OfferManagementProvider>(context, listen: false)
+                        .getAllOfferManagement(context);
+                    Provider.of<OverViewProvider>(context, listen: false)
+                        .getMarketPlaceOfferOverView(context: context);
+                    Provider.of<OverViewProvider>(context, listen: false)
+                        .getOverViewOffers(context: context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)

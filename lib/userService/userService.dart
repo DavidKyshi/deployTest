@@ -116,16 +116,62 @@ class UserService {
     }
   }
 
-  Future<List<dynamic>> getWalletBalanceResponse(
-      {required BuildContext context}) async {
+  Future getAllKyshiWallet() async {
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/operations/wallets-datatable/");
+
+    try {
+      Response response = await customInternalDio.get(
+        "/operations/wallets-datatable/",
+      );
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
+//  Future<dynamic> getWalletBalanceResponse({required BuildContext context}) async {
+//   final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+//   String baseUrl = dotenv.env['API_URL']!;
+//   String url = "$baseUrl/ops/admin/wallet/balance";
+//   final Uri uri = Uri.parse(url);
+//   try {
+//     Response response = await customInternalDio.get<dynamic>(url,
+//         options: Options(headers: {"authorization": "Bearer $token"}));
+
+//     return response.data;
+//   } catch (e) {
+//       if (kDebugMode) {
+//         print("$e An error occurred");
+//       }
+//       if (e is DioError) {
+//         print("${e.response?.data}hkhgjghbjhgb");
+//         throw e.response?.data;
+//       }
+//       rethrow;
+//     }
+//   }
+
+  Future getWalletBalanceResponse({required BuildContext context}) async {
     final token =
         Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     String url = "$baseUrl/ops/admin/wallet/balance";
     final Uri uri = Uri.parse(url);
     try {
-      Response response = await customInternalDio.get<List<dynamic>>(url,
+      Response response = await customInternalDio.get(url,
           options: Options(headers: {"authorization": "Bearer $token"}));
+
+      if (response.data is List) {
+        return List<dynamic>.from(response.data);
+      }
 
       return response.data;
     } catch (e) {
@@ -252,6 +298,30 @@ class UserService {
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(url,
+          options: Options(headers: {"authorization": "Bearer $token"}));
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+
+    Future getAccountBeneficiary(
+      {required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    String url = "$baseUrl/ops/admin/beneficiary";
+    final Uri uri = Uri.parse(url);
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get(url,
           options: Options(headers: {"authorization": "Bearer $token"}));
       return response.data;
     } catch (e) {

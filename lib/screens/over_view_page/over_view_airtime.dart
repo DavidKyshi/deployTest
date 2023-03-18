@@ -48,12 +48,16 @@ class _OverViewAirtimeState extends State<OverViewAirtime> {
                     SizedBox(
                       width: 20,
                     ),
-                    CurrencyOfOfferDropDown(onChangedCurr: (String? valueCur) {
-                      setState(() {
-                        dropdownvalueCurrency = valueCur!;
-                      });
-                      Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(dropdownvalueCurrency);
-                    }, dropdownvalueCurrency: dropdownvalueCurrency,),
+                    CurrencyOfOfferDropDown(
+                      onChangedCurr: (String? valueCur) {
+                        setState(() {
+                          dropdownvalueCurrency = valueCur!;
+                        });
+                        Provider.of<OverViewProvider>(context, listen: false)
+                            .setOfferCurrency(dropdownvalueCurrency);
+                      },
+                      dropdownvalueCurrency: dropdownvalueCurrency,
+                    ),
                   ],
                 ),
               ],

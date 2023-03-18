@@ -25,7 +25,7 @@ class TransactionSummaryUserData {
     this.successfulExpressTransactions = 0,
     this.failedExpressTransactions = 0,
     this.successfulSwapsTransactions = 0,
-    this.failedSwapsTransactions =0,
+    this.failedSwapsTransactions = 0,
     this.successfulWithdrawalsTransactions = 0,
     this.failedWithdrawalsTransactions = 0,
     this.successfulConnectTransactions = 0,

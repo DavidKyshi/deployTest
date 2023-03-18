@@ -21,7 +21,7 @@ class _PayOutPendingTransactionTableState
   late ScrollController controller;
   PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-
+    Color _colorContainer = primaryColor;
   @override
   Widget build(BuildContext context) {
     final pendingPayOutTransactionData =
@@ -202,10 +202,19 @@ class _PayOutPendingTransactionTableState
                                             ),
                                             SizedBox(
                                                 width: 157,
-                                                child: Text(
-                                                    pendingPayOutTransactionData
-                                                            .user ??
-                                                        "")),
+                                                child:Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    subText(
+                                                        pendingPayOutTransactionData
+                                                                .user ?? 
+                                                            ""),
+                                                            Text(
+                                                        pendingPayOutTransactionData
+                                                                .email ?? 
+                                                            ""),
+                                                  ],
+                                                )),
                                             SizedBox(
                                               width: 25,
                                             ),
@@ -228,18 +237,18 @@ class _PayOutPendingTransactionTableState
                                             //   width: 10,
                                             // ),
                                             SizedBox(
-                                                width: 45,
+                                                width: 80,
                                                 child: Text(
                                                     pendingPayOutTransactionData
                                                             .processor ??
                                                         "")),
 
                                             SizedBox(
-                                              width: 60,
+                                              width: 10,
                                             ),
 
                                             SizedBox(
-                                                width: 74,
+                                                width: 110,
                                                 child: subText(
                                                     pendingPayOutTransactionData
                                                             .channel ??
@@ -329,17 +338,26 @@ class _PayOutPendingTransactionTableState
                                             ),
                                             SizedBox(
                                               width: 80,
-                                              child: PayOutTransactionButton(
-                                                containerColor:
-                                                    pendingPayOutTransactionData
-                                                                    .status ==
-                                                                "SUCCESS" ||
-                                                            pendingPayOutTransactionData
-                                                                    .status ==
-                                                                "REVERSED"
-                                                        ? Color(0xff6E80A3)
-                                                        : primaryColor,
-                                                text: "RETRY",
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                  _colorContainer = _colorContainer == Color(0xff6E80A3) ? 
+                    primaryColor : 
+                    Color(0xff6E80A3);
+                                                  });
+                                                },
+                                                child: PayOutTransactionButton(
+                                                  containerColor:
+                                                      pendingPayOutTransactionData
+                                                                      .status ==
+                                                                  "SUCCESS" ||
+                                                              pendingPayOutTransactionData
+                                                                      .status ==
+                                                                  "REVERSED"
+                                                          ? Color(0xff6E80A3)
+                                                          : primaryColor,
+                                                  text: "RETRY",
+                                                ),
                                               ),
                                             )
                                           ],

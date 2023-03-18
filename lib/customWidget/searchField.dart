@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/providers/kyshi_account_beneficiary_list.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/kyshi_wallet_beneficiary_list.dart';
 import '../providers/wallet_balance.dart';
 
 class SearchField extends StatefulWidget {
@@ -106,11 +108,18 @@ class _SearchFieldState extends State<SearchField> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   //widget.createOffer?
+                  widget.createOffer?
                   InkWell(
                     onTap: () {
                       Provider.of<WalletBalanceProvider>(context, listen: false)
                           .getAllWalletBalanceResponse(context);
+                      Provider.of<KyshiBeneficiaryWalletProvider>(context,
+                              listen: false)
+                          .getAllKyshiUserWalletData();
+                          Provider.of<KyshiBeneficiaryAccountProvider>(context,
+                              listen: false)
+                          .getAllUserBeneficiaryList(context);
+                         
                       pageProvider.gotoPage(PAGES.createAnOfferScreen);
                     },
                     child: Container(
@@ -128,8 +137,8 @@ class _SearchFieldState extends State<SearchField> {
                             fontFamily: 'PushPenny'),
                       ),
                     ),
-                  ),
-                //  : const SizedBox(),
+                  )
+                    : const SizedBox(),
                   const SizedBox(
                     width: 15,
                   ),

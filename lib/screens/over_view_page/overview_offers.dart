@@ -18,9 +18,15 @@ class OverViewOffers extends StatefulWidget {
   final String dropdownvalueCurrency;
   final String dropdownvalue;
   final String offerStatus;
-  const OverViewOffers({super.key, required this.data, required this.totalOffers,
-    required this.offerStatus,required this.onChanged, required this.dropdownvalue,
-    required this.onChangedCurr, required this.dropdownvalueCurrency});
+  const OverViewOffers(
+      {super.key,
+      required this.data,
+      required this.totalOffers,
+      required this.offerStatus,
+      required this.onChanged,
+      required this.dropdownvalue,
+      required this.onChangedCurr,
+      required this.dropdownvalueCurrency});
 
   @override
   State<OverViewOffers> createState() => _OverViewOffersState();
@@ -28,7 +34,7 @@ class OverViewOffers extends StatefulWidget {
 
 class _OverViewOffersState extends State<OverViewOffers> {
   late List<OverViewdata> data;
-  late  TooltipBehavior _tooltip;
+  late TooltipBehavior _tooltip;
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
   @override
@@ -39,7 +45,7 @@ class _OverViewOffersState extends State<OverViewOffers> {
     // final res =(data.map((e) => e.totalOffers).reduce((value, element) => value! + element!)?.toDouble()) ?? 0;
 
     // final provider = Provider.of<OverViewProvider>(context,listen: false);
-        // (data.map((e) => e.totalOffers).reduce((value, element) => value! + element!)?.toDouble()) ?? 0;
+    // (data.map((e) => e.totalOffers).reduce((value, element) => value! + element!)?.toDouble()) ?? 0;
     // data = [
     //   ChartData('Mon', 12),
     //   ChartData('Tues', 15),
@@ -52,6 +58,7 @@ class _OverViewOffersState extends State<OverViewOffers> {
     // _chartData = getChartData();
     _tooltip = TooltipBehavior(enable: true);
   }
+
   // double? totalOffer(){
   //   if(data.isEmpty){
   //     return 0;
@@ -74,8 +81,14 @@ class _OverViewOffersState extends State<OverViewOffers> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TypeOfOfferDropDown(onChanged: widget.onChanged, dropdownvalue: widget.dropdownvalue,),
-                CurrencyOfOfferDropDown(dropdownvalueCurrency: widget.dropdownvalueCurrency, onChangedCurr: widget.onChangedCurr,),
+                TypeOfOfferDropDown(
+                  onChanged: widget.onChanged,
+                  dropdownvalue: widget.dropdownvalue,
+                ),
+                CurrencyOfOfferDropDown(
+                  dropdownvalueCurrency: widget.dropdownvalueCurrency,
+                  onChangedCurr: widget.onChangedCurr,
+                ),
               ],
             ),
           ),
@@ -91,12 +104,12 @@ class _OverViewOffersState extends State<OverViewOffers> {
                     fontSize: 40,
                   ),
                   children: [
-                    TextSpan(
-                      style: TextStyle(color: Color(0xff6E80A3)),
-                      // Provider.of<OverViewProvider>(context,listen: false).offerStatus
-                      text: ' ${widget.offerStatus} Offers!',
-                    )
-                  ])),
+                TextSpan(
+                  style: TextStyle(color: Color(0xff6E80A3)),
+                  // Provider.of<OverViewProvider>(context,listen: false).offerStatus
+                  text: ' ${widget.offerStatus} Offers!',
+                )
+              ])),
           SizedBox(
             height: 20,
           ),
@@ -154,7 +167,10 @@ class _OverViewOffersState extends State<OverViewOffers> {
             child: SfCartesianChart(
                 isTransposed: true,
                 primaryXAxis: CategoryAxis(),
-                primaryYAxis: NumericAxis(minimum: 0, maximum: widget.totalOffers != 0 ? widget.totalOffers : 40, interval: 10),
+                primaryYAxis: NumericAxis(
+                    minimum: 0,
+                    maximum: widget.totalOffers != 0 ? widget.totalOffers : 40,
+                    interval: 10),
                 tooltipBehavior: _tooltip,
                 series: <ChartSeries<OverViewdata, String>>[
                   BarSeries<OverViewdata, String>(
@@ -164,10 +180,10 @@ class _OverViewOffersState extends State<OverViewOffers> {
                       yValueMapper: (OverViewdata data, _) => data.totalOffers,
                       name: 'Offers',
                       color: primaryColor,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
-                  )
-                ]
-            ),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)))
+                ]),
           ),
         ],
       ),

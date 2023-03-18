@@ -202,10 +202,19 @@ class _PayOutCompletedTransactionTableState
                                             ),
                                             SizedBox(
                                                 width: 157,
-                                                child: Text(
-                                                    completedPayOutTransactionData
-                                                            .user ??
-                                                        "")),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    subText(
+                                                        completedPayOutTransactionData
+                                                                .user ?? 
+                                                            ""),
+                                                            Text(
+                                                        completedPayOutTransactionData
+                                                                .email ?? 
+                                                            ""),
+                                                  ],
+                                                )),
                                             SizedBox(
                                               width: 25,
                                             ),
@@ -329,17 +338,25 @@ class _PayOutCompletedTransactionTableState
                                             ),
                                             SizedBox(
                                               width: 80,
-                                              child: PayOutTransactionButton(
-                                                containerColor:
-                                                    completedPayOutTransactionData
-                                                                    .status ==
-                                                                "SUCCESS" ||
-                                                            completedPayOutTransactionData
-                                                                    .status ==
-                                                                "REVERSED"
-                                                        ? Color(0xff6E80A3)
-                                                        : primaryColor,
-                                                text: "RETRY",
+                                              child: InkWell(
+                                                onTap: (){
+                                                  CircularProgressIndicator;
+                                                   Future.delayed(const Duration(seconds: 1), () {
+                                 
+    });
+                                                },
+                                                child: PayOutTransactionButton(
+                                                  containerColor:
+                                                      completedPayOutTransactionData
+                                                                      .status ==
+                                                                  "SUCCESS" ||
+                                                              completedPayOutTransactionData
+                                                                      .status ==
+                                                                  "REVERSED"
+                                                          ? Color(0xff6E80A3)
+                                                          : primaryColor,
+                                                  text: "RETRY",
+                                                ),
                                               ),
                                             )
                                           ],

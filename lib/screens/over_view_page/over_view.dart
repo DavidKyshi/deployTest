@@ -14,11 +14,13 @@ import 'over_view_connect.dart';
 import 'over_view_express_chart.dart';
 import 'over_view_marketplace.dart';
 import 'overview_offers.dart';
+
 class OverViewScreen extends StatefulWidget {
   const OverViewScreen({super.key});
   @override
   State<OverViewScreen> createState() => _OverViewScreenState();
 }
+
 class _OverViewScreenState extends State<OverViewScreen> {
   late List<StatusData> _chartData;
   late List<OverViewdata> data;
@@ -32,255 +34,331 @@ class _OverViewScreenState extends State<OverViewScreen> {
   late int today;
   late int yesterday;
   String baseCur = "";
-  String quoteCur ="";
+  String quoteCur = "";
   late MarketPlaceOfferOverView provider;
   @override
   void initState() {
     super.initState();
     data = overViewProvider.overViewOffers;
-     provider = overViewProvider.marketPlaceOfferOverView;
+    provider = overViewProvider.marketPlaceOfferOverView;
     final String formatted = formatter.format(now);
     DateTime dateObj = DateFormat('d-MM-yy').parse(formatted);
     today = dateObj.day;
     yesterday = dateObj.day - 1;
     // _chartData = getChartData();
   }
-  double? totalOffer(){
-    if(data.isEmpty){
+
+  double? totalOffer() {
+    if (data.isEmpty) {
       return 0;
-    }else{
-      return data.map((e) => e.totalOffers).reduce((value, element) => value! + element!)?.toDouble();
+    } else {
+      return data
+          .map((e) => e.totalOffers)
+          .reduce((value, element) => value! + element!)
+          ?.toDouble();
     }
   }
 
-  void selectedCurrency(String pairs){
-    if(pairs == "NGN/GBP"){
+  void selectedCurrency(String pairs) {
+    if (pairs == "NGN/GBP") {
       setState(() {
         baseCur = "NGN";
         quoteCur = "GBP";
       });
-    }else if (pairs == "NGN/USD"){
+    } else if (pairs == "NGN/USD") {
       setState(() {
         baseCur = "NGN";
         quoteCur = "USD";
       });
-    }else{
+    } else {
       setState(() {
         baseCur = "NGN";
         quoteCur = "CAD";
       });
     }
   }
+
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
 
-
   @override
   Widget build(BuildContext context) {
-    final res =(provider.activeOffers!  *100/overViewProvider.totalOffers).toStringAsFixed(2);
-    final accepted = (provider.acceptedOffers! *100/overViewProvider.totalOffers).toStringAsFixed(2);
-    final expired =(provider.expiredOffers! *100/overViewProvider.totalOffers).toStringAsFixed(2);
-    final withdrawn = (provider.withdrawnOffers! *100/overViewProvider.totalOffers).toStringAsFixed(2);
+    final res = (provider.activeOffers! * 100 / overViewProvider.totalOffers)
+        .toStringAsFixed(2);
+    final accepted =
+        (provider.acceptedOffers! * 100 / overViewProvider.totalOffers)
+            .toStringAsFixed(2);
+    final expired =
+        (provider.expiredOffers! * 100 / overViewProvider.totalOffers)
+            .toStringAsFixed(2);
+    final withdrawn =
+        (provider.withdrawnOffers! * 100 / overViewProvider.totalOffers)
+            .toStringAsFixed(2);
     _chartData = [
-      StatusData("Active", double.tryParse(res) , primaryColor),
-      StatusData("Accepted", double.tryParse(accepted) ,Color(0XFF2668EC)),
-      StatusData("Expired", double.tryParse(expired) ,kyshiGreyishBlue),
-      StatusData("Withdrawn", double.tryParse(withdrawn) ,Color(0XFF4DAEF8))];
+      StatusData("Active", double.tryParse(res), primaryColor),
+      StatusData("Accepted", double.tryParse(accepted), Color(0XFF2668EC)),
+      StatusData("Expired", double.tryParse(expired), kyshiGreyishBlue),
+      StatusData("Withdrawn", double.tryParse(withdrawn), Color(0XFF4DAEF8))
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
-      body: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 20,),
-              // Text(dropdownvalue),
-              // Text(dropdownvalueCurrency),
-              // Text(dropdownDateValue),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(),
-                    Row(
-                      children: [
-                        LastDaysFilter(dropdownDateValue: dropdownDateValue, onChangeDate: (String? date ) {
-                          setState(() {
-                            dropdownDateValue = date!;
-                            int daysAgo = dropdownDateValue == "Today" ? today :dropdownDateValue == "Yesterday" ? yesterday : dropdownDateValue == "Last 7 days" ? 7 : 30;
-                            Provider.of<OverViewProvider>(context,listen: false).setOfferDaysAgo(daysAgo);
-                            // print("$daysAgo dayssssss");
-                            isLoading = true;
-                            Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context: context);
-                            data = overViewProvider.overViewOffers;
-                          });
-                          Future.delayed(Duration(seconds: 9)).then((value) =>
-                              setState(() {
-                                isLoading = false;
-                              })
-                          );
-                          print("$data data here");
-                        },),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CalenderPickDateStatement(),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CalenderPickDateStatement2(),
-                      ],
-                    ),
-                  ],
+      body: StatefulBuilder(
+        builder:
+            (BuildContext context, void Function(void Function()) setState) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              SizedBox(height: 20,),
-              isLoading ?Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:  [
-                  CupertinoActivityIndicator(
-                    color: primaryColor,
-                    animating: true,
-                    radius: 20,
-                  )
-                ],
-              ):
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    OverViewOffers(data: data, totalOffers: totalOffer(), offerStatus: overViewProvider.offerStatus,
-                      onChanged: (String? value) {
-                          setState(() {
-                            dropdownvalue = value!;
-                            isLoading = true;
-                            Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context: context);
-                            data = overViewProvider.overViewOffers;
-                          });
-                          Future.delayed(Duration(seconds: 9)).then((value) =>
+                // Text(dropdownvalue),
+                // Text(dropdownvalueCurrency),
+                // Text(dropdownDateValue),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(),
+                      Row(
+                        children: [
+                          LastDaysFilter(
+                            dropdownDateValue: dropdownDateValue,
+                            onChangeDate: (String? date) {
                               setState(() {
-                                isLoading = false;
-                              }));
-                          // print(dropdownvalue);
-                      Provider.of<OverViewProvider>(context,listen: false).setOfferStatus(dropdownvalue);
-                    }, dropdownvalue: dropdownvalue,
-                        onChangedCurr: (String? valueCur) {
+                                dropdownDateValue = date!;
+                                int daysAgo = dropdownDateValue == "Today"
+                                    ? today
+                                    : dropdownDateValue == "Yesterday"
+                                        ? yesterday
+                                        : dropdownDateValue == "Last 7 days"
+                                            ? 7
+                                            : 30;
+                                Provider.of<OverViewProvider>(context,
+                                        listen: false)
+                                    .setOfferDaysAgo(daysAgo);
+                                // print("$daysAgo dayssssss");
+                                isLoading = true;
+                                Provider.of<OverViewProvider>(context,
+                                        listen: false)
+                                    .getOverViewOffers(context: context);
+                                data = overViewProvider.overViewOffers;
+                              });
+                              Future.delayed(Duration(seconds: 9))
+                                  .then((value) => setState(() {
+                                        isLoading = false;
+                                      }));
+                              print("$data data here");
+                            },
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          CalenderPickDateStatement(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          CalenderPickDateStatement2(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                isLoading
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CupertinoActivityIndicator(
+                            color: primaryColor,
+                            animating: true,
+                            radius: 20,
+                          )
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            OverViewOffers(
+                              data: data,
+                              totalOffers: totalOffer(),
+                              offerStatus: overViewProvider.offerStatus,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  dropdownvalue = value!;
+                                  isLoading = true;
+                                  Provider.of<OverViewProvider>(context,
+                                          listen: false)
+                                      .getOverViewOffers(context: context);
+                                  data = overViewProvider.overViewOffers;
+                                });
+                                Future.delayed(Duration(seconds: 9))
+                                    .then((value) => setState(() {
+                                          isLoading = false;
+                                        }));
+                                // print(dropdownvalue);
+                                Provider.of<OverViewProvider>(context,
+                                        listen: false)
+                                    .setOfferStatus(dropdownvalue);
+                              },
+                              dropdownvalue: dropdownvalue,
+                              onChangedCurr: (String? valueCur) {
                                 setState(() {
                                   dropdownvalueCurrency = valueCur!;
                                   isLoading = true;
-                                  Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context: context);
+                                  Provider.of<OverViewProvider>(context,
+                                          listen: false)
+                                      .getOverViewOffers(context: context);
                                   data = overViewProvider.overViewOffers;
                                 });
-                                Provider.of<OverViewProvider>(context,listen: false).setOfferCurrency(dropdownvalueCurrency);
-                                Future.delayed(Duration(seconds: 9)).then((value) =>
-                                    setState(() {
-                                      isLoading = false;
-                                    }));
-                      }, dropdownvalueCurrency: dropdownvalueCurrency,),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    OverViewMarketPlace(dropdownCurrencyPair: dropdownCurrencyPair,
-                      onChangePairs: (String? currencyPairs ) {
-                      final provider = Provider.of<OverViewProvider>(context,listen: false);
-                      MarketPlaceOfferOverView pro = provider.marketPlaceOfferOverView;
-                        setState(() {
-                          dropdownCurrencyPair = currencyPairs!;
-                          isLoading = true;
-                          selectedCurrency(dropdownCurrencyPair);
-                          provider.setBaseCurrency(baseCur);
-                          provider.setQouteCurrency(quoteCur);
-                          provider.getMarketPlaceOfferOverView(context: context);
-                          _chartData = [
-                              StatusData("Active", (pro.activeOffers ?? 0 *100/provider.totalOffers).toDouble() , primaryColor),
-                              StatusData("Accepted",  (pro.acceptedOffers?? 0 *100/provider.totalOffers).toDouble(),Color(0XFF2668EC)),
-                              StatusData("Expired",  (pro.expiredOffers ?? 0 *100/provider.totalOffers).toDouble(),kyshiGreyishBlue),
-                              StatusData("Withdrawn",  (pro.withdrawnOffers?? 0 *100/provider.totalOffers).toDouble(),Color(0XFF4DAEF8))];
-                          provider.setTotalOffers(pro.totalOffers ?? 0);
-                          // provider.setTotalNGNUSD(pro.totalOffers ?? 0);
-                        });
-                        Future.delayed(Duration(seconds: 9)).then((value) =>
-                                    setState(() {
-                                      isLoading = false;
-                                    }));
-                    }, chartData: _chartData,),
-                  ],
+                                Provider.of<OverViewProvider>(context,
+                                        listen: false)
+                                    .setOfferCurrency(dropdownvalueCurrency);
+                                Future.delayed(Duration(seconds: 9))
+                                    .then((value) => setState(() {
+                                          isLoading = false;
+                                        }));
+                              },
+                              dropdownvalueCurrency: dropdownvalueCurrency,
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            OverViewMarketPlace(
+                              dropdownCurrencyPair: dropdownCurrencyPair,
+                              onChangePairs: (String? currencyPairs) {
+                                final provider = Provider.of<OverViewProvider>(
+                                    context,
+                                    listen: false);
+                                MarketPlaceOfferOverView pro =
+                                    provider.marketPlaceOfferOverView;
+                                setState(() {
+                                  dropdownCurrencyPair = currencyPairs!;
+                                  isLoading = true;
+                                  selectedCurrency(dropdownCurrencyPair);
+                                  provider.setBaseCurrency(baseCur);
+                                  provider.setQouteCurrency(quoteCur);
+                                  provider.getMarketPlaceOfferOverView(
+                                      context: context);
+                                  _chartData = [
+                                    StatusData(
+                                        "Active",
+                                        (pro.activeOffers ??
+                                                0 * 100 / provider.totalOffers)
+                                            .toDouble(),
+                                        primaryColor),
+                                    StatusData(
+                                        "Accepted",
+                                        (pro.acceptedOffers ??
+                                                0 * 100 / provider.totalOffers)
+                                            .toDouble(),
+                                        Color(0XFF2668EC)),
+                                    StatusData(
+                                        "Expired",
+                                        (pro.expiredOffers ??
+                                                0 * 100 / provider.totalOffers)
+                                            .toDouble(),
+                                        kyshiGreyishBlue),
+                                    StatusData(
+                                        "Withdrawn",
+                                        (pro.withdrawnOffers ??
+                                                0 * 100 / provider.totalOffers)
+                                            .toDouble(),
+                                        Color(0XFF4DAEF8))
+                                  ];
+                                  provider.setTotalOffers(pro.totalOffers ?? 0);
+                                  // provider.setTotalNGNUSD(pro.totalOffers ?? 0);
+                                });
+                                Future.delayed(Duration(seconds: 9))
+                                    .then((value) => setState(() {
+                                          isLoading = false;
+                                        }));
+                              },
+                              chartData: _chartData,
+                            ),
+                          ],
+                        ),
+                      ),
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                child: Row(
-                  children: [
-                    OverViewConnect(),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    OverViewAirtime()
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  child: Row(
+                    children: [
+                      OverViewConnect(),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      OverViewAirtime()
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                child: Row(
-                  children: [
-                    MarketPlaceRevenue(),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    OverViewExpressChart()
-                  ],
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(height: 20,)
-              // Container(
-              //   width: 651.67,
-              //   height: 338.4,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(10),
-              //       border: Border.all(color: const Color(0xffE8E8E8))
-              //   ),
-              //   child: Column(
-              //     children: [
-              //       const Text('Express Transfers',
-              //         style: TextStyle(
-              //             color: Color(0xff0D2C65),
-              //             fontWeight: FontWeight.w400,
-              //             fontSize: 18
-              //         ),
-              //       ),
-              //       Row(
-              //         children: [
-              //           SizedBox(
-              //             height: 400,
-              //             child: SfCircularChart(series: <CircularSeries>[
-              //               DoughnutSeries<StatusData, String>(
-              //                 dataSource: _chartData,
-              //                 xValueMapper: (StatusData data, _)=> data.status,
-              //                 yValueMapper: (StatusData data, _)=> data.amount,
-              //                 dataLabelSettings: DataLabelSettings(isVisible: true) ,
-              //                 //  explode: true,
-              //                 //           explodeIndex: 1
-              //               )
-              //             ],),
-              //           )
-              //         ],
-              //       )
-              //     ],
-              //   ),
-              // ),
-            ],
-          ),
-        );
-      },),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  child: Row(
+                    children: [
+                      MarketPlaceRevenue(),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      OverViewExpressChart()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                )
+                // Container(
+                //   width: 651.67,
+                //   height: 338.4,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       border: Border.all(color: const Color(0xffE8E8E8))
+                //   ),
+                //   child: Column(
+                //     children: [
+                //       const Text('Express Transfers',
+                //         style: TextStyle(
+                //             color: Color(0xff0D2C65),
+                //             fontWeight: FontWeight.w400,
+                //             fontSize: 18
+                //         ),
+                //       ),
+                //       Row(
+                //         children: [
+                //           SizedBox(
+                //             height: 400,
+                //             child: SfCircularChart(series: <CircularSeries>[
+                //               DoughnutSeries<StatusData, String>(
+                //                 dataSource: _chartData,
+                //                 xValueMapper: (StatusData data, _)=> data.status,
+                //                 yValueMapper: (StatusData data, _)=> data.amount,
+                //                 dataLabelSettings: DataLabelSettings(isVisible: true) ,
+                //                 //  explode: true,
+                //                 //           explodeIndex: 1
+                //               )
+                //             ],),
+                //           )
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
   // List<StatusData> getChartData(){
@@ -293,13 +371,14 @@ class _OverViewScreenState extends State<OverViewScreen> {
   //   return chartData;
   // }
 }
-class StatusData{
-  StatusData( this.status, this.amount, this.color,);
+
+class StatusData {
+  StatusData(
+    this.status,
+    this.amount,
+    this.color,
+  );
   final String status;
   final double? amount;
- final Color color;
+  final Color color;
 }
-
-
-
-

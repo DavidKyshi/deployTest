@@ -33,6 +33,31 @@
   <link rel="manifest" href="manifest.json">
 
   <script>
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBVlFQMi-Pd17BHfmKdrMmbtrBe67iYFH0",
+  authDomain: "kyshi-ccee8.firebaseapp.com",
+  databaseURL: "https://kyshi-ccee8.firebaseio.com",
+  projectId: "kyshi-ccee8",
+  storageBucket: "kyshi-ccee8.appspot.com",
+  messagingSenderId: "462488563489",
+  appId: "1:462488563489:web:a91e50b655008548969860",
+  measurementId: "G-JD1GDNH298"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+  </script>
+
+  <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
   </script>

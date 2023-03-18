@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-KyshiConnectOverViewResponse kyshiConnectOverViewResponseFromJson(String str) => KyshiConnectOverViewResponse.fromJson(json.decode(str));
+KyshiConnectOverViewResponse kyshiConnectOverViewResponseFromJson(String str) =>
+    KyshiConnectOverViewResponse.fromJson(json.decode(str));
 
-String kyshiConnectOverViewResponseToJson(KyshiConnectOverViewResponse data) => json.encode(data.toJson());
+String kyshiConnectOverViewResponseToJson(KyshiConnectOverViewResponse data) =>
+    json.encode(data.toJson());
 
 class KyshiConnectOverViewResponse {
   KyshiConnectOverViewResponse({
@@ -17,15 +19,16 @@ class KyshiConnectOverViewResponse {
   Data? data;
   String? status;
 
-  factory KyshiConnectOverViewResponse.fromJson(Map<String, dynamic> json) => KyshiConnectOverViewResponse(
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    status: json["status"],
-  );
+  factory KyshiConnectOverViewResponse.fromJson(Map<String, dynamic> json) =>
+      KyshiConnectOverViewResponse(
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-    "status": status,
-  };
+        "data": data?.toJson(),
+        "status": status,
+      };
 }
 
 class Data {
@@ -48,22 +51,22 @@ class Data {
   int? kyshiConnectDataNgnSum;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    totalConnectTransaction: json["total_connect_transaction"],
-    totalConnectTransactionSum: json["total_connect_transaction_sum"],
-    kyshiConnectDataSum: json["kyshi_connect_data_sum"],
-    kyshiConnectDataGbpSum: json["kyshi_connect_data_gbp_sum"],
-    kyshiConnectDataUsdSum: json["kyshi_connect_data_usd_sum"],
-    kyshiConnectDataCadSum: json["kyshi_connect_data_cad_sum"],
-    kyshiConnectDataNgnSum: json["kyshi_connect_data_ngn_sum"],
-  );
+        totalConnectTransaction: json["total_connect_transaction"],
+        totalConnectTransactionSum: json["total_connect_transaction_sum"],
+        kyshiConnectDataSum: json["kyshi_connect_data_sum"],
+        kyshiConnectDataGbpSum: json["kyshi_connect_data_gbp_sum"],
+        kyshiConnectDataUsdSum: json["kyshi_connect_data_usd_sum"],
+        kyshiConnectDataCadSum: json["kyshi_connect_data_cad_sum"],
+        kyshiConnectDataNgnSum: json["kyshi_connect_data_ngn_sum"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "total_connect_transaction": totalConnectTransaction,
-    "total_connect_transaction_sum": totalConnectTransactionSum,
-    "kyshi_connect_data_sum": kyshiConnectDataSum,
-    "kyshi_connect_data_gbp_sum": kyshiConnectDataGbpSum,
-    "kyshi_connect_data_usd_sum": kyshiConnectDataUsdSum,
-    "kyshi_connect_data_cad_sum": kyshiConnectDataCadSum,
-    "kyshi_connect_data_ngn_sum": kyshiConnectDataNgnSum,
-  };
+        "total_connect_transaction": totalConnectTransaction,
+        "total_connect_transaction_sum": totalConnectTransactionSum,
+        "kyshi_connect_data_sum": kyshiConnectDataSum,
+        "kyshi_connect_data_gbp_sum": kyshiConnectDataGbpSum,
+        "kyshi_connect_data_usd_sum": kyshiConnectDataUsdSum,
+        "kyshi_connect_data_cad_sum": kyshiConnectDataCadSum,
+        "kyshi_connect_data_ngn_sum": kyshiConnectDataNgnSum,
+      };
 }

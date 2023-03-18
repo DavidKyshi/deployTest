@@ -11,8 +11,8 @@ class WalletBalance {
   final String? currency;
   final List<dynamic>? approvedFundingSources;
   final String? createdAt;
-  final int? availableBalance;
-  final int? ledgerBalance;
+  final double? availableBalance;
+  final double? ledgerBalance;
   final String? user;
   final TierData? tierdata;
   final int? totalDebitForTheYear;
@@ -82,12 +82,12 @@ class WalletBalance {
         approvedFundingSources:
             data['approved_funding_sources'] as List<dynamic>?,
         createdAt: data['created_at'] as String?,
-        availableBalance: data['available_balance'] as int?,
-        ledgerBalance: data['ledger_balance'] as int?,
+        availableBalance: data['available_balance'] as double?,
+        ledgerBalance: data['ledger_balance'] as double?,
         user: data['user'] as String?,
         tierdata: data['tier'] == null
             ? null
-            : TierData.fromMap(data['tierdata'] as Map<String, dynamic>),
+            : TierData.fromMap(data['tier'] as Map<String, dynamic>),
         totalDebitForTheYear: data['total_debit_for_the_year'] as int?,
         totalCreditForTheYear: data['total_credit_for_the_year'] as int?,
         totalDebitForTheMonth: data['total_debit_for_the_month'] as int?,
@@ -164,8 +164,8 @@ class WalletBalance {
     String? currency,
     List<dynamic>? approvedFundingSources,
     String? createdAt,
-    int? availableBalance,
-    int? ledgerBalance,
+    double? availableBalance,
+    double? ledgerBalance,
     String? user,
     TierData? tierdata,
     int? totalDebitForTheYear,

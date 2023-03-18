@@ -222,9 +222,10 @@ class _FirstTimerState extends State<FirstTimer> {
                   onPressed: () async {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAllOfferManagement(context);
-                    Provider.of<OverViewProvider>(context,listen: false).getOverViewOffers(context:
-                    context);
-                    Provider.of<OverViewProvider>(context,listen: false).getMarketPlaceOfferOverView(context: context);
+                    Provider.of<OverViewProvider>(context, listen: false)
+                        .getOverViewOffers(context: context);
+                    Provider.of<OverViewProvider>(context, listen: false)
+                        .getMarketPlaceOfferOverView(context: context);
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getAcceptedOfferManagement(context);
                     // Provider.of<OfferManagementProvider>(context, listen: false)
