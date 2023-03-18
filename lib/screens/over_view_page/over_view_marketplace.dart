@@ -29,18 +29,19 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
   // late List<StatusData> _chartData =[];
   late MarketPlaceOfferOverView provider;
   // late List<ChartData> data;
-  late  TooltipBehavior _tooltip;
+  late TooltipBehavior _tooltip;
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
   @override
   void initState() {
     super.initState();
-     // provider = Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView;
+    // provider = Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView;
 
     // [Provider.of<OverViewProvider>(context,listen: false).marketPlaceOfferOverView];
     // getChartData();
     _tooltip = TooltipBehavior(enable: true);
   }
+
   @override
   Widget build(BuildContext context) {
     // _chartData =[
@@ -70,7 +71,10 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
                       fontWeight: FontWeight.w500,
                       color: primaryColor),
                 ),
-                CurrencyOfMarketPlaceDropDown(dropdownCurrencyPair: widget.dropdownCurrencyPair,onChangePairs: widget.onChangePairs,),
+                CurrencyOfMarketPlaceDropDown(
+                  dropdownCurrencyPair: widget.dropdownCurrencyPair,
+                  onChangePairs: widget.onChangePairs,
+                ),
               ],
             ),
           ),
@@ -164,11 +168,13 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
               SizedBox(
                 width: 20,
               ),
-              bottomText("NGN/GBP", "${Provider.of<OverViewProvider>(context,listen: false).totalNGNGBP}"),
+              bottomText("NGN/GBP",
+                  "${Provider.of<OverViewProvider>(context, listen: false).totalNGNGBP}"),
               SizedBox(
                 width: 10,
               ),
-              bottomText("NGN/USD","${Provider.of<OverViewProvider>(context,listen: false).totalNGNUSD}"),
+              bottomText("NGN/USD",
+                  "${Provider.of<OverViewProvider>(context, listen: false).totalNGNUSD}"),
               SizedBox(
                 width: 10,
               ),
@@ -191,13 +197,13 @@ class _OverViewMarketPlaceState extends State<OverViewMarketPlace> {
   //   return chartData;
   // }
 }
+
 class ChartData {
   ChartData(this.x, this.y);
 
   final String x;
   final double y;
 }
-
 
 Widget bottomText(String text, String value) {
   return Column(

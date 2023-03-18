@@ -10,7 +10,8 @@ import '../providers/over_view_provider.dart';
 class LastDaysFilter extends StatefulWidget {
   final Function(String?)? onChangeDate;
   final String dropdownDateValue;
-  const LastDaysFilter({super.key,required this.onChangeDate, required this.dropdownDateValue});
+  const LastDaysFilter(
+      {super.key, required this.onChangeDate, required this.dropdownDateValue});
 
   @override
   State<LastDaysFilter> createState() => _LastDaysFilterState();
@@ -57,57 +58,57 @@ class _LastDaysFilterState extends State<LastDaysFilter> {
           children: [
             DropdownButtonHideUnderline(
               child: DropdownButton(
-                isExpanded: true,
-                borderRadius: BorderRadius.circular(10),
-                dropdownColor: Colors.white,
-                elevation: 1,
-                // Initial Value
-                value: widget.dropdownDateValue,
-                selectedItemBuilder: (BuildContext context) {
-                  return lastDays.map((items) {
-                    return Center(
-                      child: Text(
-                        widget.dropdownDateValue,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Color(0xff0D2C65)),
+                  isExpanded: true,
+                  borderRadius: BorderRadius.circular(10),
+                  dropdownColor: Colors.white,
+                  elevation: 1,
+                  // Initial Value
+                  value: widget.dropdownDateValue,
+                  selectedItemBuilder: (BuildContext context) {
+                    return lastDays.map((items) {
+                      return Center(
+                        child: Text(
+                          widget.dropdownDateValue,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Color(0xff0D2C65)),
+                        ),
+                      );
+                    }).toList();
+                  },
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.keyboard_arrow_down),
+
+                  // Array list of items
+                  items: lastDays.map((items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Container(
+                        // width:double.infinity,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Color(0xffDDDDDD), width: 0.5))),
+                        child: Text(
+                          items,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.black),
+                        ),
                       ),
                     );
-                  }).toList();
-                },
-                // Down Arrow Icon
-                icon: const Icon(Icons.keyboard_arrow_down),
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: widget.onChangeDate
+                  //     (String? value) {
 
-                // Array list of items
-                items: lastDays.map((items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Container(
-                      // width:double.infinity,
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: Color(0xffDDDDDD), width: 0.5))),
-                      child: Text(
-                        items,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Colors.black),
-                      ),
-                    ),
-                  );
-                }).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged:widget.onChangeDate
-                //     (String? value) {
-
-                // },
-              ),
+                  // },
+                  ),
             ),
           ],
         ),

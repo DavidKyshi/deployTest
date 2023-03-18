@@ -22,12 +22,14 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
 
   PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
+    Color _colorContainer = primaryColor;
 
   @override
   Widget build(BuildContext context) {
     final allPayOutTransactionData =
         payOutTransactionProvider.allPayOutTransactionData;
-    final oCcy = new NumberFormat("#,##0.00", "en_US");
+    var f = NumberFormat("###.0#", "en_US");
+  
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -206,10 +208,19 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             ),
                                             SizedBox(
                                                 width: 157,
-                                                child: Text(
-                                                    allPayOutTransactionData
-                                                            .user ??
-                                                        "")),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    subText(
+                                                        allPayOutTransactionData
+                                                                .user ?? 
+                                                            ""),
+                                                            Text(
+                                                        allPayOutTransactionData
+                                                                .email ?? 
+                                                            ""),
+                                                  ],
+                                                )),
                                             SizedBox(
                                               width: 25,
                                             ),
@@ -232,18 +243,18 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             //   width: 10,
                                             // ),
                                             SizedBox(
-                                                width: 45,
+                                                width: 80,
                                                 child: Text(
                                                     allPayOutTransactionData
                                                             .processor ??
                                                         "")),
 
-                                            SizedBox(
-                                              width: 60,
-                                            ),
+                                            // SizedBox(
+                                            //   width: 50,
+                                            // ),
 
                                             SizedBox(
-                                                width: 74,
+                                                width: 110,
                                                 child: subText(
                                                     allPayOutTransactionData
                                                             .channel ??
@@ -288,6 +299,10 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                                     allPayOutTransactionData
                                                         .availableBalance
                                                         .toString())),
+                                            //  allPayOutTransactionData                                                  allPayOutTransactionData
+                                            //   .availableBalance
+                                            //   .toString()
+// )),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -333,17 +348,26 @@ class _PayOutAllTransactionTableState extends State<PayOutAllTransactionTable> {
                                             ),
                                             SizedBox(
                                               width: 80,
-                                              child: PayOutTransactionButton(
-                                                containerColor:
-                                                    allPayOutTransactionData
-                                                                    .status ==
-                                                                "SUCCESS" ||
-                                                            allPayOutTransactionData
-                                                                    .status ==
-                                                                "REVERSED"
-                                                        ? Color(0xff6E80A3)
-                                                        : primaryColor,
-                                                text: "RETRY",
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                  _colorContainer = _colorContainer == Color(0xff6E80A3) ? 
+                    primaryColor : 
+                    Color(0xff6E80A3);
+                                                  });
+                                                },
+                                                child: PayOutTransactionButton(
+                                                  containerColor:
+                                                      allPayOutTransactionData
+                                                                      .status ==
+                                                                  "SUCCESS" ||
+                                                              allPayOutTransactionData
+                                                                      .status ==
+                                                                  "REVERSED"
+                                                          ? Color(0xff6E80A3)
+                                                          : _colorContainer,
+                                                  text: "RETRY",
+                                                ),
                                               ),
                                             )
                                           ],

@@ -202,10 +202,19 @@ class _PayOutReversedTransactionTableState
                                             ),
                                             SizedBox(
                                                 width: 157,
-                                                child: Text(
-                                                    reversedPayOutTransactionData
-                                                            .user ??
-                                                        "")),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    subText(
+                                                        reversedPayOutTransactionData
+                                                                .user ?? 
+                                                            ""),
+                                                            Text(
+                                                        reversedPayOutTransactionData
+                                                                .email ?? 
+                                                            ""),
+                                                  ],
+                                                )),
                                             SizedBox(
                                               width: 25,
                                             ),

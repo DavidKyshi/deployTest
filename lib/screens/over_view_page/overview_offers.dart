@@ -3,10 +3,10 @@
 import 'package:intl/intl.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
-import 'package:kyshi_operations_dashboard/widgets/create_an_offer_screen_widget.dart';
+
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../helper/convertDate.dart';
+
 import '../../models/offersOverview.dart';
 import '../../providers/over_view_provider.dart';
 import '../../widgets/over_view_widgets.dart';
@@ -20,9 +20,15 @@ class OverViewOffers extends StatefulWidget {
   final String dropdownvalueCurrency;
   final String dropdownvalue;
   final String offerStatus;
-  const OverViewOffers({super.key, required this.data, required this.totalOffers,
-    required this.offerStatus,required this.onChanged, required this.dropdownvalue,
-    required this.onChangedCurr, required this.dropdownvalueCurrency});
+  const OverViewOffers(
+      {super.key,
+      required this.data,
+      required this.totalOffers,
+      required this.offerStatus,
+      required this.onChanged,
+      required this.dropdownvalue,
+      required this.onChangedCurr,
+      required this.dropdownvalueCurrency});
 
   @override
   State<OverViewOffers> createState() => _OverViewOffersState();
@@ -94,8 +100,14 @@ class _OverViewOffersState extends State<OverViewOffers> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TypeOfOfferDropDown(onChanged: widget.onChanged, dropdownvalue: widget.dropdownvalue,),
-                CurrencyOfOfferDropDown(dropdownvalueCurrency: widget.dropdownvalueCurrency, onChangedCurr: widget.onChangedCurr,),
+                TypeOfOfferDropDown(
+                  onChanged: widget.onChanged,
+                  dropdownvalue: widget.dropdownvalue,
+                ),
+                CurrencyOfOfferDropDown(
+                  dropdownvalueCurrency: widget.dropdownvalueCurrency,
+                  onChangedCurr: widget.onChangedCurr,
+                ),
               ],
             ),
           ),
@@ -182,10 +194,10 @@ class _OverViewOffersState extends State<OverViewOffers> {
                       yValueMapper: (OverViewdata data, _) => data.totalOffers,
                       name: 'Offers',
                       color: primaryColor,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
-                  )
-                ]
-            ),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)))
+                ]),
           ),
         ],
       ),

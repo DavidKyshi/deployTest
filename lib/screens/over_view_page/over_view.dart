@@ -18,11 +18,13 @@ import 'over_view_connect.dart';
 import 'over_view_express_chart.dart';
 import 'over_view_marketplace.dart';
 import 'overview_offers.dart';
+
 class OverViewScreen extends StatefulWidget {
   const OverViewScreen({super.key});
   @override
   State<OverViewScreen> createState() => _OverViewScreenState();
 }
+
 class _OverViewScreenState extends State<OverViewScreen> {
   // late List<StatusData> _chartData;
   // late List<StatusData> connectData;
@@ -44,7 +46,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
   late int today;
   late int yesterday;
   String baseCur = "";
-  String quoteCur ="";
+  String quoteCur = "";
   late MarketPlaceOfferOverView provider;
   // late Data connectProvider;
   @override
@@ -70,35 +72,39 @@ class _OverViewScreenState extends State<OverViewScreen> {
     //   StatusData("CAD", 26,Color(0XFF4DAEF8))];
     // _chartData = getChartData();
   }
-  double? totalOffer(){
-    if(data.isEmpty){
+
+  double? totalOffer() {
+    if (data.isEmpty) {
       return 0;
-    }else{
-      return data.map((e) => e.totalOffers).reduce((value, element) => value! + element!)?.toDouble();
+    } else {
+      return data
+          .map((e) => e.totalOffers)
+          .reduce((value, element) => value! + element!)
+          ?.toDouble();
     }
   }
 
-  void selectedCurrency(String pairs){
-    if(pairs == "NGN/GBP"){
+  void selectedCurrency(String pairs) {
+    if (pairs == "NGN/GBP") {
       setState(() {
         baseCur = "NGN";
         quoteCur = "GBP";
       });
-    }else if (pairs == "NGN/USD"){
+    } else if (pairs == "NGN/USD") {
       setState(() {
         baseCur = "NGN";
         quoteCur = "USD";
       });
-    }else{
+    } else {
       setState(() {
         baseCur = "NGN";
         quoteCur = "CAD";
       });
     }
   }
+
   OverViewProvider get overViewProvider =>
       Provider.of<OverViewProvider>(context, listen: false);
-
 
   @override
   Widget build(BuildContext context) {
@@ -377,49 +383,63 @@ class _OverViewScreenState extends State<OverViewScreen> {
                     ),
                     OverViewExpressChart()
                   ],
-                ),
-              ),
-              SizedBox(height: 20,)
-              // Container(
-              //   width: 651.67,
-              //   height: 338.4,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(10),
-              //       border: Border.all(color: const Color(0xffE8E8E8))
-              //   ),
-              //   child: Column(
-              //     children: [
-              //       const Text('Express Transfers',
-              //         style: TextStyle(
-              //             color: Color(0xff0D2C65),
-              //             fontWeight: FontWeight.w400,
-              //             fontSize: 18
-              //         ),
-              //       ),
-              //       Row(
-              //         children: [
-              //           SizedBox(
-              //             height: 400,
-              //             child: SfCircularChart(series: <CircularSeries>[
-              //               DoughnutSeries<StatusData, String>(
-              //                 dataSource: _chartData,
-              //                 xValueMapper: (StatusData data, _)=> data.status,
-              //                 yValueMapper: (StatusData data, _)=> data.amount,
-              //                 dataLabelSettings: DataLabelSettings(isVisible: true) ,
-              //                 //  explode: true,
-              //                 //           explodeIndex: 1
-              //               )
-              //             ],),
-              //           )
-              //         ],
-              //       )
-              //     ],
-              //   ),
-              // ),
-            ],
-          ),
-        );
-      },),
+                ),),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                //   child: Row(
+                //     children: [
+                //       MarketPlaceRevenue(),
+                //       SizedBox(
+                //         width: 20,
+                //       ),
+                //       OverViewExpressChart()
+                //     ],
+                //   ),
+                // ),
+                SizedBox(
+                  height: 20,
+                )
+                // Container(
+                //   width: 651.67,
+                //   height: 338.4,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       border: Border.all(color: const Color(0xffE8E8E8))
+                //   ),
+                //   child: Column(
+                //     children: [
+                //       const Text('Express Transfers',
+                //         style: TextStyle(
+                //             color: Color(0xff0D2C65),
+                //             fontWeight: FontWeight.w400,
+                //             fontSize: 18
+                //         ),
+                //       ),
+                //       Row(
+                //         children: [
+                //           SizedBox(
+                //             height: 400,
+                //             child: SfCircularChart(series: <CircularSeries>[
+                //               DoughnutSeries<StatusData, String>(
+                //                 dataSource: _chartData,
+                //                 xValueMapper: (StatusData data, _)=> data.status,
+                //                 yValueMapper: (StatusData data, _)=> data.amount,
+                //                 dataLabelSettings: DataLabelSettings(isVisible: true) ,
+                //                 //  explode: true,
+                //                 //           explodeIndex: 1
+                //               )
+                //             ],),
+                //           )
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
   // List<StatusData> getChartData(){
@@ -432,13 +452,14 @@ class _OverViewScreenState extends State<OverViewScreen> {
   //   return chartData;
   // }
 }
-class StatusData{
-  StatusData( this.status, this.amount, this.color,);
+
+class StatusData {
+  StatusData(
+    this.status,
+    this.amount,
+    this.color,
+  );
   final String status;
   final double? amount;
- final Color color;
+  final Color color;
 }
-
-
-
-

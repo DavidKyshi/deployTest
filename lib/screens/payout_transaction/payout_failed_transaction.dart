@@ -20,7 +20,7 @@ class _PayOutFailedTransactionTableState
   late ScrollController controller;
   PayOutTransactionProvider get payOutTransactionProvider =>
       Provider.of<PayOutTransactionProvider>(context, listen: false);
-
+  bool ontap = false;
   @override
   Widget build(BuildContext context) {
     final failedPayOutTransactionData =
@@ -201,10 +201,19 @@ class _PayOutFailedTransactionTableState
                                             ),
                                             SizedBox(
                                                 width: 157,
-                                                child: Text(
-                                                    failedPayOutTransactionData
-                                                            .user ??
-                                                        "")),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    subText(
+                                                        failedPayOutTransactionData
+                                                                .user ?? 
+                                                            ""),
+                                                            Text(
+                                                        failedPayOutTransactionData
+                                                                .email ?? 
+                                                            ""),
+                                                  ],
+                                                )),
                                             SizedBox(
                                               width: 25,
                                             ),
@@ -227,18 +236,18 @@ class _PayOutFailedTransactionTableState
                                             //   width: 10,
                                             // ),
                                             SizedBox(
-                                                width: 45,
+                                                width: 80,
                                                 child: Text(
                                                     failedPayOutTransactionData
                                                             .processor ??
                                                         "")),
 
-                                            SizedBox(
-                                              width: 60,
-                                            ),
+                                            // SizedBox(
+                                            //   width: 60,
+                                            // ),
 
                                             SizedBox(
-                                                width: 74,
+                                                width: 110,
                                                 child: subText(
                                                     failedPayOutTransactionData
                                                             .channel ??
@@ -328,17 +337,24 @@ class _PayOutFailedTransactionTableState
                                             ),
                                             SizedBox(
                                               width: 80,
-                                              child: PayOutTransactionButton(
-                                                containerColor:
-                                                    failedPayOutTransactionData
-                                                                    .status ==
-                                                                "SUCCESS" ||
-                                                            failedPayOutTransactionData
-                                                                    .status ==
-                                                                "REVERSED"
-                                                        ? Color(0xff6E80A3)
-                                                        : primaryColor,
-                                                text: "RETRY",
+                                              child: InkWell(
+                                                onTap: (){
+                                                  setState(() {
+                                                    ontap=true;
+                                                  });
+                                                },
+                                                child: PayOutTransactionButton(
+                                                  containerColor:
+                                                      failedPayOutTransactionData
+                                                                      .status ==
+                                                                  "SUCCESS" ||
+                                                              failedPayOutTransactionData
+                                                                      .status ==
+                                                                  "REVERSED"
+                                                          ? Color(0xff6E80A3)
+                                                          : primaryColor,
+                                                  text: ontap==true?'DONE': "RETRY",
+                                                ),
                                               ),
                                             )
                                           ],

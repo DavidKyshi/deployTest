@@ -33,6 +33,7 @@ class PayOutTransactionTab extends StatelessWidget {
                 Container(
                   child: const TabBar(
                     isScrollable: true,
+                    physics: NeverScrollableScrollPhysics(),
                     labelColor: Color(0xff233375),
                     labelStyle: TextStyle(
                       fontFamily: "PushPenny",

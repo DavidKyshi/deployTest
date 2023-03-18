@@ -9,6 +9,7 @@ class PayOutTransactionUserData {
   final String? id;
   final String? createdAt;
   final String? user;
+  final String? email;
   final String? ledgerOperation;
   final String? amount;
   final String? currency;
@@ -26,6 +27,7 @@ class PayOutTransactionUserData {
     this.id,
     this.createdAt,
     this.user,
+    this.email,
     this.ledgerOperation,
     this.amount,
     this.currency,
@@ -42,7 +44,7 @@ class PayOutTransactionUserData {
 
   @override
   String toString() {
-    return 'PayOutTransactionUserData(id: $id, createdAt: $createdAt, user: $user, ledgerOperation: $ledgerOperation, amount: $amount, currency: $currency, status: $status, processor: $processor, channel: $channel, type: $type, serviceCharge: $serviceCharge, availableBalance: $availableBalance, ledgerBalance: $ledgerBalance, beneficiary: $beneficiary, offerId: $offerId)';
+    return 'PayOutTransactionUserData(id: $id, createdAt: $createdAt, user: $user,email:$email, ledgerOperation: $ledgerOperation, amount: $amount, currency: $currency, status: $status, processor: $processor, channel: $channel, type: $type, serviceCharge: $serviceCharge, availableBalance: $availableBalance, ledgerBalance: $ledgerBalance, beneficiary: $beneficiary, offerId: $offerId)';
   }
 
   factory PayOutTransactionUserData.fromMap(Map<String, dynamic> data) =>
@@ -50,6 +52,7 @@ class PayOutTransactionUserData {
         id: data['id'] as String?,
         createdAt: data['created_at'] as String?,
         user: data['user'] as String?,
+        email:data['email'] as String?,
         ledgerOperation: data['ledger_operation'] as String?,
         amount: data['amount'] as String?,
         currency: data['currency'] as String?,
@@ -68,6 +71,7 @@ class PayOutTransactionUserData {
         'id': id,
         'created_at': createdAt,
         'user': user,
+        'email':email,
         'ledger_operation': ledgerOperation,
         'amount': amount,
         'currency': currency,
@@ -99,6 +103,7 @@ class PayOutTransactionUserData {
     String? id,
     String? createdAt,
     String? user,
+    String? email,
     String? ledgerOperation,
     String? amount,
     String? currency,
@@ -116,6 +121,7 @@ class PayOutTransactionUserData {
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       user: user ?? this.user,
+      email:email??this.email,
       ledgerOperation: ledgerOperation ?? this.ledgerOperation,
       amount: amount ?? this.amount,
       currency: currency ?? this.currency,
@@ -144,6 +150,7 @@ class PayOutTransactionUserData {
       id.hashCode ^
       createdAt.hashCode ^
       user.hashCode ^
+      email.hashCode ^
       ledgerOperation.hashCode ^
       amount.hashCode ^
       currency.hashCode ^

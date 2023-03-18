@@ -54,3 +54,4 @@ const String usdWalletBalanceFlag = 'assets/images/usd.png';
 const String cadWalletBalanceFlag = 'assets/images/cadflag.png';
 const String searchIcon = 'assets/images/search.png';
 const String addBeneficiaryIcon = 'assets/images/addBeneficiary.png';
+const String createOfferSuccessfull  = 'assets/images/create-offer-success.png';

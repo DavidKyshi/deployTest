@@ -84,10 +84,12 @@ class OverViewProvider extends ChangeNotifier {
     _offerStatus = name;
     notifyListeners();
   }
+
   void setOfferCurrency(String name) {
     _offerCurrency = name;
     notifyListeners();
   }
+
   void setOfferDaysAgo(int days) {
     _offerDaysAgo = days;
     notifyListeners();
@@ -108,10 +110,12 @@ class OverViewProvider extends ChangeNotifier {
     _totalNGNUSD = offers;
     notifyListeners();
   }
+
   void setQouteCurrency(String name) {
     _quoteCurrency = name;
     notifyListeners();
   }
+
   void setBaseCurrency(String name) {
     _baseCurrency = name;
     notifyListeners();
@@ -153,13 +157,14 @@ class OverViewProvider extends ChangeNotifier {
     notifyListeners();
     return _overViewOffers;
   }
+
   Future<MarketPlaceOfferOverView?> getMarketPlaceOfferOverView(
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
     await OverViewService().getMarketPlaceOfferOverView(context: context,
         baseCurrency: _baseCurrency, daysAgo: _offerDaysAgo, quoteCurrency: _quoteCurrency);
     // final data = responseData['data'];
-    _marketPlaceOfferOverView =  MarketPlaceOfferOverView.fromJson(responseData);
+    _marketPlaceOfferOverView = MarketPlaceOfferOverView.fromJson(responseData);
     _totalOffers = _marketPlaceOfferOverView?.totalOffers ?? 0;
     _totalNGNGBP = _marketPlaceOfferOverView?.ngnGbpAndGbpNgnOffers ?? 0;
     _totalNGNUSD = _marketPlaceOfferOverView?.ngnUsdAndUsdNgnOffers ?? 0;
@@ -178,13 +183,14 @@ class OverViewProvider extends ChangeNotifier {
     notifyListeners();
     return _marketPlaceOfferOverView;
   }
+
   Future<MarketPlaceRevenueModel?> getMarketPlaceRevenue(
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
     await OverViewService().getMarketPlaceRevenue(context: context, daysAgo: _offerDaysAgo);
     // print("$responseData REVENUE DATA");
     // final data = responseData['data'];
-    _marketPlaceRevenue =  MarketPlaceRevenueModel.fromJson(responseData);
+    _marketPlaceRevenue = MarketPlaceRevenueModel.fromJson(responseData);
     _ngnRevenue = _marketPlaceRevenue?.ngnRevenue?.serviceChargeSum ?? 0.0;
     _usdRevenue = _marketPlaceRevenue?.usdRevenue?.serviceChargeSum ?? 0.0;
     _gbpRevenue = _marketPlaceRevenue?.gbpRevenue?.serviceChargeSum ?? 0.0;

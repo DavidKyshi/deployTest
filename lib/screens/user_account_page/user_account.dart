@@ -10,14 +10,13 @@ class _FilterRanger {
   const _FilterRanger(this.title, this.daysAgo);
 }
 
-  const List<_FilterRanger> lastDays = [
-    _FilterRanger('Today', 0),
-    _FilterRanger('Yesterday', 1),
-    _FilterRanger('Last 7 days', 6),
-    _FilterRanger('Last 30 days', 29),
-    _FilterRanger('Last 1826 days', 1825),
-  ];
-
+const List<_FilterRanger> lastDays = [
+  _FilterRanger('Today', 0),
+  _FilterRanger('Yesterday', 1),
+  _FilterRanger('Last 7 days', 6),
+  _FilterRanger('Last 30 days', 29),
+  _FilterRanger('Last 1826 days', 1825),
+];
 
 class UserAccountScreen extends StatefulWidget {
   const UserAccountScreen({super.key});
@@ -28,7 +27,7 @@ class UserAccountScreen extends StatefulWidget {
 }
 
 class _UserAccountScreenState extends State<UserAccountScreen> {
-    _FilterRanger dropdownvalue = lastDays[2];
+  _FilterRanger dropdownvalue = lastDays[2];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

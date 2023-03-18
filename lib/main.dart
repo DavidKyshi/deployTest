@@ -1,3 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:kyshi_operations_dashboard/providers/kyshi_account_beneficiary_list.dart';
+import 'package:kyshi_operations_dashboard/providers/kyshi_wallet_beneficiary_list.dart';
 import 'package:kyshi_operations_dashboard/providers/wallet_balance.dart';
 import 'package:kyshi_operations_dashboard/screens/authentication/welcome_back.dart';
 
@@ -8,6 +11,12 @@ import 'providers/transaction_summary_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyBVlFQMi-Pd17BHfmKdrMmbtrBe67iYFH0",
+          projectId: "kyshi-ccee8",
+          messagingSenderId: "462488563489",
+          appId: "1:462488563489:web:a91e50b655008548969860"));
   // Get.put(MenuController());
   await dotenv.load(fileName: 'assets/env/.env');
   // Get.put(NavigationController());
@@ -17,7 +26,10 @@ void main() async {
     ChangeNotifierProvider(create: (_) => PayOutTransactionProvider()),
     ChangeNotifierProvider(create: (_) => OverViewProvider()),
     ChangeNotifierProvider(create: (_) => TransactionSummaryProvider()),
-    ChangeNotifierProvider(create: (_) => WalletBalanceProvider())
+    ChangeNotifierProvider(create: (_) => WalletBalanceProvider()),
+    ChangeNotifierProvider(create: (_) => KyshiBeneficiaryWalletProvider()),
+    ChangeNotifierProvider(create: (_) => KyshiBeneficiaryAccountProvider()),
+    
   ], child: MyApp()));
 }
 

@@ -87,6 +87,7 @@ class _UserAccountTabState extends State<UserAccountTab> {
               Container(
                 child: TabBar(
                   isScrollable: true,
+                    physics: NeverScrollableScrollPhysics(),
                   labelColor: Color(0xff233375),
                   onTap: (index) {
                     setState(() {

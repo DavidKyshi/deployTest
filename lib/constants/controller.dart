@@ -113,7 +113,11 @@ class _State {
       width: 28,
       height: 28,
     ),
-    PAGE(index: PAGES.testing, title: 'test', page: FruitSearch(), showInSideBar: false)
+    PAGE(
+        index: PAGES.testing,
+        title: 'test',
+        page: FruitSearch(),
+        showInSideBar: false)
   ];
 }
 
