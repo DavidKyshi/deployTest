@@ -389,13 +389,17 @@ class UserService {
 
   Future<Map<String, dynamic>> getKyshiCard(
       {required String userId, required BuildContext context}) async {
+    final token =
+        Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/kyshi-cards");
     try {
       // customInternalDio.get("/ops/users",)
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/kyshi-cards",
-          queryParameters: {"user_id": userId});
+          queryParameters: {"user_id": userId},
+          options: Options(headers: {"authorization": "Bearer $token"})
+      );
       // print("$response ALL DATA");
       return response.data;
     } catch (e) {

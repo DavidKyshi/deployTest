@@ -190,18 +190,18 @@ class _OverViewConnectState extends State<OverViewConnect> {
                   )
                 ],),
             ),
-                  SizedBox(
-                    width: 20,
-                  ),
+                  // SizedBox(
+                  //   width: 0,
+                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       WalletStatus(
                         color: primaryColor,
                         value:widget.dropDownAirtimeGraph2 == "Airtime" ?
-                        overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum ?? 0 :
-                        widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataNgnSum :
-                            overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthNgnSum
+                        Util.formatAmount(overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeNgnSum) ?? 0 :
+                        widget.dropDownAirtimeGraph2 == "Data"? Util.formatAmount(overViewProvider.kyshiConnectData?.kyshiConnectDataNgnSum) :
+                            Util.formatAmount(overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthNgnSum)
                         ,
                         text: 'NGN',
                       ),
@@ -211,9 +211,9 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       WalletStatus(
                         color: Color(0xff2668EC),
                         value:widget.dropDownAirtimeGraph2 == "Airtime" ?
-                      overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum ?? 0 :
-                      widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataGbpSum :
-                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthGbpSum,
+                      Util.formatAmount(overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeGbpSum) ?? 0 :
+                      widget.dropDownAirtimeGraph2 == "Data"? Util.formatAmount(overViewProvider.kyshiConnectData?.kyshiConnectDataGbpSum) :
+                        Util.formatAmount(overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthGbpSum),
                         text: 'GBP',
                       ),
                       SizedBox(
@@ -222,9 +222,9 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       WalletStatus(
                         color: Color(0xff6E80A3),
                         value:widget.dropDownAirtimeGraph2 == "Airtime" ?
-                      overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum ?? 0 :
-                      widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataUsdSum :
-                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthUsdSum,
+                      Util.formatAmount(overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeUsdSum) ?? 0 :
+                      widget.dropDownAirtimeGraph2 == "Data"? Util.formatAmount(overViewProvider.kyshiConnectData?.kyshiConnectDataUsdSum) :
+                        Util.formatAmount(overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthUsdSum),
                         text: 'USD',
                       ),
                       SizedBox(
@@ -233,9 +233,9 @@ class _OverViewConnectState extends State<OverViewConnect> {
                       WalletStatus(
                         color: Color(0xff4DAEF8),
                         value: widget.dropDownAirtimeGraph2 == "Airtime" ?
-                        overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum ?? 0 :
-                        widget.dropDownAirtimeGraph2 == "Data"? overViewProvider.kyshiConnectData?.kyshiConnectDataCadSum :
-                        overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthCadSum,
+                        Util.formatAmount(overViewProvider.kyshiConnectAirtime?.data?.kyshiConnectAirtimeCadSum) ?? 0 :
+                        widget.dropDownAirtimeGraph2 == "Data"? Util.formatAmount(overViewProvider.kyshiConnectData?.kyshiConnectDataCadSum) :
+                        Util.formatAmount(overViewProvider.kyshiConnectHealth?.data?.kyshiConnectHealthCadSum),
                         text: 'CAD',
                       )
                     ],

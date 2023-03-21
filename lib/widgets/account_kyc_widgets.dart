@@ -128,7 +128,7 @@ class UserBioDataBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 793.57,
+      width: 850.57,
       height: 61,
       decoration: BoxDecoration(
           border: Border.all(color: Color(0xffF3F3F3)),
@@ -554,7 +554,7 @@ class _BioDataParametersState extends State<BioDataParameters> {
       decoration: BoxDecoration(
           color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(10)),
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+          padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
           child: Column(
             children: [
               Row(
@@ -1901,7 +1901,7 @@ class RiskStatusCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        riskRatingg,
+                        riskRatingg == "medium" ? "Medium" : riskRatingg,
                         style: TextStyle(
                             fontFamily: "PushPenny",
                             fontSize: 28,

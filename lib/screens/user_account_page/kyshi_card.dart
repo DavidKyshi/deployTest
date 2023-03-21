@@ -301,7 +301,7 @@ class _KyshiCardState extends State<KyshiCard> {
                           SvgPicture.asset(empty),
                           Text(
                             "The user is yet to make a top up"
-                            " \to Kyshi card,"
+                            " \n to Kyshi card,"
                             "  it will\n appear here when the user does",
                             style: TextStyle(
                               color: primaryColor,

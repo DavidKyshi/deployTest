@@ -420,7 +420,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                           ),
                                           RichText(
                                               text: TextSpan(
-                                                  text: "₦${user?.wallets![index].availableBalance}",
+                                                  text: "${user?.wallets![index].currency =="NGN" ? "₦"  :user?.wallets![index].currency == "USD" ? "\$" :"£" } ${user?.wallets![index].availableBalance}",
                                                   style: TextStyle(
                                                       color: primaryColor,
                                                       fontSize: 40,
@@ -454,7 +454,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 ),
                                                 RichText(
                                                   text: TextSpan(
-                                                    text: "₦${user?.wallets![index].totalBalance}",
+                                                    text: "${user?.wallets![index].currency =="NGN" ? "₦"  :user?.wallets![index].currency == "USD" ? "\$" :"£"} ${user?.wallets![index].totalBalance}",
                                                     style: TextStyle(
                                                         fontWeight: FontWeight.w500,
                                                         fontSize: 20,

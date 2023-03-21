@@ -282,12 +282,14 @@ class WalletStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '${value ?? 0}',
           style: TextStyle(
-              color: primaryColor, fontWeight: FontWeight.w500, fontSize: 20),
+              color: primaryColor, fontWeight: FontWeight.w500, fontSize: 17),
         ),
+        SizedBox(height: 9,),
         Row(
           children: [
             Container(
@@ -297,6 +299,7 @@ class WalletStatus extends StatelessWidget {
                   color: color, borderRadius: BorderRadius.circular(50)),
               child: SizedBox(width: 13,height: 10,),
             ),
+            SizedBox(width: 7,),
             Text(
               text,
               style: TextStyle(

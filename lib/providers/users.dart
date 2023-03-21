@@ -250,7 +250,7 @@ class UsersProvider extends ChangeNotifier {
 
   Future<List<Wallet>> getAllWallets(
       BuildContext context, String entrySize) async {
-    // print("getALL WALLETS CALLED");
+    print("getALL WALLETS CALLED");
     Map<String, dynamic> responseData = await UserService()
         .getWalletManagement(context: context, entrySize: entrySize);
     final data = List.from(responseData['data']);

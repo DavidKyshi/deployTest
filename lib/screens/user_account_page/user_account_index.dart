@@ -483,7 +483,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                         cardColor: Colors.transparent,
-                        dividerColor: Colors.grey,
+                        dividerColor: Colors.grey.withOpacity(0.3),
                       shadowColor: Colors.transparent
                     ),
                     child: PaginatedDataTable(
@@ -674,7 +674,7 @@ class TableRow extends DataTableSource {
         index: index,
         onSelectChanged: (value){
          if(value!){
-           // print("${user![index].id } hhhhhjhhjhh");
+           // print("${user![index].id } ID FROM USERINDEX");
            userProvider.selectUser(user![index].id ??"");
            userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
            userProvider.getConnectSerivices(contexts);

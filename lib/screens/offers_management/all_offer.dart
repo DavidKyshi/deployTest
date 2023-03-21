@@ -20,6 +20,9 @@ class _AllOfferTableState extends State<AllOfferTable> {
   OfferManagementProvider get offerManagementProvider =>
       Provider.of<OfferManagementProvider>(context, listen: false);
 
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(context, listen: false);
+
   
 
   Text titleText(String title) {
@@ -52,6 +55,7 @@ class _AllOfferTableState extends State<AllOfferTable> {
   @override
   Widget build(BuildContext context) {
      List<OfferData>? offerData = Provider.of<OfferManagementProvider>(context, listen: false).offerData;
+     final pageProvider = Provider.of<PageViewProvider>(context,listen: false);
      if (widget.searchQuery.isNotEmpty) {
       offerData = offerData.where((offerData) => offerData.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
       //offerData = offerData.where((offerData) => offerData.baseCurrency!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
@@ -221,14 +225,27 @@ class _AllOfferTableState extends State<AllOfferTable> {
                                         SizedBox(
                                             width: 157,
                                             child:
-                                                Column(
+                                                InkWell(
+                                                  // onTap: (){
+                                                  //   print("${offersData.id} ID FROM ALL OFFERS");
+                                                  //   userProvider.selectUser(offersData.id ??"");
+                                                  //   userProvider.setCurrentUser("${offersData.user}");
+                                                  //   // userProvider.getConnectSerivices(context);
+                                                  //   // userProvider.getCards(contexts);
+                                                  //   // userProvider.getTransactions(contexts);
+                                                  //   // Provider.of<TransactionSummaryProvider>(contexts, listen: false)
+                                                  //   //     .getAllTransactionSummary(contexts, user![index].id ??"");
+                                                  //   pageProvider.gotoPage(PAGES.home);
+                                                  // },
+                                                  child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                subText(
-                                                    offersData.user ?? ""),
-                                                    Text(offersData.email ?? "")
+                                                  subText(
+                                                      offersData.user ?? ""),
+                                                      Text(offersData.email ?? "")
                                               ],
-                                            )),
+                                            ),
+                                                )),
                                         SizedBox(
                                           width: 50,
                                         ),

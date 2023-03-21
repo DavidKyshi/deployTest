@@ -22,15 +22,16 @@ class WalletTab extends StatefulWidget {
 }
 
 class _WalletTabState extends State<WalletTab> {
-  String dropdownvalue = '100';
-  var currency = ['100', '300', '500', '700', "1000"];
+  String dropdownvalue2 = '100';
+  var currency =['100', '300', '500', '700', "1000"];
   bool isLoading = false;
-
+  List<Wallet> allWallets =[];
 
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
+    allWallets = userProvider.allWallets;
     return SingleChildScrollView(
         child: Container(
       child: DefaultTabController(
@@ -50,7 +51,121 @@ class _WalletTabState extends State<WalletTab> {
                       fontFamily: "PushPenny",
                       color: primaryColor),
                 ),
-                const SizedBox(),
+
+                Row(
+                  children: [
+                    Text(
+                      "Show entries",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "PushPenny",
+                          color: primaryColor),
+                    ),
+                    const SizedBox(width: 10,),
+                    Container(
+                      width: 70,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:  BorderRadius.circular(8),
+                          border: Border.all(color: Colors.grey)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  borderRadius: BorderRadius.circular(10),
+                                  dropdownColor: Colors.white,
+                                  elevation: 1,
+                                  // Initial Value
+                                  value: dropdownvalue2,
+                                  selectedItemBuilder: (BuildContext context) {
+                                    return currency.map((String items) {
+                                      return Center(
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: dropdownvalue2,
+                                              style:  TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,
+                                                  color: primaryColor),
+                                            ),
+                                          )
+                                        //             Text(
+                                        //   dropdownvalue,
+                                        //   style: const TextStyle( fontWeight: FontWeight.w500,
+                                        //                 fontSize: 16,
+                                        //                 color: Color(0xff0D2C65) ),
+                                        // ),
+                                      );
+                                    }).toList();
+                                  },
+                                  // Down Arrow Icon
+                                  icon:  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: primaryColor,
+                                  ),
+
+                                  // Array list of items
+                                  items: currency.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Container(
+                                        // width:double.infinity,
+                                        alignment: Alignment.centerLeft,
+                                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                                        decoration: const BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: Color(0xffDDDDDD), width: 0.3))),
+                                        child: Text(
+                                          items,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue2 = newValue!;
+                                      // isLoading = true;
+                                      Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, dropdownvalue2);
+                                     allWallets = userProvider.allWallets;
+                                      // getUsers(context: context, entrySize: dropdownvalue2);
+                                      // user = Provider.of<UsersProvider>(context, listen: false).users;
+                                    });
+                                    // Future.delayed( Duration(seconds:double.tryParse(dropdownvalue2)! > 500 ? 15 : 10)).then((value) {
+                                    //   setState(() {
+                                    //     isLoading = false;
+                                    //   });
+                                    // }
+                                    // );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15,),
+
+                  ],
+                ),
+
+                // const SizedBox(),
                 // Row(
                 //   children: [
                 //     Text(
@@ -215,10 +330,10 @@ class _WalletTabState extends State<WalletTab> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height / 1.1,
-                  child: const TabBarView(
+                  child:  TabBarView(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      AllWallets(),
+                      AllWallets(allWallets: allWallets,),
                       PendingWallets(),
                       RejectedWallets(),
                       ActiveWallets(),

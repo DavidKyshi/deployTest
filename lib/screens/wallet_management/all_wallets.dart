@@ -17,8 +17,8 @@ import '../../widgets/accept_offer_alertbox.dart';
 import '../user_account_page/user_account_index.dart';
 
 class AllWallets extends StatefulWidget {
-  // final List<Wallet>? allWallets;
-  const AllWallets({Key? key}) : super(key: key);
+    List<Wallet> allWallets;
+   AllWallets({Key? key,required this.allWallets}) : super(key: key);
 
   @override
   State<AllWallets> createState() => _AllWalletsState();
@@ -27,7 +27,7 @@ class AllWallets extends StatefulWidget {
 class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
   final TextEditingController _controller = TextEditingController();
-  List<Wallet>? allWallets;
+  // List<Wallet>? allWallets;
   final _debouncer = Debouncer();
 
   bool activeWalletSwitchValue = false;
@@ -44,13 +44,15 @@ class _AllWalletsState extends State<AllWallets> {
   bool isLoading = false;
   @override
   void initState() {
-    allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
+    // allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
     selectedId = Provider.of<UsersProvider>(context, listen: false)
         .currentSelectedUserId;
     // TODO: implement initState
     super.initState();
     // getAllWallet();
   }
+  // DataTableSource dataSource() =>
+  //     AllWalletTableRow(allWallets: widget.allWallets, contexts: context);
 
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
@@ -82,7 +84,7 @@ class _AllWalletsState extends State<AllWallets> {
                           setState(() {
                             // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
                             List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
-                            allWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                            widget.allWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
                             // isLoading = false;
                             // print("$user SEARCHED USERS");
                           });
@@ -235,156 +237,92 @@ class _AllWalletsState extends State<AllWallets> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 25),
                       child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                            dataRowHeight: 60,
-                            columns: const <DataColumn>[
-                              DataColumn(
-                                  label: Text("Created",
-                                      style: TextStyle(
-                                        //color: primaryColor,
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("User",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Currency",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Provider",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Available",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Total",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Tier",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Status",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Comments",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                              DataColumn(
-                                  label: Text("Actions",
-                                      style: TextStyle(
-                                          color: Color(0XFF233375),
-                                          fontFamily: 'PushPenny',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12))),
-                            ],
-                            rows: allWallets!
-                                .map((e) => DataRow(
-                                cells: [
-                                  DataCell(
-                                    Text(e.createdAt ?? "",
+                        // scrollDirection: Axis.horizontal,
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                              cardColor: Colors.transparent,
+                              dividerColor: Colors.grey.withOpacity(0.3),
+                              shadowColor: Colors.transparent
+                          ),
+                          child: PaginatedDataTable(
+                              dataRowHeight: 60,
+                              showCheckboxColumn: false,
+                              columns: const <DataColumn>[
+                                DataColumn(
+                                    label: Text("Created",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                          //color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text(e.user ?? "",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("User",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text(e.currency ?? "",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Currency",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text(e.provider ?? "",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Provider",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text("${e.availableBalance ?? ""}",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Available",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text("${e.ledgerBalance ?? ""}",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Total",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text("${e.tier?.name ?? ""}",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Tier",
                                         style: TextStyle(
-                                            color: primaryColor,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(
-                                    Text( e.status ?? "",
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Status",
                                         style: TextStyle(
-                                            color: e.status == "PENDING"
-                                                ? warning
-                                                : e.status == "ACTIVE"
-                                                ? kyshiGreen
-                                                : kyshiRed,
+                                            color: Color(0XFF233375),
                                             fontFamily: 'PushPenny',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ),
-                                  DataCell(InkWell(
-                                    onTap: () async {
-                                      Map<String, dynamic> response =
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Comments",
+                                        style: TextStyle(
+                                            color: Color(0XFF233375),
+                                            fontFamily: 'PushPenny',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                                DataColumn(
+                                    label: Text("Actions",
+                                        style: TextStyle(
+                                            color: Color(0XFF233375),
+                                            fontFamily: 'PushPenny',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12))),
+                              ],
+                              source: AllWalletTableRow(allWallets: widget.allWallets, contexts: context,
+                                  onTapWalletComment: () async{
+                                    Map<String, dynamic> response =
                                       await UserService()
                                           .getWalletComments(
                                           context: context);
@@ -399,72 +337,164 @@ class _AllWalletsState extends State<AllWallets> {
                                       viewCommentAlertBox(
                                           context: context,
                                           comment: comments);
-                                    },
-                                    child: OfferButton(
-                                      isBorder: false,
-                                      text: 'VIEW COMMENT',
-                                      comment: true,
-                                      commentBackground: false,
-                                      color: const Color(0XFF6D48FF),
-                                    ),
-                                  )),
-                                  DataCell(
-                                    InkWell(
-                                        onTap: () {
-                                          userProvider.selectWalletId(e.id ?? "");
-                                          editWalletStatusDialog(
-                                            context,
-                                            walletType: "NGN",
-                                            title: 'Add comment', ontap:  () async {
-                                            ContentType contentTypeSuccess = ContentType.success;
-                                            ContentType contentTypeFail = ContentType.failure;
-                                            final id = Provider.of<UsersProvider>(context, listen: false).currentSelectedWalletId;
-                                            print("$id ${_controller.text} changing wallet");
-                                            // updateStatus(
-                                            //     context: context,
-                                            //     id: id,
-                                            //     text: _controller.text,
-                                            //     dropDown: dropDownValue);
-                                            Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
-                                              "wallet_id": id,
-                                              "details": _controller.text,
-                                              // controller.text,
-                                              "status": dropDownValue.toUpperCase()
-                                            }, context: context);
-                                            if(mounted){
-                                              if (response["status"] == "True") {
-                                                Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
-                                                snackBar(context, contentTypeSuccess,
-                                                    title: "Awesome!!", message: ' Request sent Successfully ');
-                                              } else {
-                                                snackBar(
-                                                  context,
-                                                  contentTypeFail,
-                                                  title: 'OoPs!!',
-                                                  message: 'Error updating wallet status',
-                                                );
-                                              }
-                                              Navigator.pop(context);
-                                            }
-                                            state(() {
-                                              allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets ?? [];
-                                              walletStatus = e.status ??"";
-                                              walletId = e.id ?? "";
-                                            });
-                                            Future.delayed(Duration (seconds: 6)).then((value) =>
-                                                print("${allWallets!.map((e) => e.status)} ALL WALLETSSSSS")
-                                            );
-                                          }, controller: _controller,
-                                          );
-                                        },
-                                        child: OfferButton(
-                                          isBorder: false,
-                                          text: 'MANAGE WALLET',
-                                          comment: false,
-                                        )),
-                                  ),
-                                ]))
-                                .toList()),
+                                  }, controller: _controller,
+                              )
+                              // widget.allWallets
+                              //     .map((e) => DataRow(
+                              //     cells: [
+                              //       DataCell(
+                              //         Text(e.createdAt ?? "",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text(e.user ?? "",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text(e.currency ?? "",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text(e.provider ?? "",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text("${e.availableBalance ?? ""}",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text("${e.ledgerBalance ?? ""}",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text("${e.tier?.name ?? ""}",
+                              //             style: TextStyle(
+                              //                 color: primaryColor,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(
+                              //         Text( e.status ?? "",
+                              //             style: TextStyle(
+                              //                 color: e.status == "PENDING"
+                              //                     ? warning
+                              //                     : e.status == "ACTIVE"
+                              //                     ? kyshiGreen
+                              //                     : kyshiRed,
+                              //                 fontFamily: 'PushPenny',
+                              //                 fontWeight: FontWeight.w400,
+                              //                 fontSize: 14)),
+                              //       ),
+                              //       DataCell(InkWell(
+                              //         onTap: () async {
+                              //           Map<String, dynamic> response =
+                              //           await UserService()
+                              //               .getWalletComments(
+                              //               context: context);
+                              //           WalletCommentModel commentModel =
+                              //           WalletCommentModel.fromJson(
+                              //               response);
+                              //           // print("${commentModel.data![0].details} wallet");
+                              //           // print("${commentModel.data!.map((e) => e.toJson())} all comments");
+                              //           setState(() {
+                              //             comments = commentModel.data ?? [];
+                              //           });
+                              //           viewCommentAlertBox(
+                              //               context: context,
+                              //               comment: comments);
+                              //         },
+                              //         child: OfferButton(
+                              //           isBorder: false,
+                              //           text: 'VIEW COMMENT',
+                              //           comment: true,
+                              //           commentBackground: false,
+                              //           color: const Color(0XFF6D48FF),
+                              //         ),
+                              //       )),
+                              //       DataCell(
+                              //         InkWell(
+                              //             onTap: () {
+                              //               userProvider.selectWalletId(e.id ?? "");
+                              //               editWalletStatusDialog(
+                              //                 context,
+                              //                 walletType: "NGN",
+                              //                 title: 'Add comment', ontap:  () async {
+                              //                 ContentType contentTypeSuccess = ContentType.success;
+                              //                 ContentType contentTypeFail = ContentType.failure;
+                              //                 final id = Provider.of<UsersProvider>(context, listen: false).currentSelectedWalletId;
+                              //                 print("$id ${_controller.text} changing wallet");
+                              //                 // updateStatus(
+                              //                 //     context: context,
+                              //                 //     id: id,
+                              //                 //     text: _controller.text,
+                              //                 //     dropDown: dropDownValue);
+                              //                 Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
+                              //                   "wallet_id": id,
+                              //                   "details": _controller.text,
+                              //                   // controller.text,
+                              //                   "status": dropDownValue.toUpperCase()
+                              //                 }, context: context);
+                              //                 if(mounted){
+                              //                   if (response["status"] == "True") {
+                              //                     Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
+                              //                     snackBar(context, contentTypeSuccess,
+                              //                         title: "Awesome!!", message: ' Request sent Successfully ');
+                              //                   } else {
+                              //                     snackBar(
+                              //                       context,
+                              //                       contentTypeFail,
+                              //                       title: 'OoPs!!',
+                              //                       message: 'Error updating wallet status',
+                              //                     );
+                              //                   }
+                              //                   Navigator.pop(context);
+                              //                 }
+                              //                 state(() {
+                              //                   widget.allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets ?? [];
+                              //                   walletStatus = e.status ??"";
+                              //                   walletId = e.id ?? "";
+                              //                 });
+                              //                 // Future.delayed(Duration (seconds: 6)).then((value) =>
+                              //                 //     print("${allWallets!.map((e) => e.status)} ALL WALLETSSSSS")
+                              //                 // );
+                              //               }, controller: _controller,
+                              //               );
+                              //             },
+                              //             child: OfferButton(
+                              //               isBorder: false,
+                              //               text: 'MANAGE WALLET',
+                              //               comment: false,
+                              //             )),
+                              //       ),
+                              //     ]))
+                              //     .toList()
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -1012,4 +1042,338 @@ class _AllWalletsState extends State<AllWallets> {
   //   );
   // }
 
+}
+
+class AllWalletTableRow extends DataTableSource {
+  // Function(bool?)? selectChanged;
+  // Function ()? onTap;
+  BuildContext contexts;
+  List<Wallet>? allWallets;
+  // Function ()? onTapViewWallet;
+  Function ()? onTapWalletComment;
+  TextEditingController controller;
+  AllWalletTableRow({Key? key, required this.allWallets,required this.contexts,required this.onTapWalletComment,required this.controller}) : super();
+  UsersProvider get userProvider =>
+      Provider.of<UsersProvider>(contexts, listen: false);
+  // late UsersProvider usersProvider;
+  @override
+  DataRow? getRow(int index) {
+    final pageProvider = Provider.of<PageViewProvider>(contexts);
+    return DataRow.byIndex(
+        index: index,
+        onSelectChanged: (value){
+          if(value!){
+            userProvider.selectWalletId(allWallets![index].id ?? "");
+            // print("${user![index].id } ID FROM USERINDEX");
+            // userProvider.selectUser(user![index].id ??"");
+            // userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
+            // userProvider.getConnectSerivices(contexts);
+            // userProvider.getCards(contexts);
+            // userProvider.getTransactions(contexts);
+            // Provider.of<TransactionSummaryProvider>(contexts, listen: false)
+            //     .getAllTransactionSummary(contexts, user![index].id ??"");
+            // pageProvider.gotoPage(PAGES.home);
+          }
+        },
+        cells: [
+          DataCell(
+            Text( allWallets![index].createdAt ?? "",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text(allWallets![index].user ?? "",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text(allWallets![index].currency ?? "",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text(allWallets![index].provider ?? "",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text("${allWallets![index].availableBalance ?? ""}",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text("${allWallets![index].ledgerBalance ?? ""}",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text("${allWallets![index].tier!.name ?? ""}",
+                style: TextStyle(
+                    color: primaryColor,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(
+            Text( allWallets![index].status ?? "",
+                style: TextStyle(
+                    color: allWallets![index].status == "PENDING"
+                        ? warning
+                        : allWallets![index].status== "ACTIVE"
+                        ? kyshiGreen
+                        : kyshiRed,
+                    fontFamily: 'PushPenny',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14)),
+          ),
+          DataCell(InkWell(
+            onTap: onTapWalletComment,
+            //     () async {
+            //   Map<String, dynamic> response =
+            //   await UserService()
+            //       .getWalletComments(
+            //       context: context);
+            //   WalletCommentModel commentModel =
+            //   WalletCommentModel.fromJson(
+            //       response);
+            //   // print("${commentModel.data![0].details} wallet");
+            //   // print("${commentModel.data!.map((e) => e.toJson())} all comments");
+            //   setState(() {
+            //     comments = commentModel.data ?? [];
+            //   });
+            //   viewCommentAlertBox(
+            //       context: context,
+            //       comment: comments);
+            // },
+            child: OfferButton(
+              isBorder: false,
+              text: 'VIEW COMMENT',
+              comment: true,
+              commentBackground: false,
+              color: const Color(0XFF6D48FF),
+            ),
+          )),
+          DataCell(
+            InkWell(
+                onTap: ()async{
+                  editWalletStatusDialog(
+                      contexts,
+                      walletType: "NGN",
+                      title: 'Add comment', ontap:  () async {
+                    userProvider.selectWalletId(allWallets![index].id ?? "");
+                    ContentType contentTypeSuccess = ContentType.success;
+                    ContentType contentTypeFail = ContentType.failure;
+                    final id = Provider.of<UsersProvider>(contexts, listen: false).currentSelectedWalletId;
+                    // print("$id ${_controller.text} changing wallet");
+                    // updateStatus(
+                    //     context: context,
+                    //     id: id,
+                    //     text: _controller.text,
+                    //     dropDown: dropDownValue);
+                    Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
+                      "wallet_id": id,
+                      "details": controller.text,
+                      // controller.text,
+                      "status": dropDownValue.toUpperCase()
+                    }, context: contexts);
+                    // if(mounted){
+                      if (response["status"] == "True") {
+                        Provider.of<UsersProvider>(contexts, listen: false).getAllWallets(contexts, "50");
+                        snackBar(contexts, contentTypeSuccess,
+                            title: "Awesome!!", message: ' Request sent Successfully ');
+                      } else {
+                        snackBar(
+                          contexts,
+                          contentTypeFail,
+                          title: 'OoPs!!',
+                          message: 'Error updating wallet status',
+                        );
+                      }
+                      Navigator.pop(contexts);
+                    // }
+                    // state(() {
+                    //   widget.allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets ?? [];
+                    //   walletStatus = e.status ??"";
+                    //   walletId = e.id ?? "";
+                    // });
+                    // Future.delayed(Duration (seconds: 6)).then((value) =>
+                    //     print("${allWallets!.map((e) => e.status)} ALL WALLETSSSSS")
+                    // );
+                  }, controller: controller);
+                },
+                //     () {
+                //   userProvider.selectWalletId(e.id ?? "");
+                //   editWalletStatusDialog(
+                //     context,
+                //     walletType: "NGN",
+                //     title: 'Add comment', ontap:  () async {
+                //     ContentType contentTypeSuccess = ContentType.success;
+                //     ContentType contentTypeFail = ContentType.failure;
+                //     final id = Provider.of<UsersProvider>(context, listen: false).currentSelectedWalletId;
+                //     print("$id ${_controller.text} changing wallet");
+                //     // updateStatus(
+                //     //     context: context,
+                //     //     id: id,
+                //     //     text: _controller.text,
+                //     //     dropDown: dropDownValue);
+                //     Map<String, dynamic> response = await UserService().updateWalletStatus(data: {
+                //       "wallet_id": id,
+                //       "details": _controller.text,
+                //       // controller.text,
+                //       "status": dropDownValue.toUpperCase()
+                //     }, context: context);
+                //     if(mounted){
+                //       if (response["status"] == "True") {
+                //         Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, "50");
+                //         snackBar(context, contentTypeSuccess,
+                //             title: "Awesome!!", message: ' Request sent Successfully ');
+                //       } else {
+                //         snackBar(
+                //           context,
+                //           contentTypeFail,
+                //           title: 'OoPs!!',
+                //           message: 'Error updating wallet status',
+                //         );
+                //       }
+                //       Navigator.pop(context);
+                //     }
+                //     state(() {
+                //       widget.allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets ?? [];
+                //       walletStatus = e.status ??"";
+                //       walletId = e.id ?? "";
+                //     });
+                //     // Future.delayed(Duration (seconds: 6)).then((value) =>
+                //     //     print("${allWallets!.map((e) => e.status)} ALL WALLETSSSSS")
+                //     // );
+                //   }, controller: _controller,
+                //   );
+                // },
+                child: OfferButton(
+                  isBorder: false,
+                  text: 'MANAGE WALLET',
+                  comment: false,
+                )),
+          ),
+          // DataCell(
+          //   Text(user![index].firstName ?? ""),
+          // ),
+          // DataCell(
+          //   Text(user![index].lastName ?? ""),
+          // ),
+          // DataCell(
+          //   Text(user![index].middleName ?? ""),
+          // ),
+          // DataCell(
+          //   Text(user![index].email ?? ""),
+          // ),
+          // DataCell(
+          //   Text(user![index].phoneNumber ?? ""),
+          // ),
+          // DataCell(
+          //     Text(user![index].dob?? "",style: TextStyle(
+          //         color: primaryColor,
+          //         fontFamily: 'PushPenny',
+          //         fontWeight: FontWeight.w400,
+          //         fontSize: 14
+          //     ),)
+          // ),
+          // DataCell(
+          //     Text(user![index].bvn ?? "",style: TextStyle(
+          //         color: primaryColor,
+          //         fontFamily: 'PushPenny',
+          //         fontWeight: FontWeight.w400,
+          //         fontSize: 14
+          //     ))
+          // ),
+          // DataCell(
+          //   Text(user![index].countryOfResidence ?? "",style: TextStyle(
+          //       color: primaryColor,
+          //       fontFamily: 'PushPenny',
+          //       fontWeight: FontWeight.w400,
+          //       fontSize: 14
+          //   )),
+          // ),
+          // DataCell(
+          //     Text(user![index].nationality1 ?? "",style: TextStyle(
+          //         color: primaryColor,
+          //         fontFamily: 'PushPenny',
+          //         fontWeight: FontWeight.w400,
+          //         fontSize: 14
+          //     ))
+          // ),
+          // DataCell(
+          //   Row(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       SvgPicture.asset(user![index].emailVerified! == true ?mailUn :mailV),
+          //       SvgPicture.asset(user![index].phoneVerified == true?callUn :callV),
+          //       SvgPicture.asset(user![index].bvnVerified == true ? shieldUn :shieldV),
+          //       SvgPicture.asset(giftUn)
+          //     ],
+          //   ),
+          // ),
+          // DataCell(
+          //     InkWell(
+          //         onTap: () {
+          //           // print("${user![index].id } bbbbbbbbbbb");
+          //           userProvider.selectUser(user![index].id ??"");
+          //           userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
+          //           userProvider.getConnectSerivices(contexts);
+          //           userProvider.getCards(contexts);
+          //           userProvider.getTransactions(contexts);
+          //           Provider.of<TransactionSummaryProvider>(contexts, listen: false)
+          //               .getAllTransactionSummary(contexts, user![index].id ??"");
+          //           pageProvider.gotoPage(PAGES.home);
+          //           //getAllTransactionSummary
+          //         },
+          //         child: Container(
+          //           height: 20,
+          //           width: 60,
+          //           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+          //           decoration: BoxDecoration(
+          //               color: primaryColor,
+          //               borderRadius:
+          //               BorderRadius.circular(24)),
+          //           child: const Text(
+          //             "View",
+          //             style: TextStyle(
+          //                 fontFamily: "PushPenny",
+          //                 fontWeight:
+          //                 FontWeight.w400,
+          //                 color: Colors.white,
+          //                 fontSize: 10),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //         ))
+          // ),
+        ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => allWallets!.length;
+
+  @override
+  int get selectedRowCount => allWallets!.length;
 }
