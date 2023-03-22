@@ -73,7 +73,7 @@ class UserService {
       {required BuildContext context,
       String? entrySize,
       int? daysAgo,
-      String? startDate,
+      String? startDate, String? email,
       String? endDate}) async {
     final token =
         Provider.of<UsersProvider>(context, listen: false).accessToken;
@@ -85,6 +85,9 @@ class UserService {
 // check if entrey size is passed and add to query
     if (entrySize != null) {
       queryPram['entry_size'] = entrySize;
+    }
+    if (email != null) {
+      queryPram['email'] = email;
     }
     if (daysAgo != null) {
       queryPram['daysAgo'] = daysAgo;
@@ -482,13 +485,13 @@ class UserService {
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-comments");
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
-          "/ops/wallet-management",
+          "/ops/wallet-comments",
           options: Options(headers: {"authorization": "Bearer $token"})
           // queryParameters: {
           //   "status":""
           // }
           );
-      // print("$response ALL DATA");
+      // print("$response ALL DATA  from wallet comment");
       return response.data;
     } catch (e) {
       if (kDebugMode) {

@@ -1333,14 +1333,14 @@ var changeWalletStatus = [
   // 'Reject and  close applicatio
 ];
 
-void editWalletStatusDialog(BuildContext context,
+ editWalletStatusDialog(BuildContext context,
     {additionalButton,
     required Function()? ontap,
     required String walletType,
       required TextEditingController controller,
-    required String title}) {
+    required String title}) async{
   // final TextEditingController controller = TextEditingController();
-  showDialog(
+ return await showDialog(
       barrierDismissible: true,
       context: context,
       builder: (BuildContext context) =>

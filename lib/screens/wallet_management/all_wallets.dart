@@ -66,6 +66,8 @@ class _AllWalletsState extends State<AllWallets> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+    });
     // print("${allWallets!.map((e) => e.status)} from build");
     return Scaffold(
         backgroundColor: Colors.white,
@@ -320,7 +322,7 @@ class _AllWalletsState extends State<AllWallets> {
                                             fontWeight: FontWeight.w500,
                                             fontSize: 12))),
                               ],
-                              source: AllWalletTableRow(allWallets: widget.allWallets, contexts: context,
+                              source: AllWalletTableRow(allWallets: userProvider.allWallets, contexts: context,
                                   onTapWalletComment: () async{
                                     Map<String, dynamic> response =
                                       await UserService()
@@ -329,7 +331,7 @@ class _AllWalletsState extends State<AllWallets> {
                                       WalletCommentModel commentModel =
                                       WalletCommentModel.fromJson(
                                           response);
-                                      // print("${commentModel.data![0].details} wallet");
+                                      print("${commentModel.data!.map((e) => e.details)} wallet");
                                       // print("${commentModel.data!.map((e) => e.toJson())} all comments");
                                       setState(() {
                                         comments = commentModel.data ?? [];
@@ -1044,7 +1046,7 @@ class _AllWalletsState extends State<AllWallets> {
 
 }
 
-class AllWalletTableRow extends DataTableSource {
+class AllWalletTableRow extends DataTableSource  {
   // Function(bool?)? selectChanged;
   // Function ()? onTap;
   BuildContext contexts;
@@ -1174,7 +1176,7 @@ class AllWalletTableRow extends DataTableSource {
           DataCell(
             InkWell(
                 onTap: ()async{
-                  editWalletStatusDialog(
+                 await editWalletStatusDialog(
                       contexts,
                       walletType: "NGN",
                       title: 'Add comment', ontap:  () async {
@@ -1196,9 +1198,14 @@ class AllWalletTableRow extends DataTableSource {
                     }, context: contexts);
                     // if(mounted){
                       if (response["status"] == "True") {
-                        Provider.of<UsersProvider>(contexts, listen: false).getAllWallets(contexts, "50");
+                        List<Wallet> res =await Provider.of<UsersProvider>(contexts, listen: false).getAllWallets(contexts, "50");
+                        // print("${res.map((e) => e.status)}");
+                        allWallets = res;
+                        notifyListeners();
                         snackBar(contexts, contentTypeSuccess,
                             title: "Awesome!!", message: ' Request sent Successfully ');
+                        Navigator.pop(contexts,res[index].status);
+                        // print("${allWallets![index].status} kkkkkkkaasssa");
                       } else {
                         snackBar(
                           contexts,
@@ -1206,8 +1213,8 @@ class AllWalletTableRow extends DataTableSource {
                           title: 'OoPs!!',
                           message: 'Error updating wallet status',
                         );
+                        Navigator.pop(contexts);
                       }
-                      Navigator.pop(contexts);
                     // }
                     // state(() {
                     //   widget.allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets ?? [];

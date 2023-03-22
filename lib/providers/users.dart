@@ -15,6 +15,7 @@ import '../userService/userService.dart';
 class UsersProvider extends ChangeNotifier {
   List<User> editUsers = [];
   List<User> _users = [];
+  List<User> _singleUser = [];
   String _loginError = "";
   String? currentSelectedUserId;
   String? _currentSelectedWalletId = "";
@@ -35,6 +36,7 @@ class UsersProvider extends ChangeNotifier {
   // get wallet => _wallet;
   get accessToken => _accessToken;
   get users => _users;
+  List<User> get singleUser => _singleUser;
   get loginError => _loginError;
   get currentSelectedWalletId => _currentSelectedWalletId;
   get loggedInAdmin => _loggedInAdmin;
@@ -88,16 +90,41 @@ class UsersProvider extends ChangeNotifier {
   }
 
   Future<List<User>> getUsers(
-      {required BuildContext context, required String entrySize}) async {
+      {required BuildContext context,  String? entrySize, String? email }) async {
     print("GET USERS CALLED");
     Map<String, dynamic> responseData =
         await UserService().getAllUsers(context: context, entrySize: entrySize);
+    if(email != null){
+      Map<String, dynamic> responseData =
+      await UserService().getAllUsers(context: context, email: email);
+      final data = List.from(responseData['data']);
+      _singleUser = List<User>.from(data.map((x) => User.fromJson(x)));
+      print("${_singleUser} _usersssss");
+      return _singleUser;
+    }else {
+      final data = List.from(responseData['data']);
+      _users = List<User>.from(data.map((x) => User.fromJson(x)));
+      print("${_users.length} ALL USERS RAW DATA");
+    }
     // print("$responseData RAW DATA");
-    final data = List.from(responseData['data']);
-    _users = List<User>.from(data.map((x) => User.fromJson(x)));
-    print("${_users.length} ALL USERS RAW DATA");
     notifyListeners();
     return users;
+  }
+  Future<List<User>> getSingleUser(
+      {required BuildContext context, String? email }) async {
+    print("GET USERS CALLED");
+    Map<String, dynamic> responseData =
+    await UserService().getAllUsers(context: context, email: email);
+      // Map<String, dynamic> responseData =
+      // await UserService().getAllUsers(context: context, email: email);
+      final data = List.from(responseData['data']);
+      _singleUser = List<User>.from(data.map((x) => User.fromJson(x)));
+      print("${_singleUser} _usersssss");
+      // return _singleUser;
+
+    // print("$responseData RAW DATA");
+    notifyListeners();
+    return singleUser;
   }
 
   Future<List<User>> getDaysAgo(

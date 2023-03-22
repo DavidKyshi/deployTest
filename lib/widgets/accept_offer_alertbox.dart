@@ -154,7 +154,7 @@ viewCommentAlertBox(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
                         return Text(
-                            comment[index].details ?? "no comments yet");
+                            comment[index].details ?? "no comments");
                       },
                       itemCount: comment.length,
                     ),

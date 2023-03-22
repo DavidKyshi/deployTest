@@ -94,6 +94,12 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   bool isLoading = false;
   _FilterRanger dropdownvalue = lastDays[2];
 
+  bool isEmailValid(String email) {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     final pageProvider = Provider.of<PageViewProvider>(context);
@@ -354,18 +360,34 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 controller: _textEditingController,
                  hintText: "Search users....",
                  onChanged: (value){
-                 setState(() {
-                   isLoading = true;
-                 });
-                  _debouncer.run(() {
-                    setState(() {
-                      // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
-                      List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
-                     user = result.where((element) => element.email!.toLowerCase().contains(value.toLowerCase())).toList();
-                      // isLoading = false;
-                      // print("$user SEARCHED USERS");
-                    });
-                  });
+                 if(isEmailValid(value)){
+                   setState(() {
+                     isLoading = true;
+                   });
+                   print("${isEmailValid(value)} email nsnsnn");
+                   Provider.of<UsersProvider>(context, listen: false).getSingleUser(context: context, email: value);
+                   // setState(() {
+                   //   print("$isLoading loading::::value");
+                   //
+                   // });
+                   Future.delayed(const Duration(seconds: 3)).then((value) {
+                     setState(() {
+                       isLoading = false;
+                       user = userProvider.singleUser;
+                       // user =Provider.of<UsersProvider>(context, listen: false).users;
+                     });
+                   });
+                   print("${userProvider.singleUser} llllllllwwwwwww");
+                 }
+                   _debouncer.run(() {
+                     setState(() {
+                       List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
+                       user = result.where((element) => element.email!.toLowerCase().contains(value.toLowerCase())).toList();
+                       // isLoading = false;
+                       // print("$user SEARCHED USERS");
+                     });
+                   });
+
                   // if(value.length > 4){
                   //   setState(() {
                   //     isLoading = true;
@@ -398,6 +420,17 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
             //       )
             //     ],
             // ):
+              isLoading ? Column(
+                mainAxisAlignment:MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CupertinoActivityIndicator(
+                    color: primaryColor,
+                    animating: true,
+                    radius: 20,
+                  )
+                ],
+              ):
             user!.isEmpty ?
             Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -623,6 +656,19 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
             )
 
              ),
+
+
+              // isLoading ?  Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children:  [
+              //       CupertinoActivityIndicator(
+              //         color: primaryColor,
+              //         animating: true,
+              //         radius: 20,
+              //       )
+              //     ],
+              // )
             ],
            ),
               )
