@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/transactions.dart';
@@ -54,6 +55,7 @@ class TransactionHistory extends StatefulWidget {
 }
 
 class _TransactionHistoryState extends State<TransactionHistory> {
+  final _debouncer = Debouncer();
   List<String> dates = [
     "Nov 28, 20223:58 PM",
     "Nov 28, 20223:58 PM",
@@ -94,54 +96,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         id: "6086346c-c5ac-98-6086346c-c5ac-98",
         ledger: "NIL",
         processor: 'VFDBank'),
-    UserTransactionHistory(
-        wallet: "NGN",
-        dates: "Nov 28, 20223:58 PM",
-        channel: "Swap",
-        charges: "NGN:0.00",
-        amount: "NGN100,00.00",
-        status: "Successful",
-        type: "DR",
-        beneficiary: "NIL",
-        offer: "NIL",
-        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        id: "6086346c-c5ac-98-6086346c-c5ac-98",
-        ledger: "NIL",
-        processor: 'VFDBank'),
-    UserTransactionHistory(
-        wallet: "NGN",
-        dates: "Nov 28, 20223:58 PM",
-        channel: "Express",
-        charges: "NGN:0.00",
-        amount: "NGN100,00.00",
-        status: "Successful",
-        type: "DR",
-        beneficiary: "NIL",
-        offer: "NIL",
-        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        id: "6086346c-c5ac-98-6086346c-c5ac-98",
-        ledger: "NIL",
-        processor: 'VFDBank'),
-    UserTransactionHistory(
-        wallet: "NGN",
-        dates: "Nov 28, 20223:58 PM",
-        channel: "Card",
-        charges: "NGN:0.00",
-        amount: "NGN100,00.00",
-        status: "Successful",
-        type: "DR",
-        beneficiary: "NIL",
-        offer: "NIL",
-        sender: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        purpose: "For Upkeep and school",
-        recipient: "Emma Levick\nSort: 929917\nAcc No: 9298198301",
-        id: "6086346c-c5ac-98-6086346c-c5ac-98",
-        ledger: "NIL",
-        processor: 'VFDBank')
+
   ];
   ScrollController? controller;
   List<TransactionsData>? transactions;
@@ -161,7 +116,20 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
           children: [
-            const SearchField(),
+          SearchField(
+             hintText: "Search transactions....",
+            onChanged: (value){
+              _debouncer.run(() {
+                setState(() {
+                  // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                  List<TransactionsData>? transaction =Provider.of<UsersProvider>(context, listen: false).transactions;
+                  transactions = transaction!.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                  // isLoading = false;
+                  // print("$user SEARCHED USERS");
+                });
+              });
+            },
+          ),
             const SizedBox(
               height: 20,
             ),

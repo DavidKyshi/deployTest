@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:provider/provider.dart';
 
 import '../../helper/screen_export.dart';
@@ -85,6 +86,7 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
         provider: 'Seerbit'),
   ];
   ScrollController? controller;
+  final _debouncer = Debouncer();
   @override
   void initState() {
     connectServices =
@@ -100,8 +102,22 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Column(
           children: [
-            const SearchFieldDropdown(
-              dropDownTitle: "Airtime",
+            // const SearchFieldDropdown(
+            //   dropDownTitle: "Airtime",
+            // ),
+            SearchField(
+              hintText: "Search card transactions....",
+              onChanged: (value){
+                _debouncer.run(() {
+                  setState(() {
+                    // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                    List<Services>? connectService =Provider.of<UsersProvider>(context, listen: false).connectService;
+                    connectServices = connectService!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
+                    // isLoading = false;
+                    // print("$user SEARCHED USERS");
+                  });
+                });
+              },
             ),
             const SizedBox(
               height: 20,

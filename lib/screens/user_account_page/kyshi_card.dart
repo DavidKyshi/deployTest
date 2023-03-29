@@ -4,6 +4,7 @@ import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';
 import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
 import '../../models/connectServices.dart';
@@ -35,6 +36,7 @@ class KyshiCard extends StatefulWidget {
 }
 
 class _KyshiCardState extends State<KyshiCard> {
+  final _debouncer = Debouncer();
   List<String> dates = [
     "Nov 28, 20223:58 PM",
     "Nov 28, 20223:58 PM",
@@ -59,22 +61,6 @@ class _KyshiCardState extends State<KyshiCard> {
     "+2341988736636"
   ];
   List<UserTransactions> userList = [
-    UserTransactions(
-        wallet: "NGN",
-        dates: "Nov 28, 20223:58 PM",
-        status: 'Failed',
-        rate: '£1/₦900',
-        provider: 'Seerbit',
-        phoneNumber: '+23049949904004',
-        amount: '3000'),
-    UserTransactions(
-        wallet: "GBP",
-        dates: "Nov 28, 20223:58 PM",
-        amount: '3000',
-        phoneNumber: '+23049949904004',
-        rate: '£1/₦900',
-        status: 'Successful',
-        provider: 'Seerbit'),
     UserTransactions(
         wallet: "USD",
         dates: "Nov 28, 20223:58 PM",
@@ -239,8 +225,19 @@ class _KyshiCardState extends State<KyshiCard> {
             const SizedBox(
               height: 20,
             ),
-            const SearchFieldDropdown(
-              dropDownTitle: "Card",
+            SearchField(
+              hintText: "Search card transactions....",
+              onChanged: (value){
+                _debouncer.run(() {
+                  setState(() {
+                    // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                    List<Services>? cardTransactions =Provider.of<UsersProvider>(context, listen: false).kyshiCard;
+                    kyshiCards = cardTransactions!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
+                    // isLoading = false;
+                    // print("$user SEARCHED USERS");
+                  });
+                });
+              },
             ),
             const SizedBox(
               height: 20,
