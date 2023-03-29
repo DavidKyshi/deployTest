@@ -189,13 +189,13 @@ class _HomepageState extends State<Homepage> {
                             ],
                           ),
                         ),
-                        Text(
-                          'Change password',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color(0xFF21D184),
-                              fontSize: 12),
-                        )
+                        // Text(
+                        //   'Change password',
+                        //   style: TextStyle(
+                        //       decoration: TextDecoration.underline,
+                        //       color: Color(0xFF21D184),
+                        //       fontSize: 12),
+                        // )
                       ],
                     )
                   ],
