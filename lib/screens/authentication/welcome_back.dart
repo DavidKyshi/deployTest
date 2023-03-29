@@ -31,6 +31,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
       TextEditingController();
   bool showPassword = true;
   bool validUser = false;
+  String names = "";
 
   // late Future<bool goOtpScreen;
   @override
@@ -49,8 +50,8 @@ class _WelcomeBackState extends State<WelcomeBack> {
     // LoginModel loginModel = LoginModel.fromJson(responseData?.data);
 
     if (mounted)
-      Provider.of<UsersProvider>(context, listen: false)
-          .setAccessToken(responseData?.data["access"] ?? "");
+      Provider.of<UsersProvider>(context, listen: false).setAccessToken(responseData?.data["access"] ?? "");
+    Provider.of<UsersProvider>(context, listen: false).setAdminName("${responseData?.data["first_name"]}");
     if (responseData?.statusCode == 200) {
       if (mounted)
         Provider.of<UsersProvider>(context, listen: false)
@@ -223,26 +224,26 @@ class _WelcomeBackState extends State<WelcomeBack> {
                     ),
                   );
                 }),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'PushPenny',
-                            fontSize: 12),
-                      ),
-                    )
-                  ],
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     const SizedBox(),
+                //     InkWell(
+                //       onTap: () {},
+                //       child: Text(
+                //         "Forgot password?",
+                //         style: TextStyle(
+                //             color: primaryColor,
+                //             fontWeight: FontWeight.w400,
+                //             fontFamily: 'PushPenny',
+                //             fontSize: 12),
+                //       ),
+                //     )
+                //   ],
+                // ),
                 const SizedBox(
                   height: 30,
                 ),

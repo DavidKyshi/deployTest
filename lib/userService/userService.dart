@@ -17,7 +17,7 @@ class UserService {
     try {
       Response response =
           await customInternalDio.post("/ops/login/", data: data);
-      print("${response.data} message after login");
+      // print("${response.data} message after login");
       return response;
     } catch (e) {
       if (e is DioError) {
@@ -403,7 +403,7 @@ class UserService {
           queryParameters: {"user_id": userId},
           options: Options(headers: {"authorization": "Bearer $token"})
       );
-      // print("$response ALL DATA");
+      print("$response ALL CARD DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {

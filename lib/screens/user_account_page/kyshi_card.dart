@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';
+import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
@@ -125,107 +126,115 @@ class _KyshiCardState extends State<KyshiCard> {
                         )
                       ],
                     )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 400,
-                          height: 200,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.98),
-                            borderRadius: BorderRadius.circular(10),
+                  : SizedBox(
+                height: 400,
+                    child: ListView.builder(
+                    itemBuilder: (context,index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 400,
+                            height: 200,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.98),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildRow(
+                                    title:
+                                    "Activation date\n${kyshiCards![index].createdAt}",
+                                    image: SvgPicture.asset(logo)),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SvgPicture.asset(sound),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                buildRow(
+                                    title: "Bright George Card balance",
+                                    image: const SizedBox()),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                buildRow(
+                                    // Util.formatAmount(cards?.amount)
+                                    title: "\$${Util.formatAmount(kyshiCards![index].amount)}",
+                                    image: SvgPicture.asset(visa),
+                                    isBold: true)
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buildRow(
-                                  title:
-                                      "Activation date\nNov 28, 2022•3:58 PM",
-                                  image: SvgPicture.asset(logo)),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              SvgPicture.asset(sound),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              buildRow(
-                                  title: "Bright George Card balance",
-                                  image: const SizedBox()),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              buildRow(
-                                  title: "\$10,000",
-                                  image: SvgPicture.asset(visa),
-                                  isBold: true)
-                            ],
+                          Container(
+                            width: 400,
+                            height: 200,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: primaryColor.withOpacity(0.98),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildRow(
+                                    title: "Virtual Dollar Card",
+                                    image: SvgPicture.asset(logo)),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SvgPicture.asset(sound),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                buildRow(
+                                    title: "**** **** **** 90182",
+                                    isBold: true),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildRow(
+                                        title: "Valid thru",
+                                        image: const Text(
+                                          "CVV",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                    const SizedBox()
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildRow(
+                                        title: "07/24    ",
+                                        image: const Text(
+                                          "    ***",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                    const SizedBox()
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 400,
-                          height: 200,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.98),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buildRow(
-                                  title: "Virtual Dollar Card",
-                                  image: SvgPicture.asset(logo)),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              SvgPicture.asset(sound),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              buildRow(
-                                  title: "**** **** **** 90182",
-                                  image: const Icon(Icons.copy),
-                                  isBold: true),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildRow(
-                                      title: "Valid thru",
-                                      image: const Text(
-                                        "CVV",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                  const SizedBox()
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildRow(
-                                      title: "07/24    ",
-                                      image: const Text(
-                                        "    ***",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                  const SizedBox()
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+              },
+                itemCount: kyshiCards!.length,
+              ),
+                  ),
             ),
             const SizedBox(
               height: 20,
@@ -506,7 +515,7 @@ class _KyshiCardState extends State<KyshiCard> {
   }
 
   Row buildRow(
-      {required String title, required Widget image, bool isBold = false}) {
+      {required String title, bool isBold = false, Widget? image}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -521,7 +530,7 @@ class _KyshiCardState extends State<KyshiCard> {
         const SizedBox(
           width: 15,
         ),
-        image
+        image ??  SizedBox()
       ],
     );
   }

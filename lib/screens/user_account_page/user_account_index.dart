@@ -85,6 +85,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
 
   @override
   void initState() {
+    userProvider.setSingle(false);
     // TODO: implement initState
     user = Provider.of<UsersProvider>(context, listen: false).users;
     super.initState();
@@ -105,6 +106,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     final pageProvider = Provider.of<PageViewProvider>(context);
     // final getuser = userProvider.getUserById();
     // print("${userProvider.users} ALL USERS");
+    // userProvider.setSingle(false);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -376,6 +378,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                        user = userProvider.singleUser;
                        // user =Provider.of<UsersProvider>(context, listen: false).users;
                      });
+                     user!.isNotEmpty ? userProvider.setSingle(true) :userProvider.setSingle(false);
                    });
                    print("${userProvider.singleUser} llllllllwwwwwww");
                  }

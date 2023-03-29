@@ -159,7 +159,8 @@ class OverViewProvider extends ChangeNotifier {
   }
 
   Future<MarketPlaceOfferOverView?> getMarketPlaceOfferOverView(
-      {required BuildContext context}) async {
+      {required BuildContext context}) async
+  {
     Map<String, dynamic> responseData =
     await OverViewService().getMarketPlaceOfferOverView(context: context,
         baseCurrency: _baseCurrency, daysAgo: _offerDaysAgo, quoteCurrency: _quoteCurrency);

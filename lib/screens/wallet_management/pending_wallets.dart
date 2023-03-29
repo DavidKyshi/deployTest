@@ -16,7 +16,8 @@ import '../user_account_page/user_account_index.dart';
 import '../user_account_page/wallet/wallet_beneficiaries.dart';
 
 class PendingWallets extends StatefulWidget {
-  const PendingWallets({Key? key}) : super(key: key);
+  final String searchQuery;
+  const PendingWallets({Key? key, required this.searchQuery}) : super(key: key);
 
   @override
   State<PendingWallets> createState() => _PendingWallets();
@@ -60,22 +61,10 @@ class _PendingWallets extends State<PendingWallets> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> id = [
-
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: Colors.grey,
-            trackColor: kyshiRed.withOpacity(0.4),
-            thumbColor: pendingWalletSwitchValue ? Colors.white : kyshiRed,
-            value: pendingWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                pendingWalletSwitchValue = value;
-              });
-            }),
-      ),
-    ];
+    if (widget.searchQuery.isNotEmpty) {
+      List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
+      pendingWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -84,20 +73,20 @@ class _PendingWallets extends State<PendingWallets> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SearchField(
-                    hintText: "Search wallet....",
-                    onChanged: (value){
-                      _debouncer.run(() {
-                        setState(() {
-                          // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
-                          List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
-                          pendingWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
-                          // isLoading = false;
-                          // print("$user SEARCHED USERS");
-                        });
-                      });
-                    },
-                  ),
+                  // SearchField(
+                  //   hintText: "Search wallet....",
+                  //   onChanged: (value){
+                  //     _debouncer.run(() {
+                  //       setState(() {
+                  //         // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                  //         List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
+                  //         pendingWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                  //         // isLoading = false;
+                  //         // print("$user SEARCHED USERS");
+                  //       });
+                  //     });
+                  //   },
+                  // ),
                   const SizedBox(height: 20,),
                   Container(
                     height: 800,
@@ -107,7 +96,89 @@ class _PendingWallets extends State<PendingWallets> {
                     width: MediaQuery.of(context).size.width,
                     padding:
                         const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                    child: SingleChildScrollView(
+                    child:pendingWallets!.isEmpty ?Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Created",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("User",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Currency",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Provider",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Available",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Total",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Tier",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Status",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Comments",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text("Action",
+                                style: TextStyle(
+                                    color: primaryColor,
+                                    fontFamily: 'PushPenny',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        SvgPicture.asset(empty),
+                        Text(
+                          "There are no pending wallet now"
+                              "  they will\n appear here when there are",
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PushPenny',
+                          ),
+                        )
+                      ],
+                    ) : SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
                           dataRowHeight: 60,
@@ -274,15 +345,15 @@ class _PendingWallets extends State<PendingWallets> {
                                     DataCell(
                                       InkWell(
                                           onTap: () {
-                                            userProvider.selectWalletId(e.id ?? "");
-                                            editWalletStatusDialog(
-                                              context,
-                                              walletType: "NGN",
-                                              title: 'Add comment', controller: _controller, ontap: () {  },
-                                            );
+                                            // userProvider.selectWalletId(e.id ?? "");
+                                            // editWalletStatusDialog(
+                                            //   context,
+                                            //   walletType: "NGN",
+                                            //   title: 'Add comment', controller: _controller, ontap: () {  },
+                                            // );
                                           },
                                           child: OfferButton(
-                                            isBorder: false,
+                                            isBorder: true,
                                             text: 'MANAGE WALLET',
                                             comment: false,
                                           )),

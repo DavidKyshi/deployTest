@@ -17,15 +17,18 @@ class UsersProvider extends ChangeNotifier {
   List<User> _users = [];
   List<User> _singleUser = [];
   String _loginError = "";
-  String? currentSelectedUserId;
+  String? _currentSelectedUserId;
   String? _currentSelectedWalletId = "";
+  bool _single = false;
   late LoginModel _loggedInAdmin;
+  String? _adminName;
 
   //String? currency = users.first.wallets!.first.currency;
   String? _currentUserName = "";
   String? _accessToken;
 
   List<Services> _connectService = [];
+  Services? _cards;
   List<Services> _kyshiCard = [];
   List<Wallet> _allWallets = [];
   List<Wallet> _pendingWallets = [];
@@ -36,8 +39,12 @@ class UsersProvider extends ChangeNotifier {
   // get wallet => _wallet;
   get accessToken => _accessToken;
   get users => _users;
+  get cards => _cards;
+  get adminName => _adminName;
   List<User> get singleUser => _singleUser;
+  get single => _single;
   get loginError => _loginError;
+  get currentSelectedUserId => _currentSelectedUserId;
   get currentSelectedWalletId => _currentSelectedWalletId;
   get loggedInAdmin => _loggedInAdmin;
   get connectService => _connectService;
@@ -51,17 +58,36 @@ class UsersProvider extends ChangeNotifier {
   get pendingWallets => _pendingWallets;
 
   void selectUser(String id) {
-    currentSelectedUserId = id;
+    _currentSelectedUserId = id;
+    notifyListeners();
+  }
+  void setAdminName(String name) {
+    _adminName = name;
     notifyListeners();
   }
 
   User? getUserById([String? id]) {
-    if (users.isEmpty) return null;
-    if (id == null && currentSelectedUserId == null) return null;
-    //notifyListeners();
-    return users.firstWhere(
-        (element) => element.id == (id ?? currentSelectedUserId),
-        orElse: null);
+    // print("getuserID called$currentSelectedUserId");
+    // print("$users get$_single users $currentSelectedUserId");
+    List<User> userss = singleUser;
+    // _single ?   singleUser.firstWhere(
+    //         (element) => element.id == (id ?? _currentSelectedUserId)) :users.firstWhere(
+    //         (element) => element.id == (id ?? _currentSelectedUserId));
+    if(!_single){
+      return users.firstWhere(
+              (element) => element.id == (id ?? _currentSelectedUserId));
+    }else{
+      return  singleUser.firstWhere(
+              (element) => element.id == (id ?? _currentSelectedUserId));
+    }
+    // if (users.isEmpty) return null;
+    // if (id == null && currentSelectedUserId == null) return null;
+    // notifyListeners();
+    // print("${userss.firstWhere((element) => element.id == (id ?? currentSelectedUserId))}kjkjkjsjskj");
+    // return userss.firstWhere(
+    //     (element) => element.id == (id ?? currentSelectedUserId),
+    //     orElse: null);
+
   }
 
   void setCurrentUser(String name) {
@@ -79,6 +105,11 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setSingle(bool user) {
+    _single = user;
+    notifyListeners();
+  }
+
   void setLoginError(String error) {
     _loginError = error;
     notifyListeners();
@@ -90,22 +121,14 @@ class UsersProvider extends ChangeNotifier {
   }
 
   Future<List<User>> getUsers(
-      {required BuildContext context,  String? entrySize, String? email }) async {
+      {required BuildContext context,  String? entrySize }) async {
     print("GET USERS CALLED");
     Map<String, dynamic> responseData =
         await UserService().getAllUsers(context: context, entrySize: entrySize);
-    if(email != null){
-      Map<String, dynamic> responseData =
-      await UserService().getAllUsers(context: context, email: email);
-      final data = List.from(responseData['data']);
-      _singleUser = List<User>.from(data.map((x) => User.fromJson(x)));
-      print("${_singleUser} _usersssss");
-      return _singleUser;
-    }else {
       final data = List.from(responseData['data']);
       _users = List<User>.from(data.map((x) => User.fromJson(x)));
       print("${_users.length} ALL USERS RAW DATA");
-    }
+
     // print("$responseData RAW DATA");
     notifyListeners();
     return users;
@@ -119,7 +142,8 @@ class UsersProvider extends ChangeNotifier {
       // await UserService().getAllUsers(context: context, email: email);
       final data = List.from(responseData['data']);
       _singleUser = List<User>.from(data.map((x) => User.fromJson(x)));
-      print("${_singleUser} _usersssss");
+      // _users = _singleUser;
+      // print("${_singleUser} _usersssss");
       // return _singleUser;
 
     // print("$responseData RAW DATA");
@@ -159,7 +183,7 @@ class UsersProvider extends ChangeNotifier {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
     Map<String, dynamic> responseData = await UserService()
         .getKyshiConnectServices(
-            userId: currentSelectedUserId ?? "", context: context);
+            userId: _currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
     _connectService =
         List<Services>.from(data.map((x) => Services.fromJson(x)));
@@ -257,7 +281,7 @@ class UsersProvider extends ChangeNotifier {
   Future<List<TransactionsData>> getTransactions(BuildContext context) async {
     Map<String, dynamic> responseData = await UserService()
         .getKyshiConnectTransactions(
-            userId: currentSelectedUserId ?? "", context: context);
+            userId: _currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
     _transactions = List<TransactionsData>.from(
         data.map((x) => TransactionsData.fromJson(x)));
@@ -268,7 +292,7 @@ class UsersProvider extends ChangeNotifier {
   Future<List<Services>> getCards(BuildContext context) async {
     // Map<String, dynamic> responseData = await UserService().getKyshiConnectServices(userId:currentSelectedUserId ?? "", context: context);
     Map<String, dynamic> responseData = await UserService()
-        .getKyshiCard(userId: currentSelectedUserId ?? "", context: context);
+        .getKyshiCard(userId: _currentSelectedUserId ?? "", context: context);
     final data = List.from(responseData['data']);
     _kyshiCard = List<Services>.from(data.map((x) => Services.fromJson(x)));
     notifyListeners();
@@ -300,7 +324,7 @@ class UsersProvider extends ChangeNotifier {
 
   Future updateWalletStatus(BuildContext context) async {
     Map<String, dynamic> response = await UserService().updateWalletStatus(
-        data: {"wallet_id": currentSelectedUserId, "status": ""},
+        data: {"wallet_id": _currentSelectedUserId, "status": ""},
         context: context);
   }
   // Future<List<WalletResponse>> getDifferentWallet() async {

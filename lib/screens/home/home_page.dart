@@ -15,6 +15,15 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int currentIndex = 0;
+
+  _getAvaterPlaceHolder({required String name}){
+    var avater = "";
+    if(name.isNotEmpty){
+      avater = name.split(" ").map((e) => e[0]).join("").toUpperCase();
+    }
+    return avater;
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<PageViewProvider>(context);
@@ -135,9 +144,9 @@ class _HomepageState extends State<Homepage> {
                           border:
                               Border.all(color: Color(0xff233375), width: 2),
                           borderRadius: BorderRadius.circular(50)),
-                      child: const Center(
+                      child:  Center(
                         child: Text(
-                          'EI',
+                          '${_getAvaterPlaceHolder(name: Provider.of<UsersProvider>(context, listen: false).adminName)}',
                           style: TextStyle(
                               color: Color(0xff233375),
                               fontSize: 18,

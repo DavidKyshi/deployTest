@@ -12,8 +12,8 @@ class OfferManagementProvider extends ChangeNotifier {
   List<OfferData> acceptedOfferData = [];
   List<OfferData> acceptedUserOfferData = [];
   List<OfferData> createdOfferData = [];
-  final user = UsersProvider().getUserById();
-  String? currentSelectedUserId;
+  // final user = UsersProvider().getUserById();
+  // String? currentSelectedUserId;
 
   Future<List<OfferData>> getAllOfferManagement(BuildContext context) async {
     Map<String, dynamic> responseData =

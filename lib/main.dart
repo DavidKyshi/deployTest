@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:kyshi_operations_dashboard/providers/kyshi_account_beneficiary_list.dart';
 import 'package:kyshi_operations_dashboard/providers/kyshi_wallet_beneficiary_list.dart';
 import 'package:kyshi_operations_dashboard/providers/wallet_balance.dart';
@@ -11,12 +11,12 @@ import 'providers/transaction_summary_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: FirebaseOptions(
-          apiKey: "AIzaSyBVlFQMi-Pd17BHfmKdrMmbtrBe67iYFH0",
-          projectId: "kyshi-ccee8",
-          messagingSenderId: "462488563489",
-          appId: "1:462488563489:web:a91e50b655008548969860"));
+  // await Firebase.initializeApp(
+  //     options: FirebaseOptions(
+  //         apiKey: "AIzaSyBVlFQMi-Pd17BHfmKdrMmbtrBe67iYFH0",
+  //         projectId: "kyshi-ccee8",
+  //         messagingSenderId: "462488563489",
+  //         appId: "1:462488563489:web:a91e50b655008548969860"));
   // Get.put(MenuController());
   await dotenv.load(fileName: 'assets/env/.env');
   // Get.put(NavigationController());

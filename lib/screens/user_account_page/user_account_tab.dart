@@ -90,6 +90,7 @@ class _UserAccountTabState extends State<UserAccountTab> {
                     physics: NeverScrollableScrollPhysics(),
                   labelColor: Color(0xff233375),
                   onTap: (index) {
+                    print("$selectedIndex index");
                     setState(() {
                       selectedIndex = index;
                     });

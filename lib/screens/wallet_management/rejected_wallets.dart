@@ -16,7 +16,8 @@ import '../user_account_page/user_account_index.dart';
 import '../user_account_page/wallet/wallet_beneficiaries.dart';
 
 class RejectedWallets extends StatefulWidget {
-  const RejectedWallets({Key? key}) : super(key: key);
+  final String searchQuery;
+  const RejectedWallets({Key? key, required this.searchQuery}) : super(key: key);
 
   @override
   State<RejectedWallets> createState() => _RejectedWallets();
@@ -52,21 +53,10 @@ class _RejectedWallets extends State<RejectedWallets> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> id = [
-      Transform.scale(
-        scale: 0.8,
-        child: CupertinoSwitch(
-            activeColor: kyshiGreen,
-            trackColor: Colors.grey.withOpacity(0.4),
-            thumbColor: rejectedWalletSwitchValue ? primaryColor : Colors.grey,
-            value: rejectedWalletSwitchValue,
-            onChanged: (value) {
-              setState(() {
-                rejectedWalletSwitchValue = value;
-              });
-            }),
-      ),
-    ];
+    if (widget.searchQuery.isNotEmpty) {
+      List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).rejectedWallets;
+      rejectedWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -75,20 +65,20 @@ class _RejectedWallets extends State<RejectedWallets> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SearchField(
-                    hintText: "Search wallet....",
-                    onChanged: (value){
-                      _debouncer.run(() {
-                        setState(() {
-                          // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
-                          List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).rejectedWallets;
-                          rejectedWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
-                          // isLoading = false;
-                          // print("$user SEARCHED USERS");
-                        });
-                      });
-                    },
-                  ),
+                  // SearchField(
+                  //   hintText: "Search wallet....",
+                  //   onChanged: (value){
+                  //     _debouncer.run(() {
+                  //       setState(() {
+                  //         // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                  //         List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).rejectedWallets;
+                  //         rejectedWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                  //         // isLoading = false;
+                  //         // print("$user SEARCHED USERS");
+                  //       });
+                  //     });
+                  //   },
+                  // ),
                   const SizedBox(height: 20,),
                   Container(
                     height: 800,

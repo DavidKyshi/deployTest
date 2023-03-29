@@ -29,6 +29,14 @@ class _WalletTabState extends State<WalletTab> {
 
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(context, listen: false);
+
+  String _searchQuery = '';
+
+  void _handleSearch(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     allWallets = userProvider.allWallets;
@@ -144,6 +152,7 @@ class _WalletTabState extends State<WalletTab> {
                                       Provider.of<UsersProvider>(context, listen: false).getAllWallets(context, dropdownvalue2);
                                      allWallets = userProvider.allWallets;
                                       // getUsers(context: context, entrySize: dropdownvalue2);
+
                                       // user = Provider.of<UsersProvider>(context, listen: false).users;
                                     });
                                     // Future.delayed( Duration(seconds:double.tryParse(dropdownvalue2)! > 500 ? 15 : 10)).then((value) {
@@ -280,6 +289,10 @@ class _WalletTabState extends State<WalletTab> {
           const SizedBox(
             height: 20,
           ),
+          SearchField2(
+            hintText: "Search here....",
+            onChanged: _handleSearch,
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: Column(
@@ -333,10 +346,10 @@ class _WalletTabState extends State<WalletTab> {
                   child:  TabBarView(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      AllWallets(allWallets: allWallets,),
-                      PendingWallets(),
-                      RejectedWallets(),
-                      ActiveWallets(),
+                      AllWallets(allWallets: allWallets, searchQuery: _searchQuery,),
+                      PendingWallets(searchQuery: _searchQuery,),
+                      RejectedWallets(searchQuery: _searchQuery,),
+                      ActiveWallets(searchQuery: _searchQuery,),
                       // InActiveWallets()
                     ],
                   ),

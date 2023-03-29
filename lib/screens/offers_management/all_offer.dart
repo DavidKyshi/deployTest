@@ -352,17 +352,19 @@ class OfferButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return isBorder
         ? Container(
-            width: 73,
-            height: 24,
+            width: 130,
+            height: 40,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: primaryColor.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Color(0xff23CE6B))),
+                // border: Border.all(color: Color(0xff23CE6B))
+            ),
             child: Center(
               child: Text(
                 text,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Color(0xff23CE6B),
+                    color: Colors.white,
                     fontSize: 10,
                     fontWeight: FontWeight.w500),
               ),

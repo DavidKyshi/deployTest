@@ -18,7 +18,8 @@ import '../user_account_page/user_account_index.dart';
 
 class AllWallets extends StatefulWidget {
     List<Wallet> allWallets;
-   AllWallets({Key? key,required this.allWallets}) : super(key: key);
+    final String searchQuery;
+   AllWallets({Key? key,required this.allWallets, required this.searchQuery}) : super(key: key);
 
   @override
   State<AllWallets> createState() => _AllWalletsState();
@@ -27,7 +28,7 @@ class AllWallets extends StatefulWidget {
 class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
   final TextEditingController _controller = TextEditingController();
-  // List<Wallet>? allWallets;
+  List<Wallet>? allWallets;
   final _debouncer = Debouncer();
 
   bool activeWalletSwitchValue = false;
@@ -44,7 +45,7 @@ class _AllWalletsState extends State<AllWallets> {
   bool isLoading = false;
   @override
   void initState() {
-    // allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
+    allWallets = Provider.of<UsersProvider>(context, listen: false).allWallets;
     selectedId = Provider.of<UsersProvider>(context, listen: false)
         .currentSelectedUserId;
     // TODO: implement initState
@@ -66,8 +67,12 @@ class _AllWalletsState extends State<AllWallets> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-    });
+    if (widget.searchQuery.isNotEmpty) {
+      List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
+      allWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    }
+    // setState(() {
+    // });
     // print("${allWallets!.map((e) => e.status)} from build");
     return Scaffold(
         backgroundColor: Colors.white,
@@ -79,20 +84,20 @@ class _AllWalletsState extends State<AllWallets> {
                 return 
                 Column(
                   children: [
-                     SearchField(
-                       hintText: "Search wallet....",
-                      onChanged: (value){
-                        _debouncer.run(() {
-                          setState(() {
-                            // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
-                            List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
-                            widget.allWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
-                            // isLoading = false;
-                            // print("$user SEARCHED USERS");
-                          });
-                        });
-                      },
-                    ),
+                    //  SearchField(
+                    //    hintText: "Search wallet....",
+                    //   onChanged: (value){
+                    //     _debouncer.run(() {
+                    //       setState(() {
+                    //         // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+                    //         List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
+                    //         allWallets = result.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                    //         // isLoading = false;
+                    //         // print("$user SEARCHED USERS");
+                    //       });
+                    //     });
+                    //   },
+                    // ),
                     const SizedBox(height: 20,),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 28),
@@ -238,7 +243,89 @@ class _AllWalletsState extends State<AllWallets> {
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 25),
-                      child: SingleChildScrollView(
+                      child:allWallets!.isEmpty ?Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Created",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("User",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Currency",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Provider",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Available",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Total",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Tier",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Status",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Comments",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                              Text("Action",
+                                  style: TextStyle(
+                                      color: primaryColor,
+                                      fontFamily: 'PushPenny',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12)),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 100,
+                          ),
+                          SvgPicture.asset(empty),
+                          Text(
+                            "There are no wallets now"
+                                "  they will\n appear here when there are",
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'PushPenny',
+                            ),
+                          )
+                        ],
+                      ) : SingleChildScrollView(
                         // scrollDirection: Axis.horizontal,
                         child: Theme(
                           data: Theme.of(context).copyWith(
@@ -322,7 +409,7 @@ class _AllWalletsState extends State<AllWallets> {
                                             fontWeight: FontWeight.w500,
                                             fontSize: 12))),
                               ],
-                              source: AllWalletTableRow(allWallets: userProvider.allWallets, contexts: context,
+                              source: AllWalletTableRow(allWallets: allWallets, contexts: context,
                                   onTapWalletComment: () async{
                                     Map<String, dynamic> response =
                                       await UserService()
