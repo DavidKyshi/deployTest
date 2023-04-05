@@ -4,6 +4,8 @@ import 'package:kyshi_operations_dashboard/customWidget/searchField.dart';
 import 'package:kyshi_operations_dashboard/customWidget/searchFieldDropdown.dart';
 import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
+import 'package:kyshi_operations_dashboard/models/cardResponse.dart';
+import 'package:kyshi_operations_dashboard/screens/user_account_page/transactions.dart';
 import 'package:kyshi_operations_dashboard/screens/user_account_page/user_account_index.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 
@@ -43,23 +45,6 @@ class _KyshiCardState extends State<KyshiCard> {
     "Nov 28, 20223:58 PM"
   ];
   List<String> wallets = ["NGN", "GBP", "USD"];
-  List<String> items = [
-    "Dates",
-    "Wallet",
-    "Provider",
-    "Phone Number",
-    "Exchange rate",
-    "Status"
-  ];
-  List<String> provider = ["Seerbit", "Seerbit", "Seerbit"];
-  List<String> rate = ["£1/₦900", "£1/₦900", "£1/₦900"];
-  List<String> status = ["Successful", "Successful", "Failed"];
-  List<String> amount = ["3000", "3000", "3000"];
-  List<String> phoneNumber = [
-    "+2341988736636",
-    "+2341988736636",
-    "+2341988736636"
-  ];
   List<UserTransactions> userList = [
     UserTransactions(
         wallet: "USD",
@@ -70,11 +55,13 @@ class _KyshiCardState extends State<KyshiCard> {
         status: 'Successful',
         provider: 'Seerbit'),
   ];
+  List<String> transactionType = ['Top up', "Debit"];
+  String type = "Top up";
   ScrollController? controller;
-  List<Services>? kyshiCards;
+  List<CardTransactions>? kyshiCardsTransaction;
   @override
   void initState() {
-    kyshiCards = Provider.of<UsersProvider>(context, listen: false).kyshiCard;
+    kyshiCardsTransaction = Provider.of<UsersProvider>(context, listen: false).kyshiCardTransactions;
     // TODO: implement initState
     super.initState();
   }
@@ -93,7 +80,7 @@ class _KyshiCardState extends State<KyshiCard> {
               decoration: BoxDecoration(
                   color: const Color(0XFFF4F5F8),
                   borderRadius: BorderRadius.circular(12)),
-              child: kyshiCards!.isEmpty
+              child: kyshiCardsTransaction!.isEmpty
                   ? Column(
                       children: [
                         const SizedBox(
@@ -134,7 +121,7 @@ class _KyshiCardState extends State<KyshiCard> {
                               children: [
                                 buildRow(
                                     title:
-                                    "Activation date\n${kyshiCards![index].createdAt}",
+                                    "Activation date\n${kyshiCardsTransaction![index].createdAt}",
                                     image: SvgPicture.asset(logo)),
                                 const SizedBox(
                                   height: 20,
@@ -151,7 +138,7 @@ class _KyshiCardState extends State<KyshiCard> {
                                 ),
                                 buildRow(
                                     // Util.formatAmount(cards?.amount)
-                                    title: "\$${Util.formatAmount(kyshiCards![index].amount)}",
+                                    title: "09000",
                                     image: SvgPicture.asset(visa),
                                     isBold: true)
                               ],
@@ -218,26 +205,52 @@ class _KyshiCardState extends State<KyshiCard> {
                         ],
                       );
               },
-                itemCount: kyshiCards!.length,
+                itemCount: 1,
               ),
                   ),
             ),
             const SizedBox(
               height: 20,
             ),
-            SearchField(
-              hintText: "Search card transactions....",
+            // SearchField(
+            //   hintText: "Search card transactions....",
+            //   onChanged: (value){
+            //     _debouncer.run(() {
+            //       setState(() {
+            //         // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
+            //         List<CardTransactions>? cardTransactions =Provider.of<UsersProvider>(context, listen: false).kyshiCard;
+            //         kyshiCardsTransaction = cardTransactions!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
+            //         // isLoading = false;
+            //         // print("$user SEARCHED USERS");
+            //       });
+            //     });
+            //   },
+            // ),
+            SearchFieldDropdown(
+              hintText: "Search with amount...",
+              // dropDownTitle: "Airtime",
               onChanged: (value){
                 _debouncer.run(() {
                   setState(() {
+                    final provider = Provider.of<UsersProvider>(context, listen: false);
                     // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
-                    List<Services>? cardTransactions =Provider.of<UsersProvider>(context, listen: false).kyshiCard;
-                    kyshiCards = cardTransactions!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
+                    List<CardTransactions>? kyshiCardsTrans =type == "Top up"? provider.kyshiCardTransactions : provider.kyshiCardDebitTransactions;
+                    kyshiCardsTransaction = kyshiCardsTrans!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
                     // isLoading = false;
                     // print("$user SEARCHED USERS");
                   });
                 });
-              },
+              }, connect: type,
+              connectOnChanged: (String? res){
+                setState(() {
+                  type = res!;
+                });
+                final provider = Provider.of<UsersProvider>(context, listen: false);
+                // Provider.of<UsersProvider>(context, listen: false).getConnectAirtimeSerivice(context,connect);
+                setState(() {
+                  kyshiCardsTransaction =type == "Top up"? provider.kyshiCardTransactions : provider.kyshiCardDebitTransactions;
+                });
+              }, connectData: transactionType,
             ),
             const SizedBox(
               height: 20,
@@ -251,7 +264,7 @@ class _KyshiCardState extends State<KyshiCard> {
                 width: MediaQuery.of(context).size.width,
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: kyshiCards!.isEmpty
+                child: kyshiCardsTransaction!.isEmpty
                     ? Column(
                         children: [
                           Row(
@@ -275,7 +288,7 @@ class _KyshiCardState extends State<KyshiCard> {
                                       fontFamily: 'PushPenny',
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12)),
-                              Text("Phone Number",
+                              Text("Transaction ID",
                                   style: TextStyle(
                                       color: primaryColor,
                                       fontFamily: 'PushPenny',
@@ -287,18 +300,12 @@ class _KyshiCardState extends State<KyshiCard> {
                                       fontFamily: 'PushPenny',
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12)),
-                              Text("Exchange rate",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Exchange rate",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
+                              // Text("Exchange rate",
+                              //     style: TextStyle(
+                              //         color: primaryColor,
+                              //         fontFamily: 'PushPenny',
+                              //         fontWeight: FontWeight.w500,
+                              //         fontSize: 12)),
                             ],
                           ),
                           const SizedBox(
@@ -319,39 +326,38 @@ class _KyshiCardState extends State<KyshiCard> {
                         ],
                       )
                     : DataTable(
-                        columns: const <DataColumn>[
+                        columns:  <DataColumn>[
                           DataColumn(
-                            label: Text("Dates"),
+                            label: Text("Dates",style: headerStyle,),
                             // tooltip: "To Display name"
                           ),
-                          DataColumn(label: Text("Wallet")),
-                          DataColumn(label: Text("Provider")),
-                          DataColumn(label: Text("Phone Number")),
-                          DataColumn(label: Text("Amount (₦)")),
-                          DataColumn(label: Text("Exchange rate")),
-                          DataColumn(label: Text("Status")),
+                          DataColumn(label: Text("Wallet",style: headerStyle,)),
+                          DataColumn(label: Text("Provider",style: headerStyle,)),
+                          DataColumn(label: Text("Transaction ID",style: headerStyle,)),
+                          DataColumn(label: Text("Amount (₦)",style: headerStyle,)),
+                          // DataColumn(label: Text("Exchange rate")),
+                          DataColumn(label: Text("Status",style: headerStyle,)),
                         ],
-                        rows: userList
+                        rows: kyshiCardsTransaction!
                             .map(
                               (user) => DataRow(
                                 cells: [
                                   DataCell(
-                                    Text(user.dates),
+                                    Text(user.createdAt ??"",style: subHeaderStyle,),
                                   ),
                                   DataCell(
-                                    Text(user.wallet),
+                                    Text(user.currency ??"",style: subHeaderStyle,),
                                   ),
                                   DataCell(
-                                    Text(user.provider),
+                                    Text(user.processor??"",style: subHeaderStyle,),
                                   ),
                                   DataCell(
-                                    Text(user.phoneNumber),
+                                    Text(user.id ?? "",style: subHeaderStyle,),
                                   ),
                                   DataCell(
-                                    Text(user.amount),
+                                    Text(user.amount??"",style: subHeaderStyle,),
                                   ),
-                                  DataCell(Text(user.rate)),
-                                  DataCell(Text(user.status)),
+                                  DataCell(Text(user.status ?? "",style: subHeaderStyle,)),
                                 ],
                               ),
                             )

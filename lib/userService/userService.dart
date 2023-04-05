@@ -22,7 +22,7 @@ class UserService {
     } catch (e) {
       if (e is DioError) {
         Provider.of<UsersProvider>(context, listen: false)
-            .setLoginError(e.response?.data["detail"]);
+            .setLoginError(e.response?.data["detail"] ?? "error login in");
         print("${e.response?.data} login errorssssss");
       }
       return null;
@@ -340,16 +340,22 @@ class UserService {
   }
 
   Future<Map<String, dynamic>> getKyshiConnectServices(
-      {required String userId, required BuildContext context}) async {
+      {required String userId, required BuildContext context, String? service, String? daysAgo}) async {
     final token =
         Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/kyshi-connect");
+    String url = "";
+    if(service == "airtime"){
+      url = "$baseUrl/ops/kyshi-connect?user_id=$userId&airtime=true&days_ago=$daysAgo";
+    }else if(service == "data"){
+      url = "$baseUrl/ops/kyshi-connect?user_id=$userId&data=true&days_ago=$daysAgo";
+    }else{
+      url = "$baseUrl/ops/kyshi-connect?user_id=$userId&health=true&days_ago=$daysAgo";
+    }
     try {
       // customInternalDio.get("/ops/users",)
-      Response response = await customInternalDio.get<Map<String, dynamic>>(
-          "/ops/kyshi-connect",
-          queryParameters: {"user_id": userId},
+      Response response = await customInternalDio.get<Map<String, dynamic>>(url,
           options: Options(headers: {"authorization": "Bearer $token"}));
       return response.data;
     } catch (e) {
@@ -403,7 +409,37 @@ class UserService {
           queryParameters: {"user_id": userId},
           options: Options(headers: {"authorization": "Bearer $token"})
       );
-      print("$response ALL CARD DATA");
+      // print("$response ALL CARD DATA");
+      return response.data;
+    } catch (e) {
+      if (kDebugMode) {
+        print("$e An error occurred");
+      }
+      if (e is DioError) {
+        print("${e.response?.data}hkhgjghbjhgb");
+        throw e.response?.data;
+      }
+      rethrow;
+    }
+  }
+  Future<Map<String, dynamic>> getKyshiCardTransactions(
+      {required String userId, required BuildContext context, required String type,required String daysAgo}) async {
+    // ops/kyshi-cards?user_id=182e04da-a23b-4a73-8bd8-9bbabc19525d&type=DR&days_ago=120
+    final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
+    String baseUrl = dotenv.env['API_URL']!;
+    final Uri uri = Uri.parse("$baseUrl/ops/kyshi-cards");
+    String url = "";
+    if(type == "CR"){
+      url ="$baseUrl/ops/kyshi-cards?user_id=$userId&type=CR&days_ago=$daysAgo";
+    }else{
+      url ="$baseUrl/ops/kyshi-cards?user_id=$userId&type=DR&days_ago=$daysAgo";
+    }
+    try {
+      // customInternalDio.get("/ops/users",)
+      Response response = await customInternalDio.get<Map<String, dynamic>>(url,
+          options: Options(headers: {"authorization": "Bearer $token"})
+      );
+      // print("$response ALL CARD DATA");
       return response.data;
     } catch (e) {
       if (kDebugMode) {

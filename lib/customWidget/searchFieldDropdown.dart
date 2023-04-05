@@ -10,13 +10,16 @@ class SearchFieldDropdown extends StatefulWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Function()? onTap;
+  final Function(String?)? connectOnChanged;
   final Function(String?)? onSaved;
   final BorderRadius? borderRadius;
+  final String connect;
+  final List<String> connectData;
 
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? labelText;
-  final String? dropDownTitle;
+  // final String? dropDownTitle;
   final int? maxLength;
   final bool? connectBorder;
   final Color? errorBorderColor;
@@ -50,8 +53,7 @@ class SearchFieldDropdown extends StatefulWidget {
       this.enabled,
       this.isDense,
       this.hintText,
-      this.initialValue,
-      this.dropDownTitle})
+      this.initialValue, required this.connect, this.connectOnChanged,required this.connectData})
       : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class _SearchFieldDropdownState extends State<SearchFieldDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: 80,
       decoration: BoxDecoration(
           color: const Color(0XFFEAEBF1),
           borderRadius: BorderRadius.circular(48)),
@@ -161,7 +163,96 @@ class _SearchFieldDropdownState extends State<SearchFieldDropdown> {
               borderRadius: widget.borderRadius ?? BorderRadius.circular(48),
               borderSide: BorderSide(
                   color: widget.focusBorderColor ?? const Color(0xff9AA1B3))),
-          // prefixIcon: InkWell(
+          prefixIcon: Container(
+            width: 150,
+            height: 48,
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            decoration: BoxDecoration(
+                color: Color(0xffF8F9FE), borderRadius: BorderRadius.circular(20),
+              // border: Border.all(color: primaryColor,width: 1)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                          isExpanded: true,
+                          borderRadius: BorderRadius.circular(10),
+                          dropdownColor: Colors.white,
+                          elevation: 1,
+                          // Initial Value
+                          value: widget.connect,
+                          selectedItemBuilder: (BuildContext context) {
+                            return widget.connectData.map((String items) {
+                              return Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: widget.connect,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          color: primaryColor,
+                                          fontFamily: "PushPenny"),
+                                    ),
+                                  )
+                                //             Text(
+                                //   dropdownvalue,
+                                //   style: const TextStyle( fontWeight: FontWeight.w500,
+                                //                 fontSize: 16,
+                                //                 color: Color(0xff0D2C65) ),
+                                // ),
+                              );
+                            }).toList();
+                          },
+                          // Down Arrow Icon
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            size: 22,
+                            color: primaryColor.withOpacity(0.4),
+                          ),
+
+                          // Array list of items
+                          items: widget.connectData.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Container(
+                                // width:double.infinity,
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Color(0xffDDDDDD), width: 0.5))),
+                                child: Text(
+                                  items,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: Colors.black),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: widget.connectOnChanged
+                        //     (String? newValue) {
+                        //   setState(() {
+                        //     dropdownvalue = newValue!;
+                        //   });
+                        // },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // InkWell(
           //   onTap: () {},
           //   child: Container(
           //     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),

@@ -10,6 +10,17 @@ import '../../providers/users.dart';
 import '../../styleguide/colors.dart';
 import '../../styleguide/image_asset.dart';
 
+TextStyle headerStyle = TextStyle(
+    color: primaryColor,
+    fontFamily: 'PushPenny',
+    fontWeight: FontWeight.w500,
+    fontSize: 12);
+TextStyle subHeaderStyle = TextStyle(
+    color: primaryColor,
+    fontFamily: 'PushPenny',
+    fontWeight: FontWeight.w400,
+    fontSize: 14);
+
 class UserTransactionHistory {
   String wallet;
   String dates;
@@ -117,13 +128,13 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         child: Column(
           children: [
           SearchField(
-             hintText: "Search transactions....",
+             hintText: "Search amount....",
             onChanged: (value){
               _debouncer.run(() {
                 setState(() {
                   // Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, entrySize: value);
                   List<TransactionsData>? transaction =Provider.of<UsersProvider>(context, listen: false).transactions;
-                  transactions = transaction!.where((element) => element.user!.toLowerCase().contains(value.toLowerCase())).toList();
+                  transactions = transaction!.where((element) => element.amount!.toLowerCase().contains(value.toLowerCase())).toList();
                   // isLoading = false;
                   // print("$user SEARCHED USERS");
                 });
@@ -148,48 +159,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Dates",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Wallet",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Provider",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Phone Number",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Amount (₦)",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Exchange rate",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
-                              Text("Exchange rate",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontFamily: 'PushPenny',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12)),
+                              Text("Dates", style: headerStyle),
+                              Text("Type", style: headerStyle),
+                              Text("Beneficiary", style: headerStyle),
+                              Text("Channel", style: headerStyle),
+                              Text("Amount (₦)", style: headerStyle),
+                              Text("Charges", style: headerStyle),
+                              Text("Offer", style: headerStyle)
+
                             ],
                           ),
                           const SizedBox(
@@ -212,71 +189,35 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         scrollDirection: Axis.horizontal,
                         child: DataTable(
                           dataRowHeight: 60,
-                          columns: const <DataColumn>[
+                          columns:  <DataColumn>[
                             DataColumn(
-                              label: Text("Dates"),
+                              label: Text("Dates", style: headerStyle),
                               // tooltip: "To Display name"
                             ),
-                            DataColumn(label: Text("Type")),
-                            DataColumn(label: Text("Beneficiary")),
-                            DataColumn(label: Text("Channel")),
-                            DataColumn(label: Text("Amount")),
-                            DataColumn(label: Text("Charges")),
-                            DataColumn(label: Text("Offer")),
+                            DataColumn(label: Text("Type", style: headerStyle)),
+                            DataColumn(label: Text("Beneficiary", style: headerStyle)),
+                            DataColumn(label: Text("Channel", style: headerStyle)),
+                            DataColumn(label: Text("Amount", style: headerStyle)),
+                            DataColumn(label: Text("Charges", style: headerStyle)),
+                            DataColumn(label: Text("Offer", style: headerStyle)),
                             DataColumn(
-                              label: Text("Processor"),
+                              label: Text("Processor", style: headerStyle),
                               // tooltip: "To Display name"
                             ),
                             DataColumn(
-                                label: Text("Sender",
-                                    style: TextStyle(
-                                        //color: primaryColor,
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Sender", style: headerStyle)),
                             DataColumn(
-                                label: Text("Purpose",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Purpose", style: headerStyle)),
                             DataColumn(
-                                label: Text("Recipient",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Recipient", style: headerStyle)),
                             DataColumn(
-                                label: Text("Operation",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Operation", style: headerStyle)),
                             DataColumn(
-                                label: Text("ID",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("ID", style: headerStyle)),
                             DataColumn(
-                                label: Text("Ledger",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Ledger", style: headerStyle)),
                             DataColumn(
-                                label: Text("Status",
-                                    style: TextStyle(
-                                        color: Color(0XFF233375),
-                                        fontFamily: 'PushPenny',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12))),
+                                label: Text("Status", style: headerStyle)),
                           ],
                           rows: transactions!
                               .map(
@@ -315,10 +256,22 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                               fontSize: 14)),
                                     ),
                                     DataCell(
-                                      Text(trx.amount ?? ""),
+                                      Text(trx.amount ?? "", style: TextStyle(
+                                          color: primaryColor,
+                                          fontFamily: 'PushPenny',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14)),
                                     ),
-                                    DataCell(Text(trx.serviceCharge ?? "")),
-                                    const DataCell(Text("NIL")),
+                                    DataCell(Text(trx.serviceCharge ?? "", style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14))),
+                                     DataCell(Text("NIL", style: TextStyle(
+                                         color: primaryColor,
+                                         fontFamily: 'PushPenny',
+                                         fontWeight: FontWeight.w400,
+                                         fontSize: 14))),
                                     DataCell(
                                       Text(trx.processor ?? "",
                                           style: TextStyle(
@@ -327,8 +280,16 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                               fontWeight: FontWeight.w400,
                                               fontSize: 14)),
                                     ),
-                                    const DataCell(Text("No sender")),
-                                    const DataCell(Text("No purpose")),
+                                     DataCell(Text("No sender", style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14))),
+                                     DataCell(Text("No purpose", style: TextStyle(
+                                         color: primaryColor,
+                                         fontFamily: 'PushPenny',
+                                         fontWeight: FontWeight.w400,
+                                         fontSize: 14))),
                                     DataCell(Text(trx.beneficiary ?? "",
                                         style: TextStyle(
                                             color: primaryColor,
@@ -336,7 +297,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14))),
                                     const DataCell(Text("")),
-                                    const DataCell(Text("No ID")),
+                                     DataCell(Text("No ID",style: TextStyle(
+                                        color: primaryColor,
+                                        fontFamily: 'PushPenny',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14))),
                                     DataCell(Text(trx.ledgerOperation ?? "")),
                                     DataCell(Text(trx.status ?? "",
                                         style: TextStyle(

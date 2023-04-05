@@ -57,7 +57,8 @@ class Services {
     this.amount,
     this.status,
     this.id,
-    this.processor
+    this.processor,
+    this.phoneNumber
   });
 
   String? createdAt;
@@ -68,6 +69,7 @@ class Services {
   String? status;
   String? id;
   String? processor;
+  String? phoneNumber;
 
   factory Services.fromJson(Map<String, dynamic> json) => Services(
         createdAt: json["created_at"],
@@ -78,6 +80,7 @@ class Services {
         status: json["status"],
        id: json["id"],
        processor: json["processor"],
+    phoneNumber: json["phone_number"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,6 +91,7 @@ class Services {
         "amount": amount,
         "status": status,
     "id":id,
-    "processor":processor
+    "processor":processor,
+    "phoneNumber":phoneNumber
       };
 }

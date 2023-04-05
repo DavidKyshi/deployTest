@@ -100,6 +100,12 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
   }
+  TextStyle headerStyle = TextStyle(
+      color: primaryColor,
+      fontFamily: 'PushPenny',
+      fontWeight: FontWeight.w500,
+      fontSize: 12);
+
 
   @override
   Widget build(BuildContext context) {
@@ -449,47 +455,19 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                               fontWeight: FontWeight.w500,
                               fontSize: 12)),
                       Text("Last Name",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style: headerStyle),
                       Text("Middle Name",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style:headerStyle),
                       Text("Email  Address",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style: headerStyle),
                       Text("Phone Number",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style:headerStyle),
                       Text("Date of Birth",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style:headerStyle),
                       Text("BVN",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style: headerStyle),
                       Text("Residence",
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontFamily: 'PushPenny',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12)),
+                          style:headerStyle),
                     ],
                   ),
                   const SizedBox(
@@ -525,25 +503,26 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                     child: PaginatedDataTable(
                         // header: Text("Pagination Example"),
                         rowsPerPage: 10,
+                        dataRowHeight: 70,
                         showCheckboxColumn: false,
                         // onRowsPerPageChanged: (perPage) {},
                         // rowsPerPage: 10,
-                      columns: const <DataColumn>[
-                        DataColumn(label: Text("First Name"),
+                      columns:  <DataColumn>[
+                        DataColumn(label: Text("First Name",style: headerStyle,),
                           // tooltip: "To Display name"
                         ),
-                        DataColumn(label: Text("Last Name")),
-                        DataColumn(label: Text("Middle Name")),
-                        DataColumn(label: Text("Email  Address")),
-                        DataColumn(label: Text("Phone Number")),
-                        DataColumn(label: Text("Date of Birth")),
-                        DataColumn(label: Text("BVN")),
-                        DataColumn(label: Text("Residence"),
+                        DataColumn(label: Text("Last Name",style: headerStyle,)),
+                        DataColumn(label: Text("Middle Name",style: headerStyle,)),
+                        DataColumn(label: Text("Email  Address",style: headerStyle,)),
+                        DataColumn(label: Text("Phone Number",style: headerStyle,)),
+                        DataColumn(label: Text("Date of Birth",style: headerStyle,)),
+                        DataColumn(label: Text("BVN",style: headerStyle,)),
+                        DataColumn(label: Text("Residence",style: headerStyle,),
                           // tooltip: "To Display name"
                         ),
-                        DataColumn(label: Text("Nationality")),
-                        DataColumn(label: Text("Status")),
-                        DataColumn(label: Text("Action")),
+                        DataColumn(label: Text("Nationality",style: headerStyle,)),
+                        DataColumn(label: Text("Status",style: headerStyle,)),
+                        DataColumn(label: Text("Action",style: headerStyle,)),
                       ],
                         source:dataSource()
           //               user!.map((user) => DataRow(
@@ -716,6 +695,11 @@ class TableRow extends DataTableSource {
   UsersProvider get userProvider =>
       Provider.of<UsersProvider>(contexts, listen: false);
   // late UsersProvider usersProvider;
+  TextStyle subHeaderStyle = TextStyle(
+      color: primaryColor,
+      fontFamily: 'PushPenny',
+      fontWeight: FontWeight.w400,
+      fontSize: 14);
   @override
   DataRow? getRow(int index) {
     final pageProvider = Provider.of<PageViewProvider>(contexts);
@@ -723,11 +707,14 @@ class TableRow extends DataTableSource {
         index: index,
         onSelectChanged: (value){
          if(value!){
-           // print("${user![index].id } ID FROM USERINDEX");
+           print("${user![index].id } ID FROM USERINDEX");
            userProvider.selectUser(user![index].id ??"");
            userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
-           userProvider.getConnectSerivices(contexts);
-           userProvider.getCards(contexts);
+           userProvider.getConnectAirtimeService(contexts,"airtime");
+           userProvider.getConnectDataService(contexts,"data");
+           userProvider.getConnectHealthService(contexts,"health");
+           userProvider.getCardCreditTransactions(contexts);
+           userProvider.getCardDebitTransactions(contexts);
            userProvider.getTransactions(contexts);
            Provider.of<TransactionSummaryProvider>(contexts, listen: false)
                .getAllTransactionSummary(contexts, user![index].id ??"");
@@ -736,13 +723,13 @@ class TableRow extends DataTableSource {
         },
         cells: [
           DataCell(
-            Text(user![index].firstName ?? ""),
+            Text(user![index].firstName ?? "",style: subHeaderStyle,),
           ),
           DataCell(
-            Text(user![index].lastName ?? ""),
+            Text(user![index].lastName ?? "",style: subHeaderStyle,),
           ),
           DataCell(
-            Text(user![index].middleName ?? ""),
+            Text(user![index].middleName ?? "",style: subHeaderStyle,),
           ),
           DataCell(
             Text(user![index].email ?? ""),
@@ -751,36 +738,16 @@ class TableRow extends DataTableSource {
             Text(user![index].phoneNumber ?? ""),
           ),
           DataCell(
-              Text(user![index].dob?? "",style: TextStyle(
-                  color: primaryColor,
-                  fontFamily: 'PushPenny',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14
-              ),)
+              Text(user![index].dob?? "",style: subHeaderStyle,)
           ),
           DataCell(
-              Text(user![index].bvn ?? "",style: TextStyle(
-                  color: primaryColor,
-                  fontFamily: 'PushPenny',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14
-              ))
+              Text(user![index].bvn ?? "",style: subHeaderStyle,)
           ),
           DataCell(
-            Text(user![index].countryOfResidence ?? "",style: TextStyle(
-                color: primaryColor,
-                fontFamily: 'PushPenny',
-                fontWeight: FontWeight.w400,
-                fontSize: 14
-            )),
+            Text(user![index].countryOfResidence ?? "",style: subHeaderStyle,),
           ),
           DataCell(
-              Text(user![index].nationality1 ?? "",style: TextStyle(
-                  color: primaryColor,
-                  fontFamily: 'PushPenny',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14
-              ))
+              Text(user![index].nationality1 ?? "",style: subHeaderStyle,)
           ),
           DataCell(
             Row(
@@ -788,8 +755,11 @@ class TableRow extends DataTableSource {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SvgPicture.asset(user![index].emailVerified! == true ?mailUn :mailV),
+                const SizedBox(width: 8,),
                 SvgPicture.asset(user![index].phoneVerified == true?callUn :callV),
+                const SizedBox(width: 8,),
                 SvgPicture.asset(user![index].bvnVerified == true ? shieldUn :shieldV),
+                const SizedBox(width: 8,),
                 SvgPicture.asset(giftUn)
               ],
             ),
@@ -800,8 +770,11 @@ class TableRow extends DataTableSource {
                     // print("${user![index].id } bbbbbbbbbbb");
                     userProvider.selectUser(user![index].id ??"");
                     userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
-                    userProvider.getConnectSerivices(contexts);
-                    userProvider.getCards(contexts);
+                    userProvider.getConnectAirtimeService(contexts,"airtime");
+                    userProvider.getConnectDataService(contexts,"data");
+                    userProvider.getConnectHealthService(contexts,"health");
+                    userProvider.getCardCreditTransactions(contexts);
+                    userProvider.getCardDebitTransactions(contexts);
                     userProvider.getTransactions(contexts);
                     Provider.of<TransactionSummaryProvider>(contexts, listen: false)
                         .getAllTransactionSummary(contexts, user![index].id ??"");

@@ -87,9 +87,8 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                   title:
                                       "${emptyWalletType[index]} wallet details",
                                   subTitle: "SET",
-                                  color: Colors.grey,
-                                  backgroundColor:
-                                      primaryColor.withOpacity(0.3),
+                                  color: primaryColor,
+                                  backgroundColor: primaryColor,
                                   containerColor: const Color(0x0ff9f9f9),
                                   padding2: 60,
                                   padding1: 10,
@@ -142,27 +141,24 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 width: 20,
                                               ),
                                               Container(
-                                                width: 90,
-                                                height: 25,
-                                                // padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                                                // width: 90,
+                                                // height: 25,
+                                                padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
                                                 decoration: BoxDecoration(
-                                                    color:
-                                                        const Color(0XFF8C8C8C),
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0XFFC5C5C5)),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            19)),
-                                                child: const Text(
-                                                  "Inactive",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      fontFamily: 'PushPenny',
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                  textAlign: TextAlign.center,
+                                                    color: const Color(0XFF8C8C8C),
+                                                    border: Border.all(color: const Color(0XFFC5C5C5)),
+                                                    borderRadius: BorderRadius.circular(19)),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Inactive",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12,
+                                                        fontFamily: 'PushPenny',
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
                                               )
                                             ],
@@ -172,7 +168,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                           ),
                                           RichText(
                                               text: TextSpan(
-                                                  text: "₦0.00",
+                                                  text: "${emptyWalletType[index] == "NGN" ?"₦" :emptyWalletType[index] == "GBP" ?"£" : "\$"} 0.00",
                                                   style: TextStyle(
                                                       color: primaryColor,
                                                       fontSize: 40,
@@ -207,7 +203,7 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 ),
                                                 RichText(
                                                   text: TextSpan(
-                                                    text: "₦0.00",
+                                                    text: "${emptyWalletType[index] == "NGN" ?"₦" :emptyWalletType[index] == "GBP" ?"£" : "\$"}0.00",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -258,19 +254,19 @@ class _WalletAndBeneficiariesState extends State<WalletAndBeneficiaries> {
                                                 thickness: 2,
                                               ),
                                               const SizedBox(
-                                                height: 15,
+                                                height: 17,
                                               ),
                                               bankAccountDetails(
                                                   detail: "Account Number",
                                                   value: ''),
                                               const SizedBox(
-                                                height: 10,
+                                                height: 13,
                                               ),
                                               bankAccountDetails(
                                                   detail: "Account Name",
                                                   value: ''),
                                               const SizedBox(
-                                                height: 10,
+                                                height: 13,
                                               ),
                                               bankAccountDetails(
                                                   detail: "Bank Name",
