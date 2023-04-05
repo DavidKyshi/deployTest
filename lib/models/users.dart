@@ -17,8 +17,8 @@ class UserApiResponse {
     this.data,
   });
 
-  int? page;
-  int? totalPages;
+  dynamic page;
+  dynamic totalPages;
   int? totalItems;
   List<User>? data;
 

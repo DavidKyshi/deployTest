@@ -73,6 +73,7 @@ class UserService {
       {required BuildContext context,
       String? entrySize,
       int? daysAgo,
+        int? page,
       String? startDate, String? email,
       String? endDate}) async {
     final token =
@@ -91,6 +92,9 @@ class UserService {
     }
     if (daysAgo != null) {
       queryPram['daysAgo'] = daysAgo;
+    }
+    if (page != null) {
+      queryPram["page"] = page;
     }
     if (startDate != null && endDate != null) {
       queryPram['startDate'] = startDate;

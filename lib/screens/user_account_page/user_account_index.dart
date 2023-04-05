@@ -88,12 +88,15 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     userProvider.setSingle(false);
     // TODO: implement initState
     user = Provider.of<UsersProvider>(context, listen: false).users;
+    numOfPage = getPages(userProvider.totalUserPage);
     super.initState();
   }
-  String dropdownvalue2 = '100';
-  var currency =['100', '300', '500', '700', "1000"];
+  String dropdownvalue2 = '50';
+  var currency =['50', '300', '500', '700', "1000"];
   bool isLoading = false;
   _FilterRanger dropdownvalue = lastDays[2];
+  List<int> numOfPage= [];
+  int selectedIndex = 0;
 
   bool isEmailValid(String email) {
     return RegExp(
@@ -106,12 +109,27 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
       fontWeight: FontWeight.w500,
       fontSize: 12);
 
+  List<int> getPages(int num){
+    List<int> arr = [];
+    int sum = 0;
+    for (int i = 1; i <= num; i++) {
+      if (sum + i <= num) {
+        arr.add(i);
+        sum += i;
+      } else {
+        break;
+      }
+    }
+    // print(arr);
+    return arr;
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final pageProvider = Provider.of<PageViewProvider>(context);
+    // final pageProvider = Provider.of<PageViewProvider>(context);
     // final getuser = userProvider.getUserById();
-    // print("${userProvider.users} ALL USERS");
+    // print("${user!.length} ALL USERS before lennn");
     // userProvider.setSingle(false);
     return Scaffold(
         backgroundColor: Colors.white,
@@ -208,9 +226,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 ],
               ),
             )),
-
-
-
 /////////////////////////////////////////////////////////
               Padding(
                 padding: const EdgeInsets.only(top: 16, left: 12,right: 12),
@@ -235,13 +250,13 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                           "Show entries",
                           style: TextStyle(
                               fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               fontFamily: "PushPenny",
                               color: primaryColor),
                         ),
                         const SizedBox(width: 10,),
                         Container(
-                          width: 70,
+                          width: 100,
                           height: 50,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -249,7 +264,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                               border: Border.all(color: Colors.grey)
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Center(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -271,7 +286,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                                   text: dropdownvalue2,
                                                   style:  TextStyle(
                                                       fontWeight: FontWeight.w400,
-                                                      fontSize: 15,
+                                                      fontSize: 22,
                                                       color: primaryColor),
                                                 ),
                                               )
@@ -297,7 +312,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                           child: Container(
                                             // width:double.infinity,
                                             alignment: Alignment.centerLeft,
-                                            padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 6.0),
+                                            padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 15),
                                             decoration: const BoxDecoration(
                                                 border: Border(
                                                     bottom: BorderSide(
@@ -306,7 +321,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                               items,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w400,
-                                                  fontSize: 14,
+                                                  fontSize: 15,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -335,7 +350,66 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 15,),
+                        const SizedBox(width: 10,),
+                        Container(
+                          height: 50,
+                          width: 180,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:  BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey)
+                          ),
+                          // Icon(Icons.arrow_forward_ios_outlined, color: kyshiGreyishBlue,)
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                width: 150,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context,index){
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: (){
+                                          Provider.of<UsersProvider>(context, listen: false)
+                                              .getUsers(context: context, page: numOfPage[index]);
+                                          setState(() {
+                                            selectedIndex = index;
+                                            print("${numOfPage[index]} $selectedIndex index clicked");
+                                            user = Provider.of<UsersProvider>(context, listen: false).users;
+                                          });
+                                          // print("${user!.length} after page picked");
+                                        },
+                                        child: Text("${numOfPage.length < 5 ? numOfPage[index] : numOfPage.sublist(0,5)[index]}",
+                                          style: TextStyle(color:selectedIndex == index
+                                               ? primaryColor : kyshiGreyishBlue,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'PushPenny'
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                  itemCount: numOfPage.length< 5 ? numOfPage.length :numOfPage.sublist(0,5).length,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    selectedIndex == 5 ? selectedIndex = 0 : selectedIndex++;
+                                    Provider.of<UsersProvider>(context, listen: false).getUsers(context: context, page: selectedIndex);
+                                    user = Provider.of<UsersProvider>(context, listen: false).users;
+                                  });
+                                },
+                                  child: Icon(Icons.arrow_forward_ios_outlined, color: kyshiGreyishBlue,size: 13,))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 15,),
 
                       ],
                     ),
@@ -502,7 +576,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                     ),
                     child: PaginatedDataTable(
                         // header: Text("Pagination Example"),
-                        rowsPerPage: 10,
+                        rowsPerPage: 50,
                         dataRowHeight: 70,
                         showCheckboxColumn: false,
                         // onRowsPerPageChanged: (perPage) {},

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:kyshi_operations_dashboard/helper/currencyConverter.dart';
 import 'package:kyshi_operations_dashboard/helper/screen_export.dart';
 import 'package:kyshi_operations_dashboard/styleguide/colors.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +98,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                         subTitle: "Export PDF",
                         image: pdfIcon, show: true),
                     SizedBox(
-                      width: 120,
+                      width: 220,
                     ),
                     walletDetailsHeader(
                         title: "${widget.wallet?.currency} Wallet Reports",
@@ -222,21 +223,21 @@ class _WalletDetailsState extends State<WalletDetails> {
                                     bankAccountDetails(
                                         detail: "Daily Limit",
                                         value:
-                                            '${widget.wallet?.tier?.maxDailySpendAmount}'),
+                                            '${Util.formatAmount(widget.wallet?.tier?.maxDailySpendAmount)}'),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     bankAccountDetails(
                                         detail: "Monthly Limit",
                                         value:
-                                            ' ${widget.wallet?.tier?.maxMonthlySpendAmount}'),
+                                            ' ${Util.formatAmount(widget.wallet?.tier?.maxMonthlySpendAmount)}'),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     bankAccountDetails(
                                         detail: "Annual Limit",
                                         value:
-                                            '${widget.wallet?.tier?.maxAnnualSpendAmount}'),
+                                            '${Util.formatAmount(widget.wallet?.tier?.maxAnnualSpendAmount)}'),
                                     const SizedBox(
                                       height: 10,
                                     ),

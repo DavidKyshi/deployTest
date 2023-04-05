@@ -271,7 +271,7 @@ class OverViewProvider extends ChangeNotifier {
       {required BuildContext context}) async {
     Map<String, dynamic> responseData =
     await OverViewService().getKyshiConnectGraph(context: context, daysAgo: _offerDaysAgo, connectService: _connectService, connectBaseCur: _connectBaseCur);
-    print("$responseData CONNECT DATA");
+    // print("$responseData CONNECT DATA");
     // final data = responseData['data'];
     final data = List.from(responseData['data']);
     // print("$data connect graph");

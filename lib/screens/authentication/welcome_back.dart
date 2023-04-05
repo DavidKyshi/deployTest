@@ -55,7 +55,7 @@ class _WelcomeBackState extends State<WelcomeBack> {
     if (responseData?.statusCode == 200) {
       if (mounted)
         Provider.of<UsersProvider>(context, listen: false)
-            .getUsers(context: context, entrySize: '100');
+            .getUsers(context: context, entrySize: '200');
       if (mounted) {
         snackBar(context, ContentType.success,
             title: "Awesome", message: "Login successful");
