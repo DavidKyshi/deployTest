@@ -103,7 +103,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
     super.initState();
   }
   String dropdownvalue2 = '50';
-  var currency =['50', '300', '500', '700', "1000"];
+  var currency =['50', '100', '200', '500', "1000"];
   bool isLoading = false;
   _FilterRanger dropdownvalue = lastDays[2];
   List<int> numOfPage= [];
