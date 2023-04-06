@@ -105,6 +105,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
   String dropdownvalue2 = '50';
   var currency =['50', '100', '200', '500', "1000"];
   bool isLoading = false;
+  bool _checkBox = false;
   _FilterRanger dropdownvalue = lastDays[2];
   List<int> numOfPage= [];
   int selectedIndex = 0;
@@ -507,17 +508,28 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                        });
                                      }
                                  ),
-                                 // const SizedBox(height: 20,),
-                                 // filterField(dropDownValue: phoneNumDropdownvalue, data: phoneNumber),
                                  const SizedBox(height: 30,),
+                                 Row(
+                                   children: [
+                                    Checkbox(value: _checkBox, onChanged: (bool? value){
+                                      mystate(() {
+                                        _checkBox = value!;
+                                      });
+                                    }),
+                                     const SizedBox(width: 8,),
+                                     Text("Save as default filter",style: TextStyle(color: kyshiGreyishBlue,
+                                         fontSize: 10,fontWeight: FontWeight.w400,fontFamily: 'PushPenny'),),
+                                   ],
+                                 ),
+                                 const SizedBox(height: 20,),
                                  KyshiButtonResponsive(
                                    color: primaryColor,
                                    onPressed: () {
-                                     setState(() {
+                                     mystate(() {
                                        bool phone = phoneNumDropdownvalue =="Verified" ? true :false;
                                        bool email =  emailDownValue == 'Verified'? true :false;
                                        bool identity = identityDownValue == 'Verified'? true :false;
-                                       print("$residencyDownValue $nationalityDownValue allllllllvvvv");
+                                       print("$phone $email $identity allllllllvvvv");
 
                                        List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
                                        user = result.where((element) => element.countryOfResidence!.toLowerCase().contains(residencyDownValue.toLowerCase())
