@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 
 import '../providers/kyshi_wallet_beneficiary_list.dart';
 import '../providers/wallet_balance.dart';
+import '../widgets/kyshiTextFieldWithLabel.dart';
+import '../widgets/kyshi_responsive_button.dart';
 
 class SearchField extends StatefulWidget {
   final TextEditingController? controller;
@@ -17,6 +19,7 @@ class SearchField extends StatefulWidget {
   final Function()? exportCvsTap;
   final String? Function(String?)? validator;
   final Function()? onTap;
+  final Function()? onTapPrefixIcon;
   final bool createOffer;
   final Function(String?)? onSaved;
   final BorderRadius? borderRadius;
@@ -59,7 +62,7 @@ class SearchField extends StatefulWidget {
       this.hintText,
       this.initialValue,
       this.createOffer = false,
-      this.exportCvsTap})
+      this.exportCvsTap, this.onTapPrefixIcon})
       : super(key: key);
 
   @override
@@ -170,6 +173,72 @@ class _SearchFieldState extends State<SearchField> {
               ),
             ),
           ),
+          prefixIcon: InkWell(
+            onTap:widget.onTapPrefixIcon,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Container(
+                  //   padding:
+                  //   const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
+                  //   decoration: BoxDecoration(
+                  //       border: Border.all(color: primaryColor),
+                  //       borderRadius: BorderRadius.circular(20)),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //     children: [
+                  //       Text(
+                  //         "big name",
+                  //         style: TextStyle(
+                  //             color: primaryColor,
+                  //             fontFamily: 'PushPenny',
+                  //             fontSize: 14,
+                  //             fontWeight: FontWeight.w500),
+                  //       ),
+                  //       SvgPicture.asset("assets/images/down-arrow.svg")
+                  //     ],
+                  //   ),
+                  // ),
+                  Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            right:
+                            BorderSide(width: 2, color: Colors.black54))),
+                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    margin:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          width: 20,
+                          height: 20,
+                          child: SvgPicture.asset(filterSvg),
+                        ),
+                        const SizedBox(width: 4),
+                         Text("Filters",style: TextStyle(color: kyshiGreyishBlue,
+                             fontFamily: 'PushPenny',fontWeight: FontWeight.w400,fontSize: 14),),
+                        SizedBox(width: 4),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Icon(Icons.search_outlined, color: kyshiGreyishBlue),
+                ],
+              ),
+            ),
+          ),
           isDense: widget.isDense,
           errorText: widget.errorText,
           hintStyle: TextStyle(
@@ -206,6 +275,8 @@ class _SearchFieldState extends State<SearchField> {
       ),
     );
   }
+
+
 }
 
 class SearchField2 extends StatefulWidget {
@@ -552,3 +623,113 @@ class AllOfferTitleTable extends StatelessWidget {
     );
   }
 }
+
+class FilterField extends StatefulWidget {
+  final String dropDownValue;
+  final List<String> data;
+  final String label;
+  final Function (String?)? onChangedData;
+  const FilterField({Key? key, required this.dropDownValue,
+    required this.data, required this.label,required this.onChangedData}) : super(key: key);
+
+  @override
+  State<FilterField> createState() => _FilterFieldState();
+}
+
+class _FilterFieldState extends State<FilterField> {
+  @override
+  Widget build(BuildContext context) {
+    return InputDecorator(
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0XFFF8F9FE),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        hintStyle: TextStyle(
+            color: Color(0xff6c757d).withOpacity(0.3),
+            fontFamily: 'Gilroy',
+            fontSize: 16.0,
+            fontWeight: FontWeight.w300),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xffE6E7E9)),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xff9AA1B3)),
+        ),
+        labelText: widget.label,
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.red)),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.red)),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Color(0xff9AA1B3))),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          isExpanded: true,
+          borderRadius: BorderRadius.circular(10),
+          dropdownColor: Colors.white,
+          elevation: 1,
+          // Initial Value
+          value: widget.dropDownValue,
+          selectedItemBuilder: (BuildContext context) {
+            return widget.data.map((String items) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: RichText(
+                  text: TextSpan(
+                    text: widget.dropDownValue,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        color: primaryColor,
+                        fontFamily: "PushPenny"),
+                  ),
+                ),
+              );
+            }).toList();
+          },
+          // Down Arrow Icon
+          icon: const Icon(
+            Icons.keyboard_arrow_down_sharp,
+            size: 18,
+            color: Color(0xff23CE6B),
+          ),
+
+          // Array list of items
+          items: widget.data.map((String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Container(
+                // width:double.infinity,
+                //alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                        BorderSide(color: Color(0xffDDDDDD), width: 0.5))),
+                child: Text(
+                  items,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      color: Colors.black),
+                ),
+              ),
+            );
+          }).toList(),
+          // After selecting the desired option,it will
+          // change button value to selected value
+          onChanged: widget.onChangedData,
+        ),
+      ),
+    );;
+  }
+}
+

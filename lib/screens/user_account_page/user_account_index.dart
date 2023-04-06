@@ -14,6 +14,7 @@ import '../../customWidget/searchField.dart';
 import '../../models/users.dart';
 import '../../providers/transaction_summary_provider.dart';
 import '../../providers/users.dart';
+import '../../widgets/kyshi_responsive_button.dart';
 
 
 
@@ -82,6 +83,16 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
       
   ScrollController? controller;
   final _debouncer = Debouncer();
+  String phoneNumDropdownvalue = 'Verified';
+  String emailDownValue = 'Verified';
+  String identityDownValue = 'Unverified';
+  String residencyDownValue = 'NG';
+  String nationalityDownValue = 'NG';
+  List<String> phoneNumber = ['Verified', 'Unverified'];
+  List<String> identity = ['Verified', 'Unverified'];
+  List<String> residence = ['UK', 'NG', "US", "CAD"];
+  List<String> nationality = ['UK', 'NG', "US", "CAD"];
+  List<String> email = ['Verified', 'Unverified'];
 
   @override
   void initState() {
@@ -439,6 +450,97 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                  exportCvsTap: (){
                    final service = UserService().exportCsv(context: context);
                  },
+               onTapPrefixIcon: ()async{
+                 return await  showModalBottomSheet<void>(
+                     context: context,
+                     backgroundColor: Colors.white,
+                     shape: const RoundedRectangleBorder(
+                       borderRadius: BorderRadius.vertical(
+                         top: Radius.circular(10),
+                       ),
+                     ),
+                     constraints:const BoxConstraints(
+                       maxWidth:  400,
+                     ),
+                     builder: (BuildContext context) {
+                       return StatefulBuilder(builder: (context ,mystate){
+                         return SingleChildScrollView(
+                           child: Padding(
+                             padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
+                             child: Column(
+                               children: [
+                                 filterField(dropDownValue: residencyDownValue, data: residence, label: 'Residence',
+                                     onChangedData: (String? value) {
+                                       mystate(() {
+                                         residencyDownValue = value!;
+                                       });
+                                     }),
+                                 const SizedBox(height: 20,),
+                                 filterField(dropDownValue: nationalityDownValue, data: nationality, label: 'Nationality',
+                                     onChangedData: (String? value) {
+                                       mystate(() {
+                                         nationalityDownValue = value!;
+                                       });
+                                     }
+                                 ),
+                                 const SizedBox(height: 20,),
+                                 filterField(dropDownValue: phoneNumDropdownvalue, data: phoneNumber, label: 'Phone Number Verification',
+                                     onChangedData: (String? value) {
+                                       mystate(() {
+                                         phoneNumDropdownvalue = value!;
+                                       });
+                                     }
+                                 ),
+                                 const SizedBox(height: 20,),
+                                 filterField(dropDownValue: emailDownValue, data: email, label: 'Email Address Verification',
+                                     onChangedData: (String? value) {
+                                       mystate(() {
+                                         emailDownValue = value!;
+                                       });
+                                     }
+                                 ),
+                                 const SizedBox(height: 20,),
+                                 filterField(dropDownValue: identityDownValue, data: identity, label: 'Identity Verification',
+                                     onChangedData: (String? value) {
+                                       mystate(() {
+                                         identityDownValue = value!;
+                                       });
+                                     }
+                                 ),
+                                 // const SizedBox(height: 20,),
+                                 // filterField(dropDownValue: phoneNumDropdownvalue, data: phoneNumber),
+                                 const SizedBox(height: 30,),
+                                 KyshiButtonResponsive(
+                                   color: primaryColor,
+                                   onPressed: () {
+                                     setState(() {
+                                       bool phone = phoneNumDropdownvalue =="Verified" ? true :false;
+                                       bool email =  emailDownValue == 'Verified'? true :false;
+                                       bool identity = identityDownValue == 'Verified'? true :false;
+                                       print("$residencyDownValue $nationalityDownValue allllllllvvvv");
+
+                                       List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
+                                       user = result.where((element) => element.countryOfResidence!.toLowerCase().contains(residencyDownValue.toLowerCase())
+                                           && element.nationality1!.toLowerCase().contains(nationalityDownValue.toLowerCase())
+                                           && element.phoneVerified == phone
+                                           && element.emailVerified == email
+                                           && element.bvnVerified == identity
+                                       ).toList();
+                                     });
+                                     Navigator.pop(context);
+                                     // david@david.david
+                                   },
+                                   text: "FILTER",
+                                   size: 400,
+                                 ),
+                               ],
+                             ),
+                           ),
+                         );
+                       });
+                     }
+                 );
+               },
                 controller: _textEditingController,
                  hintText: "Search users....",
                  onChanged: (value){
@@ -741,6 +843,101 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
         SvgPicture.asset(image)],
     );
   }
+
+}
+
+InputDecorator filterField({required String dropDownValue,required List<String> data, required String label,required Function (String?)? onChangedData}) {
+  return InputDecorator(
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: const Color(0XFFF8F9FE),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      isDense: true,
+      contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      hintStyle: TextStyle(
+          color: Color(0xff6c757d).withOpacity(0.3),
+          fontFamily: 'Gilroy',
+          fontSize: 16.0,
+          fontWeight: FontWeight.w300),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: Color(0xffE6E7E9)),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: Color(0xff9AA1B3)),
+      ),
+      labelText: label,
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.red)),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.red)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xff9AA1B3))),
+    ),
+    child: DropdownButtonHideUnderline(
+      child: DropdownButton(
+        isExpanded: true,
+        borderRadius: BorderRadius.circular(10),
+        dropdownColor: Colors.white,
+        elevation: 1,
+        // Initial Value
+        value: dropDownValue,
+        selectedItemBuilder: (BuildContext context) {
+          return data.map((String items) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: RichText(
+                text: TextSpan(
+                  text: dropDownValue,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: primaryColor,
+                      fontFamily: "PushPenny"),
+                ),
+              ),
+            );
+          }).toList();
+        },
+        // Down Arrow Icon
+        icon: const Icon(
+          Icons.keyboard_arrow_down_sharp,
+          size: 18,
+          color: Color(0xff23CE6B),
+        ),
+
+        // Array list of items
+        items: data.map((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Container(
+              // width:double.infinity,
+              //alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom:
+                      BorderSide(color: Color(0xffDDDDDD), width: 0.5))),
+              child: Text(
+                items,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: Colors.black),
+              ),
+            ),
+          );
+        }).toList(),
+        // After selecting the desired option,it will
+        // change button value to selected value
+        onChanged: onChangedData,
+      ),
+    ),
+  );
 }
 
 class Debouncer {

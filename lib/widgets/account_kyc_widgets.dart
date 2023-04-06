@@ -847,6 +847,7 @@ class _BioDataParametersState extends State<BioDataParameters> {
                                                         fontSize: 10,
                                                       ),
                                                     ),
+
                                                     DropdownButton(
                                                       isExpanded: true,
                                                       borderRadius:

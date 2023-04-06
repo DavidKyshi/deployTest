@@ -149,7 +149,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getWithdrawnOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
-                        .getUsers(context: context, entrySize: '200');
+                        .getUsers(context: context, entrySize: '150');
                     Provider.of<PayOutTransactionProvider>(context,
                             listen: false)
                         .getAllPayOutTransactions(context);
