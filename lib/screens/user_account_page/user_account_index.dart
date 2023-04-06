@@ -525,11 +525,11 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                                  KyshiButtonResponsive(
                                    color: primaryColor,
                                    onPressed: () {
-                                     mystate(() {
+                                     setState(() {
                                        bool phone = phoneNumDropdownvalue =="Verified" ? true :false;
                                        bool email =  emailDownValue == 'Verified'? true :false;
                                        bool identity = identityDownValue == 'Verified'? true :false;
-                                       print("$phone $email $identity allllllllvvvv");
+                                       // print("$phone $email $identity allllllllvvvv");
 
                                        List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
                                        user = result.where((element) => element.countryOfResidence!.toLowerCase().contains(residencyDownValue.toLowerCase())
