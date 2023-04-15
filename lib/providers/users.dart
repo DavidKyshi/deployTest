@@ -33,9 +33,11 @@ class UsersProvider extends ChangeNotifier {
   List<Services> _connectAirtimeService = [];
   List<Services> _connectDataService = [];
   List<Services> _connectHealthService = [];
+  List<Services> _allConnectService = [];
   Services? _cards;
   List<CardTransactions> _kyshiCard = [];
   List<CardTransactions> _kyshiCardCreditTransactions = [];
+  List<CardTransactions>_kyshiCardAllTransactions =[];
   List<CardTransactions> _kyshiCardDebitTransactions = [];
   List<Wallet> _allWallets = [];
   List<Wallet> _pendingWallets = [];
@@ -59,8 +61,10 @@ class UsersProvider extends ChangeNotifier {
   get connectAirtimeService => _connectAirtimeService;
   get connectDataService => _connectDataService;
   get connectHealthService => _connectHealthService;
+  get allConnectService => _allConnectService;
   get kyshiCard => _kyshiCard;
   get kyshiCardTransactions => _kyshiCardCreditTransactions;
+  get kyshiCardAllTransactions => _kyshiCardAllTransactions;
   get kyshiCardDebitTransactions => _kyshiCardDebitTransactions;
   get transactions => _transactions;
   get currentUserName => _currentUserName;
@@ -199,6 +203,15 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
     return users;
   }
+  Future<List<Services>> geAllConnectService(BuildContext context, String service) async {
+    // 182e04da-a23b-4a73-8bd8-9bbabc19525d
+    Map<String, dynamic> responseData = await UserService()
+        .getKyshiConnectServices(userId: _currentSelectedUserId ?? "", context: context,daysAgo: "120");
+    final data = List.from(responseData['data']);
+    _allConnectService = List<Services>.from(data.map((x) => Services.fromJson(x)));
+    notifyListeners();
+    return _allConnectService;
+  }
 
   Future<List<Services>> getConnectAirtimeService(BuildContext context, String service) async {
     // 182e04da-a23b-4a73-8bd8-9bbabc19525d
@@ -336,6 +349,16 @@ class UsersProvider extends ChangeNotifier {
     print("${_kyshiCard} all cardsssss");
     notifyListeners();
     return _kyshiCard;
+  }
+  Future<List<CardTransactions>> getCardAllTransactions(BuildContext context) async {
+    // Map<String, dynamic> responseData = await UserService()
+    Map<String, dynamic> creditResponseData = await UserService().getKyshiCardTransactions
+      (userId: _currentSelectedUserId ?? "", context: context, daysAgo: "120");
+    final data = List.from(creditResponseData["data"]);
+    _kyshiCardAllTransactions = List<CardTransactions>.from(data.map((x) => CardTransactions.fromJson(x)));
+    // print("${_kyshiCardCreditTransactions} all cardsssss");
+    notifyListeners();
+    return _kyshiCardAllTransactions;
   }
 
   Future<List<CardTransactions>> getCardCreditTransactions(BuildContext context) async {

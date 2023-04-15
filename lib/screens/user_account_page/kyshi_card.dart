@@ -55,8 +55,8 @@ class _KyshiCardState extends State<KyshiCard> {
         status: 'Successful',
         provider: 'Seerbit'),
   ];
-  List<String> transactionType = ['Top up', "Debit"];
-  String type = "Top up";
+  List<String> transactionType = ['Top up', "Debit" , "All"];
+  String type = "All";
   ScrollController? controller;
   List<CardTransactions>? kyshiCardsTransaction;
   @override
@@ -248,7 +248,7 @@ class _KyshiCardState extends State<KyshiCard> {
                 final provider = Provider.of<UsersProvider>(context, listen: false);
                 // Provider.of<UsersProvider>(context, listen: false).getConnectAirtimeSerivice(context,connect);
                 setState(() {
-                  kyshiCardsTransaction =type == "Top up"? provider.kyshiCardTransactions : provider.kyshiCardDebitTransactions;
+                  kyshiCardsTransaction =type == "Top up"? provider.kyshiCardTransactions : type =="All"? provider.kyshiCardAllTransactions : provider.kyshiCardDebitTransactions;
                 });
               }, connectData: transactionType,
             ),

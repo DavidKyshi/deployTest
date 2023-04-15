@@ -427,7 +427,7 @@ class UserService {
     }
   }
   Future<Map<String, dynamic>> getKyshiCardTransactions(
-      {required String userId, required BuildContext context, required String type,required String daysAgo}) async {
+      {required String userId, required BuildContext context, String? type,required String daysAgo}) async {
     // ops/kyshi-cards?user_id=182e04da-a23b-4a73-8bd8-9bbabc19525d&type=DR&days_ago=120
     final token = Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;

@@ -51,8 +51,8 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
     "Status"
   ];
   List<Services>? connectServices;
-  List<String> connectData = ['Airtime', 'Data', 'Health Plan'];
- String connect = "Airtime";
+  List<String> connectData = ['Airtime', 'Data', 'Health Plan',"All"];
+ String connect = "All";
   ScrollController? controller;
   final _debouncer = Debouncer();
   @override
@@ -92,7 +92,7 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                 final provider = Provider.of<UsersProvider>(context, listen: false);
                 // Provider.of<UsersProvider>(context, listen: false).getConnectAirtimeSerivice(context,connect);
                 setState(() {
-                  connectServices =connect == "Airtime"? provider.connectAirtimeService : connect == "Data" ? provider.connectDataService :provider.connectHealthService;
+                  connectServices =connect == "Airtime"? provider.connectAirtimeService : connect == "Data" ? provider.connectDataService : connect == "All" ? provider.allConnectService :provider.connectHealthService;
                 });
                }, connectData: connectData,
             ),
@@ -194,9 +194,13 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                                 // tooltip: "To Display name"
                               ),
                               DataColumn(label: Text("Wallet",style: headerStyle,)),
-                              DataColumn(label: Text(connect == "Health Plan" ? "Healthplan" : "Provider",style: headerStyle,)),
-                              DataColumn(label: Text(connect == "Health Plan" ? "Duration" :"Phone Number",style: headerStyle,)),
+                              if(connect == "All")DataColumn(label: Text( "Healthplan",style: headerStyle,)),
+                            if(connect == "All")DataColumn(label: Text( "Provider",style: headerStyle,)),
+                            if(connect != "All") DataColumn(label: Text(connect == "Health Plan" ? "Healthplan" : "Provider",style: headerStyle,)),
+                            if(connect != "All")  DataColumn(label: Text(connect == "Health Plan" ? "Duration" :"Phone Number",style: headerStyle,)),
+                            if(connect == "All")DataColumn(label: Text( "Data Plan",style: headerStyle,)),
                             if(connect == "Data") DataColumn(label: Text("Data Plan",style: headerStyle,)),
+                            if(connect == "All") DataColumn(label: Text("Beneficiary",style: headerStyle,)),
                             if(connect == "Health Plan")DataColumn(label: Text("Beneficiary",style: headerStyle,)),
                               DataColumn(label: Text("Amount (₦)",style: headerStyle,)),
                               DataColumn(label: Text("Exchange rate",style: headerStyle,)),
@@ -236,7 +240,7 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14)),
                                     ),
-                                    if(connect == "Data") DataCell(
+                                    if(connect == "Data" || connect == "All") DataCell(
                                       Text( "DATA PLAN",
                                           style: TextStyle(
                                               color: primaryColor,
@@ -244,7 +248,7 @@ class _KyshiConnectServicesState extends State<KyshiConnectServices> {
                                               fontWeight: FontWeight.w400,
                                               fontSize: 14)),
                                     ),
-                                    if(connect == "Health Plan")DataCell(
+                                    if(connect == "Health Plan" || connect == "All")DataCell(
                                       Text( "NIL",
                                           style: TextStyle(
                                               color: primaryColor,

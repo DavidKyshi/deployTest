@@ -994,8 +994,10 @@ class TableRow extends DataTableSource {
            userProvider.selectUser(user![index].id ??"");
            userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
            userProvider.getConnectAirtimeService(contexts,"airtime");
+           userProvider.geAllConnectService(contexts,"");
            userProvider.getConnectDataService(contexts,"data");
            userProvider.getConnectHealthService(contexts,"health");
+           userProvider.getCardAllTransactions(contexts);
            userProvider.getCardCreditTransactions(contexts);
            userProvider.getCardDebitTransactions(contexts);
            userProvider.getTransactions(contexts);
@@ -1053,7 +1055,9 @@ class TableRow extends DataTableSource {
                     // print("${user![index].id } bbbbbbbbbbb");
                     userProvider.selectUser(user![index].id ??"");
                     userProvider.setCurrentUser("${user![index].firstName} " " ${user![index].firstName}");
+                    userProvider.geAllConnectService(contexts,"");
                     userProvider.getConnectAirtimeService(contexts,"airtime");
+                    userProvider.getCardAllTransactions(contexts);
                     userProvider.getConnectDataService(contexts,"data");
                     userProvider.getConnectHealthService(contexts,"health");
                     userProvider.getCardCreditTransactions(contexts);
