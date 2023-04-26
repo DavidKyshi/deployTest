@@ -266,6 +266,12 @@ class _FirstTimerState extends State<FirstTimer> {
 
                     Provider.of<UsersProvider>(context, listen: false)
                         .getAllWallets(context, "50");
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getPendingWallets(context, "50");
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getActiveWallets(context, "50");
+                    Provider.of<UsersProvider>(context, listen: false)
+                        .getRejectedWallets(context, "50");
                     verifyOtp();
                     // if (pin.length >= 6) {
                     //   // Provider.of<UsersProvider>(context, listen: false).getDifferentWallet();

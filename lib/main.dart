@@ -10,7 +10,7 @@ import 'providers/payout_transactions.dart';
 import 'providers/transaction_summary_provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //     options: FirebaseOptions(
   //         apiKey: "AIzaSyBVlFQMi-Pd17BHfmKdrMmbtrBe67iYFH0",
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print("${dotenv.env['API_URL']} CHECKING ENV FILE");
+    print("BASE URLggg ${dotenv.env['API_URL']} CHECKING ENV FILE");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => pageProvider),

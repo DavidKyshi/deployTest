@@ -82,7 +82,7 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
       TableRow(user: user, contexts: context);
       
   ScrollController? controller;
-  final _debouncer = Debouncer();
+  final _debouncer = Debouncer(milliseconds: 1000);
   String phoneNumDropdownvalue = 'Verified';
   String emailDownValue = 'Verified';
   String identityDownValue = 'Unverified';
@@ -556,34 +556,49 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                 controller: _textEditingController,
                  hintText: "Search users....",
                  onChanged: (value){
-                 if(isEmailValid(value)){
-                   setState(() {
-                     isLoading = true;
-                   });
-                   print("${isEmailValid(value)} email nsnsnn");
-                   Provider.of<UsersProvider>(context, listen: false).getSingleUser(context: context, email: value);
-                   // setState(() {
-                   //   print("$isLoading loading::::value");
-                   //
-                   // });
-                   Future.delayed(const Duration(seconds: 3)).then((value) {
+                 // if(isEmailValid(value)){
+                 //   setState(() {
+                 //     isLoading = true;
+                 //   });
+                 //   print("${isEmailValid(value)} email nsnsnn");
+                 //   // Provider.of<UsersProvider>(context, listen: false).getSingleUser(context: context, email: value);
+                 //   // setState(() {
+                 //   //   print("$isLoading loading::::value");
+                 //   //
+                 //   // });
+                 //   Future.delayed(const Duration(seconds: 3)).then((value) {
+                 //     setState(() {
+                 //       isLoading = false;
+                 //       user = userProvider.singleUser;
+                 //       // user =Provider.of<UsersProvider>(context, listen: false).users;
+                 //     });
+                 //     user!.isNotEmpty ? userProvider.setSingle(true) :userProvider.setSingle(false);
+                 //   });
+                 //   print("${userProvider.singleUser} llllllllwwwwwww");
+                 // }
+                   if(value.isNotEmpty){
                      setState(() {
-                       isLoading = false;
-                       user = userProvider.singleUser;
-                       // user =Provider.of<UsersProvider>(context, listen: false).users;
+                       isLoading = true;
                      });
-                     user!.isNotEmpty ? userProvider.setSingle(true) :userProvider.setSingle(false);
-                   });
-                   print("${userProvider.singleUser} llllllllwwwwwww");
-                 }
-                   _debouncer.run(() {
-                     setState(() {
-                       List<User> result =Provider.of<UsersProvider>(context, listen: false).users;
-                       user = result.where((element) => element.email!.toLowerCase().contains(value.toLowerCase())).toList();
-                       // isLoading = false;
-                       // print("$user SEARCHED USERS");
+                     _debouncer.run(() async{
+                       Map<String, dynamic> responseData = await UserService().getAllUsers(context: context, searchValue: value);
+                       final data = List.from(responseData['data']);
+                       List<User> res = List<User>.from(data.map((x) => User.fromJson(x)));
+                       Provider.of<UsersProvider>(context, listen: false).setSingleUser(res);
+
+                       setState(() {
+                         // Provider.of<UsersProvider>(context, listen: false).getSingleUser(context: context,searchValue: value);
+                         user = res;
+                         isLoading = false;
+                       });
+                       user!.isNotEmpty ? userProvider.setSingle(true) :userProvider.setSingle(false);
+                       // Future.delayed(const Duration(milliseconds: 1000)).then((value) =>
+                       //     setState(() {
+                       //       isLoading = false;
+                       //     })
+                       // );
                      });
-                   });
+                   }
 
                   // if(value.length > 4){
                   //   setState(() {
@@ -598,7 +613,6 @@ class _UserAccountIndexState extends State<UserAccountIndex> {
                   //     });
                   //   });
                   // }
-                  print(value);
                  },
              ),
              SizedBox(
@@ -953,16 +967,16 @@ InputDecorator filterField({required String dropDownValue,required List<String> 
 }
 
 class Debouncer {
-  int? milliseconds;
+  final int? milliseconds;
   VoidCallback? action;
   Timer? timer;
-
+  Debouncer({this.milliseconds});
   run(VoidCallback action) {
     if (null != timer) {
       timer!.cancel();
     }
     timer = Timer(
-      const Duration(milliseconds: Duration.millisecondsPerSecond),
+       Duration(milliseconds: milliseconds ?? 500),
       action,
     );
   }

@@ -140,6 +140,12 @@ class _OtpScreenState extends State<OtpScreen> {
                         .getAcceptedOfferManagement(context);
                     Provider.of<UsersProvider>(context, listen: false)
                         .getAllWallets(context, "200");
+                   Provider.of<UsersProvider>(context, listen: false)
+                       .getPendingWallets(context, "50");
+                   Provider.of<UsersProvider>(context, listen: false)
+                       .getActiveWallets(context, "50");
+                   Provider.of<UsersProvider>(context, listen: false)
+                       .getRejectedWallets(context, "50");
                     Provider.of<OfferManagementProvider>(context, listen: false)
                         .getOpenOfferManagement(context);
                     Provider.of<OfferManagementProvider>(context, listen: false)

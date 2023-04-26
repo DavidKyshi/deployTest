@@ -74,6 +74,7 @@ class UserService {
       String? entrySize,
       int? daysAgo,
         int? page,
+        String? searchValue,
       String? startDate, String? email,
       String? endDate}) async {
     final token =
@@ -86,6 +87,8 @@ class UserService {
 // check if entrey size is passed and add to query
     if (entrySize != null) {
       queryPram['entry_size'] = entrySize;
+    }if (searchValue != null) {
+      queryPram['search'] = searchValue;
     }
     if (email != null) {
       queryPram['email'] = email;
@@ -102,10 +105,9 @@ class UserService {
     }
 
     print("QUERY PARAM OUTPUT:::::::::::    $queryPram");
-
     try {
       // customInternalDio.get("/ops/users",)
-
+      // Provider.of<UsersProvider>(context, listen: false).checkLoading(false);
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/users",
           queryParameters: queryPram,
@@ -458,15 +460,25 @@ class UserService {
   }
 
   Future<Map<String, dynamic>> getWalletManagement(
-      {required BuildContext context, required String entrySize}) async {
+      {required BuildContext context,  String? entrySize, String? type,String? userId,String? searchValue}) async {
     final token =
         Provider.of<UsersProvider>(context, listen: false).accessToken;
     String baseUrl = dotenv.env['API_URL']!;
     final Uri uri = Uri.parse("$baseUrl/ops/wallet-management");
+    final Map<String, dynamic> queryPram = {};
+
+// check if entrey size is passed and add to query
+    if (entrySize != null) {
+      queryPram['entry_size'] = entrySize;
+    }if (type != null) {
+      queryPram['status'] = type;
+    }if (searchValue != null) {
+      queryPram['search'] = searchValue;
+    }
     try {
       Response response = await customInternalDio.get<Map<String, dynamic>>(
           "/ops/wallet-management",
-          queryParameters: {"entry_size": entrySize},
+          queryParameters: queryPram,
           options: Options(headers: {"authorization": "Bearer $token"})
           // queryParameters: {
           //   "status":""

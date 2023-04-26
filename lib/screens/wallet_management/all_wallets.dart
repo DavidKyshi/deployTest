@@ -29,7 +29,7 @@ class _AllWalletsState extends State<AllWallets> {
   ScrollController? controller;
   final TextEditingController _controller = TextEditingController();
   List<Wallet>? allWallets;
-  final _debouncer = Debouncer();
+  final _debouncer = Debouncer(milliseconds: 1000);
 
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
@@ -64,13 +64,25 @@ class _AllWalletsState extends State<AllWallets> {
   //     comments = commentModel.data ?? [];
   //   });
   // }
+  getWallet()async{
+
+    // _debouncer.run(() async{
+      Map<String, dynamic> responseData = await UserService()
+          .getWalletManagement(context: context, searchValue: widget.searchQuery);
+      final data = List.from(responseData['data']);
+      setState(() {
+        allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+      });
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.searchQuery.isNotEmpty) {
-      List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
-      allWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
-    }
+    // if (widget.searchQuery.isNotEmpty) {
+    //   getWallet();
+    //   // List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).allWallets;
+    //   // allWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    // }
     // setState(() {
     // });
     // print("${allWallets!.map((e) => e.status)} from build");
@@ -84,6 +96,25 @@ class _AllWalletsState extends State<AllWallets> {
                 return 
                 Column(
                   children: [
+                    SearchField2(
+                      hintText: "Search here....",
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          setState(() {
+                            isLoading =true;
+                          });
+                          _debouncer.run(() async{
+                            Map<String, dynamic> responseData = await UserService()
+                                .getWalletManagement(context: context, searchValue: value);
+                            final data = List.from(responseData['data']);
+                            setState(() {
+                              allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+                              isLoading =false;
+                            });
+                          });
+                        }
+                      },
+                    ),
                     //  SearchField(
                     //    hintText: "Search wallet....",
                     //   onChanged: (value){
@@ -235,7 +266,19 @@ class _AllWalletsState extends State<AllWallets> {
                     //     )
                     //   ],
                     // ):
-                    Container(
+                    isLoading ? Column(
+                      mainAxisAlignment:MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: CupertinoActivityIndicator(
+                            color: primaryColor,
+                            animating: true,
+                            radius: 20,
+                          ),
+                        )
+                      ],
+                    ):Container(
                       height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
                           color: const Color(0XFFEAEBF1),

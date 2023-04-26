@@ -45,8 +45,9 @@ class _PendingWallets extends State<PendingWallets> {
   bool activeWalletSwitchValue = false;
   bool pendingWalletSwitchValue = false;
   bool rejectedWalletSwitchValue = false;
-  final _debouncer = Debouncer();
+  final _debouncer = Debouncer(milliseconds: 1000);
   bool manageWallet = false;
+  bool isLoading = false;
   List<CommentDetails> comments = [];
   @override
   void initState() {
@@ -61,10 +62,10 @@ class _PendingWallets extends State<PendingWallets> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.searchQuery.isNotEmpty) {
-      List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
-      pendingWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
-    }
+    // if (widget.searchQuery.isNotEmpty) {
+    //   List<Wallet> result =Provider.of<UsersProvider>(context, listen: false).pendingWallets;
+    //   pendingWallets = result.where((element) => element.user!.toLowerCase().contains(widget.searchQuery.toLowerCase())).toList();
+    // }
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -87,8 +88,39 @@ class _PendingWallets extends State<PendingWallets> {
                   //     });
                   //   },
                   // ),
+                  SearchField2(
+                    hintText: "Search here....",
+                    onChanged: (value){
+                      if(value.isNotEmpty){
+                        setState(() {
+                          isLoading =true;
+                        });
+                        _debouncer.run(() async{
+                          Map<String, dynamic> responseData = await UserService()
+                              .getWalletManagement(context: context, searchValue: value,type: "pending");
+                          final data = List.from(responseData['data']);
+                          setState(() {
+                            pendingWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+                            isLoading =false;
+                          });
+                        });
+                      }
+                    },
+                  ),
                   const SizedBox(height: 20,),
-                  Container(
+                  isLoading ? Column(
+                    mainAxisAlignment:MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: CupertinoActivityIndicator(
+                          color: primaryColor,
+                          animating: true,
+                          radius: 20,
+                        ),
+                      )
+                    ],
+                  ):Container(
                     height: 800,
                     decoration: BoxDecoration(
                         color: const Color(0XFFEAEBF1),

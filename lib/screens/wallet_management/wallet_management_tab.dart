@@ -289,10 +289,10 @@ class _WalletTabState extends State<WalletTab> {
           const SizedBox(
             height: 20,
           ),
-          SearchField2(
-            hintText: "Search here....",
-            onChanged: _handleSearch,
-          ),
+          // SearchField2(
+          //   hintText: "Search here....",
+          //   onChanged: _handleSearch,
+          // ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: Column(

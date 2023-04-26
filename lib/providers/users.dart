@@ -126,6 +126,10 @@ class UsersProvider extends ChangeNotifier {
     _single = user;
     notifyListeners();
   }
+  void setSingleUser(List<User> users) {
+    _singleUser = users;
+    notifyListeners();
+  }
 
   void setLoginError(String error) {
     _loginError = error;
@@ -160,15 +164,15 @@ class UsersProvider extends ChangeNotifier {
     return users;
   }
   Future<List<User>> getSingleUser(
-      {required BuildContext context, String? email }) async {
+      {required BuildContext context, String? searchValue }) async {
     print("GET USERS CALLED");
-    Map<String, dynamic> responseData = await UserService().getAllUsers(context: context, email: email);
+    Map<String, dynamic> responseData = await UserService().getAllUsers(context: context, searchValue: searchValue);
       // Map<String, dynamic> responseData =
       // await UserService().getAllUsers(context: context, email: email);
       final data = List.from(responseData['data']);
       _singleUser = List<User>.from(data.map((x) => User.fromJson(x)));
       // _users = _singleUser;
-      print("${_singleUser} _usersssss");
+      print("${_singleUser} _usersssss searcch");
       // return _singleUser;
 
     // print("$responseData RAW DATA");
@@ -385,25 +389,39 @@ class UsersProvider extends ChangeNotifier {
 
   Future<List<Wallet>> getAllWallets(
       BuildContext context, String entrySize) async {
-    print("getALL WALLETS CALLED");
     Map<String, dynamic> responseData = await UserService()
-        .getWalletManagement(context: context, entrySize: entrySize);
+        .getWalletManagement(context: context, entrySize: entrySize,);
     final data = List.from(responseData['data']);
     _allWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
-    // print("${_allWallets.map((e) => e.status)} XXXXXXXXXXX");
-    // print( _allWallets.map((e) => "${e.toJson()}  ALL WALLETS OBJECT"));
-
-    _pendingWallets = _allWallets
-        .where((element) =>
-            element.status == "PENDING" || element.status == "IN_PROGRESS")
-        .toList();
-    _activeWallets =
-        _allWallets.where((element) => element.status == "ACTIVE").toList();
-    // _inActiveWallets = _allWallets.where((element) => element.status == "IN_PROGRESS").toList();
-    _rejectedWallets =
-        _allWallets.where((element) => element.status == "REJECTED").toList();
     notifyListeners();
     return _allWallets;
+  }
+  Future<List<Wallet>> getPendingWallets(
+      BuildContext context, String entrySize) async {
+    Map<String, dynamic> responseData = await UserService()
+        .getWalletManagement(context: context, entrySize: entrySize,type: "pending");
+    final data = List.from(responseData['data']);
+    _pendingWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+    notifyListeners();
+    return _pendingWallets;
+  }
+  Future<List<Wallet>> getActiveWallets(
+      BuildContext context, String entrySize) async {
+    Map<String, dynamic> responseData = await UserService()
+        .getWalletManagement(context: context, entrySize: entrySize,type: "active");
+    final data = List.from(responseData['data']);
+    _activeWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+    notifyListeners();
+    return _activeWallets;
+  }
+  Future<List<Wallet>> getRejectedWallets(
+      BuildContext context, String entrySize) async {
+    Map<String, dynamic> responseData = await UserService()
+        .getWalletManagement(context: context, entrySize: entrySize,type: "rejected");
+    final data = List.from(responseData['data']);
+    _rejectedWallets = List<Wallet>.from(data.map((x) => Wallet.fromJson(x)));
+    notifyListeners();
+    return _rejectedWallets;
   }
 
   Future updateWalletStatus(BuildContext context) async {
